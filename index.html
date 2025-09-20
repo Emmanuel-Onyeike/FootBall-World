@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Football World</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .btn-gradient {
+      background-image: linear-gradient(45deg, #1f2937 0%, #0c0a09 100%);
+      transition: all 0.3s ease;
+    }
+    .btn-gradient:hover {
+      background-image: linear-gradient(45deg, #0c0a09 0%, #1f2937 100%);
+      transform: scale(1.05);
+    }
+    .feature-card {
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    }
+    #hero-bg {
+      background-attachment: fixed;
+    }
+  </style>
+</head>
+<body class="bg-gray-900 text-white font-sans">
+
+  <section id="hero" class="relative h-screen flex flex-col justify-center items-center text-center overflow-hidden">
+    <div id="hero-bg" class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=2000&q=80');"></div>
+    <div class="absolute inset-0 bg-black/80"></div>
+    <div class="relative z-10 p-6 max-w-4xl mx-auto">
+      <h1 class="text-5xl md:text-7xl font-extrabold mb-6 animate-pulse">Football World</h1>
+      <p class="text-lg md:text-2xl mb-8 font-light text-gray-300">Your ultimate destination for live scores, match highlights, and in-depth player stats. The beautiful game, elevated.</p>
+      <a href="#explore" class="px-8 py-4 bg-green-600 text-white font-semibold rounded-full shadow-lg hover:bg-green-700 transition duration-300 ease-in-out transform hover:scale-105">
+        Explore Now
+      </a>
+    </div>
+  </section>
+
+  <section id="explore" class="py-24 bg-[#0A0A0A]">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+      <h2 class="text-4xl md:text-5xl font-bold mb-16">Why Choose Us?</h2>
+      <div class="grid md:grid-cols-3 gap-12">
+        <div class="feature-card bg-gray-800 p-8 rounded-2xl shadow-xl border border-gray-700 hover:border-green-600 transition">
+          <h3 class="text-2xl font-semibold mb-4 text-green-500">Live Scores</h3>
+          <p class="text-gray-400">Stay updated with instant live match scores and results from leagues worldwide. Never miss a goal.</p>
+        </div>
+        <div class="feature-card bg-gray-800 p-8 rounded-2xl shadow-xl border border-gray-700 hover:border-green-600 transition">
+          <h3 class="text-2xl font-semibold mb-4 text-green-500">Match Highlights</h3>
+          <p class="text-gray-400">Catch up on thrilling match highlights and unforgettable football moments, available moments after the final whistle.</p>
+        </div>
+        <div class="feature-card bg-gray-800 p-8 rounded-2xl shadow-xl border border-gray-700 hover:border-green-600 transition">
+          <h3 class="text-2xl font-semibold mb-4 text-green-500">Player Stats</h3>
+          <p class="text-gray-400">Dive into detailed player statistics, performance history, and insightful analysis to become a true fan.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-24 bg-gray-900 text-center">
+    <div class="max-w-4xl mx-auto px-6">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6">Join the Football Community</h2>
+      <p class="mb-8 text-lg md:text-xl text-gray-300">Be part of the passion. Follow your favorite teams, players, and leagues like never before. It's time to elevate your fandom.</p>
+      <a href="dashboard.html" class="px-10 py-5 font-semibold rounded-full btn-gradient border-2 border-green-600 text-white shadow-xl">Get Started Today</a>
+    </div>
+  </section>
+
+  <footer class="bg-gray-800 py-10 text-center border-t border-gray-700">
+    <div class="max-w-7xl mx-auto px-6">
+      <p class="text-gray-500 text-sm md:text-base">&copy; 2025 Football World. All Rights Reserved. Designed by Tech Nxxt.</p>
+      <div class="mt-4 space-x-4">
+        <a href="#" class="text-gray-500 hover:text-white transition">Privacy Policy</a>
+        <span class="text-gray-600">|</span>
+        <a href="#" class="text-gray-500 hover:text-white transition">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/ScrollTrigger.min.js"></script>
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Fade-in animation for feature cards
+    gsap.utils.toArray(".feature-card").forEach((card, i) => {
+      gsap.fromTo(card, {
+        opacity: 0,
+        y: 50
+      }, {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: card,
+          start: "top 85%",
+          toggleActions: "play none none none"
+        }
+      });
+    });
+
+    // Parallax effect on hero background
+    gsap.to("#hero-bg", {
+      y: () => window.innerHeight * 0.3,
+      ease: "none",
+      scrollTrigger: {
+        trigger: "#hero",
+        start: "top top",
+        end: "bottom top",
+        scrub: true,
+      }
+    });
+  </script>
+</body>
+</html>
