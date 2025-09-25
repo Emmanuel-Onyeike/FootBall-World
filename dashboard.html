@@ -67,7 +67,7 @@
             <!-- Scores Section -->
             <section id="scores" class="p-6 bg-[#0a0a0a] rounded-3xl mb-8 shadow-xl">
                 <h2 class="text-2xl font-bold mb-6 text-[#00ff41]">Live Scores</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
                     <!-- Score Card 1 -->
                     <div class="bg-[#121212] rounded-2xl p-6 border border-gray-800 transition-transform transform hover:scale-[1.02]">
                         <div class="flex justify-between items-center mb-4">
@@ -102,6 +102,47 @@
                             <span class="flex items-center gap-2"><span class="w-6 h-6 rounded-full bg-gray-600"></span>Team E</span>
                             <span class="text-3xl font-bold text-gray-400">3 - 1</span>
                             <span class="flex items-center gap-2"><span class="w-6 h-6 rounded-full bg-gray-600"></span>Team F</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Upcoming Matches -->
+                <h2 class="text-2xl font-bold mb-6 text-[#00ff41]">Upcoming Matches</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Upcoming Match Card 1 -->
+                    <div class="bg-[#121212] rounded-2xl p-6 border border-gray-800 transition-transform transform hover:scale-[1.02]">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-xs text-gray-400">FA Cup</span>
+                            <span class="text-xs text-blue-400 font-bold">Today, 8:00 PM</span>
+                        </div>
+                        <div class="flex items-center justify-between text-lg font-semibold">
+                            <span class="flex items-center gap-2"><span class="w-6 h-6 rounded-full bg-gray-600"></span>Team G</span>
+                            <span class="text-2xl font-bold text-gray-400">vs</span>
+                            <span class="flex items-center gap-2"><span class="w-6 h-6 rounded-full bg-gray-600"></span>Team H</span>
+                        </div>
+                    </div>
+                    <!-- Upcoming Match Card 2 -->
+                    <div class="bg-[#121212] rounded-2xl p-6 border border-gray-800 transition-transform transform hover:scale-[1.02]">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-xs text-gray-400">Serie A</span>
+                            <span class="text-xs text-blue-400 font-bold">Tomorrow, 3:00 PM</span>
+                        </div>
+                        <div class="flex items-center justify-between text-lg font-semibold">
+                            <span class="flex items-center gap-2"><span class="w-6 h-6 rounded-full bg-gray-600"></span>Team I</span>
+                            <span class="text-2xl font-bold text-gray-400">vs</span>
+                            <span class="flex items-center gap-2"><span class="w-6 h-6 rounded-full bg-gray-600"></span>Team J</span>
+                        </div>
+                    </div>
+                    <!-- Upcoming Match Card 3 -->
+                    <div class="bg-[#121212] rounded-2xl p-6 border border-gray-800 transition-transform transform hover:scale-[1.02]">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-xs text-gray-400">Bundesliga</span>
+                            <span class="text-xs text-blue-400 font-bold">Sunday, 5:30 PM</span>
+                        </div>
+                        <div class="flex items-center justify-between text-lg font-semibold">
+                            <span class="flex items-center gap-2"><span class="w-6 h-6 rounded-full bg-gray-600"></span>Team K</span>
+                            <span class="text-2xl font-bold text-gray-400">vs</span>
+                            <span class="flex items-center gap-2"><span class="w-6 h-6 rounded-full bg-gray-600"></span>Team L</span>
                         </div>
                     </div>
                 </div>
@@ -223,10 +264,10 @@
                 </div>
             </section>
 
-            <!-- Highlights Section (Hidden by default) -->
+            <!-- Highlights Section (Updated) -->
             <section id="highlights" class="p-6 bg-[#0a0a0a] rounded-3xl mb-8 hidden shadow-xl">
                 <h2 class="text-2xl font-bold mb-6 text-[#00ff41]">Match Highlights</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <div class="relative bg-gray-900 rounded-xl overflow-hidden aspect-video transition-transform transform hover:scale-105">
                         <img src="https://placehold.co/800x450/1a1a1a/fff?text=Match+Highlights" alt="Match Highlights" class="w-full h-full object-cover">
                         <div class="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
@@ -235,6 +276,12 @@
                     </div>
                     <div class="relative bg-gray-900 rounded-xl overflow-hidden aspect-video transition-transform transform hover:scale-105">
                         <img src="https://placehold.co/800x450/1a1a1a/fff?text=Goal+of+the+Week" alt="Goal of the Week" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
+                            <button class="bg-[#00ff41] text-black font-bold py-3 px-8 rounded-full shadow-lg hover:bg-white transition-colors">Watch Now</button>
+                        </div>
+                    </div>
+                    <div class="relative bg-gray-900 rounded-xl overflow-hidden aspect-video transition-transform transform hover:scale-105">
+                        <img src="https://placehold.co/800x450/1a1a1a/fff?text=Top+Saves" alt="Top Saves" class="w-full h-full object-cover">
                         <div class="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
                             <button class="bg-[#00ff41] text-black font-bold py-3 px-8 rounded-full shadow-lg hover:bg-white transition-colors">Watch Now</button>
                         </div>
