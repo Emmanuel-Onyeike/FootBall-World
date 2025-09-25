@@ -67,6 +67,22 @@
             background-size: 20px 20px;
             opacity: 0.2;
         }
+         @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        @keyframes live-text-pulse {
+            0%, 100% { text-shadow: 0 0 3px #ff0000; }
+            50% { text-shadow: 0 0 8px #ff0000; }
+        }
+        .glass-card {
+            background: rgba(43, 43, 43, 0.4);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
     </style>
 </head>
 <body class="text-white font-sans">
@@ -115,39 +131,106 @@
         </h1>
 
         <!-- Live Match Section -->
-        <section id="live" class="mb-20">
-            <h2 class="text-3xl md:text-4xl font-bold mb-8 text-green-500 border-b-2 border-green-700 pb-2 flex items-center">
-                <i class="fas fa-broadcast-tower mr-3 text-red-500 live-glow"></i> LIVE Match
-            </h2>
-            <div class="glass-card p-6 md:p-8 relative flex flex-col justify-between" data-match-id="match-1">
-                <div class="absolute top-4 left-4 text-sm text-gray-400 font-semibold flex items-center">
-                    <i class="fas fa-trophy text-yellow-500 mr-2"></i> Premier League Final
-                </div>
-                <div class="status absolute top-4 right-4 text-xs bg-gray-800 px-3 py-1 rounded-full flex items-center cursor-pointer hover:bg-gray-700 transition">
-                    <span class="live-dot stopped"></span>
-                    <span class="status-text font-semibold">Not Started</span>
-                </div>
-                <div class="flex justify-between items-center mt-8 mb-6">
-                    <div class="text-center flex-1">
-                        <div class="h-16 w-16 md:h-20 md:w-20 flex items-center justify-center bg-green-700 rounded-full mx-auto font-extrabold text-2xl shadow-xl border-4 border-green-400">BRA</div>
-                        <p class="mt-2 text-lg md:text-xl font-medium">Brazil</p>
+      <section class="flex-1">
+                <h2 class="text-3xl md:text-4xl font-bold mb-8 text-green-500 border-b-2 border-green-700 pb-2 flex items-center">
+                    <i class="fas fa-broadcast-tower mr-3 text-red-500 live-glow"></i> LIVE Match
+                </h2>
+                <div class="glass-card p-6 md:p-8 relative flex flex-col justify-between" data-match-id="match-1">
+                    <div class="absolute top-4 left-4 text-sm text-gray-400 font-semibold flex items-center">
+                        <i class="fas fa-trophy text-yellow-500 mr-2"></i> Premier League Final
                     </div>
-                    <div class="text-center mx-4 flex-shrink-0">
-                        <div class="text-5xl md:text-6xl font-extrabold text-green-300 live-score">0 - 0</div>
-                        <div class="match-time-container text-xs mt-1">
-                            <div class="kickoff-info text-gray-300 font-semibold">Click Status to Start!</div>
-                            <div class="live-timer hidden mt-1 font-bold text-xl md:text-2xl text-red-400 live-glow"><span class="minute-text"></span></div>
+                    <div class="status absolute top-4 right-4 text-xs bg-gray-800 px-3 py-1 rounded-full flex items-center cursor-pointer hover:bg-gray-700 transition">
+                        <span class="live-dot stopped"></span>
+                        <span class="status-text font-semibold">Not Started</span>
+                    </div>
+                    <div class="flex justify-between items-center mt-8 mb-6">
+                        <div class="text-center flex-1">
+                            <div class="h-16 w-16 md:h-20 md:w-20 flex items-center justify-center bg-green-700 rounded-full mx-auto font-extrabold text-2xl shadow-xl border-4 border-green-400">BRA</div>
+                            <p class="mt-2 text-lg md:text-xl font-medium">Brazil</p>
+                        </div>
+                        <div class="text-center mx-4 flex-shrink-0">
+                            <div class="text-5xl md:text-6xl font-extrabold text-green-300 live-score">0 - 0</div>
+                            <div class="match-time-container text-xs mt-1">
+                                <div class="kickoff-info text-gray-300 font-semibold">Click Status to Start!</div>
+                                <div class="live-timer hidden mt-1 font-bold text-xl md:text-2xl text-red-400 live-glow"><span class="minute-text"></span></div>
+                            </div>
+                        </div>
+                        <div class="text-center flex-1">
+                            <div class="h-16 w-16 md:h-20 md:w-20 flex items-center justify-center bg-sky-700 rounded-full mx-auto font-extrabold text-2xl shadow-xl border-4 border-sky-400">ARG</div>
+                            <p class="mt-2 text-lg md:text-xl font-medium">Argentina</p>
                         </div>
                     </div>
-                    <div class="text-center flex-1">
-                        <div class="h-16 w-16 md:h-20 md:w-20 flex items-center justify-center bg-sky-700 rounded-full mx-auto font-extrabold text-2xl shadow-xl border-4 border-sky-400">ARG</div>
-                        <p class="mt-2 text-lg md:text-xl font-medium">Argentina</p>
-                    </div>
+                    <button class="w-full mt-4 bg-green-600 hover:bg-green-500 transition py-3 rounded-xl text-lg font-bold shadow-md hover:shadow-green-500/50">View Match Center</button>
                 </div>
-                <button class="w-full mt-4 bg-green-600 hover:bg-green-500 transition py-3 rounded-xl text-lg font-bold shadow-md hover:shadow-green-500/50">View Match Center</button>
-            </div>
-        </section>
+            </section>
 
+            <!-- Container 2 -->
+            <section class="flex-1">
+                <h2 class="text-3xl md:text-4xl font-bold mb-8 text-green-500 border-b-2 border-green-700 pb-2 flex items-center">
+                    <i class="fas fa-broadcast-tower mr-3 text-red-500 live-glow"></i> LIVE Match
+                </h2>
+                <div class="glass-card p-6 md:p-8 relative flex flex-col justify-between" data-match-id="match-2">
+                    <div class="absolute top-4 left-4 text-sm text-gray-400 font-semibold flex items-center">
+                        <i class="fas fa-trophy text-yellow-500 mr-2"></i> World Cup Semifinal
+                    </div>
+                    <div class="status absolute top-4 right-4 text-xs bg-gray-800 px-3 py-1 rounded-full flex items-center cursor-pointer hover:bg-gray-700 transition">
+                        <span class="live-dot stopped"></span>
+                        <span class="status-text font-semibold">Not Started</span>
+                    </div>
+                    <div class="flex justify-between items-center mt-8 mb-6">
+                        <div class="text-center flex-1">
+                            <div class="h-16 w-16 md:h-20 md:w-20 flex items-center justify-center bg-red-700 rounded-full mx-auto font-extrabold text-2xl shadow-xl border-4 border-red-400">ENG</div>
+                            <p class="mt-2 text-lg md:text-xl font-medium">England</p>
+                        </div>
+                        <div class="text-center mx-4 flex-shrink-0">
+                            <div class="text-5xl md:text-6xl font-extrabold text-green-300 live-score">0 - 0</div>
+                            <div class="match-time-container text-xs mt-1">
+                                <div class="kickoff-info text-gray-300 font-semibold">Click Status to Start!</div>
+                                <div class="live-timer hidden mt-1 font-bold text-xl md:text-2xl text-red-400 live-glow"><span class="minute-text"></span></div>
+                            </div>
+                        </div>
+                        <div class="text-center flex-1">
+                            <div class="h-16 w-16 md:h-20 md:w-20 flex items-center justify-center bg-blue-700 rounded-full mx-auto font-extrabold text-2xl shadow-xl border-4 border-blue-400">FRA</div>
+                            <p class="mt-2 text-lg md:text-xl font-medium">France</p>
+                        </div>
+                    </div>
+                    <button class="w-full mt-4 bg-green-600 hover:bg-green-500 transition py-3 rounded-xl text-lg font-bold shadow-md hover:shadow-green-500/50">View Match Center</button>
+                </div>
+            </section>
+
+            <!-- Container 3 -->
+            <section class="flex-1">
+                <h2 class="text-3xl md:text-4xl font-bold mb-8 text-green-500 border-b-2 border-green-700 pb-2 flex items-center">
+                    <i class="fas fa-broadcast-tower mr-3 text-red-500 live-glow"></i> LIVE Match
+                </h2>
+                <div class="glass-card p-6 md:p-8 relative flex flex-col justify-between" data-match-id="match-3">
+                    <div class="absolute top-4 left-4 text-sm text-gray-400 font-semibold flex items-center">
+                        <i class="fas fa-trophy text-yellow-500 mr-2"></i> Champions League QF
+                    </div>
+                    <div class="status absolute top-4 right-4 text-xs bg-gray-800 px-3 py-1 rounded-full flex items-center cursor-pointer hover:bg-gray-700 transition">
+                        <span class="live-dot stopped"></span>
+                        <span class="status-text font-semibold">Not Started</span>
+                    </div>
+                    <div class="flex justify-between items-center mt-8 mb-6">
+                        <div class="text-center flex-1">
+                            <div class="h-16 w-16 md:h-20 md:w-20 flex items-center justify-center bg-slate-700 rounded-full mx-auto font-extrabold text-2xl shadow-xl border-4 border-slate-400">GER</div>
+                            <p class="mt-2 text-lg md:text-xl font-medium">Germany</p>
+                        </div>
+                        <div class="text-center mx-4 flex-shrink-0">
+                            <div class="text-5xl md:text-6xl font-extrabold text-green-300 live-score">0 - 0</div>
+                            <div class="match-time-container text-xs mt-1">
+                                <div class="kickoff-info text-gray-300 font-semibold">Click Status to Start!</div>
+                                <div class="live-timer hidden mt-1 font-bold text-xl md:text-2xl text-red-400 live-glow"><span class="minute-text"></span></div>
+                            </div>
+                        </div>
+                        <div class="text-center flex-1">
+                            <div class="h-16 w-16 md:h-20 md:w-20 flex items-center justify-center bg-lime-700 rounded-full mx-auto font-extrabold text-2xl shadow-xl border-4 border-lime-400">ITA</div>
+                            <p class="mt-2 text-lg md:text-xl font-medium">Italy</p>
+                        </div>
+                    </div>
+                    <button class="w-full mt-4 bg-green-600 hover:bg-green-500 transition py-3 rounded-xl text-lg font-bold shadow-md hover:shadow-green-500/50">View Match Center</button>
+                </div>
+            </section>
         <!-- Upcoming Fixtures Section -->
         <section id="upcoming" class="mb-20">
             <h2 class="text-3xl md:text-4xl font-bold mb-8 text-green-500 border-b-2 border-green-700 pb-2 flex items-center">
