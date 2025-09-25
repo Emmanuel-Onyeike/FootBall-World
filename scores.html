@@ -8,6 +8,8 @@
   <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    
+  <script src="https://js.pusher.com/8.4.0/pusher.min.js"></script>
 
   <style>
     /* Add a custom font for a more modern feel */
@@ -18,25 +20,23 @@
       font-family: 'Inter', sans-serif;
     }
     .glass-card {
-      /* Adjusted alpha for a slightly darker glass, enhancing contrast */
       background: rgba(255,255,255,0.08); 
       backdrop-filter: blur(15px);
-      border: 1px solid rgba(255,255,255,0.2); /* Thicker, brighter border */
+      border: 1px solid rgba(255,255,255,0.2); 
       border-radius: 1rem;
       transition: all 0.3s ease;
-      /* Add a subtle inset shadow for depth */
       box-shadow: inset 0 0 10px rgba(0,0,0,0.1); 
     }
     .glass-card:hover {
       transform: translateY(-5px);
-      border-color: rgba(52, 211, 163, 0.8); /* Lighter green on hover */
-      box-shadow: 0 15px 30px rgba(0,0,0,0.5); /* More pronounced shadow */
+      border-color: rgba(52, 211, 163, 0.8); 
+      box-shadow: 0 15px 30px rgba(0,0,0,0.5); 
     }
     .live-dot {
       width: 10px; height: 10px; border-radius: 50%;
       margin-right: 6px; display: inline-block;
     }
-    .breathing { background: #f87171; animation: pulse 1.2s infinite; } /* Lighter red */
+    .breathing { background: #f87171; animation: pulse 1.2s infinite; } 
     .stopped { background: #9ca3af; }
     @keyframes pulse {
       0%, 100% { transform: scale(1); opacity: 1; }
@@ -213,114 +213,229 @@
   </footer>
 
 <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      document.querySelectorAll(".status").forEach(statusBtn => {
-        const card = statusBtn.closest("[data-match-id]");
-        
-        // Only initialize the interactive script for the live match (match-1)
-        if (!card || card.dataset.matchId !== "match-1") return; 
+    // Pusher Configuration based on your provided keys
+    const PUSHER_APP_KEY = 'cb985e78c239cf22c9f0';
+    const PUSHER_CLUSTER = 'eu';
+    const CHANNEL_NAME = 'football-world-match-1'; 
+    const EVENT_NAME = 'state-update';
+    
+    // This is the endpoint for your *Serverless Function*
+    // IMPORTANT: Make sure this function is deployed!
+    const SYNC_ENDPOINT = '/api/sync-match'; 
 
+    // Initialize Pusher Client
+    const pusher = new Pusher(PUSHER_APP_KEY, {
+        cluster: PUSHER_CLUSTER
+    });
+    const channel = pusher.subscribe(CHANNEL_NAME);
+    
+    const SIM_SPEED = 1000 * 4; // 4 seconds per minute
+
+    document.addEventListener("DOMContentLoaded", () => {
+
+        const matchId = "match-1";
+        const card = document.querySelector(`[data-match-id="${matchId}"]`);
+        if (!card) return;
+
+        const statusBtn = card.querySelector(".status");
         const statusText = statusBtn.querySelector(".status-text");
-        const liveDot = statusBtn.querySelector(".live-dot");
+        const liveDot = card.querySelector(".live-dot");
         const kickoffInfo = card.querySelector(".kickoff-info");
         const liveTimer = card.querySelector(".live-timer");
         const minuteText = card.querySelector(".minute-text");
-        // NEW: Select the score element
         const scoreDisplay = card.querySelector(".text-4xl.font-extrabold");
-        
-        let timer, minute = 0, phase = "not-started"; // phases: not-started, first-half, half-time, second-half, full-time
-        // NEW: Initialize scores
+
+        let timer;
+        let minute = 0;
+        let phase = "not-started";
         let scoreHome = 0;
         let scoreAway = 0;
+        
+        // =================================================================
+        // 1. LOCAL STATE MANAGEMENT
+        // =================================================================
 
         function updateDisplay() {
-          // Update the score display
           scoreDisplay.textContent = `${scoreHome} - ${scoreAway}`;
+          
+          // CRITICAL FIX: The button is ONLY disabled during first-half and second-half
+          // It must be enabled for not-started, half-time, and full-time to allow for action.
+          statusBtn.style.cursor = (phase === "first-half" || phase === "second-half") ? 'default' : 'pointer';
+          statusBtn.style.pointerEvents = (phase === "first-half" || phase === "second-half") ? 'none' : 'auto';
 
-          if (phase === "first-half") {
+
+          if (phase === "first-half" || phase === "second-half") {
             minuteText.textContent = `${minute}’`;
+            statusText.textContent = "LIVE";
+            liveDot.className = "live-dot breathing";
+            kickoffInfo.classList.add("hidden");
+            liveTimer.classList.remove("hidden");
           } else if (phase === "half-time") {
             minuteText.textContent = "HT 45’";
-          } else if (phase === "second-half") {
-            // Second half starts at 46 minutes
-            minuteText.textContent = `${minute}’`; 
+            statusText.textContent = "Start 2nd Half"; // Text change to prompt action
+            liveDot.className = "live-dot stopped";
           } else if (phase === "full-time") {
             minuteText.textContent = "FT 90’";
+            statusText.textContent = "Start New Match"; // Text change for reset/new match
+            liveDot.className = "live-dot stopped";
+            kickoffInfo.classList.remove("hidden"); 
+            liveTimer.classList.add("hidden"); 
+          } else if (phase === "not-started") {
+             minuteText.textContent = "Kickoff";
+             statusText.textContent = "Start Match"; // Text change to prompt action
+             liveDot.className = "live-dot stopped";
+             kickoffInfo.classList.remove("hidden");
+             liveTimer.classList.add("hidden");
           }
         }
         
-        // NEW: Function to simulate a goal chance
-        function checkGoal() {
-          // 2% chance of a goal every minute
+        function checkGoalAndBroadcast() {
+          if (!timer) return; 
+          
           if (Math.random() < 0.02) { 
-            // 50/50 chance for home or away team to score
             if (Math.random() < 0.5) {
               scoreHome++;
             } else {
               scoreAway++;
             }
+            // Sync goals globally
+            sendStateToServer(phase, minute, scoreHome, scoreAway);
           }
         }
 
-        // **Simulation Speed**
-        // 1000 * 4 means 4 seconds per simulated minute (Slightly slower demo)
-        const SIM_SPEED = 1000 * 4; 
-
-        function startFirstHalf() {
-          phase = "first-half";
-          statusText.textContent = "LIVE";
-          liveDot.className = "live-dot breathing";
-          kickoffInfo.classList.add("hidden");
-          liveTimer.classList.remove("hidden");
-          timer = setInterval(() => {
-            minute++;
-            checkGoal(); // Check for goal on every minute tick
-            updateDisplay();
-            if (minute === 45) {
-              clearInterval(timer);
-              phase = "half-time";
-              statusText.textContent = "Half Time";
-              liveDot.className = "live-dot stopped"; // Dot stops pulsating at half time
-              updateDisplay();
-              // Auto-start second half after a simulated 5 minute break (5 * SIM_SPEED)
-              setTimeout(startSecondHalf, 5 * SIM_SPEED); 
-            }
-          }, SIM_SPEED); 
+        // =================================================================
+        // 2. SYNCHRONIZATION LOGIC (Pusher Client)
+        // =================================================================
+        
+        /** Sends the current state to the backend to be broadcast. */
+        function sendStateToServer(newPhase, currentMinute, homeScore, awayScore) {
+             const state = {
+                matchId: matchId, 
+                phase: newPhase,
+                minute: currentMinute,
+                scoreHome: homeScore,
+                scoreAway: awayScore,
+                timestamp: Date.now()
+             };
+             
+             fetch(SYNC_ENDPOINT, {
+                 method: 'POST',
+                 headers: { 'Content-Type': 'application/json' },
+                 body: JSON.stringify(state)
+             })
+             .catch(error => console.error("Pusher Sync Error: Ensure your backend function is deployed at /api/sync-match.", error));
         }
 
-        function startSecondHalf() {
-          // Ensure it only continues if it was at half-time
-          if (phase !== "half-time" && minute < 46) return; 
-          
-          phase = "second-half";
-          // If manually starting from half-time, minute should be 45 for first half, 46 for second
-          if (minute < 46) minute = 45; 
-
-          statusText.textContent = "LIVE";
-          liveDot.className = "live-dot breathing";
-          timer = setInterval(() => {
-            minute++;
-            checkGoal(); // Check for goal on every minute tick
-            updateDisplay();
-            if (minute === 90) {
-              clearInterval(timer);
-              phase = "full-time";
-              statusText.textContent = "Full Time";
-              liveDot.className = "live-dot stopped";
-              updateDisplay();
+        /** Applies a state received from Pusher and manages the local timer. */
+        function applyPusherState(data) {
+            // Check for and ignore redundant updates
+            if (data.minute === minute && data.phase === phase && data.scoreHome === scoreHome && data.awayScore === scoreAway) {
+                return; 
             }
-          }, SIM_SPEED);
+
+            phase = data.phase;
+            minute = data.minute;
+            scoreHome = data.scoreHome;
+            scoreAway = data.awayScore; // Must use the server's key 'awayScore'
+            
+            if (timer) clearInterval(timer);
+            
+            updateDisplay();
+
+            if (phase === "first-half" || phase === "second-half") {
+                 
+                 // Catch up the local minute based on the time passed since the server broadcast
+                 const timeDiff = Date.now() - data.timestamp;
+                 const minutesAhead = Math.floor(timeDiff / SIM_SPEED);
+                 minute = Math.max(data.minute, data.minute + minutesAhead);
+
+                 // Start the local timer tick
+                 startLocalTimerTick();
+            } else if (phase === "half-time") {
+                // Schedule the second-half auto-start after the break period
+                const timeElapsedSinceBreak = Date.now() - data.timestamp;
+                const timeToWait = (5 * SIM_SPEED) - timeElapsedSinceBreak;
+                setTimeout(startSecondHalfPusher, Math.max(0, timeToWait));
+            }
+        }
+        
+        /** Starts the local timer and handles minute-by-minute progression. */
+        function startLocalTimerTick() {
+            if (timer) clearInterval(timer);
+            
+            timer = setInterval(() => {
+                minute++;
+                
+                checkGoalAndBroadcast(); 
+
+                // Phase transition logic (triggers server sync)
+                if (minute === 45) {
+                    clearInterval(timer);
+                    phase = "half-time";
+                    sendStateToServer(phase, minute, scoreHome, scoreAway);
+                    setTimeout(startSecondHalfPusher, 5 * SIM_SPEED);
+                    
+                } else if (minute === 90) {
+                    clearInterval(timer);
+                    phase = "full-time";
+                    sendStateToServer(phase, minute, scoreHome, scoreAway);
+                }
+                
+                updateDisplay();
+
+                // Send a periodic status update (e.g., every 10 minutes)
+                if (minute % 10 === 0 && (phase === "first-half" || phase === "second-half")) {
+                    sendStateToServer(phase, minute, scoreHome, scoreAway);
+                }
+
+            }, SIM_SPEED); 
         }
 
-        statusBtn.addEventListener("click", () => {
-          if (phase === "not-started") {
-            startFirstHalf();
-          } else if (phase === "half-time") {
-            startSecondHalf(); // Manual continue from half-time
-          }
-          // Full-time match status is non-clickable
+        // Helper function for half-time continue action
+        function startSecondHalfPusher() {
+             if (minute < 46) minute = 45; 
+             phase = "second-half";
+             minute++; // Second half starts at 46
+             sendStateToServer(phase, minute, scoreHome, scoreAway);
+        }
+
+        // =================================================================
+        // 3. EVENT LISTENERS AND INITIALIZATION
+        // =================================================================
+
+        // 🚨 LISTEN FOR PUSHER UPDATES (Global Synchronization)
+        channel.bind(EVENT_NAME, (data) => {
+            applyPusherState(data);
         });
-      });
+        
+        // 🖱️ HANDLE BUTTON CLICK (Manual Start/Half-Time Continue)
+        statusBtn.addEventListener("click", () => {
+            // NOTE: The statusBtn.style.pointerEvents check handles the 'disabled' state
+            
+            if (phase === "not-started" || phase === "full-time") {
+                // This starts a new match
+                sendStateToServer("first-half", 1, 0, 0);
+                
+            } else if (phase === "half-time") {
+                // This starts the second half
+                startSecondHalfPusher();
+            }
+        });
+        
+        // Fetch the initial state when the page loads (Persistence for new visitors)
+        fetch(`${SYNC_ENDPOINT}?matchId=${matchId}`)
+            .then(res => res.json())
+            .then(data => {
+                if (data && data.phase) {
+                    applyPusherState(data);
+                } else {
+                    updateDisplay(); // Default to not-started view
+                }
+            })
+            .catch(error => {
+                console.error("Failed to fetch initial state. Defaulting to 'Not Started'.", error);
+                updateDisplay();
+            });
     });
 </script>
 </body>
