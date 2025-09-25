@@ -1,327 +1,529 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard - Football World</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard - Football World</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkfAm3s0pzp1zjTKGVBCy4cfqqiJQ6vB92p+MvhqP0UETmUu1x3rT8KQw=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <style>
-        body {
-            background-color: #0A0A0A;
-        }
-        .glass-card {
-            background: rgba(100, 100, 100, 0.1);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 1rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .glass-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-            border-color: rgba(52, 211, 153, 0.5);
-        }
-        /* Custom Glowing Effect for Live Text */
-        .live-glow {
-            animation: pulse-glow 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
-        }
-        @keyframes pulse-glow {
-            0%, 100% {
-                opacity: 1;
-                text-shadow: 0 0 5px rgba(52, 211, 153, 0.5), 0 0 10px rgba(52, 211, 153, 0.2);
-            }
-            50% {
-                opacity: 0.8;
-                text-shadow: 0 0 10px rgba(52, 211, 153, 0.7), 0 0 20px rgba(52, 211, 153, 0.4);
-            }
-        }
-        /* Subtle background particle animation */
-        .particle-bg {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: -1;
-            background-image: radial-gradient(#1f2937 1px, transparent 1px);
-            background-size: 20px 20px;
-            opacity: 0.3;
-        }
-    </style>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkfAm3s0pzp1zjTKGVBCy4cfqqiJQ6vB92p+MvhqP0UETmUu1x3rT8KQw=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+  <style>
+    /* Custom Inter Font for a modern look */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+    body {
+      background-color: #0A0A0A;
+      font-family: 'Inter', sans-serif;
+    }
+    .glass-card {
+      background: rgba(100, 100, 100, 0.15); /* Slightly brighter glass */
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1); /* Brighter border */
+      border-radius: 1rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .glass-card:hover {
+      transform: translateY(-5px) scale(1.01); /* Reduced scale for subtle effect */
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 15px rgba(52, 211, 153, 0.3); /* Green glow on hover */
+      border-color: rgba(52, 211, 153, 0.6);
+    }
+    .live-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      margin-right: 6px; display: inline-block;
+    }
+    .breathing { background: #ef4444; animation: pulse-dot 1.2s infinite; }
+    .stopped { background: #9ca3af; }
+    @keyframes pulse-dot {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.4); opacity: 0.5; }
+    }
+    .live-glow {
+      animation: pulse-glow 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
+    }
+    @keyframes pulse-glow {
+      0%, 100% {
+        opacity: 1;
+        text-shadow: 0 0 5px rgba(52, 211, 153, 0.5), 0 0 10px rgba(52, 211, 153, 0.2);
+      }
+      50% {
+        opacity: 0.9;
+        text-shadow: 0 0 8px rgba(52, 211, 153, 0.7), 0 0 15px rgba(52, 211, 153, 0.4);
+      }
+    }
+    .particle-bg {
+      position: fixed; /* Fixed for a consistent background */
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      background-image: radial-gradient(#1f2937 0.5px, transparent 0.5px);
+      background-size: 20px 20px;
+      opacity: 0.2; /* Less intense */
+    }
+  </style>
 </head>
 <body class="text-white font-sans">
 
-   <nav class="sticky top-0 z-50 bg-black/80 backdrop-blur-md shadow-xl py-4">
-  <div class="container mx-auto flex justify-between items-center px-6">
-    
-    <div class="text-3xl font-bold text-green-500 tracking-wider">
-      Football World
-    </div>
+  <nav class="sticky top-0 z-50 bg-black/90 backdrop-blur-lg shadow-2xl py-4">
+    <div class="container mx-auto flex flex-col md:flex-row justify-between items-center px-4 md:px-6">
 
-    <div class="flex space-x-8">
-      
-      <a href="scores.html" class="group flex items-center space-x-2 text-gray-300 hover:text-green-500 transition-colors duration-300 relative">
-        <i class="fas fa-futbol"></i>
-        <span>Live Scores</span>
-        <span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-green-500 group-hover:w-full transition-all duration-300"></span>
-      </a>
-
-      <a href="highlights.html" class="group flex items-center space-x-2 text-gray-300 hover:text-green-500 transition-colors duration-300 relative">
-        <i class="fas fa-play-circle"></i>
-        <span>Highlights</span>
-        <span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-green-500 group-hover:w-full transition-all duration-300"></span>
-      </a>
-
-      <a href="stats.html" class="group flex items-center space-x-2 text-gray-300 hover:text-green-500 transition-colors duration-300 relative">
-        <i class="fas fa-chart-line"></i>
-        <span>Player Stats</span>
-        <span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-green-500 group-hover:w-full transition-all duration-300"></span>
-      </a>
-
-    </div>
-  </div>
-</nav>
-
-
-    <main class="relative container mx-auto p-6 md:p-12 min-h-screen">
-        <div class="particle-bg"></div>
-
-        <h1 class="text-4xl md:text-6xl font-extrabold text-center mt-8 mb-16 text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-green-600">
-            Your Football Dashboard
-        </h1>
-
-<section id="scores" class="mb-20">
-  <h2 class="text-3xl md:text-4xl font-bold mb-8 text-green-500 border-b-2 border-green-700 pb-2">
-    Recent Matches
-  </h2>
-
-  <div class="border-2 border-green-600 rounded-2xl p-8 bg-transparent shadow-lg">
-    
-    <div class="flex justify-center mb-8">
-      <input 
-        type="text" 
-        placeholder="Search leagues..." 
-        class="w-full md:w-1/2 px-4 py-3 rounded-xl border border-green-600 bg-transparent text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500"
-      />
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      
-      <div class="p-6 rounded-xl border border-green-500 bg-transparent text-center shadow-md hover:shadow-green-500/40 transition flex flex-col items-center justify-center space-y-4">
-        <h3 class="text-xl font-bold text-green-400">MIKOKO LEAGUE</h3>
-        <div class="flex flex-col items-center space-y-2">
-          <div class="h-8 w-8 border-4 border-green-400 border-t-transparent rounded-full animate-spin"></div>
-          <p class="text-gray-400 text-sm">Next season loading...</p>
-        </div>
+      <div class="text-3xl font-bold text-green-500 tracking-wider mb-4 md:mb-0">
+        Football World
       </div>
 
-      <div class="p-6 rounded-xl border border-green-500 bg-transparent text-center shadow-md hover:shadow-green-500/40 transition flex flex-col items-center justify-center space-y-4">
-        <h3 class="text-xl font-bold text-green-400">ZUBBY CHAMPIONS LEAGUE</h3>
-        <div class="flex flex-col items-center space-y-2">
-          <div class="h-8 w-8 border-4 border-green-400 border-t-transparent rounded-full animate-spin"></div>
-          <p class="text-gray-400 text-sm">Next season loading...</p>
-        </div>
-      </div>
-
-      <div class="p-6 rounded-xl border border-green-500 bg-transparent text-center shadow-md hover:shadow-green-500/40 transition flex flex-col items-center justify-center space-y-4">
-        <h3 class="text-xl font-bold text-green-400">CIT LEAGUE</h3>
-        <div class="flex flex-col items-center space-y-2">
-          <div class="h-8 w-8 border-4 border-green-400 border-t-transparent rounded-full animate-spin"></div>
-          <p class="text-gray-400 text-sm">Next season loading...</p>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-
-<section id="upcoming" class="mb-20">
-  <h2 class="text-3xl md:text-4xl font-bold mb-8 text-green-500 border-b-2 border-green-700 pb-2">
-    Upcoming Matches
-  </h2>
-
-  <div class="border-2 border-green-600 rounded-2xl p-8 bg-transparent shadow-lg">
-    
-    <div class="flex justify-center mb-8">
-      <input 
-        type="text" 
-        placeholder="Search leagues..." 
-        class="w-full md:w-1/2 px-4 py-3 rounded-xl border border-green-600 bg-transparent text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500"
-      />
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      
-      <div class="p-6 rounded-xl border border-green-500 bg-transparent text-center shadow-md hover:shadow-green-500/40 transition flex flex-col items-center justify-center space-y-4">
-        <h3 class="text-xl font-bold text-green-400">MIKOKO LEAGUE</h3>
-        <div class="flex flex-col items-center space-y-2">
-          <div class="h-8 w-8 border-4 border-green-400 border-t-transparent rounded-full animate-spin"></div>
-          <p class="text-gray-400 text-sm">Next season loading...</p>
-        </div>
-      </div>
-
-      <div class="p-6 rounded-xl border border-green-500 bg-transparent text-center shadow-md hover:shadow-green-500/40 transition flex flex-col items-center justify-center space-y-4">
-        <h3 class="text-xl font-bold text-green-400">ZUBBY CHAMPIONS LEAGUE</h3>
-        <div class="flex flex-col items-center space-y-2">
-          <div class="h-8 w-8 border-4 border-green-400 border-t-transparent rounded-full animate-spin"></div>
-          <p class="text-gray-400 text-sm">Next season loading...</p>
-        </div>
-      </div>
-
-      <div class="p-6 rounded-xl border border-green-500 bg-transparent text-center shadow-md hover:shadow-green-500/40 transition flex flex-col items-center justify-center space-y-4">
-        <h3 class="text-xl font-bold text-green-400">CIT LEAGUE</h3>
-        <div class="flex flex-col items-center space-y-2">
-          <div class="h-8 w-8 border-4 border-green-400 border-t-transparent rounded-full animate-spin"></div>
-          <p class="text-gray-400 text-sm">Next season loading...</p>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-
-
-   <section id="highlights" class="mb-20">
-  <h2 class="text-3xl md:text-4xl font-bold mb-8 text-green-500 border-b-2 border-green-700 pb-2">
-    Latest Highlights
-  </h2>
-
-  <div class="border-2 border-green-600 rounded-2xl p-10 bg-transparent shadow-lg flex flex-col items-center justify-center text-center space-y-6 mb-10">
-    
-    <div class="h-16 w-16 border-4 border-green-400 border-t-transparent rounded-full animate-spin"></div>
-    
-    <div>
-      <h3 class="text-2xl font-bold text-green-400 mb-2">No Highlights Yet</h3>
-      <p class="text-gray-400">We haven’t started uploading highlights. Stay tuned for exciting match moments 🎥</p>
-    </div>
-    
-    <button class="mt-4 px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-xl shadow-md transition">
-      Check Back Soon
-    </button>
-  </div>
-
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-    
-    <div class="p-6 rounded-2xl border border-green-500 bg-transparent shadow-md flex flex-col items-center justify-center text-center hover:shadow-green-500/40 transition">
-      <h3 class="text-lg font-semibold text-green-400">Nice Goal</h3>
-      <p class="text-gray-500 text-sm mt-2">Coming soon...</p>
-    </div>
-
-    <div class="p-6 rounded-2xl border border-green-500 bg-transparent shadow-md flex flex-col items-center justify-center text-center hover:shadow-green-500/40 transition">
-      <h3 class="text-lg font-semibold text-green-400">Comeback</h3>
-      <p class="text-gray-500 text-sm mt-2">Coming soon...</p>
-    </div>
-
-    <div class="p-6 rounded-2xl border border-green-500 bg-transparent shadow-md flex flex-col items-center justify-center text-center hover:shadow-green-500/40 transition">
-      <h3 class="text-lg font-semibold text-green-400">Dribbles</h3>
-      <p class="text-gray-500 text-sm mt-2">Coming soon...</p>
-    </div>
-
-    <div class="p-6 rounded-2xl border border-green-500 bg-transparent shadow-md flex flex-col items-center justify-center text-center hover:shadow-green-500/40 transition">
-      <h3 class="text-lg font-semibold text-green-400">Others</h3>
-      <p class="text-gray-500 text-sm mt-2">Coming soon...</p>
-    </div>
-
-  </div>
-</section>
-
-
-       <section id="stats" class="mb-16">
-  <h2 class="text-3xl md:text-4xl font-bold mb-8 text-green-500 border-b-2 border-green-700 pb-2">
-    Player Leaderboards
-  </h2>
-
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
-    
-    <div class="border-2 border-green-600 rounded-2xl p-10 bg-transparent shadow-lg flex flex-col items-center justify-center text-center space-y-6">
-      <div class="h-14 w-14 border-4 border-green-400 border-t-transparent rounded-full animate-spin"></div>
-      <div>
-        <h3 class="text-2xl font-bold text-green-400 mb-2">⚽ Top Scorers</h3>
-        <p class="text-gray-400">No leaderboard yet — stats will appear here once matches start.</p>
-      </div>
-    </div>
-
-    <div class="border-2 border-green-600 rounded-2xl p-10 bg-transparent shadow-lg flex flex-col items-center justify-center text-center space-y-6">
-      <div class="h-14 w-14 border-4 border-green-400 border-t-transparent rounded-full animate-spin"></div>
-      <div>
-        <h3 class="text-2xl font-bold text-green-400 mb-2">🎯 Top Assists</h3>
-        <p class="text-gray-400">No leaderboard yet — assist rankings will show up soon.</p>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-
-    </main>
-<footer class="bg-gray-900 text-gray-400 py-12 border-t border-green-700">
-  <div class="max-w-7xl mx-auto px-6 lg:px-8">
-    
-    <div class="flex flex-col md:flex-row items-center md:justify-between space-y-6 md:space-y-0">
-      <h3 class="text-xl font-bold text-green-500">⚽ Football World</h3>
-      <div class="flex space-x-6">
-        <a href="#" class="hover:text-green-400 transition">Privacy Policy</a>
-        <a href="#" class="hover:text-green-400 transition">Terms of Service</a>
-        <a href="#" class="hover:text-green-400 transition">Contact</a>
-      </div>
-    </div>
-
-    <div class="my-6 border-t border-gray-700"></div>
-
-    <div class="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
-      <p class="text-sm">&copy; 2025 <span class="text-green-400">Football World</span>. All Rights Reserved. <br class="md:hidden"> Designed by <span class="text-green-500 font-semibold">Tech Nxxt</span>.</p>
-      
-      <div class="flex space-x-5">
-        <a href="#" class="hover:text-green-400 transition">
-          <i class="fab fa-facebook-f"></i>
+      <div class="flex flex-wrap justify-center space-x-4 sm:space-x-8 text-sm sm:text-base">
+        <a href="#scores" class="group flex items-center space-x-1 text-gray-300 hover:text-green-500 transition-colors duration-300 relative py-1">
+          <i class="fas fa-futbol"></i>
+          <span>Live Scores</span>
+          <span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-green-500 group-hover:w-full transition-all duration-300"></span>
         </a>
-        <a href="#" class="hover:text-green-400 transition">
-          <i class="fab fa-twitter"></i>
+
+        <a href="#upcoming" class="group flex items-center space-x-1 text-gray-300 hover:text-green-500 transition-colors duration-300 relative py-1">
+          <i class="fas fa-calendar-alt"></i>
+          <span>Upcoming</span>
+          <span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-green-500 group-hover:w-full transition-all duration-300"></span>
         </a>
-        <a href="#" class="hover:text-green-400 transition">
-          <i class="fab fa-instagram"></i>
+
+        <a href="#highlights" class="group flex items-center space-x-1 text-gray-300 hover:text-green-500 transition-colors duration-300 relative py-1">
+          <i class="fas fa-play-circle"></i>
+          <span>Highlights</span>
+          <span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-green-500 group-hover:w-full transition-all duration-300"></span>
         </a>
-        <a href="#" class="hover:text-green-400 transition">
-          <i class="fab fa-youtube"></i>
+
+        <a href="#stats" class="group flex items-center space-x-1 text-gray-300 hover:text-green-500 transition-colors duration-300 relative py-1">
+          <i class="fas fa-chart-line"></i>
+          <span>Stats</span>
+          <span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-green-500 group-hover:w-full transition-all duration-300"></span>
         </a>
+
       </div>
     </div>
+  </nav>
 
-  </div>
-</footer>
+  <main class="relative container mx-auto p-4 md:p-8 lg:p-12 min-h-screen">
+    <div class="particle-bg"></div>
 
+    <h1 class="text-4xl md:text-6xl font-extrabold text-center mt-8 mb-16 text-transparent bg-clip-text bg-gradient-to-r from-green-300 to-teal-500">
+      The Ultimate Football Dashboard
+    </h1>
+
+    <section id="live" class="mb-20">
+      <h2 class="text-3xl md:text-4xl font-bold mb-8 text-green-500 border-b-2 border-green-700 pb-2 flex items-center">
+        <i class="fas fa-broadcast-tower mr-3 text-red-500 live-glow"></i> LIVE Match
+      </h2>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+        <div class="lg:col-span-2 glass-card p-6 md:p-8 relative flex flex-col justify-between" data-match-id="match-1">
+          <div class="absolute top-4 left-4 text-sm text-gray-400 font-semibold flex items-center">
+            <i class="fas fa-trophy text-yellow-500 mr-2"></i> Copa America Final
+          </div>
+          <div class="status absolute top-4 right-4 text-xs bg-gray-800 px-3 py-1 rounded-full flex items-center cursor-pointer hover:bg-gray-700 transition">
+            <span class="live-dot stopped"></span>
+            <span class="status-text font-semibold">Not Started</span>
+          </div>
+
+          <div class="flex justify-between items-center mt-8 mb-6">
+            <div class="text-center flex-1">
+              <div class="h-16 w-16 md:h-20 md:w-20 flex items-center justify-center bg-green-700 rounded-full mx-auto font-extrabold text-2xl shadow-xl border-4 border-green-400">BRA</div>
+              <p class="mt-2 text-lg md:text-xl font-medium">Brazil</p>
+            </div>
+            
+            <div class="text-center mx-4 flex-shrink-0">
+              <div class="text-5xl md:text-6xl font-extrabold text-green-300 live-score">0 - 0</div>
+              <div class="match-time-container text-xs mt-1">
+                <div class="kickoff-info text-gray-300 font-semibold">Click Status to Start!</div>
+                <div class="live-timer hidden mt-1 font-bold text-xl md:text-2xl text-red-400 live-glow"><span class="minute-text"></span></div>
+              </div>
+            </div>
+            
+            <div class="text-center flex-1">
+              <div class="h-16 w-16 md:h-20 md:w-20 flex items-center justify-center bg-sky-700 rounded-full mx-auto font-extrabold text-2xl shadow-xl border-4 border-sky-400">ARG</div>
+              <p class="mt-2 text-lg md:text-xl font-medium">Argentina</p>
+            </div>
+          </div>
+          <button class="w-full mt-4 bg-green-600 hover:bg-green-500 transition py-3 rounded-xl text-lg font-bold shadow-md hover:shadow-green-500/50">View Match Center</button>
+        </div>
+        
+        <div class="glass-card p-6 relative flex flex-col justify-between hidden lg:flex">
+          <div class="absolute top-4 left-4 text-sm text-gray-400 font-semibold flex items-center">
+            <i class="fas fa-futbol text-green-500 mr-2"></i> CIT LEAGUE
+          </div>
+          <div class="absolute top-4 right-4 text-xs bg-gray-800 px-3 py-1 rounded-full text-gray-400 font-semibold">Finished</div>
+          <div class="flex justify-between items-center mt-8 mb-6">
+            <div class="text-center flex-1">
+              <div class="h-16 w-16 flex items-center justify-center bg-gray-600 rounded-full mx-auto font-extrabold text-xl">FC A</div>
+              <p class="mt-2 text-lg font-medium">Team Alpha</p>
+            </div>
+            <div class="text-center mx-4">
+              <div class="text-5xl font-extrabold text-white">2 - 1</div>
+              <div class="text-sm mt-1 text-gray-400 font-semibold">FT</div>
+            </div>
+            <div class="text-center flex-1">
+              <div class="h-16 w-16 flex items-center justify-center bg-gray-600 rounded-full mx-auto font-extrabold text-xl">FC B</div>
+              <p class="mt-2 text-lg font-medium">Team Beta</p>
+            </div>
+          </div>
+          <button class="w-full mt-4 bg-gray-700 hover:bg-gray-600 transition py-3 rounded-xl text-lg font-bold shadow-md">Watch Highlights</button>
+        </div>
+        
+      </div>
+    </section>
     
-    <script>
-        // Simple animation to fade in sections on scroll
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('opacity-100', 'translate-y-0');
-                    entry.target.classList.remove('opacity-0', 'translate-y-10');
-                }
-            });
-        }, { threshold: 0.1 });
+    <section id="upcoming" class="mb-20">
+      <h2 class="text-3xl md:text-4xl font-bold mb-8 text-green-500 border-b-2 border-green-700 pb-2 flex items-center">
+        <i class="fas fa-calendar-alt mr-3"></i> Upcoming Fixtures
+      </h2>
 
-        document.querySelectorAll('section > h2').forEach(el => {
-            observer.observe(el);
-            el.parentElement.querySelectorAll('.glass-card, ul li').forEach(card => {
-                card.classList.add('opacity-0', 'translate-y-10', 'transition-all', 'duration-1000', 'ease-out');
-                observer.observe(card);
-            });
+      <div class="glass-card p-4 md:p-6 shadow-xl">
+        <div class="space-y-4">
+          
+          <div class="flex items-center justify-between p-3 sm:p-4 border-b border-gray-700/50 last:border-b-0 hover:bg-white/5 rounded-lg transition">
+            <div class="flex-1 min-w-0">
+              <p class="text-sm font-light text-gray-400">Premier League | Saturday 15:00 GMT</p>
+              <p class="text-xl font-semibold mt-1">Manchester United <span class="text-gray-500">vs</span> Liverpool</p>
+            </div>
+            <div class="flex space-x-2 text-sm ml-4 flex-shrink-0">
+              <button class="px-3 py-1 bg-green-700 rounded-full text-xs hover:bg-green-600 transition">Reminder</button>
+              <button class="px-3 py-1 bg-gray-700 rounded-full text-xs hover:bg-gray-600 transition">Details</button>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between p-3 sm:p-4 border-b border-gray-700/50 last:border-b-0 hover:bg-white/5 rounded-lg transition">
+            <div class="flex-1 min-w-0">
+              <p class="text-sm font-light text-gray-400">Champions League | Tuesday 20:00 GMT</p>
+              <p class="text-xl font-semibold mt-1">Bayern Munich <span class="text-gray-500">vs</span> Real Madrid</p>
+            </div>
+            <div class="flex space-x-2 text-sm ml-4 flex-shrink-0">
+              <button class="px-3 py-1 bg-green-700 rounded-full text-xs hover:bg-green-600 transition">Reminder</button>
+              <button class="px-3 py-1 bg-gray-700 rounded-full text-xs hover:bg-gray-600 transition">Details</button>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between p-3 sm:p-4 last:border-b-0 hover:bg-white/5 rounded-lg transition">
+            <div class="flex-1 min-w-0">
+              <p class="text-sm font-light text-gray-400">Laliga | Sunday 17:30 GMT</p>
+              <p class="text-xl font-semibold mt-1">Barcelona <span class="text-gray-500">vs</span> Atletico Madrid</p>
+            </div>
+            <div class="flex space-x-2 text-sm ml-4 flex-shrink-0">
+              <button class="px-3 py-1 bg-green-700 rounded-full text-xs hover:bg-green-600 transition">Reminder</button>
+              <button class="px-3 py-1 bg-gray-700 rounded-full text-xs hover:bg-gray-600 transition">Details</button>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </section>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-20">
+
+      <section id="highlights">
+        <h2 class="text-3xl md:text-4xl font-bold mb-8 text-green-500 border-b-2 border-green-700 pb-2 flex items-center">
+          <i class="fas fa-video mr-3"></i> Latest Highlights
+        </h2>
+
+        <div class="glass-card p-6 md:p-8 space-y-4">
+          
+          <div class="flex items-center space-x-4 p-3 hover:bg-white/5 rounded-lg transition cursor-pointer">
+            <i class="fas fa-play-circle text-4xl text-green-500 flex-shrink-0"></i>
+            <div>
+              <p class="font-semibold text-lg">Goal of the Week: Brazilian Bicycle Kick</p>
+              <p class="text-sm text-gray-400">Copa America | 1 day ago</p>
+            </div>
+          </div>
+          
+          <div class="flex items-center space-x-4 p-3 hover:bg-white/5 rounded-lg transition cursor-pointer">
+            <i class="fas fa-play-circle text-4xl text-green-500 flex-shrink-0"></i>
+            <div>
+              <p class="font-semibold text-lg">Defensive Masterclass: A Goalkeeper's Best Saves</p>
+              <p class="text-sm text-gray-400">Premier League | 3 days ago</p>
+            </div>
+          </div>
+          
+          <div class="flex items-center space-x-4 p-3 hover:bg-white/5 rounded-lg transition cursor-pointer">
+            <i class="fas fa-play-circle text-4xl text-green-500 flex-shrink-0"></i>
+            <div>
+              <p class="font-semibold text-lg">Full Match Replay: CIT League Semi-Final</p>
+              <p class="text-sm text-gray-400">CIT League | 1 week ago</p>
+            </div>
+          </div>
+
+          <button class="w-full mt-4 bg-gray-800 hover:bg-gray-700 transition py-3 rounded-xl text-md font-bold text-gray-300">Browse All Videos</button>
+
+        </div>
+      </section>
+
+      <section id="news">
+        <h2 class="text-3xl md:text-4xl font-bold mb-8 text-green-500 border-b-2 border-green-700 pb-2 flex items-center">
+          <i class="fas fa-rss mr-3"></i> Recent Headlines
+        </h2>
+        
+        <div class="glass-card p-6 md:p-8 space-y-4">
+          
+          <a href="#" class="block p-3 border-b border-gray-700/50 last:border-b-0 hover:bg-white/5 rounded-lg transition">
+            <p class="font-semibold hover:text-green-400 transition">Ronaldo sets new record in Saudi Pro League victory.</p>
+            <p class="text-sm text-gray-400 mt-1">News | 2 hours ago</p>
+          </a>
+          
+          <a href="#" class="block p-3 border-b border-gray-700/50 last:border-b-0 hover:bg-white/5 rounded-lg transition">
+            <p class="font-semibold hover:text-green-400 transition">Manager X responds to speculation over future at the club.</p>
+            <p class="text-sm text-gray-400 mt-1">Rumours | 5 hours ago</p>
+          </a>
+          
+          <a href="#" class="block p-3 border-b border-gray-700/50 last:border-b-0 hover:bg-white/5 rounded-lg transition">
+            <p class="font-semibold hover:text-green-400 transition">Tactical Breakdown: The 4-4-2 is making a comeback.</p>
+            <p class="text-sm text-gray-400 mt-1">Analysis | Yesterday</p>
+          </a>
+
+          <button class="w-full mt-4 bg-gray-800 hover:bg-gray-700 transition py-3 rounded-xl text-md font-bold text-gray-300">Read All Articles</button>
+        </div>
+      </section>
+
+    </div>
+
+    <section id="stats" class="mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold mb-8 text-green-500 border-b-2 border-green-700 pb-2 flex items-center">
+        <i class="fas fa-chart-line mr-3"></i> Player Leaderboards
+      </h2>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+        
+        <div class="glass-card p-6 md:p-8">
+          <h3 class="text-2xl font-bold text-green-400 mb-6 flex items-center">⚽ Top Scorers</h3>
+          <ul class="space-y-4">
+            <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
+              <div class="flex items-center">
+                <span class="text-xl font-extrabold text-green-400 mr-4 w-6">1.</span>
+                <span class="h-10 w-10 bg-red-600 rounded-full flex items-center justify-center font-bold text-sm">P9</span>
+                <div class="ml-3">
+                  <p class="font-semibold">Haaland</p>
+                  <p class="text-xs text-gray-400">Man. City</p>
+                </div>
+              </div>
+              <span class="font-extrabold text-2xl text-green-300">32</span>
+            </li>
+            <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
+              <div class="flex items-center">
+                <span class="text-xl font-extrabold text-gray-300 mr-4 w-6">2.</span>
+                <span class="h-10 w-10 bg-blue-600 rounded-full flex items-center justify-center font-bold text-sm">P7</span>
+                <div class="ml-3">
+                  <p class="font-semibold">Mbappé</p>
+                  <p class="text-xs text-gray-400">PSG</p>
+                </div>
+              </div>
+              <span class="font-extrabold text-2xl">28</span>
+            </li>
+            <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
+              <div class="flex items-center">
+                <span class="text-xl font-extrabold text-yellow-500 mr-4 w-6">3.</span>
+                <span class="h-10 w-10 bg-amber-600 rounded-full flex items-center justify-center font-bold text-sm">P10</span>
+                <div class="ml-3">
+                  <p class="font-semibold">Lewandowski</p>
+                  <p class="text-xs text-gray-400">Barcelona</p>
+                </div>
+              </div>
+              <span class="font-extrabold text-2xl">25</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="glass-card p-6 md:p-8">
+          <h3 class="text-2xl font-bold text-green-400 mb-6 flex items-center">🎯 Top Assists</h3>
+          <ul class="space-y-4">
+            <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
+              <div class="flex items-center">
+                <span class="text-xl font-extrabold text-green-400 mr-4 w-6">1.</span>
+                <span class="h-10 w-10 bg-yellow-600 rounded-full flex items-center justify-center font-bold text-sm">P17</span>
+                <div class="ml-3">
+                  <p class="font-semibold">De Bruyne</p>
+                  <p class="text-xs text-gray-400">Man. City</p>
+                </div>
+              </div>
+              <span class="font-extrabold text-2xl text-green-300">18</span>
+            </li>
+            <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
+              <div class="flex items-center">
+                <span class="text-xl font-extrabold text-gray-300 mr-4 w-6">2.</span>
+                <span class="h-10 w-10 bg-red-800 rounded-full flex items-center justify-center font-bold text-sm">P11</span>
+                <div class="ml-3">
+                  <p class="font-semibold">Salah</p>
+                  <p class="text-xs text-gray-400">Liverpool</p>
+                </div>
+              </div>
+              <span class="font-extrabold text-2xl">15</span>
+            </li>
+            <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
+              <div class="flex items-center">
+                <span class="text-xl font-extrabold text-yellow-500 mr-4 w-6">3.</span>
+                <span class="h-10 w-10 bg-lime-600 rounded-full flex items-center justify-center font-bold text-sm">P8</span>
+                <div class="ml-3">
+                  <p class="font-semibold">Kroos</p>
+                  <p class="text-xs text-gray-400">Real Madrid</p>
+                </div>
+              </div>
+              <span class="font-extrabold text-2xl">14</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="bg-gray-900 text-gray-400 py-12 border-t border-green-700/50">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+
+      <div class="flex flex-col md:flex-row items-center md:justify-between space-y-6 md:space-y-0">
+        <h3 class="text-2xl font-bold text-green-500">⚽ Football World</h3>
+        <div class="flex space-x-6 text-sm">
+          <a href="#" class="hover:text-green-400 transition">Privacy Policy</a>
+          <a href="#" class="hover:text-green-400 transition">Terms of Use</a>
+          <a href="#" class="hover:text-green-400 transition">Contact</a>
+        </div>
+      </div>
+
+      <div class="my-6 border-t border-gray-700"></div>
+
+      <div class="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
+        <p class="text-sm text-center md:text-left">&copy; 2025 <span class="text-green-400">Football World</span>. All Rights Reserved. <br class="sm:hidden"> Designed by <span class="text-green-500 font-semibold">Tech Nxxt</span>.</p>
+
+        <div class="flex space-x-5 text-xl">
+          <a href="#" class="hover:text-green-400 transition">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="#" class="hover:text-green-400 transition">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a href="#" class="hover:text-green-400 transition">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="#" class="hover:text-green-400 transition">
+            <i class="fab fa-youtube"></i>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // 1. Live Match Timer Logic
+      const liveMatchCard = document.querySelector("[data-match-id='match-1']");
+      if (liveMatchCard) {
+        const statusBtn = liveMatchCard.querySelector(".status");
+        const statusText = liveMatchCard.querySelector(".status-text");
+        const liveDot = liveMatchCard.querySelector(".live-dot");
+        const kickoffInfo = liveMatchCard.querySelector(".kickoff-info");
+        const liveTimer = liveMatchCard.querySelector(".live-timer");
+        const minuteText = liveMatchCard.querySelector(".minute-text");
+        
+        let timer, minute = 0, phase = "not-started"; // phases: not-started, first-half, half-time, second-half, full-time
+        const SIM_SPEED = 1000 * 2; // 2 seconds per simulated minute for a quick demo
+
+        function updateDisplay() {
+          if (phase === "first-half" || phase === "second-half") {
+            minuteText.textContent = `${minute}’`;
+          } else if (phase === "half-time") {
+            minuteText.textContent = "HT 45’";
+          } else if (phase === "full-time") {
+            minuteText.textContent = "FT 90’";
+          }
+        }
+
+        function startFirstHalf() {
+          phase = "first-half";
+          statusText.textContent = "LIVE";
+          liveDot.className = "live-dot breathing bg-red-500";
+          kickoffInfo.classList.add("hidden");
+          liveTimer.classList.remove("hidden");
+          timer = setInterval(() => {
+            minute++;
+            updateDisplay();
+            if (minute === 45) {
+              clearInterval(timer);
+              phase = "half-time";
+              statusText.textContent = "Half Time";
+              liveDot.className = "live-dot stopped bg-gray-500";
+              updateDisplay();
+              setTimeout(startSecondHalf, 5 * SIM_SPEED); // Auto start second half after a simulated 5 min break
+            }
+          }, SIM_SPEED);
+        }
+
+        function startSecondHalf() {
+          if (phase !== "half-time" && minute < 46) return;
+          
+          phase = "second-half";
+          minute = 45; // Reset minute to 45 just before second half starts to start at 46'
+
+          statusText.textContent = "LIVE";
+          liveDot.className = "live-dot breathing bg-red-500";
+          
+          // Use a new interval starting from 46'
+          timer = setInterval(() => {
+            minute++;
+            updateDisplay();
+            if (minute === 90) {
+              clearInterval(timer);
+              phase = "full-time";
+              statusText.textContent = "Full Time";
+              liveDot.className = "live-dot stopped bg-gray-500";
+              updateDisplay();
+            }
+          }, SIM_SPEED);
+        }
+
+        statusBtn.addEventListener("click", (e) => {
+          e.preventDefault();
+          if (phase === "not-started") {
+            startFirstHalf();
+          } else if (phase === "half-time") {
+            startSecondHalf(); // Manual continue from half-time
+          }
         });
-    </script>
-    <script src="tailwind.js"></script>
+      }
+
+
+      // 2. Scroll Animation Logic (Improved for all relevant elements)
+      const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1 // Trigger when 10% of element is visible
+      };
+      
+      const fadeObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            // Add staggered delay based on index for a nicer effect
+            const delay = entry.target.dataset.index * 100 || 0; 
+            setTimeout(() => {
+              entry.target.classList.add('opacity-100', 'translate-y-0');
+              entry.target.classList.remove('opacity-0', 'translate-y-10');
+            }, delay);
+            observer.unobserve(entry.target); // Stop observing once it's visible
+          }
+        });
+      }, observerOptions);
+
+      // Select all cards, list items, and main divs inside sections to animate
+      const animatableElements = document.querySelectorAll('.glass-card, [id^="stats"] ul li, #upcoming .flex:not(:first-child)');
+      
+      animatableElements.forEach((el, index) => {
+        el.classList.add('opacity-0', 'translate-y-10', 'transition-all', 'duration-700', 'ease-out');
+        el.dataset.index = index; // Store index for staggered delay
+        fadeObserver.observe(el);
+      });
+      
+    });
+  </script>
 </body>
 </html>
