@@ -212,7 +212,7 @@
     <p class="text-gray-500 text-sm">&copy; 2025 Football World. All data is for demonstration purposes only.</p>
   </footer>
 
-  <script>
+<script>
     document.addEventListener("DOMContentLoaded", () => {
       document.querySelectorAll(".status").forEach(statusBtn => {
         const card = statusBtn.closest("[data-match-id]");
@@ -225,10 +225,18 @@
         const kickoffInfo = card.querySelector(".kickoff-info");
         const liveTimer = card.querySelector(".live-timer");
         const minuteText = card.querySelector(".minute-text");
+        // NEW: Select the score element
+        const scoreDisplay = card.querySelector(".text-4xl.font-extrabold");
         
         let timer, minute = 0, phase = "not-started"; // phases: not-started, first-half, half-time, second-half, full-time
+        // NEW: Initialize scores
+        let scoreHome = 0;
+        let scoreAway = 0;
 
         function updateDisplay() {
+          // Update the score display
+          scoreDisplay.textContent = `${scoreHome} - ${scoreAway}`;
+
           if (phase === "first-half") {
             minuteText.textContent = `${minute}’`;
           } else if (phase === "half-time") {
@@ -241,9 +249,22 @@
           }
         }
         
+        // NEW: Function to simulate a goal chance
+        function checkGoal() {
+          // 2% chance of a goal every minute
+          if (Math.random() < 0.02) { 
+            // 50/50 chance for home or away team to score
+            if (Math.random() < 0.5) {
+              scoreHome++;
+            } else {
+              scoreAway++;
+            }
+          }
+        }
+
         // **Simulation Speed**
-        // 1000 * 3 means 3 seconds per simulated minute (Fast demo)
-        const SIM_SPEED = 1000 * 3; 
+        // 1000 * 4 means 4 seconds per simulated minute (Slightly slower demo)
+        const SIM_SPEED = 1000 * 4; 
 
         function startFirstHalf() {
           phase = "first-half";
@@ -253,6 +274,7 @@
           liveTimer.classList.remove("hidden");
           timer = setInterval(() => {
             minute++;
+            checkGoal(); // Check for goal on every minute tick
             updateDisplay();
             if (minute === 45) {
               clearInterval(timer);
@@ -278,6 +300,7 @@
           liveDot.className = "live-dot breathing";
           timer = setInterval(() => {
             minute++;
+            checkGoal(); // Check for goal on every minute tick
             updateDisplay();
             if (minute === 90) {
               clearInterval(timer);
@@ -299,6 +322,6 @@
         });
       });
     });
-  </script>
+</script>
 </body>
 </html>
