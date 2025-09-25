@@ -426,7 +426,9 @@
         const minuteText = liveMatchCard.querySelector(".minute-text");
         
         let timer, minute = 0, phase = "not-started"; // phases: not-started, first-half, half-time, second-half, full-time
-        const SIM_SPEED = 1000 * 2; // 2 seconds per simulated minute for a quick demo
+        
+        // ⚽ UPDATED SIMULATION SPEED: 4000ms (4 seconds) per simulated minute 
+        const SIM_SPEED = 1000 * 4; 
 
         function updateDisplay() {
           if (phase === "first-half" || phase === "second-half") {
@@ -453,7 +455,8 @@
               statusText.textContent = "Half Time";
               liveDot.className = "live-dot stopped bg-gray-500";
               updateDisplay();
-              setTimeout(startSecondHalf, 5 * SIM_SPEED); // Auto start second half after a simulated 5 min break
+              // Simulating a 5 real-minute half-time break (5 * 4 = 20 seconds)
+              setTimeout(startSecondHalf, 5 * SIM_SPEED); 
             }
           }, SIM_SPEED);
         }
@@ -462,12 +465,11 @@
           if (phase !== "half-time" && minute < 46) return;
           
           phase = "second-half";
-          minute = 45; // Reset minute to 45 just before second half starts to start at 46'
+          minute = 45; // Start counter at 45 to immediately show 46'
 
           statusText.textContent = "LIVE";
           liveDot.className = "live-dot breathing bg-red-500";
           
-          // Use a new interval starting from 46'
           timer = setInterval(() => {
             minute++;
             updateDisplay();
@@ -486,7 +488,8 @@
           if (phase === "not-started") {
             startFirstHalf();
           } else if (phase === "half-time") {
-            startSecondHalf(); // Manual continue from half-time
+            // Manual continue from half-time on click
+            startSecondHalf(); 
           }
         });
       }
@@ -496,29 +499,27 @@
       const observerOptions = {
         root: null,
         rootMargin: '0px',
-        threshold: 0.1 // Trigger when 10% of element is visible
+        threshold: 0.1 
       };
       
       const fadeObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            // Add staggered delay based on index for a nicer effect
             const delay = entry.target.dataset.index * 100 || 0; 
             setTimeout(() => {
               entry.target.classList.add('opacity-100', 'translate-y-0');
               entry.target.classList.remove('opacity-0', 'translate-y-10');
             }, delay);
-            observer.unobserve(entry.target); // Stop observing once it's visible
+            observer.unobserve(entry.target); 
           }
         });
       }, observerOptions);
 
-      // Select all cards, list items, and main divs inside sections to animate
       const animatableElements = document.querySelectorAll('.glass-card, [id^="stats"] ul li, #upcoming .flex:not(:first-child)');
       
       animatableElements.forEach((el, index) => {
         el.classList.add('opacity-0', 'translate-y-10', 'transition-all', 'duration-700', 'ease-out');
-        el.dataset.index = index; // Store index for staggered delay
+        el.dataset.index = index; 
         fadeObserver.observe(el);
       });
       
