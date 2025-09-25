@@ -1,223 +1,200 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pro Football Dashboard</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Football World Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkfAm3s0pzp1zjTKGVBCy4cfqqiJQ6vB92p+MvhqP0UETmUu1x3rT8KQw=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+    />
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
         body {
+            background-color: #0A0A0A;
             font-family: 'Inter', sans-serif;
-            background-color: #000;
             color: #fff;
-            padding: 0;
-            margin: 0;
         }
-        .modal {
-            display: none;
+        .glass-card {
+            background: rgba(100, 100, 100, 0.15);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .glass-card:hover {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 15px rgba(52, 211, 153, 0.3);
+            border-color: rgba(52, 211, 153, 0.6);
+        }
+        .live-dot {
+            width: 10px; height: 10px; border-radius: 50%;
+            margin-right: 6px; display: inline-block;
+        }
+        .breathing { background: #ef4444; animation: pulse-dot 1.2s infinite; }
+        .stopped { background: #9ca3af; }
+        @keyframes pulse-dot {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.4); opacity: 0.5; }
+        }
+        .live-glow {
+            animation: pulse-glow 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
+        }
+        @keyframes pulse-glow {
+            0%, 100% {
+                opacity: 1;
+                text-shadow: 0 0 5px rgba(52, 211, 153, 0.5), 0 0 10px rgba(52, 211, 153, 0.2);
+            }
+            50% {
+                opacity: 0.9;
+                text-shadow: 0 0 8px rgba(52, 211, 153, 0.7), 0 0 15px rgba(52, 211, 153, 0.4);
+            }
+        }
+        .particle-bg {
             position: fixed;
-            z-index: 100;
-            left: 0;
-            top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(5px);
-            justify-content: center;
-            align-items: center;
-            overflow: auto;
-        }
-        .modal-content {
-            background-color: #1a1a1a;
-            padding: 2.5rem;
-            border-radius: 1.5rem;
-            width: 90%;
-            max-w: 600px;
-            box-shadow: 0 10px 25px rgba(0, 255, 0, 0.2);
-            position: relative;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            background-image: radial-gradient(#1f2937 0.5px, transparent 0.5px);
+            background-size: 20px 20px;
+            opacity: 0.2;
         }
     </style>
 </head>
-<body class="bg-black text-white">
+<body class="text-white font-sans">
 
-    <!-- Main Dashboard Container -->
-    <div class="min-h-screen flex flex-col items-center p-4 sm:p-8">
-        
-        <!-- Header & Navigation -->
-        <header class="w-full max-w-7xl mb-8">
-            <div class="flex flex-col sm:flex-row justify-between items-center bg-[#0d0d0d] rounded-full p-4 shadow-lg shadow-black/50">
-                <h1 class="text-3xl sm:text-4xl font-extrabold text-[#00ff41] tracking-wide mb-4 sm:mb-0">
-                    Pro Football Hub
-                </h1>
-                <nav class="flex flex-wrap justify-center sm:justify-end gap-2 sm:gap-4 font-semibold">
-                    <a href="#" class="nav-link py-2 px-6 rounded-full transition-all duration-300 bg-[#171717] text-gray-300 hover:bg-[#00ff41] hover:text-black hover:scale-105" data-section="scores">Scores</a>
-                    <a href="#" class="nav-link py-2 px-6 rounded-full transition-all duration-300 bg-[#171717] text-gray-300 hover:bg-[#00ff41] hover:text-black hover:scale-105" data-section="stats">Stats</a>
-                    <a href="#" class="nav-link py-2 px-6 rounded-full transition-all duration-300 bg-[#171717] text-gray-300 hover:bg-[#00ff41] hover:text-black hover:scale-105" data-section="standings">Standings</a>
-                    <a href="#" class="nav-link py-2 px-6 rounded-full transition-all duration-300 bg-[#171717] text-gray-300 hover:bg-[#00ff41] hover:text-black hover:scale-105" data-section="highlights">Highlights</a>
-                </nav>
+    <!-- Sticky Navigation Bar -->
+    <nav class="sticky top-0 z-50 bg-black/90 backdrop-blur-lg shadow-2xl py-4">
+        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center px-4 md:px-6">
+            <div class="text-3xl font-bold text-green-500 tracking-wider mb-4 md:mb-0">
+                Football World
             </div>
-        </header>
+            <div class="flex flex-wrap justify-center space-x-4 sm:space-x-8 text-sm sm:text-base">
+                <a href="#live" class="group flex items-center space-x-1 text-gray-300 hover:text-green-500 transition-colors duration-300 relative py-1">
+                    <i class="fas fa-broadcast-tower"></i>
+                    <span>Live</span>
+                    <span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-green-500 group-hover:w-full transition-all duration-300"></span>
+                </a>
+                <a href="#upcoming" class="group flex items-center space-x-1 text-gray-300 hover:text-green-500 transition-colors duration-300 relative py-1">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Upcoming</span>
+                    <span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-green-500 group-hover:w-full transition-all duration-300"></span>
+                </a>
+                <a href="#standings" class="group flex items-center space-x-1 text-gray-300 hover:text-green-500 transition-colors duration-300 relative py-1">
+                    <i class="fas fa-trophy"></i>
+                    <span>Standings</span>
+                    <span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-green-500 group-hover:w-full transition-all duration-300"></span>
+                </a>
+                <a href="#stats" class="group flex items-center space-x-1 text-gray-300 hover:text-green-500 transition-colors duration-300 relative py-1">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Stats</span>
+                    <span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-green-500 group-hover:w-full transition-all duration-300"></span>
+                </a>
+                <a href="#highlights" class="group flex items-center space-x-1 text-gray-300 hover:text-green-500 transition-colors duration-300 relative py-1">
+                    <i class="fas fa-play-circle"></i>
+                    <span>Highlights</span>
+                    <span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-green-500 group-hover:w-full transition-all duration-300"></span>
+                </a>
+            </div>
+        </div>
+    </nav>
 
-        <!-- Main Content Sections -->
-        <main class="w-full max-w-7xl flex-grow">
-            
-            <!-- Scores Section -->
-            <section id="scores" class="p-6 bg-[#0a0a0a] rounded-3xl mb-8 shadow-xl">
-                <h2 class="text-2xl font-bold mb-6 text-[#00ff41]">Live Scores</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                    <!-- Score Card 1 -->
-                    <div class="bg-[#121212] rounded-2xl p-6 border border-gray-800 transition-transform transform hover:scale-[1.02]">
-                        <div class="flex justify-between items-center mb-4">
-                            <span class="text-xs text-gray-400">Premier League</span>
-                            <span class="text-xs text-green-500 font-bold">LIVE</span>
-                        </div>
-                        <div class="flex items-center justify-between text-lg font-semibold">
-                            <span class="flex items-center gap-2"><span class="w-6 h-6 rounded-full bg-gray-600"></span>Team A</span>
-                            <span class="text-3xl font-bold text-[#00ff41]">2 - 1</span>
-                            <span class="flex items-center gap-2"><span class="w-6 h-6 rounded-full bg-gray-600"></span>Team B</span>
+    <main class="relative container mx-auto p-4 md:p-8 lg:p-12 min-h-screen">
+        <div class="particle-bg"></div>
+
+        <h1 class="text-4xl md:text-6xl font-extrabold text-center mt-8 mb-16 text-transparent bg-clip-text bg-gradient-to-r from-green-300 to-teal-500">
+            The Ultimate Football Dashboard
+        </h1>
+
+        <!-- Live Match Section -->
+        <section id="live" class="mb-20">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 text-green-500 border-b-2 border-green-700 pb-2 flex items-center">
+                <i class="fas fa-broadcast-tower mr-3 text-red-500 live-glow"></i> LIVE Match
+            </h2>
+            <div class="glass-card p-6 md:p-8 relative flex flex-col justify-between" data-match-id="match-1">
+                <div class="absolute top-4 left-4 text-sm text-gray-400 font-semibold flex items-center">
+                    <i class="fas fa-trophy text-yellow-500 mr-2"></i> Premier League Final
+                </div>
+                <div class="status absolute top-4 right-4 text-xs bg-gray-800 px-3 py-1 rounded-full flex items-center cursor-pointer hover:bg-gray-700 transition">
+                    <span class="live-dot stopped"></span>
+                    <span class="status-text font-semibold">Not Started</span>
+                </div>
+                <div class="flex justify-between items-center mt-8 mb-6">
+                    <div class="text-center flex-1">
+                        <div class="h-16 w-16 md:h-20 md:w-20 flex items-center justify-center bg-green-700 rounded-full mx-auto font-extrabold text-2xl shadow-xl border-4 border-green-400">BRA</div>
+                        <p class="mt-2 text-lg md:text-xl font-medium">Brazil</p>
+                    </div>
+                    <div class="text-center mx-4 flex-shrink-0">
+                        <div class="text-5xl md:text-6xl font-extrabold text-green-300 live-score">0 - 0</div>
+                        <div class="match-time-container text-xs mt-1">
+                            <div class="kickoff-info text-gray-300 font-semibold">Click Status to Start!</div>
+                            <div class="live-timer hidden mt-1 font-bold text-xl md:text-2xl text-red-400 live-glow"><span class="minute-text"></span></div>
                         </div>
                     </div>
-                    <!-- Score Card 2 -->
-                    <div class="bg-[#121212] rounded-2xl p-6 border border-gray-800 transition-transform transform hover:scale-[1.02]">
-                        <div class="flex justify-between items-center mb-4">
-                            <span class="text-xs text-gray-400">Champions League</span>
-                            <span class="text-xs text-gray-500">Full Time</span>
+                    <div class="text-center flex-1">
+                        <div class="h-16 w-16 md:h-20 md:w-20 flex items-center justify-center bg-sky-700 rounded-full mx-auto font-extrabold text-2xl shadow-xl border-4 border-sky-400">ARG</div>
+                        <p class="mt-2 text-lg md:text-xl font-medium">Argentina</p>
+                    </div>
+                </div>
+                <button class="w-full mt-4 bg-green-600 hover:bg-green-500 transition py-3 rounded-xl text-lg font-bold shadow-md hover:shadow-green-500/50">View Match Center</button>
+            </div>
+        </section>
+
+        <!-- Upcoming Fixtures Section -->
+        <section id="upcoming" class="mb-20">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 text-green-500 border-b-2 border-green-700 pb-2 flex items-center">
+                <i class="fas fa-calendar-alt mr-3"></i> Upcoming Fixtures
+            </h2>
+            <div class="glass-card p-4 md:p-6 shadow-xl">
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between p-3 sm:p-4 border-b border-gray-700/50 last:border-b-0 hover:bg-white/5 rounded-lg transition">
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-light text-gray-400">Premier League | Saturday 15:00 GMT</p>
+                            <p class="text-xl font-semibold mt-1">Manchester United <span class="text-gray-500">vs</span> Liverpool</p>
                         </div>
-                        <div class="flex items-center justify-between text-lg font-semibold">
-                            <span class="flex items-center gap-2"><span class="w-6 h-6 rounded-full bg-gray-600"></span>Team C</span>
-                            <span class="text-3xl font-bold text-gray-400">0 - 0</span>
-                            <span class="flex items-center gap-2"><span class="w-6 h-6 rounded-full bg-gray-600"></span>Team D</span>
+                        <div class="flex space-x-2 text-sm ml-4 flex-shrink-0">
+                            <button class="px-3 py-1 bg-green-700 rounded-full text-xs hover:bg-green-600 transition">Reminder</button>
+                            <button class="px-3 py-1 bg-gray-700 rounded-full text-xs hover:bg-gray-600 transition">Details</button>
                         </div>
                     </div>
-                    <!-- Score Card 3 -->
-                    <div class="bg-[#121212] rounded-2xl p-6 border border-gray-800 transition-transform transform hover:scale-[1.02]">
-                        <div class="flex justify-between items-center mb-4">
-                            <span class="text-xs text-gray-400">La Liga</span>
-                            <span class="text-xs text-gray-500">Full Time</span>
+                    <div class="flex items-center justify-between p-3 sm:p-4 border-b border-gray-700/50 last:border-b-0 hover:bg-white/5 rounded-lg transition">
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-light text-gray-400">Champions League | Tuesday 20:00 GMT</p>
+                            <p class="text-xl font-semibold mt-1">Bayern Munich <span class="text-gray-500">vs</span> Real Madrid</p>
                         </div>
-                        <div class="flex items-center justify-between text-lg font-semibold">
-                            <span class="flex items-center gap-2"><span class="w-6 h-6 rounded-full bg-gray-600"></span>Team E</span>
-                            <span class="text-3xl font-bold text-gray-400">3 - 1</span>
-                            <span class="flex items-center gap-2"><span class="w-6 h-6 rounded-full bg-gray-600"></span>Team F</span>
+                        <div class="flex space-x-2 text-sm ml-4 flex-shrink-0">
+                            <button class="px-3 py-1 bg-green-700 rounded-full text-xs hover:bg-green-600 transition">Reminder</button>
+                            <button class="px-3 py-1 bg-gray-700 rounded-full text-xs hover:bg-gray-600 transition">Details</button>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between p-3 sm:p-4 last:border-b-0 hover:bg-white/5 rounded-lg transition">
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-light text-gray-400">Laliga | Sunday 17:30 GMT</p>
+                            <p class="text-xl font-semibold mt-1">Barcelona <span class="text-gray-500">vs</span> Atletico Madrid</p>
+                        </div>
+                        <div class="flex space-x-2 text-sm ml-4 flex-shrink-0">
+                            <button class="px-3 py-1 bg-green-700 rounded-full text-xs hover:bg-green-600 transition">Reminder</button>
+                            <button class="px-3 py-1 bg-gray-700 rounded-full text-xs hover:bg-gray-600 transition">Details</button>
                         </div>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <!-- Upcoming Matches -->
-                <h2 class="text-2xl font-bold mb-6 text-[#00ff41]">Upcoming Matches</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- Upcoming Match Card 1 -->
-                    <div class="bg-[#121212] rounded-2xl p-6 border border-gray-800 transition-transform transform hover:scale-[1.02]">
-                        <div class="flex justify-between items-center mb-4">
-                            <span class="text-xs text-gray-400">FA Cup</span>
-                            <span class="text-xs text-blue-400 font-bold">Today, 8:00 PM</span>
-                        </div>
-                        <div class="flex items-center justify-between text-lg font-semibold">
-                            <span class="flex items-center gap-2"><span class="w-6 h-6 rounded-full bg-gray-600"></span>Team G</span>
-                            <span class="text-2xl font-bold text-gray-400">vs</span>
-                            <span class="flex items-center gap-2"><span class="w-6 h-6 rounded-full bg-gray-600"></span>Team H</span>
-                        </div>
-                    </div>
-                    <!-- Upcoming Match Card 2 -->
-                    <div class="bg-[#121212] rounded-2xl p-6 border border-gray-800 transition-transform transform hover:scale-[1.02]">
-                        <div class="flex justify-between items-center mb-4">
-                            <span class="text-xs text-gray-400">Serie A</span>
-                            <span class="text-xs text-blue-400 font-bold">Tomorrow, 3:00 PM</span>
-                        </div>
-                        <div class="flex items-center justify-between text-lg font-semibold">
-                            <span class="flex items-center gap-2"><span class="w-6 h-6 rounded-full bg-gray-600"></span>Team I</span>
-                            <span class="text-2xl font-bold text-gray-400">vs</span>
-                            <span class="flex items-center gap-2"><span class="w-6 h-6 rounded-full bg-gray-600"></span>Team J</span>
-                        </div>
-                    </div>
-                    <!-- Upcoming Match Card 3 -->
-                    <div class="bg-[#121212] rounded-2xl p-6 border border-gray-800 transition-transform transform hover:scale-[1.02]">
-                        <div class="flex justify-between items-center mb-4">
-                            <span class="text-xs text-gray-400">Bundesliga</span>
-                            <span class="text-xs text-blue-400 font-bold">Sunday, 5:30 PM</span>
-                        </div>
-                        <div class="flex items-center justify-between text-lg font-semibold">
-                            <span class="flex items-center gap-2"><span class="w-6 h-6 rounded-full bg-gray-600"></span>Team K</span>
-                            <span class="text-2xl font-bold text-gray-400">vs</span>
-                            <span class="flex items-center gap-2"><span class="w-6 h-6 rounded-full bg-gray-600"></span>Team L</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Stats Section (Updated) -->
-            <section id="stats" class="p-6 bg-[#0a0a0a] rounded-3xl mb-8 hidden shadow-xl">
-                <h2 class="text-2xl font-bold mb-6 text-[#00ff41]">Player & Team Stats</h2>
-                
-                <!-- Top 3 Goal Scorers -->
-                <div class="mb-8">
-                    <h3 class="text-xl font-semibold mb-4 text-gray-300">Top 3 Goal Scorers</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div class="bg-[#121212] p-4 rounded-xl flex items-center gap-4 border border-gray-800 transition-transform transform hover:scale-105">
-                            <div class="w-10 h-10 rounded-full bg-gray-600 flex items-center justify-center font-bold text-lg text-black bg-[#00ff41]">1</div>
-                            <div class="flex-grow">
-                                <p class="text-xl font-bold">Player A</p>
-                                <p class="text-sm text-gray-400">Team X</p>
-                            </div>
-                            <p class="text-2xl font-extrabold">25</p>
-                        </div>
-                        <div class="bg-[#121212] p-4 rounded-xl flex items-center gap-4 border border-gray-800 transition-transform transform hover:scale-105">
-                            <div class="w-10 h-10 rounded-full bg-gray-600 flex items-center justify-center font-bold text-lg text-black bg-gray-500">2</div>
-                            <div class="flex-grow">
-                                <p class="text-xl font-bold">Player B</p>
-                                <p class="text-sm text-gray-400">Team Y</p>
-                            </div>
-                            <p class="text-2xl font-extrabold">22</p>
-                        </div>
-                        <div class="bg-[#121212] p-4 rounded-xl flex items-center gap-4 border border-gray-800 transition-transform transform hover:scale-105">
-                            <div class="w-10 h-10 rounded-full bg-gray-600 flex items-center justify-center font-bold text-lg text-black bg-gray-700">3</div>
-                            <div class="flex-grow">
-                                <p class="text-xl font-bold">Player C</p>
-                                <p class="text-sm text-gray-400">Team Z</p>
-                            </div>
-                            <p class="text-2xl font-extrabold">19</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Top 3 Assists -->
-                <div>
-                    <h3 class="text-xl font-semibold mb-4 text-gray-300">Top 3 Assists</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div class="bg-[#121212] p-4 rounded-xl flex items-center gap-4 border border-gray-800 transition-transform transform hover:scale-105">
-                            <div class="w-10 h-10 rounded-full bg-gray-600 flex items-center justify-center font-bold text-lg text-black bg-[#00ff41]">1</div>
-                            <div class="flex-grow">
-                                <p class="text-xl font-bold">Player D</p>
-                                <p class="text-sm text-gray-400">Team Z</p>
-                            </div>
-                            <p class="text-2xl font-extrabold">18</p>
-                        </div>
-                        <div class="bg-[#121212] p-4 rounded-xl flex items-center gap-4 border border-gray-800 transition-transform transform hover:scale-105">
-                            <div class="w-10 h-10 rounded-full bg-gray-600 flex items-center justify-center font-bold text-lg text-black bg-gray-500">2</div>
-                            <div class="flex-grow">
-                                <p class="text-xl font-bold">Player E</p>
-                                <p class="text-sm text-gray-400">Team X</p>
-                            </div>
-                            <p class="text-2xl font-extrabold">15</p>
-                        </div>
-                        <div class="bg-[#121212] p-4 rounded-xl flex items-center gap-4 border border-gray-800 transition-transform transform hover:scale-105">
-                            <div class="w-10 h-10 rounded-full bg-gray-600 flex items-center justify-center font-bold text-lg text-black bg-gray-700">3</div>
-                            <div class="flex-grow">
-                                <p class="text-xl font-bold">Player F</p>
-                                <p class="text-sm text-gray-400">Team Y</p>
-                            </div>
-                            <p class="text-2xl font-extrabold">12</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Team Standings Section -->
-            <section id="standings" class="p-6 bg-[#0a0a0a] rounded-3xl mb-8 hidden shadow-xl">
-                <h2 class="text-2xl font-bold mb-6 text-[#00ff41]">League Standings</h2>
+        <!-- Standings Section (Updated with a Table) -->
+        <section id="standings" class="mb-20">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 text-green-500 border-b-2 border-green-700 pb-2 flex items-center">
+                <i class="fas fa-trophy mr-3"></i> League Standings
+            </h2>
+            <div class="glass-card p-4 md:p-6 shadow-xl">
                 <div class="overflow-x-auto rounded-xl">
                     <table class="min-w-full bg-[#121212] rounded-xl border-collapse">
                         <thead>
@@ -262,121 +239,259 @@
                         </tbody>
                     </table>
                 </div>
-            </section>
-
-            <!-- Highlights Section (Updated) -->
-            <section id="highlights" class="p-6 bg-[#0a0a0a] rounded-3xl mb-8 hidden shadow-xl">
-                <h2 class="text-2xl font-bold mb-6 text-[#00ff41]">Match Highlights</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div class="relative bg-gray-900 rounded-xl overflow-hidden aspect-video transition-transform transform hover:scale-105">
-                        <img src="https://placehold.co/800x450/1a1a1a/fff?text=Match+Highlights" alt="Match Highlights" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
-                            <button class="bg-[#00ff41] text-black font-bold py-3 px-8 rounded-full shadow-lg hover:bg-white transition-colors">Watch Now</button>
-                        </div>
-                    </div>
-                    <div class="relative bg-gray-900 rounded-xl overflow-hidden aspect-video transition-transform transform hover:scale-105">
-                        <img src="https://placehold.co/800x450/1a1a1a/fff?text=Goal+of+the+Week" alt="Goal of the Week" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
-                            <button class="bg-[#00ff41] text-black font-bold py-3 px-8 rounded-full shadow-lg hover:bg-white transition-colors">Watch Now</button>
-                        </div>
-                    </div>
-                    <div class="relative bg-gray-900 rounded-xl overflow-hidden aspect-video transition-transform transform hover:scale-105">
-                        <img src="https://placehold.co/800x450/1a1a1a/fff?text=Top+Saves" alt="Top Saves" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
-                            <button class="bg-[#00ff41] text-black font-bold py-3 px-8 rounded-full shadow-lg hover:bg-white transition-colors">Watch Now</button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- "Pro Content" Section with Modal Trigger -->
-            <section class="text-center my-12 p-8 bg-[#0a0a0a] rounded-3xl shadow-xl">
-                <h2 class="text-2xl font-bold mb-4 text-[#00ff41]">Unlock Pro Insights</h2>
-                <p class="text-gray-400 mb-6 max-w-2xl mx-auto">
-                    Dive deeper into advanced analytics, exclusive interviews, and in-depth tactical breakdowns.
-                </p>
-                <button id="open-modal-btn" class="bg-[#00ff41] text-black font-bold py-3 px-10 rounded-full shadow-lg transition-transform transform hover:scale-110">
-                    Discover More
-                </button>
-            </section>
-        </main>
-    </div>
-
-    <!-- Modal for Pro Content -->
-    <div id="pro-modal" class="modal">
-        <div class="modal-content">
-            <button id="close-modal-btn" class="absolute top-4 right-4 text-gray-500 hover:text-[#00ff41] text-4xl leading-none">&times;</button>
-            <h3 class="text-3xl font-bold mb-4 text-[#00ff41]">Exclusive Access Granted!</h3>
-            <p class="text-gray-300 leading-relaxed mb-6">
-                This modal represents a professional-grade feature, such as premium data access, behind a user-friendly interface. You can populate this section with real-time stats, interactive charts, or detailed player profiles. The design is intended to be clean and focused, providing a clear user experience. 
-            </p>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div class="bg-[#171717] p-4 rounded-xl border border-gray-800">
-                    <p class="text-sm text-gray-400">Player Heat Map</p>
-                    <p class="text-lg font-semibold text-white">Visual Analytics</p>
-                </div>
-                <div class="bg-[#171717] p-4 rounded-xl border border-gray-800">
-                    <p class="text-sm text-gray-400">Team xG Data</p>
-                    <p class="text-lg font-semibold text-white">Advanced Metrics</p>
-                </div>
             </div>
+        </section>
+
+        <!-- Stats and Highlights sections -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-20">
+            <!-- Player Stats Section -->
+            <section id="stats">
+                <h2 class="text-3xl md:text-4xl font-bold mb-8 text-green-500 border-b-2 border-green-700 pb-2 flex items-center">
+                    <i class="fas fa-chart-line mr-3"></i> Player Leaderboards
+                </h2>
+                <div class="glass-card p-6 md:p-8 space-y-8">
+                    <div>
+                        <h3 class="text-2xl font-bold text-green-400 mb-6 flex items-center">⚽ Top Scorers</h3>
+                        <ul class="space-y-4">
+                            <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
+                                <div class="flex items-center">
+                                    <span class="text-xl font-extrabold text-green-400 mr-4 w-6">1.</span>
+                                    <span class="h-10 w-10 bg-red-600 rounded-full flex items-center justify-center font-bold text-sm">P9</span>
+                                    <div class="ml-3">
+                                        <p class="font-semibold">Haaland</p>
+                                        <p class="text-xs text-gray-400">Man. City</p>
+                                    </div>
+                                </div>
+                                <span class="font-extrabold text-2xl text-green-300">32</span>
+                            </li>
+                            <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
+                                <div class="flex items-center">
+                                    <span class="text-xl font-extrabold text-gray-300 mr-4 w-6">2.</span>
+                                    <span class="h-10 w-10 bg-blue-600 rounded-full flex items-center justify-center font-bold text-sm">P7</span>
+                                    <div class="ml-3">
+                                        <p class="font-semibold">Mbappé</p>
+                                        <p class="text-xs text-gray-400">PSG</p>
+                                    </div>
+                                </div>
+                                <span class="font-extrabold text-2xl">28</span>
+                            </li>
+                            <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
+                                <div class="flex items-center">
+                                    <span class="text-xl font-extrabold text-yellow-500 mr-4 w-6">3.</span>
+                                    <span class="h-10 w-10 bg-amber-600 rounded-full flex items-center justify-center font-bold text-sm">P10</span>
+                                    <div class="ml-3">
+                                        <p class="font-semibold">Lewandowski</p>
+                                        <p class="text-xs text-gray-400">Barcelona</p>
+                                    </div>
+                                </div>
+                                <span class="font-extrabold text-2xl">25</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-green-400 mb-6 flex items-center">🎯 Top Assists</h3>
+                        <ul class="space-y-4">
+                            <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
+                                <div class="flex items-center">
+                                    <span class="text-xl font-extrabold text-green-400 mr-4 w-6">1.</span>
+                                    <span class="h-10 w-10 bg-yellow-600 rounded-full flex items-center justify-center font-bold text-sm">P17</span>
+                                    <div class="ml-3">
+                                        <p class="font-semibold">De Bruyne</p>
+                                        <p class="text-xs text-gray-400">Man. City</p>
+                                    </div>
+                                </div>
+                                <span class="font-extrabold text-2xl text-green-300">18</span>
+                            </li>
+                            <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
+                                <div class="flex items-center">
+                                    <span class="text-xl font-extrabold text-gray-300 mr-4 w-6">2.</span>
+                                    <span class="h-10 w-10 bg-red-800 rounded-full flex items-center justify-center font-bold text-sm">P11</span>
+                                    <div class="ml-3">
+                                        <p class="font-semibold">Salah</p>
+                                        <p class="text-xs text-gray-400">Liverpool</p>
+                                    </div>
+                                </div>
+                                <span class="font-extrabold text-2xl">15</span>
+                            </li>
+                            <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
+                                <div class="flex items-center">
+                                    <span class="text-xl font-extrabold text-yellow-500 mr-4 w-6">3.</span>
+                                    <span class="h-10 w-10 bg-lime-600 rounded-full flex items-center justify-center font-bold text-sm">P8</span>
+                                    <div class="ml-3">
+                                        <p class="font-semibold">Kroos</p>
+                                        <p class="text-xs text-gray-400">Real Madrid</p>
+                                    </div>
+                                </div>
+                                <span class="font-extrabold text-2xl">14</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Highlights and News Section -->
+            <section id="highlights">
+                <h2 class="text-3xl md:text-4xl font-bold mb-8 text-green-500 border-b-2 border-green-700 pb-2 flex items-center">
+                    <i class="fas fa-video mr-3"></i> Latest Highlights
+                </h2>
+                <div class="glass-card p-6 md:p-8 space-y-4">
+                    <div class="flex items-center space-x-4 p-3 hover:bg-white/5 rounded-lg transition cursor-pointer">
+                        <i class="fas fa-play-circle text-4xl text-green-500 flex-shrink-0"></i>
+                        <div>
+                            <p class="font-semibold text-lg">Goal of the Week: Brazilian Bicycle Kick</p>
+                            <p class="text-sm text-gray-400">Copa America | 1 day ago</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4 p-3 hover:bg-white/5 rounded-lg transition cursor-pointer">
+                        <i class="fas fa-play-circle text-4xl text-green-500 flex-shrink-0"></i>
+                        <div>
+                            <p class="font-semibold text-lg">Defensive Masterclass: A Goalkeeper's Best Saves</p>
+                            <p class="text-sm text-gray-400">Premier League | 3 days ago</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4 p-3 hover:bg-white/5 rounded-lg transition cursor-pointer">
+                        <i class="fas fa-play-circle text-4xl text-green-500 flex-shrink-0"></i>
+                        <div>
+                            <p class="font-semibold text-lg">Full Match Replay: CIT League Semi-Final</p>
+                            <p class="text-sm text-gray-400">CIT League | 1 week ago</p>
+                        </div>
+                    </div>
+                    <button class="w-full mt-4 bg-gray-800 hover:bg-gray-700 transition py-3 rounded-xl text-md font-bold text-gray-300">Browse All Videos</button>
+                </div>
+            </section>
         </div>
-    </div>
+    </main>
 
     <!-- Footer -->
-    <footer class="w-full bg-[#0a0a0a] text-gray-500 text-center py-6 mt-8">
-        <div class="max-w-7xl mx-auto px-4">
-            <p>&copy; 2024 Pro Football Hub. All rights reserved.</p>
-            <p class="text-sm mt-2">Data provided by Sports API. Not for commercial use.</p>
+    <footer class="bg-gray-900 text-gray-400 py-12 border-t border-green-700/50">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center md:justify-between space-y-6 md:space-y-0">
+                <h3 class="text-2xl font-bold text-green-500">⚽ Football World</h3>
+                <div class="flex space-x-6 text-sm">
+                    <a href="#" class="hover:text-green-400 transition">Privacy Policy</a>
+                    <a href="#" class="hover:text-green-400 transition">Terms of Use</a>
+                    <a href="#" class="hover:text-green-400 transition">Contact</a>
+                </div>
+            </div>
+            <div class="my-6 border-t border-gray-700"></div>
+            <div class="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
+                <p class="text-sm text-center md:text-left">&copy; 2025 <span class="text-green-400">Football World</span>. All Rights Reserved. <br class="sm:hidden"> Designed with <span class="text-green-500 font-semibold">Passion</span>.</p>
+                <div class="flex space-x-5 text-xl">
+                    <a href="#" class="hover:text-green-400 transition"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="hover:text-green-400 transition"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="hover:text-green-400 transition"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="hover:text-green-400 transition"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
         </div>
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const sections = document.querySelectorAll('main section');
-            const navLinks = document.querySelectorAll('.nav-link');
-            const modal = document.getElementById('pro-modal');
-            const openModalBtn = document.getElementById('open-modal-btn');
-            const closeModalBtn = document.getElementById('close-modal-btn');
+        document.addEventListener("DOMContentLoaded", () => {
+            // Live Match Timer Logic
+            const liveMatchCard = document.querySelector("[data-match-id='match-1']");
+            if (liveMatchCard) {
+                const statusBtn = liveMatchCard.querySelector(".status");
+                const statusText = liveMatchCard.querySelector(".status-text");
+                const liveDot = liveMatchCard.querySelector(".live-dot");
+                const kickoffInfo = liveMatchCard.querySelector(".kickoff-info");
+                const liveTimer = liveMatchCard.querySelector(".live-timer");
+                const minuteText = liveMatchCard.querySelector(".minute-text");
+                
+                let timer, minute = 0, phase = "not-started";
+                const SIM_SPEED = 1000 * 2; // 2 seconds per simulated minute for a quick demo
 
-            // Function to show a specific section
-            function showSection(sectionId) {
-                sections.forEach(section => {
-                    section.classList.add('hidden');
+                function updateDisplay() {
+                    if (phase === "first-half" || phase === "second-half") {
+                        minuteText.textContent = `${minute}’`;
+                    } else if (phase === "half-time") {
+                        minuteText.textContent = "HT 45’";
+                    } else if (phase === "full-time") {
+                        minuteText.textContent = "FT 90’";
+                    }
+                }
+
+                function startFirstHalf() {
+                    phase = "first-half";
+                    statusText.textContent = "LIVE";
+                    liveDot.className = "live-dot breathing bg-red-500";
+                    kickoffInfo.classList.add("hidden");
+                    liveTimer.classList.remove("hidden");
+                    timer = setInterval(() => {
+                        minute++;
+                        updateDisplay();
+                        if (minute === 45) {
+                            clearInterval(timer);
+                            phase = "half-time";
+                            statusText.textContent = "Half Time";
+                            liveDot.className = "live-dot stopped bg-gray-500";
+                            updateDisplay();
+                            setTimeout(startSecondHalf, 5 * SIM_SPEED);
+                        }
+                    }, SIM_SPEED);
+                }
+
+                function startSecondHalf() {
+                    if (phase !== "half-time" && minute < 46) return;
+                    
+                    phase = "second-half";
+                    minute = 45;
+
+                    statusText.textContent = "LIVE";
+                    liveDot.className = "live-dot breathing bg-red-500";
+                    
+                    timer = setInterval(() => {
+                        minute++;
+                        updateDisplay();
+                        if (minute === 90) {
+                            clearInterval(timer);
+                            phase = "full-time";
+                            statusText.textContent = "Full Time";
+                            liveDot.className = "live-dot stopped bg-gray-500";
+                            updateDisplay();
+                        }
+                    }, SIM_SPEED);
+                }
+
+                statusBtn.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    if (phase === "not-started") {
+                        startFirstHalf();
+                    } else if (phase === "half-time") {
+                        startSecondHalf();
+                    }
                 });
-                document.getElementById(sectionId).classList.remove('hidden');
             }
 
-            // Initially show the scores section
-            showSection('scores');
-
-            // Add click listeners to navigation links
-            navLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const sectionId = e.target.dataset.section;
-                    showSection(sectionId);
+            // Scroll Animation Logic
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+            
+            const fadeObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const delay = entry.target.dataset.index * 100 || 0;
+                        setTimeout(() => {
+                            entry.target.classList.add('opacity-100', 'translate-y-0');
+                            entry.target.classList.remove('opacity-0', 'translate-y-10');
+                        }, delay);
+                        observer.unobserve(entry.target);
+                    }
                 });
-            });
+            }, observerOptions);
 
-            // Open modal
-            openModalBtn.addEventListener('click', () => {
-                modal.style.display = 'flex';
+            const animatableElements = document.querySelectorAll('.glass-card, [id^="stats"] ul li, #upcoming .flex:not(:first-child)');
+            
+            animatableElements.forEach((el, index) => {
+                el.classList.add('opacity-0', 'translate-y-10', 'transition-all', 'duration-700', 'ease-out');
+                el.dataset.index = index;
+                fadeObserver.observe(el);
             });
-
-            // Close modal
-            closeModalBtn.addEventListener('click', () => {
-                modal.style.display = 'none';
-            });
-
-            // Close modal when clicking outside of it
-            window.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    modal.style.display = 'none';
-                }
-            });
+            
         });
     </script>
-
 </body>
 </html>
