@@ -3,512 +3,440 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dashboard - Football World</title>
+  <title>Football World Dashboard</title>
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <link
-    rel="stylesheet"
+  <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-  />
+    crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    
+  <script src="https://js.pusher.com/8.4.0/pusher.min.js"></script>
+
   <style>
+    /* Add a custom font for a more modern feel */
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
     body {
-      background-color: #0A0A0A;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      min-height: 100vh;
       font-family: 'Inter', sans-serif;
     }
     .glass-card {
-      background: rgba(100, 100, 100, 0.15);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255,255,255,0.08); 
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255,255,255,0.2); 
       border-radius: 1rem;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transition: all 0.3s ease;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.1); 
     }
     .glass-card:hover {
-      transform: translateY(-5px) scale(1.01);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 15px rgba(52, 211, 153, 0.3);
-      border-color: rgba(52, 211, 153, 0.6);
+      transform: translateY(-5px);
+      border-color: rgba(52, 211, 163, 0.8); 
+      box-shadow: 0 15px 30px rgba(0,0,0,0.5); 
     }
     .live-dot {
       width: 10px; height: 10px; border-radius: 50%;
       margin-right: 6px; display: inline-block;
     }
-    .breathing { background: #ef4444; animation: pulse-dot 1.2s infinite; }
+    .breathing { background: #f87171; animation: pulse 1.2s infinite; } 
     .stopped { background: #9ca3af; }
-    @keyframes pulse-dot {
+    @keyframes pulse {
       0%, 100% { transform: scale(1); opacity: 1; }
       50% { transform: scale(1.4); opacity: 0.5; }
     }
-    .live-glow {
-      animation: pulse-glow 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
-    }
-    @keyframes pulse-glow {
-      0%, 100% {
-        opacity: 1;
-        text-shadow: 0 0 5px rgba(52, 211, 153, 0.5), 0 0 10px rgba(52, 211, 153, 0.2);
-      }
-      50% {
-        opacity: 0.9;
-        text-shadow: 0 0 8px rgba(52, 211, 153, 0.7), 0 0 15px rgba(52, 211, 153, 0.4);
-      }
-    }
-    .particle-bg {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      z-index: -1;
-      background-image: radial-gradient(#1f2937 0.5px, transparent 0.5px);
-      background-size: 20px 20px;
-      opacity: 0.2;
-    }
   </style>
 </head>
-<body class="text-white font-sans">
+<body class="text-white">
 
-  <nav class="sticky top-0 z-50 bg-black/90 backdrop-blur-lg shadow-2xl py-4">
+  <nav class="sticky top-0 z-50 bg-black/70 backdrop-blur-lg py-4 shadow-2xl">
     <div class="container mx-auto flex flex-col md:flex-row justify-between items-center px-4 md:px-6">
-
-      <div class="text-3xl font-bold text-green-500 tracking-wider mb-4 md:mb-0">
-        Football World
+      <div class="text-3xl font-extrabold text-green-400 mb-3 md:mb-0">Football World</div>
+      <div class="flex flex-wrap justify-center space-x-4 sm:space-x-8 text-sm sm:text-base">
+        <a href="#" class="hover:text-green-400 transition py-1"><i class="fas fa-futbol"></i> Live Scores</a>
+        <a href="#" class="hover:text-green-400 transition py-1"><i class="fas fa-play-circle"></i> Highlights</a>
+        <a href="#" class="hover:text-green-400 transition py-1"><i class="fas fa-chart-line"></i> Stats</a>
+        <a href="#" class="hover:text-green-400 transition py-1"><i class="fas fa-newspaper"></i> News</a>
       </div>
-
-    <div class="flex flex-wrap justify-center space-x-4 sm:space-x-8 text-sm sm:text-base">
-  <a href="scores.html" class="group flex items-center space-x-1 text-gray-300 hover:text-green-500 transition-colors duration-300 relative py-1">
-    <i class="fas fa-futbol"></i>
-    <span>Live Scores</span>
-    <span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-green-500 group-hover:w-full transition-all duration-300"></span>
-  </a>
-
-  <a href="upcoming-matches.html" class="group flex items-center space-x-1 text-gray-300 hover:text-green-500 transition-colors duration-300 relative py-1">
-    <i class="fas fa-calendar-alt"></i>
-    <span>Upcoming</span>
-    <span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-green-500 group-hover:w-full transition-all duration-300"></span>
-  </a>
-
-  <a href="highlights.html" class="group flex items-center space-x-1 text-gray-300 hover:text-green-500 transition-colors duration-300 relative py-1">
-    <i class="fas fa-play-circle"></i>
-    <span>Highlights</span>
-    <span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-green-500 group-hover:w-full transition-all duration-300"></span>
-  </a>
-
-  <a href="stats.html" class="group flex items-center space-x-1 text-gray-300 hover:text-green-500 transition-colors duration-300 relative py-1">
-    <i class="fas fa-chart-line"></i>
-    <span>Stats</span>
-    <span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-green-500 group-hover:w-full transition-all duration-300"></span>
-  </a>
-</div>
     </div>
   </nav>
 
-  <main class="relative container mx-auto p-4 md:p-8 lg:p-12 min-h-screen">
-    <div class="particle-bg"></div>
-
-    <h1 class="text-4xl md:text-6xl font-extrabold text-center mt-8 mb-16 text-transparent bg-clip-text bg-gradient-to-r from-green-300 to-teal-500">
-      The Ultimate Football Dashboard
+  <main class="container mx-auto px-4 sm:px-6 py-10">
+    <h1 class="text-4xl sm:text-5xl font-extrabold text-center mb-12 bg-gradient-to-r from-green-300 to-teal-500 bg-clip-text text-transparent">
+      Your Football Dashboard
     </h1>
 
-    <section id="live" class="mb-20">
-      <h2 class="text-3xl md:text-4xl font-bold mb-8 text-green-500 border-b-2 border-green-700 pb-2 flex items-center">
-        <i class="fas fa-broadcast-tower mr-3 text-red-500 live-glow"></i> LIVE Match
-      </h2>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      
+      <div class="lg:col-span-2 space-y-12">
+        
+        <section>
+          <h2 class="text-3xl font-bold text-green-400 mb-6 flex items-center border-b border-green-500/50 pb-2">
+            <i class="fas fa-broadcast-tower mr-3"></i> Live Scores & Upcoming
+          </h2>
+          <div class="grid sm:grid-cols-2 gap-6">
 
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-
-        <div class="lg:col-span-2 glass-card p-6 md:p-8 relative flex flex-col justify-between" data-match-id="match-1">
-          <div class="absolute top-4 left-4 text-sm text-gray-400 font-semibold flex items-center">
-            <i class="fas fa-trophy text-yellow-500 mr-2"></i> Copa America Final
-          </div>
-          <div class="status absolute top-4 right-4 text-xs bg-gray-800 px-3 py-1 rounded-full flex items-center">
-            <span class="live-dot stopped"></span>
-            <span class="status-text font-semibold">Not Started</span>
-          </div>
-
-          <div class="flex justify-between items-center mt-8 mb-6">
-            <div class="text-center flex-1">
-              <div class="h-16 w-16 md:h-20 md:w-20 flex items-center justify-center bg-green-700 rounded-full mx-auto font-extrabold text-2xl shadow-xl border-4 border-green-400">BRA</div>
-              <p class="mt-2 text-lg md:text-xl font-medium">Brazil</p>
+            <div class="glass-card p-6 relative flex flex-col justify-between" data-match-id="match-1">
+              <div class="absolute top-3 left-3 text-xs text-gray-400 flex items-center">
+                <i class="fas fa-trophy text-yellow-400 mr-2"></i> Copa America Final
+              </div>
+              <span class="status absolute top-3 right-3 text-xs bg-gray-700 px-3 py-1 rounded-full flex items-center cursor-pointer hover:bg-gray-600 transition">
+                <span class="live-dot stopped"></span>
+                <span class="status-text font-semibold">Not Started</span>
+              </span>
+              <div class="flex justify-between items-center mt-8 mb-4">
+                <div class="text-center flex-1">
+                  <div class="h-16 w-16 flex items-center justify-center bg-green-700/80 rounded-full mx-auto font-extrabold text-xl shadow-lg border-2 border-green-400">BRA</div>
+                  <p class="mt-2 text-lg font-medium">Brazil</p>
+                </div>
+                <div class="text-center mx-4">
+                  <div class="text-4xl font-extrabold text-green-300">0 - 0</div>
+                  <div class="match-time-container text-xs mt-1">
+                    <div class="kickoff-info text-gray-300 font-semibold">Today 20:00</div>
+                    <div class="live-timer hidden mt-1 font-bold text-xl text-yellow-400"><span class="minute-text"></span></div>
+                  </div>
+                </div>
+                <div class="text-center flex-1">
+                  <div class="h-16 w-16 flex items-center justify-center bg-sky-700/80 rounded-full mx-auto font-extrabold text-xl shadow-lg border-2 border-sky-400">ARG</div>
+                  <p class="mt-2 text-lg font-medium">Argentina</p>
+                </div>
+              </div>
+              <button class="w-full mt-4 bg-green-600 hover:bg-green-500 transition py-2 rounded-lg text-sm font-bold shadow-md">Match Details</button>
             </div>
             
-            <div class="text-center mx-4 flex-shrink-0">
-              <div class="text-5xl md:text-6xl font-extrabold text-green-300 live-score">0 - 0</div>
-              <div class="match-time-container text-xs mt-1">
-                <div class="kickoff-info text-gray-300 font-semibold">Today 20:00</div>
-                <div class="live-timer hidden mt-1 font-bold text-xl md:text-2xl text-red-400 live-glow"><span class="minute-text"></span></div>
+            <div class="glass-card p-6 relative flex flex-col justify-between">
+              <div class="absolute top-3 left-3 text-xs text-gray-400 flex items-center">
+                <i class="fas fa-chess-king text-gray-300 mr-2"></i> Premier League
+              </div>
+              <span class="status absolute top-3 right-3 text-xs bg-gray-700 px-3 py-1 rounded-full flex items-center">
+                <span class="live-dot stopped"></span>
+                <span class="status-text font-semibold">Tomorrow</span>
+              </span>
+              <div class="flex justify-between items-center mt-8 mb-4">
+                <div class="text-center flex-1">
+                  <div class="h-16 w-16 flex items-center justify-center bg-red-700/80 rounded-full mx-auto font-extrabold text-xl shadow-lg border-2 border-red-400">LIV</div>
+                  <p class="mt-2 text-lg font-medium">Liverpool</p>
+                </div>
+                <div class="text-center mx-4">
+                  <div class="text-4xl font-extrabold text-gray-400">VS</div>
+                  <div class="text-xs mt-1 text-gray-300 font-semibold">14:30 GMT</div>
+                </div>
+                <div class="text-center flex-1">
+                  <div class="h-16 w-16 flex items-center justify-center bg-blue-700/80 rounded-full mx-auto font-extrabold text-xl shadow-lg border-2 border-blue-400">MUN</div>
+                  <p class="mt-2 text-lg font-medium">Man. Utd</p>
+                </div>
+              </div>
+              <button class="w-full mt-4 bg-gray-600 hover:bg-gray-500 transition py-2 rounded-lg text-sm font-bold shadow-md">Pre-Match Analysis</button>
+            </div>
+            
+          </div>
+        </section>
+        
+        <section>
+          <h2 class="text-3xl font-bold text-green-400 mb-6 flex items-center border-b border-green-500/50 pb-2">
+            <i class="fas fa-newspaper mr-3"></i> Recent News
+          </h2>
+          <div class="space-y-4">
+            <div class="glass-card p-4 flex items-center cursor-pointer">
+              <i class="fas fa-comment-dots text-green-400 text-2xl mr-4 hidden sm:block"></i>
+              <div>
+                <p class="font-semibold text-lg hover:text-green-300 transition">Mbappe transfer saga concludes: joins Real Madrid on free.</p>
+                <p class="text-sm text-gray-400 mt-1">Transfer Rumours | 3 hours ago</p>
               </div>
             </div>
-            
-            <div class="text-center flex-1">
-              <div class="h-16 w-16 md:h-20 md:w-20 flex items-center justify-center bg-sky-700 rounded-full mx-auto font-extrabold text-2xl shadow-xl border-4 border-sky-400">ARG</div>
-              <p class="mt-2 text-lg md:text-xl font-medium">Argentina</p>
+            <div class="glass-card p-4 flex items-center cursor-pointer">
+              <i class="fas fa-user-shield text-green-400 text-2xl mr-4 hidden sm:block"></i>
+              <div>
+                <p class="font-semibold text-lg hover:text-green-300 transition">Controversial VAR decision mars title-deciding fixture.</p>
+                <p class="text-sm text-gray-400 mt-1">Match Review | Yesterday</p>
+              </div>
+            </div>
+             <div class="glass-card p-4 flex items-center cursor-pointer">
+              <i class="fas fa-first-aid text-green-400 text-2xl mr-4 hidden sm:block"></i>
+              <div>
+                <p class="font-semibold text-lg hover:text-green-300 transition">Key midfielder ruled out for six weeks with hamstring injury.</p>
+                <p class="text-sm text-gray-400 mt-1">Injury Report | 5 hours ago</p>
+              </div>
             </div>
           </div>
-          <button class="w-full mt-4 bg-green-600 hover:bg-green-500 transition py-3 rounded-xl text-lg font-bold shadow-md hover:shadow-green-500/50">View Match Center</button>
-        </div>
-        
-        <div class="glass-card p-6 relative flex flex-col justify-between hidden lg:flex">
-          <div class="absolute top-4 left-4 text-sm text-gray-400 font-semibold flex items-center">
-            <i class="fas fa-futbol text-green-500 mr-2"></i> CIT LEAGUE
-          </div>
-          <div class="absolute top-4 right-4 text-xs bg-gray-800 px-3 py-1 rounded-full text-gray-400 font-semibold">Finished</div>
-          <div class="flex justify-between items-center mt-8 mb-6">
-            <div class="text-center flex-1">
-              <div class="h-16 w-16 flex items-center justify-center bg-gray-600 rounded-full mx-auto font-extrabold text-xl">FC A</div>
-              <p class="mt-2 text-lg font-medium">Team Alpha</p>
-            </div>
-            <div class="text-center mx-4">
-              <div class="text-5xl font-extrabold text-white">2 - 1</div>
-              <div class="text-sm mt-1 text-gray-400 font-semibold">FT</div>
-            </div>
-            <div class="text-center flex-1">
-              <div class="h-16 w-16 flex items-center justify-center bg-gray-600 rounded-full mx-auto font-extrabold text-xl">FC B</div>
-              <p class="mt-2 text-lg font-medium">Team Beta</p>
-            </div>
-          </div>
-          <button class="w-full mt-4 bg-gray-700 hover:bg-gray-600 transition py-3 rounded-xl text-lg font-bold shadow-md">Watch Highlights</button>
-        </div>
+        </section>
         
       </div>
-    </section>
-    
-    <section id="upcoming" class="mb-20">
-      <h2 class="text-3xl md:text-4xl font-bold mb-8 text-green-500 border-b-2 border-green-700 pb-2 flex items-center">
-        <i class="fas fa-calendar-alt mr-3"></i> Upcoming Fixtures
-      </h2>
-
-      <div class="glass-card p-4 md:p-6 shadow-xl">
-        <div class="space-y-4">
-          
-          <div class="flex items-center justify-between p-3 sm:p-4 border-b border-gray-700/50 last:border-b-0 hover:bg-white/5 rounded-lg transition">
-            <div class="flex-1 min-w-0">
-              <p class="text-sm font-light text-gray-400">Premier League | Saturday 15:00 GMT</p>
-              <p class="text-xl font-semibold mt-1">Manchester United <span class="text-gray-500">vs</span> Liverpool</p>
-            </div>
-            <div class="flex space-x-2 text-sm ml-4 flex-shrink-0">
-              <button class="px-3 py-1 bg-green-700 rounded-full text-xs hover:bg-green-600 transition">Reminder</button>
-              <button class="px-3 py-1 bg-gray-700 rounded-full text-xs hover:bg-gray-600 transition">Details</button>
-            </div>
-          </div>
-
-          <div class="flex items-center justify-between p-3 sm:p-4 border-b border-gray-700/50 last:border-b-0 hover:bg-white/5 rounded-lg transition">
-            <div class="flex-1 min-w-0">
-              <p class="text-sm font-light text-gray-400">Champions League | Tuesday 20:00 GMT</p>
-              <p class="text-xl font-semibold mt-1">Bayern Munich <span class="text-gray-500">vs</span> Real Madrid</p>
-            </div>
-            <div class="flex space-x-2 text-sm ml-4 flex-shrink-0">
-              <button class="px-3 py-1 bg-green-700 rounded-full text-xs hover:bg-green-600 transition">Reminder</button>
-              <button class="px-3 py-1 bg-gray-700 rounded-full text-xs hover:bg-gray-600 transition">Details</button>
-            </div>
-          </div>
-
-          <div class="flex items-center justify-between p-3 sm:p-4 last:border-b-0 hover:bg-white/5 rounded-lg transition">
-            <div class="flex-1 min-w-0">
-              <p class="text-sm font-light text-gray-400">Laliga | Sunday 17:30 GMT</p>
-              <p class="text-xl font-semibold mt-1">Barcelona <span class="text-gray-500">vs</span> Atletico Madrid</p>
-            </div>
-            <div class="flex space-x-2 text-sm ml-4 flex-shrink-0">
-              <button class="px-3 py-1 bg-green-700 rounded-full text-xs hover:bg-green-600 transition">Reminder</button>
-              <button class="px-3 py-1 bg-gray-700 rounded-full text-xs hover:bg-gray-600 transition">Details</button>
-            </div>
-          </div>
-          
-        </div>
-      </div>
-    </section>
-
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-20">
-
-      <section id="highlights">
-        <h2 class="text-3xl md:text-4xl font-bold mb-8 text-green-500 border-b-2 border-green-700 pb-2 flex items-center">
-          <i class="fas fa-video mr-3"></i> Latest Highlights
-        </h2>
-
-        <div class="glass-card p-6 md:p-8 space-y-4">
-          
-          <div class="flex items-center space-x-4 p-3 hover:bg-white/5 rounded-lg transition cursor-pointer">
-            <i class="fas fa-play-circle text-4xl text-green-500 flex-shrink-0"></i>
-            <div>
-              <p class="font-semibold text-lg">Goal of the Week: Brazilian Bicycle Kick</p>
-              <p class="text-sm text-gray-400">Copa America | 1 day ago</p>
-            </div>
-          </div>
-          
-          <div class="flex items-center space-x-4 p-3 hover:bg-white/5 rounded-lg transition cursor-pointer">
-            <i class="fas fa-play-circle text-4xl text-green-500 flex-shrink-0"></i>
-            <div>
-              <p class="font-semibold text-lg">Defensive Masterclass: A Goalkeeper's Best Saves</p>
-              <p class="text-sm text-gray-400">Premier League | 3 days ago</p>
-            </div>
-          </div>
-          
-          <div class="flex items-center space-x-4 p-3 hover:bg-white/5 rounded-lg transition cursor-pointer">
-            <i class="fas fa-play-circle text-4xl text-green-500 flex-shrink-0"></i>
-            <div>
-              <p class="font-semibold text-lg">Full Match Replay: CIT League Semi-Final</p>
-              <p class="text-sm text-gray-400">CIT League | 1 week ago</p>
-            </div>
-          </div>
-
-          <button class="w-full mt-4 bg-gray-800 hover:bg-gray-700 transition py-3 rounded-xl text-md font-bold text-gray-300">Browse All Videos</button>
-
-        </div>
-      </section>
-
-      <section id="news">
-        <h2 class="text-3xl md:text-4xl font-bold mb-8 text-green-500 border-b-2 border-green-700 pb-2 flex items-center">
-          <i class="fas fa-rss mr-3"></i> Recent Headlines
+      
+      <div class="lg:col-span-1 space-y-12">
+        
+        <section>
+          <h2 class="text-3xl font-bold text-green-400 mb-6 flex items-center border-b border-green-500/50 pb-2">
+            <i class="fas fa-star mr-3"></i> Top Players (Goals)
           </h2>
-        
-        <div class="glass-card p-6 md:p-8 space-y-4">
-          
-          <a href="#" class="block p-3 border-b border-gray-700/50 last:border-b-0 hover:bg-white/5 rounded-lg transition">
-            <p class="font-semibold hover:text-green-400 transition">Ronaldo sets new record in Saudi Pro League victory.</p>
-            <p class="text-sm text-gray-400 mt-1">News | 2 hours ago</p>
-          </a>
-          
-          <a href="#" class="block p-3 border-b border-gray-700/50 last:border-b-0 hover:bg-white/5 rounded-lg transition">
-            <p class="font-semibold hover:text-green-400 transition">Manager X responds to speculation over future at the club.</p>
-            <p class="text-sm text-gray-400 mt-1">Rumours | 5 hours ago</p>
-          </a>
-          
-          <a href="#" class="block p-3 border-b border-gray-700/50 last:border-b-0 hover:bg-white/5 rounded-lg transition">
-            <p class="font-semibold hover:text-green-400 transition">Tactical Breakdown: The 4-4-2 is making a comeback.</p>
-            <p class="text-sm text-gray-400 mt-1">Analysis | Yesterday</p>
-          </a>
-
-          <button class="w-full mt-4 bg-gray-800 hover:bg-gray-700 transition py-3 rounded-xl text-md font-bold text-gray-300">Read All Articles</button>
-        </div>
-      </section>
-
-    </div>
-
-    <section id="stats" class="mb-16">
-      <h2 class="text-3xl md:text-4xl font-bold mb-8 text-green-500 border-b-2 border-green-700 pb-2 flex items-center">
-        <i class="fas fa-chart-line mr-3"></i> Player Leaderboards
-      </h2>
-
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
-        
-        <div class="glass-card p-6 md:p-8">
-          <h3 class="text-2xl font-bold text-green-400 mb-6 flex items-center">⚽ Top Scorers</h3>
-          <ul class="space-y-4">
-            <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
+          <div class="space-y-3">
+            <div class="glass-card p-4 flex items-center justify-between hover:bg-white/10 cursor-pointer">
               <div class="flex items-center">
-                <span class="text-xl font-extrabold text-green-400 mr-4 w-6">1.</span>
-                <span class="h-10 w-10 bg-red-600 rounded-full flex items-center justify-center font-bold text-sm">P9</span>
+                <span class="text-xl font-bold text-green-400 mr-3">1.</span>
+                <div class="h-10 w-10 bg-gray-700 rounded-full flex items-center justify-center font-bold text-sm">P10</div>
                 <div class="ml-3">
-                  <p class="font-semibold">Haaland</p>
+                  <p class="font-semibold">E. Haaland</p>
                   <p class="text-xs text-gray-400">Man. City</p>
                 </div>
               </div>
-              <span class="font-extrabold text-2xl text-green-300">32</span>
-            </li>
-            <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
+              <span class="font-extrabold text-xl">32</span>
+            </div>
+            <div class="glass-card p-4 flex items-center justify-between hover:bg-white/10 cursor-pointer">
               <div class="flex items-center">
-                <span class="text-xl font-extrabold text-gray-300 mr-4 w-6">2.</span>
-                <span class="h-10 w-10 bg-blue-600 rounded-full flex items-center justify-center font-bold text-sm">P7</span>
+                <span class="text-xl font-bold text-gray-300 mr-3">2.</span>
+                <div class="h-10 w-10 bg-gray-700 rounded-full flex items-center justify-center font-bold text-sm">P7</div>
                 <div class="ml-3">
-                  <p class="font-semibold">Mbappé</p>
+                  <p class="font-semibold">K. Mbappé</p>
                   <p class="text-xs text-gray-400">PSG</p>
                 </div>
               </div>
-              <span class="font-extrabold text-2xl">28</span>
-            </li>
-            <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
+              <span class="font-extrabold text-xl">28</span>
+            </div>
+            <div class="glass-card p-4 flex items-center justify-between hover:bg-white/10 cursor-pointer">
               <div class="flex items-center">
-                <span class="text-xl font-extrabold text-yellow-500 mr-4 w-6">3.</span>
-                <span class="h-10 w-10 bg-amber-600 rounded-full flex items-center justify-center font-bold text-sm">P10</span>
+                <span class="text-xl font-bold text-yellow-500 mr-3">3.</span>
+                <div class="h-10 w-10 bg-gray-700 rounded-full flex items-center justify-center font-bold text-sm">P9</div>
                 <div class="ml-3">
-                  <p class="font-semibold">Lewandowski</p>
+                  <p class="font-semibold">R. Lewandowski</p>
                   <p class="text-xs text-gray-400">Barcelona</p>
                 </div>
               </div>
-              <span class="font-extrabold text-2xl">25</span>
-            </li>
-          </ul>
-        </div>
-
-        <div class="glass-card p-6 md:p-8">
-          <h3 class="text-2xl font-bold text-green-400 mb-6 flex items-center">🎯 Top Assists</h3>
-          <ul class="space-y-4">
-            <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
-              <div class="flex items-center">
-                <span class="text-xl font-extrabold text-green-400 mr-4 w-6">1.</span>
-                <span class="h-10 w-10 bg-yellow-600 rounded-full flex items-center justify-center font-bold text-sm">P17</span>
-                <div class="ml-3">
-                  <p class="font-semibold">De Bruyne</p>
-                  <p class="text-xs text-gray-400">Man. City</p>
-                </div>
-              </div>
-              <span class="font-extrabold text-2xl text-green-300">18</span>
-            </li>
-            <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
-              <div class="flex items-center">
-                <span class="text-xl font-extrabold text-gray-300 mr-4 w-6">2.</span>
-                <span class="h-10 w-10 bg-red-800 rounded-full flex items-center justify-center font-bold text-sm">P11</span>
-                <div class="ml-3">
-                  <p class="font-semibold">Salah</p>
-                  <p class="text-xs text-gray-400">Liverpool</p>
-                </div>
-              </div>
-              <span class="font-extrabold text-2xl">15</span>
-            </li>
-            <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
-              <div class="flex items-center">
-                <span class="text-xl font-extrabold text-yellow-500 mr-4 w-6">3.</span>
-                <span class="h-10 w-10 bg-lime-600 rounded-full flex items-center justify-center font-bold text-sm">P8</span>
-                <div class="ml-3">
-                  <p class="font-semibold">Kroos</p>
-                  <p class="text-xs text-gray-400">Real Madrid</p>
-                </div>
-              </div>
-              <span class="font-extrabold text-2xl">14</span>
-            </li>
-          </ul>
-        </div>
+              <span class="font-extrabold text-xl">25</span>
+            </div>
+          </div>
+        </section>
+        
       </div>
-    </section>
+    </div>
 
   </main>
 
-  <footer class="bg-gray-900 text-gray-400 py-12 border-t border-green-700/50">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
-
-      <div class="flex flex-col md:flex-row items-center md:justify-between space-y-6 md:space-y-0">
-        <h3 class="text-2xl font-bold text-green-500">⚽ Football World</h3>
-        <div class="flex space-x-6 text-sm">
-          <a href="#" class="hover:text-green-400 transition">Privacy Policy</a>
-          <a href="#" class="hover:text-green-400 transition">Terms of Use</a>
-          <a href="#" class="hover:text-green-400 transition">Contact</a>
-        </div>
-      </div>
-
-      <div class="my-6 border-t border-gray-700"></div>
-
-      <div class="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
-        <p class="text-sm text-center md:text-left">&copy; 2025 <span class="text-green-400">Football World</span>. All Rights Reserved. <br class="sm:hidden"> Designed by <span class="text-green-500 font-semibold">Tech Nxxt</span>.</p>
-
-        <div class="flex space-x-5 text-xl">
-          <a href="#" class="hover:text-green-400 transition">
-            <i class="fab fa-facebook-f"></i>
-          </a>
-          <a href="#" class="hover:text-green-400 transition">
-            <i class="fab fa-twitter"></i>
-          </a>
-          <a href="#" class="hover:text-green-400 transition">
-            <i class="fab fa-instagram"></i>
-          </a>
-          <a href="#" class="hover:text-green-400 transition">
-            <i class="fab fa-youtube"></i>
-          </a>
-        </div>
-      </div>
-
-    </div>
+  <footer class="bg-gray-900/80 backdrop-blur-sm py-6 text-center mt-10">
+    <p class="text-gray-500 text-sm">&copy; 2025 Football World. All data is for demonstration purposes only.</p>
   </footer>
 
-  <script>
+<script>
+    // Pusher Configuration based on your provided keys
+    const PUSHER_APP_KEY = 'cb985e78c239cf22c9f0';
+    const PUSHER_CLUSTER = 'eu';
+    const CHANNEL_NAME = 'football-world-match-1'; 
+    const EVENT_NAME = 'state-update';
+    
+    // This is the endpoint for your *Serverless Function*
+    // IMPORTANT: Make sure this function is deployed!
+    const SYNC_ENDPOINT = '/api/sync-match'; 
+
+    // Initialize Pusher Client
+    const pusher = new Pusher(PUSHER_APP_KEY, {
+        cluster: PUSHER_CLUSTER
+    });
+    const channel = pusher.subscribe(CHANNEL_NAME);
+    
+    const SIM_SPEED = 1000 * 4; // 4 seconds per minute
+
     document.addEventListener("DOMContentLoaded", () => {
-      // =================================================================
-      // ⚽ MANUAL CONTROL SECTION (EDIT THIS) 
-      // =================================================================
-      // To update the live match, change the values below and redeploy.
-      const MANUAL_STATE = {
-        // Possible phases: 'not-started', 'live', 'half-time', 'full-time', 'postponed', 'tomorrow'
-        phase: 'not-started', 
-        minute: 0, 
-        scoreHome: 0,
-        scoreAway: 0,
-        kickoffTime: 'Today 20:00' // Change this for 'not-started' phase
-      };
-      // =================================================================
-      // 🛑 DO NOT EDIT BELOW THIS LINE 🛑 
-      // =================================================================
 
+        const matchId = "match-1";
+        const card = document.querySelector(`[data-match-id="${matchId}"]`);
+        if (!card) return;
 
-      // 1. Live Match Card Element Selection
-      const liveMatchCard = document.querySelector("[data-match-id='match-1']");
-      if (!liveMatchCard) return;
+        const statusBtn = card.querySelector(".status");
+        const statusText = statusBtn.querySelector(".status-text");
+        const liveDot = card.querySelector(".live-dot");
+        const kickoffInfo = card.querySelector(".kickoff-info");
+        const liveTimer = card.querySelector(".live-timer");
+        const minuteText = card.querySelector(".minute-text");
+        const scoreDisplay = card.querySelector(".text-4xl.font-extrabold");
 
-      const statusBtn = liveMatchCard.querySelector(".status");
-      const statusText = liveMatchCard.querySelector(".status-text");
-      const liveDot = liveMatchCard.querySelector(".live-dot");
-      const kickoffInfo = liveMatchCard.querySelector(".kickoff-info");
-      const liveTimer = liveMatchCard.querySelector(".live-timer");
-      const minuteText = liveMatchCard.querySelector(".minute-text");
-      const scoreDisplay = liveMatchCard.querySelector(".live-score");
-      
-      // 2. Display Update Function
-      function updateDisplay() {
-        // Update Score
-        scoreDisplay.textContent = `${MANUAL_STATE.scoreHome} - ${MANUAL_STATE.scoreAway}`;
+        let timer;
+        let minute = 0;
+        let phase = "not-started";
+        let scoreHome = 0;
+        let scoreAway = 0;
         
-        // Update Status, Dot, and Timer visibility
-        const phase = MANUAL_STATE.phase.toLowerCase();
+        // =================================================================
+        // 1. LOCAL STATE MANAGEMENT
+        // =================================================================
 
-        if (phase === "live") {
-          statusText.textContent = "LIVE";
-          minuteText.textContent = `${MANUAL_STATE.minute}’`;
-          liveDot.className = "live-dot breathing bg-red-500";
-          kickoffInfo.classList.add("hidden");
-          liveTimer.classList.remove("hidden");
-        } else if (phase === "half-time") {
-          statusText.textContent = "Half Time";
-          minuteText.textContent = "HT 45’";
-          liveDot.className = "live-dot stopped bg-gray-500";
-          kickoffInfo.classList.add("hidden");
-          liveTimer.classList.remove("hidden");
-        } else if (phase === "full-time") {
-          statusText.textContent = "Full Time";
-          minuteText.textContent = "FT 90’";
-          liveDot.className = "live-dot stopped bg-gray-500";
-          kickoffInfo.classList.add("hidden");
-          liveTimer.classList.remove("hidden");
-        } else {
-          // Covers 'not-started', 'upcoming', 'tomorrow', 'postponed', etc.
-          statusText.textContent = MANUAL_STATE.phase.charAt(0).toUpperCase() + MANUAL_STATE.phase.slice(1).replace('-', ' ');
-          kickoffInfo.textContent = MANUAL_STATE.kickoffTime;
-          liveDot.className = "live-dot stopped bg-gray-500";
-          kickoffInfo.classList.remove("hidden");
-          liveTimer.classList.add("hidden");
+        function updateDisplay() {
+          scoreDisplay.textContent = `${scoreHome} - ${scoreAway}`;
+          
+          // CRITICAL FIX: The button is ONLY disabled during first-half and second-half
+          // It must be enabled for not-started, half-time, and full-time to allow for action.
+          statusBtn.style.cursor = (phase === "first-half" || phase === "second-half") ? 'default' : 'pointer';
+          statusBtn.style.pointerEvents = (phase === "first-half" || phase === "second-half") ? 'none' : 'auto';
+
+
+          if (phase === "first-half" || phase === "second-half") {
+            minuteText.textContent = `${minute}’`;
+            statusText.textContent = "LIVE";
+            liveDot.className = "live-dot breathing";
+            kickoffInfo.classList.add("hidden");
+            liveTimer.classList.remove("hidden");
+          } else if (phase === "half-time") {
+            minuteText.textContent = "HT 45’";
+            statusText.textContent = "Start 2nd Half"; // Text change to prompt action
+            liveDot.className = "live-dot stopped";
+          } else if (phase === "full-time") {
+            minuteText.textContent = "FT 90’";
+            statusText.textContent = "Start New Match"; // Text change for reset/new match
+            liveDot.className = "live-dot stopped";
+            kickoffInfo.classList.remove("hidden"); 
+            liveTimer.classList.add("hidden"); 
+          } else if (phase === "not-started") {
+             minuteText.textContent = "Kickoff";
+             statusText.textContent = "Start Match"; // Text change to prompt action
+             liveDot.className = "live-dot stopped";
+             kickoffInfo.classList.remove("hidden");
+             liveTimer.classList.add("hidden");
+          }
         }
         
-        // Remove the click handler since all updates are manual
-        statusBtn.style.cursor = 'default';
-        statusBtn.style.pointerEvents = 'none';
-      }
-
-      // Initial Call to render the state set in MANUAL_STATE
-      updateDisplay(); 
-
-      // 3. Scroll Animation Logic (Kept for nice visuals)
-      const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
-      const fadeObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const delay = entry.target.dataset.index * 100 || 0;
-            setTimeout(() => {
-              entry.target.classList.add('opacity-100', 'translate-y-0');
-              entry.target.classList.remove('opacity-0', 'translate-y-10');
-            }, delay);
-            observer.unobserve(entry.target);
+        function checkGoalAndBroadcast() {
+          if (!timer) return; 
+          
+          if (Math.random() < 0.02) { 
+            if (Math.random() < 0.5) {
+              scoreHome++;
+            } else {
+              scoreAway++;
+            }
+            // Sync goals globally
+            sendStateToServer(phase, minute, scoreHome, scoreAway);
           }
-        });
-      }, observerOptions);
+        }
 
-      const animatableElements = document.querySelectorAll('.glass-card, [id^="stats"] ul li, #upcoming .flex:not(:first-child)');
-      
-      animatableElements.forEach((el, index) => {
-        el.classList.add('opacity-0', 'translate-y-10', 'transition-all', 'duration-700', 'ease-out');
-        el.dataset.index = index;
-        fadeObserver.observe(el);
-      });
-      
+        // =================================================================
+        // 2. SYNCHRONIZATION LOGIC (Pusher Client)
+        // =================================================================
+        
+        /** Sends the current state to the backend to be broadcast. */
+        function sendStateToServer(newPhase, currentMinute, homeScore, awayScore) {
+             const state = {
+                matchId: matchId, 
+                phase: newPhase,
+                minute: currentMinute,
+                scoreHome: homeScore,
+                scoreAway: awayScore,
+                timestamp: Date.now()
+             };
+             
+             fetch(SYNC_ENDPOINT, {
+                 method: 'POST',
+                 headers: { 'Content-Type': 'application/json' },
+                 body: JSON.stringify(state)
+             })
+             .catch(error => console.error("Pusher Sync Error: Ensure your backend function is deployed at /api/sync-match.", error));
+        }
+
+        /** Applies a state received from Pusher and manages the local timer. */
+        function applyPusherState(data) {
+            // Check for and ignore redundant updates
+            if (data.minute === minute && data.phase === phase && data.scoreHome === scoreHome && data.awayScore === scoreAway) {
+                return; 
+            }
+
+            phase = data.phase;
+            minute = data.minute;
+            scoreHome = data.scoreHome;
+            scoreAway = data.awayScore; // Must use the server's key 'awayScore'
+            
+            if (timer) clearInterval(timer);
+            
+            updateDisplay();
+
+            if (phase === "first-half" || phase === "second-half") {
+                 
+                 // Catch up the local minute based on the time passed since the server broadcast
+                 const timeDiff = Date.now() - data.timestamp;
+                 const minutesAhead = Math.floor(timeDiff / SIM_SPEED);
+                 minute = Math.max(data.minute, data.minute + minutesAhead);
+
+                 // Start the local timer tick
+                 startLocalTimerTick();
+            } else if (phase === "half-time") {
+                // Schedule the second-half auto-start after the break period
+                const timeElapsedSinceBreak = Date.now() - data.timestamp;
+                const timeToWait = (5 * SIM_SPEED) - timeElapsedSinceBreak;
+                setTimeout(startSecondHalfPusher, Math.max(0, timeToWait));
+            }
+        }
+        
+        /** Starts the local timer and handles minute-by-minute progression. */
+        function startLocalTimerTick() {
+            if (timer) clearInterval(timer);
+            
+            timer = setInterval(() => {
+                minute++;
+                
+                checkGoalAndBroadcast(); 
+
+                // Phase transition logic (triggers server sync)
+                if (minute === 45) {
+                    clearInterval(timer);
+                    phase = "half-time";
+                    sendStateToServer(phase, minute, scoreHome, scoreAway);
+                    setTimeout(startSecondHalfPusher, 5 * SIM_SPEED);
+                    
+                } else if (minute === 90) {
+                    clearInterval(timer);
+                    phase = "full-time";
+                    sendStateToServer(phase, minute, scoreHome, scoreAway);
+                }
+                
+                updateDisplay();
+
+                // Send a periodic status update (e.g., every 10 minutes)
+                if (minute % 10 === 0 && (phase === "first-half" || phase === "second-half")) {
+                    sendStateToServer(phase, minute, scoreHome, scoreAway);
+                }
+
+            }, SIM_SPEED); 
+        }
+
+        // Helper function for half-time continue action
+        function startSecondHalfPusher() {
+             if (minute < 46) minute = 45; 
+             phase = "second-half";
+             minute++; // Second half starts at 46
+             sendStateToServer(phase, minute, scoreHome, scoreAway);
+        }
+
+        // =================================================================
+        // 3. EVENT LISTENERS AND INITIALIZATION
+        // =================================================================
+
+        // 🚨 LISTEN FOR PUSHER UPDATES (Global Synchronization)
+        channel.bind(EVENT_NAME, (data) => {
+            applyPusherState(data);
+        });
+        
+        // 🖱️ HANDLE BUTTON CLICK (Manual Start/Half-Time Continue)
+        statusBtn.addEventListener("click", () => {
+            // NOTE: The statusBtn.style.pointerEvents check handles the 'disabled' state
+            
+            if (phase === "not-started" || phase === "full-time") {
+                // This starts a new match
+                sendStateToServer("first-half", 1, 0, 0);
+                
+            } else if (phase === "half-time") {
+                // This starts the second half
+                startSecondHalfPusher();
+            }
+        });
+        
+        // Fetch the initial state when the page loads (Persistence for new visitors)
+        fetch(`${SYNC_ENDPOINT}?matchId=${matchId}`)
+            .then(res => res.json())
+            .then(data => {
+                if (data && data.phase) {
+                    applyPusherState(data);
+                } else {
+                    updateDisplay(); // Default to not-started view
+                }
+            })
+            .catch(error => {
+                console.error("Failed to fetch initial state. Defaulting to 'Not Started'.", error);
+                updateDisplay();
+            });
     });
-  </script>
+</script>
 </body>
-</html>
+</html> update the enitre page 
