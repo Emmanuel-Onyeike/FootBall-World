@@ -91,7 +91,7 @@
                   <div class="match-time-container text-xs mt-1">
                     <div class="kickoff-info text-gray-300 font-semibold">Today 20:00</div>
                     <div class="live-timer hidden mt-1 font-bold text-xl text-yellow-400"><span class="minute-text"></span></div>
-                  </div>
+                </div>
                 </div>
                 <div class="text-center flex-1">
                   <div class="h-16 w-16 flex items-center justify-center bg-sky-700/80 rounded-full mx-auto font-extrabold text-xl shadow-lg border-2 border-sky-400">ARG</div>
@@ -228,10 +228,6 @@
         
         let timer, minute = 0, phase = "not-started"; // phases: not-started, first-half, half-time, second-half, full-time
 
-        // **Simulation Speed**
-        // 1000 * 4 means 4 seconds per simulated minute (More realistic feel)
-        const SIM_SPEED = 1000 * 4; 
-
         function updateDisplay() {
           if (phase === "first-half") {
             minuteText.textContent = `${minute}’`;
@@ -245,6 +241,10 @@
           }
         }
         
+        // **Simulation Speed**
+        // UPDATED: 1000 * 4 means 4 seconds per simulated minute (More realistic feel)
+        const SIM_SPEED = 1000 * 4; 
+
         function startFirstHalf() {
           phase = "first-half";
           statusText.textContent = "LIVE";
@@ -300,6 +300,5 @@
       });
     });
   </script>
-  <Script>tailwind.js</Script>
 </body>
 </html>
