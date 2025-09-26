@@ -1437,51 +1437,100 @@
 </script>
 
       <!-- Top Assists (Right on desktop) -->
-      <div class="glass-card p-6 md:p-8 space-y-8">
-        <h3 class="text-2xl font-bold text-green-400 mb-6 flex items-center gap-2">
-          🎯 Top Assists
-        </h3>
-        <ul class="space-y-4">
-          <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
-            <div class="flex items-center">
-              <span class="text-xl font-extrabold text-green-400 mr-4 w-6 text-center">1.</span>
-              <span class="h-10 w-10 bg-yellow-600 rounded-full flex items-center justify-center font-bold text-sm text-white">P17</span>
-              <div class="ml-3">
-                <p class="font-semibold">De Bruyne</p>
-                <p class="text-xs text-gray-400">Man. City</p>
-              </div>
-            </div>
-            <span class="font-extrabold text-2xl text-green-300">18</span>
-          </li>
+<div class="glass-card p-6 md:p-8 space-y-6">
+  <h3 class="text-2xl font-bold text-green-400 mb-4 flex items-center gap-2">
+    🎯 Top Assists
+  </h3>
 
-          <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
-            <div class="flex items-center">
-              <span class="text-xl font-extrabold text-gray-300 mr-4 w-6 text-center">2.</span>
-              <span class="h-10 w-10 bg-red-800 rounded-full flex items-center justify-center font-bold text-sm text-white">P11</span>
-              <div class="ml-3">
-                <p class="font-semibold">Salah</p>
-                <p class="text-xs text-gray-400">Liverpool</p>
-              </div>
-            </div>
-            <span class="font-extrabold text-2xl">15</span>
-          </li>
+  <!-- Nav Tabs -->
+  <div class="flex space-x-4 border-b border-green-400/40 pb-2">
+    <button class="assist-tab font-semibold text-green-400 border-b-2 border-green-400" data-tab="assist-mikoko">
+      Mikoko League
+    </button>
+    <button class="assist-tab font-semibold text-gray-400 hover:text-green-300" data-tab="assist-glory">
+      Glory Cup
+    </button>
+    <button class="assist-tab font-semibold text-gray-400 hover:text-green-300" data-tab="assist-cit">
+      Cit League
+    </button>
+  </div>
 
-          <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
-            <div class="flex items-center">
-              <span class="text-xl font-extrabold text-yellow-500 mr-4 w-6 text-center">3.</span>
-              <span class="h-10 w-10 bg-lime-600 rounded-full flex items-center justify-center font-bold text-sm text-white">P8</span>
-              <div class="ml-3">
-                <p class="font-semibold">Kroos</p>
-                <p class="text-xs text-gray-400">Real Madrid</p>
-              </div>
-            </div>
-            <span class="font-extrabold text-2xl">14</span>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </section>
+  <!-- Mikoko League Assists -->
+  <div id="assist-mikoko" class="assist-content space-y-4">
+    <ul class="space-y-4">
+      <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
+        <div class="flex items-center">
+          <span class="text-xl font-extrabold text-green-400 mr-4 w-6 text-center">1.</span>
+          <span class="h-10 w-10 bg-yellow-600 rounded-full flex items-center justify-center font-bold text-sm text-white">P17</span>
+          <div class="ml-3">
+            <p class="font-semibold">De Bruyne</p>
+            <p class="text-xs text-gray-400">Man. City</p>
+          </div>
+        </div>
+        <span class="font-extrabold text-2xl text-green-300">18</span>
+      </li>
+      <!-- Add more Mikoko players -->
+    </ul>
+  </div>
+
+  <!-- Glory Cup Assists -->
+  <div id="assist-glory" class="assist-content hidden space-y-4">
+    <ul class="space-y-4">
+      <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
+        <div class="flex items-center">
+          <span class="text-xl font-extrabold text-yellow-400 mr-4 w-6 text-center">1.</span>
+          <span class="h-10 w-10 bg-red-800 rounded-full flex items-center justify-center font-bold text-sm text-white">P11</span>
+          <div class="ml-3">
+            <p class="font-semibold">Salah</p>
+            <p class="text-xs text-gray-400">Liverpool</p>
+          </div>
+        </div>
+        <span class="font-extrabold text-2xl text-yellow-300">15</span>
+      </li>
+      <!-- Add more Glory Cup players -->
+    </ul>
+  </div>
+
+  <!-- Cit League Assists -->
+  <div id="assist-cit" class="assist-content hidden space-y-4">
+    <ul class="space-y-4">
+      <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
+        <div class="flex items-center">
+          <span class="text-xl font-extrabold text-purple-400 mr-4 w-6 text-center">1.</span>
+          <span class="h-10 w-10 bg-lime-600 rounded-full flex items-center justify-center font-bold text-sm text-white">P8</span>
+          <div class="ml-3">
+            <p class="font-semibold">Kroos</p>
+            <p class="text-xs text-gray-400">Real Madrid</p>
+          </div>
+        </div>
+        <span class="font-extrabold text-2xl text-purple-300">14</span>
+      </li>
+      <!-- Add more Cit League players -->
+    </ul>
+  </div>
 </div>
+
+<script>
+  const assistTabs = document.querySelectorAll(".assist-tab");
+  const assistContents = document.querySelectorAll(".assist-content");
+
+  assistTabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      // Reset tabs
+      assistTabs.forEach(t => t.classList.remove("text-green-400", "border-green-400", "border-b-2"));
+      assistTabs.forEach(t => t.classList.add("text-gray-400"));
+      assistContents.forEach(c => c.classList.add("hidden"));
+
+      // Activate clicked tab
+      tab.classList.remove("text-gray-400");
+      tab.classList.add("text-green-400", "border-green-400", "border-b-2");
+
+      const target = document.getElementById(tab.dataset.tab);
+      target.classList.remove("hidden");
+    });
+  });
+</script>
+
 <div class="mb-20">
   <!-- Player Stats Section -->
   <section id="stats">
