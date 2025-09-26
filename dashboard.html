@@ -159,6 +159,35 @@
             border-style: solid;
             border-color: #4B5563 transparent transparent transparent;
         }
+
+        .notification-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 200;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+            border-radius: 1rem;
+            text-align: center;
+            transition: opacity 0.5s ease-in-out;
+            opacity: 0;
+        }
+
+        .notification-container.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        /* Match Details Modal */
+        #upcoming-details-modal {
+            max-width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: fadeInScale 0.3s ease-out;
+        }
     </style>
 </head>
 <body class="text-white font-sans">
@@ -206,11 +235,12 @@
             The Ultimate Football Dashboard
         </h1>
 
-        <!-- Live Match Section 1 -->
-        <section class="flex-1">
-                <h2 class="text-3xl md:text-4xl font-bold mb-8 text-green-500 border-b-2 border-green-700 pb-2 flex items-center">
-                    <i class="fas fa-broadcast-tower mr-3 text-red-500 live-glow"></i> LIVE Match
-                </h2>
+        <!-- Live Match Section -->
+        <section id="live" class="flex-1 mb-20">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 text-green-500 border-b-2 border-green-700 pb-2 flex items-center">
+                <i class="fas fa-broadcast-tower mr-3 text-red-500 live-glow"></i> LIVE Match
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <div class="glass-card p-6 md:p-8 relative flex flex-col justify-between" data-match-id="match-1">
                     <div class="absolute top-4 left-4 text-sm text-gray-400 font-semibold flex items-center">
                         <i class="fas fa-trophy text-yellow-500 mr-2"></i> MIKOKO LEAGUE
@@ -237,17 +267,10 @@
                         </div>
                     </div>
                     <div class="tooltip-container">
-                        <button class="view-match-btn w-full mt-4 bg-gray-600 cursor-not-allowed transition py-3 rounded-xl text-lg font-bold shadow-md" data-state="enabled">View Match Center</button>
+                        <button class="view-match-btn w-full mt-4 bg-gray-600 cursor-not-allowed transition py-3 rounded-xl text-lg font-bold shadow-md" data-state="disabled">View Match Center</button>
                         <span class="tooltip-text">Match center will be available after the game.</span>
                     </div>
                 </div>
-            </section>
-
-            <!-- Live Match Section 2 -->
-            <section class="flex-1">
-                <h2 class="text-3xl md:text-4xl font-bold mb-8 text-green-500 border-b-2 border-green-700 pb-2 flex items-center">
-                    <i class="fas fa-broadcast-tower mr-3 text-red-500 live-glow"></i> LIVE Match
-                </h2>
                 <div class="glass-card p-6 md:p-8 relative flex flex-col justify-between" data-match-id="match-2">
                     <div class="absolute top-4 left-4 text-sm text-gray-400 font-semibold flex items-center">
                         <i class="fas fa-trophy text-yellow-500 mr-2"></i> GLORY CHAMPIONS CUP
@@ -278,13 +301,6 @@
                         <span class="tooltip-text">Match center will be available after the game.</span>
                     </div>
                 </div>
-            </section>
-
-            <!-- Live Match Section 3 -->
-            <section class="flex-1">
-                <h2 class="text-3xl md:text-4xl font-bold mb-8 text-green-500 border-b-2 border-green-700 pb-2 flex items-center">
-                    <i class="fas fa-broadcast-tower mr-3 text-red-500 live-glow"></i> LIVE Match
-                </h2>
                 <div class="glass-card p-6 md:p-8 relative flex flex-col justify-between" data-match-id="match-3">
                     <div class="absolute top-4 left-4 text-sm text-gray-400 font-semibold flex items-center">
                         <i class="fas fa-trophy text-yellow-500 mr-2"></i> CIT LEAGUE
@@ -315,10 +331,52 @@
                         <span class="tooltip-text">Match center will be available after the game.</span>
                     </div>
                 </div>
-            </section>
-    
-    
-    <!-- Match Details Modal -->
+            </div>
+        </section>
+
+        <!-- Upcoming Fixtures Section -->
+        <section id="upcoming" class="mb-20">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 text-green-500 border-b-2 border-green-700 pb-2 flex items-center">
+                <i class="fas fa-calendar-alt mr-3"></i> Upcoming Fixtures
+            </h2>
+            <div class="glass-card p-4 md:p-6 shadow-xl">
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between p-3 sm:p-4 border-b border-gray-700/50 last:border-b-0 hover:bg-white/5 rounded-lg transition" data-upcoming-id="upcoming-1">
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-light text-gray-400">Mikoko League | </p>
+                            <p class="text-xl font-semibold mt-1">NIL <span class="text-gray-500">vs</span> NIl</p>
+                        </div>
+                        <div class="flex space-x-2 text-sm ml-4 flex-shrink-0">
+                            <button class="reminder-btn px-3 py-1 bg-green-700 rounded-full text-xs hover:bg-green-600 transition">Reminder</button>
+                            <button class="details-btn px-3 py-1 bg-gray-700 rounded-full text-xs hover:bg-gray-600 transition">Details</button>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between p-3 sm:p-4 border-b border-gray-700/50 last:border-b-0 hover:bg-white/5 rounded-lg transition" data-upcoming-id="upcoming-2">
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-light text-gray-400">Glory Champions Cup | </p>
+                            <p class="text-xl font-semibold mt-1">NIL <span class="text-gray-500">vs</span> NIL</p>
+                        </div>
+                        <div class="flex space-x-2 text-sm ml-4 flex-shrink-0">
+                            <button class="reminder-btn px-3 py-1 bg-green-700 rounded-full text-xs hover:bg-green-600 transition">Reminder</button>
+                            <button class="details-btn px-3 py-1 bg-gray-700 rounded-full text-xs hover:bg-gray-600 transition">Details</button>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between p-3 sm:p-4 last:border-b-0 hover:bg-white/5 rounded-lg transition" data-upcoming-id="upcoming-3">
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-light text-gray-400">CIT League | </p>
+                            <p class="text-xl font-semibold mt-1">Spartans United <span class="text-gray-500">vs</span> Neons</p>
+                        </div>
+                        <div class="flex space-x-2 text-sm ml-4 flex-shrink-0">
+                            <button class="reminder-btn px-3 py-1 bg-green-700 rounded-full text-xs hover:bg-green-600 transition">Reminder</button>
+                            <button class="details-btn px-3 py-1 bg-gray-700 rounded-full text-xs hover:bg-gray-600 transition">Details</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Match Center Modal -->
     <div id="match-modal" class="modal-overlay hidden">
         <div class="glass-card match-details-card w-full md:max-w-xl p-6 md:p-8 relative">
             <button id="close-modal-btn" class="absolute top-4 right-4 text-gray-400 hover:text-white transition">
@@ -329,6 +387,25 @@
                 <!-- Content will be injected here by JavaScript -->
             </div>
         </div>
+    </div>
+
+    <!-- Upcoming Match Details Modal -->
+    <div id="upcoming-details-modal" class="modal-overlay hidden">
+        <div class="glass-card match-details-card w-full md:max-w-xl p-6 md:p-8 relative">
+            <button id="close-upcoming-modal-btn" class="absolute top-4 right-4 text-gray-400 hover:text-white transition">
+                <i class="fas fa-times fa-2x"></i>
+            </button>
+            <h2 id="upcoming-modal-title" class="text-3xl font-bold mb-4 text-green-500">Upcoming Match Details</h2>
+            <div id="upcoming-modal-content" class="text-gray-300">
+                <!-- Content will be injected by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Success/Reminder Notification Container -->
+    <div id="notification-container" class="notification-container glass-card w-64 md:w-80">
+        <div id="notification-icon"></div>
+        <p id="notification-message" class="text-lg font-semibold mt-4"></p>
     </div>
 
     <script>
@@ -414,18 +491,53 @@
                 },
             };
 
+            const upcomingMatchData = {
+                'upcoming-1': {
+                    teams: 'NIL vs NIL',
+                    league: 'Mikoko League',
+                    date: 'Saturday, July 27, 2025',
+                    time: '18:00 WAT',
+                    venue: 'National Stadium'
+                },
+                'upcoming-2': {
+                    teams: 'NIL vs NIL',
+                    league: 'Glory Champions Cup',
+                    date: 'Sunday, July 28, 2025',
+                    time: '20:30 WAT',
+                    venue: 'City Arena'
+                },
+                'upcoming-3': {
+                    teams: 'Spartans United vs Neons',
+                    league: 'CIT League',
+                    date: 'Tuesday, July 30, 2025',
+                    time: '21:00 WAT',
+                    venue: 'Grand Park'
+                }
+            };
+
             const viewMatchBtns = document.querySelectorAll('.view-match-btn');
             const matchModal = document.getElementById('match-modal');
             const closeModalBtn = document.getElementById('close-modal-btn');
             const modalTitle = document.getElementById('modal-title');
             const modalContent = document.getElementById('modal-content');
+            
+            const reminderBtns = document.querySelectorAll('.reminder-btn');
+            const detailsBtns = document.querySelectorAll('.details-btn');
+            const notificationContainer = document.getElementById('notification-container');
+            const notificationMessage = document.getElementById('notification-message');
+            const notificationIcon = document.getElementById('notification-icon');
+            
+            const upcomingDetailsModal = document.getElementById('upcoming-details-modal');
+            const closeUpcomingModalBtn = document.getElementById('close-upcoming-modal-btn');
+            const upcomingModalTitle = document.getElementById('upcoming-modal-title');
+            const upcomingModalContent = document.getElementById('upcoming-modal-content');
 
+            // --- Match Center Button Logic ---
             viewMatchBtns.forEach(button => {
                 button.addEventListener('click', () => {
                     if (button.dataset.state === 'disabled') {
-                        return; // Exit if the button is disabled
+                        return;
                     }
-
                     const matchCard = button.closest('.glass-card');
                     const matchId = matchCard.dataset.matchId;
                     const data = matchData[matchId];
@@ -439,7 +551,6 @@
                 matchModal.classList.add('hidden');
             });
 
-            // Close modal when clicking outside
             matchModal.addEventListener('click', (e) => {
                 if (e.target === matchModal) {
                     matchModal.classList.add('hidden');
@@ -447,36 +558,27 @@
             });
 
             function showMatchDetails(data) {
-                // Show modal and loading spinner
                 matchModal.classList.remove('hidden');
                 modalTitle.textContent = 'Analyzing Match...';
                 modalContent.innerHTML = `<div class="flex justify-center items-center py-10"><div class="loader"></div></div>`;
-
-                // Stage 1: Analyzing scores (after 5 seconds)
                 setTimeout(() => {
                     modalContent.innerHTML = `
                         <p class="text-center text-lg font-bold animate-pulse text-green-400">Analyzing scores...</p>
                         <div class="flex justify-center items-center py-10"><div class="loader"></div></div>
                     `;
                 }, 5000);
-
-                // Stage 2: Checking stats (after 3 more seconds)
                 setTimeout(() => {
                     modalContent.innerHTML = `
                         <p class="text-center text-lg font-bold animate-pulse text-green-400">Checking stats...</p>
                         <div class="flex justify-center items-center py-10"><div class="loader"></div></div>
                     `;
                 }, 8000);
-
-                // Stage 3: Finalizing report (after 3 more seconds)
                 setTimeout(() => {
                     modalContent.innerHTML = `
                         <p class="text-center text-lg font-bold animate-pulse text-green-400">Finalizing match report...</p>
                         <div class="flex justify-center items-center py-10"><div class="loader"></div></div>
                     `;
                 }, 11000);
-
-                // Final Stage: Display full content (after 3 more seconds)
                 setTimeout(() => {
                     modalTitle.textContent = `${data.homeTeam} vs ${data.awayTeam} Match Center`;
                     const statsContent = `
@@ -504,132 +606,11 @@
                         </div>
                     `;
                     modalContent.innerHTML = statsContent + data.highlights;
-                }, 14000); // Total 5 + 3 + 3 + 3 seconds = 14 seconds
+                }, 14000);
             }
 
-            // Timer and status logic
-            const statusBtns = document.querySelectorAll('.status');
-            const timers = {};
-            const intervals = {};
-
-            statusBtns.forEach(btn => {
-                const matchCard = btn.closest('.glass-card');
-                const matchId = matchCard.dataset.matchId;
-                const statusDot = btn.querySelector('.live-dot');
-                const statusText = btn.querySelector('.status-text');
-                const liveTimer = matchCard.querySelector('.live-timer');
-                const minuteText = matchCard.querySelector('.minute-text');
-                const kickoffInfo = matchCard.querySelector('.kickoff-info');
-
-                let isLive = false;
-                timers[matchId] = 0;
-
-                btn.addEventListener('click', () => {
-                    isLive = !isLive;
-                    if (isLive) {
-                        statusDot.classList.remove('stopped');
-                        statusDot.classList.add('breathing');
-                        statusText.textContent = 'Live';
-                        liveTimer.classList.remove('hidden');
-                        kickoffInfo.classList.add('hidden');
-
-                        intervals[matchId] = setInterval(() => {
-                            timers[matchId]++;
-                            minuteText.textContent = `${timers[matchId]}'`;
-                        }, 1000); // 1 second for demonstration, use 60000ms for real minutes
-                    } else {
-                        statusDot.classList.add('stopped');
-                        statusDot.classList.remove('breathing');
-                        statusText.textContent = 'Full Time';
-                        liveTimer.classList.add('hidden');
-                        kickoffInfo.classList.remove('hidden');
-                        kickoffInfo.textContent = 'Match Finished';
-
-                        clearInterval(intervals[matchId]);
-                    }
-                });
-            });
-        });
-    </script>
-
-
-        <!-- Upcoming Fixtures Section -->
-        <section id="upcoming" class="mb-20">
-            <h2 class="text-3xl md:text-4xl font-bold mb-8 text-green-500 border-b-2 border-green-700 pb-2 flex items-center">
-                <i class="fas fa-calendar-alt mr-3"></i> Upcoming Fixtures
-            </h2>
-            <div class="glass-card p-4 md:p-6 shadow-xl">
-                <div class="space-y-4">
-                    <div class="flex items-center justify-between p-3 sm:p-4 border-b border-gray-700/50 last:border-b-0 hover:bg-white/5 rounded-lg transition" data-upcoming-id="upcoming-1">
-                        <div class="flex-1 min-w-0">
-                            <p class="text-sm font-light text-gray-400">Mikoko League | </p>
-                            <p class="text-xl font-semibold mt-1">NIL <span class="text-gray-500">vs</span> NIl</p>
-                        </div>
-                        <div class="flex space-x-2 text-sm ml-4 flex-shrink-0">
-                            <button class="reminder-btn px-3 py-1 bg-green-700 rounded-full text-xs hover:bg-green-600 transition">Reminder</button>
-                            <button class="details-btn px-3 py-1 bg-gray-700 rounded-full text-xs hover:bg-gray-600 transition">Details</button>
-                        </div>
-                    </div>
-                    <div class="flex items-center justify-between p-3 sm:p-4 border-b border-gray-700/50 last:border-b-0 hover:bg-white/5 rounded-lg transition" data-upcoming-id="upcoming-2">
-                        <div class="flex-1 min-w-0">
-                            <p class="text-sm font-light text-gray-400">Glory Champions Cup | </p>
-                            <p class="text-xl font-semibold mt-1">NIL <span class="text-gray-500">vs</span> NIL</p>
-                        </div>
-                        <div class="flex space-x-2 text-sm ml-4 flex-shrink-0">
-                            <button class="reminder-btn px-3 py-1 bg-green-700 rounded-full text-xs hover:bg-green-600 transition">Reminder</button>
-                            <button class="details-btn px-3 py-1 bg-gray-700 rounded-full text-xs hover:bg-gray-600 transition">Details</button>
-                        </div>
-                    </div>
-                    <div class="flex items-center justify-between p-3 sm:p-4 last:border-b-0 hover:bg-white/5 rounded-lg transition" data-upcoming-id="upcoming-3">
-                        <div class="flex-1 min-w-0">
-                            <p class="text-sm font-light text-gray-400">CIT League | </p>
-                            <p class="text-xl font-semibold mt-1">Spartans United <span class="text-gray-500">vs</span> Neons</p>
-                        </div>
-                        <div class="flex space-x-2 text-sm ml-4 flex-shrink-0">
-                            <button class="reminder-btn px-3 py-1 bg-green-700 rounded-full text-xs hover:bg-green-600 transition">Reminder</button>
-                            <button class="details-btn px-3 py-1 bg-gray-700 rounded-full text-xs hover:bg-gray-600 transition">Details</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Match Center Modal -->
-    <div id="match-modal" class="modal-overlay hidden">
-        <div class="glass-card match-details-card w-full md:max-w-xl p-6 md:p-8 relative">
-            <button id="close-modal-btn" class="absolute top-4 right-4 text-gray-400 hover:text-white transition">
-                <i class="fas fa-times fa-2x"></i>
-            </button>
-            <h2 id="modal-title" class="text-3xl font-bold mb-4 text-green-500">Match Details</h2>
-            <div id="modal-content" class="text-gray-300">
-                <!-- Content will be injected here by JavaScript -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Upcoming Match Details Modal -->
-    <div id="upcoming-details-modal" class="modal-overlay hidden">
-        <div class="glass-card match-details-card w-full md:max-w-xl p-6 md:p-8 relative">
-            <button id="close-upcoming-modal-btn" class="absolute top-4 right-4 text-gray-400 hover:text-white transition">
-                <i class="fas fa-times fa-2x"></i>
-            </button>
-            <h2 id="upcoming-modal-title" class="text-3xl font-bold mb-4 text-green-500">Upcoming Match Details</h2>
-            <div id="upcoming-modal-content" class="text-gray-300">
-                <!-- Content will be injected by JavaScript -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Success/Reminder Notification Container -->
-    <div id="notification-container" class="notification-container glass-card w-64 md:w-80">
-        <div id="notification-icon"></div>
-        <p id="notification-message" class="text-lg font-semibold mt-4"></p>
-    </div>
-
-</section>
-    <script>
-          reminderBtns.forEach(button => {
+            // --- Upcoming Fixtures Reminder & Details Logic ---
+            reminderBtns.forEach(button => {
                 button.addEventListener('click', () => {
                     const parentDiv = button.closest('[data-upcoming-id]');
                     const upcomingId = parentDiv.dataset.upcomingId;
