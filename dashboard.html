@@ -83,125 +83,6 @@
             border: 1px solid rgba(255, 255, 255, 0.18);
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
         }
-    </style>
-</head>
-<body class="text-white font-sans">
-
-    <!-- Sticky Navigation Bar -->
-    <nav class="sticky top-0 z-50 bg-black/90 backdrop-blur-lg shadow-2xl py-4">
-        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center px-4 md:px-6">
-            <div class="text-3xl font-bold text-green-500 tracking-wider mb-4 md:mb-0">
-                Football World
-            </div>
-            <div class="flex flex-wrap justify-center space-x-4 sm:space-x-8 text-sm sm:text-base">
-                <a href="#live" class="group flex items-center space-x-1 text-gray-300 hover:text-green-500 transition-colors duration-300 relative py-1">
-                    <i class="fas fa-broadcast-tower"></i>
-                    <span>Live</span>
-                    <span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-green-500 group-hover:w-full transition-all duration-300"></span>
-                </a>
-                <a href="#upcoming" class="group flex items-center space-x-1 text-gray-300 hover:text-green-500 transition-colors duration-300 relative py-1">
-                    <i class="fas fa-calendar-alt"></i>
-                    <span>Upcoming</span>
-                    <span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-green-500 group-hover:w-full transition-all duration-300"></span>
-                </a>
-                <a href="#standings" class="group flex items-center space-x-1 text-gray-300 hover:text-green-500 transition-colors duration-300 relative py-1">
-                    <i class="fas fa-trophy"></i>
-                    <span>Standings</span>
-                    <span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-green-500 group-hover:w-full transition-all duration-300"></span>
-                </a>
-                <a href="#stats" class="group flex items-center space-x-1 text-gray-300 hover:text-green-500 transition-colors duration-300 relative py-1">
-                    <i class="fas fa-chart-line"></i>
-                    <span>Stats</span>
-                    <span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-green-500 group-hover:w-full transition-all duration-300"></span>
-                </a>
-                <a href="#highlights" class="group flex items-center space-x-1 text-gray-300 hover:text-green-500 transition-colors duration-300 relative py-1">
-                    <i class="fas fa-play-circle"></i>
-                    <span>Highlights</span>
-                    <span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-green-500 group-hover:w-full transition-all duration-300"></span>
-                </a>
-            </div>
-        </div>
-    </nav>
-
-    <main class="relative container mx-auto p-4 md:p-8 lg:p-12 min-h-screen">
-        <div class="particle-bg"></div>
-
-        <h1 class="text-4xl md:text-6xl font-extrabold text-center mt-8 mb-16 text-transparent bg-clip-text bg-gradient-to-r from-green-300 to-teal-500">
-            The Ultimate Football Dashboard
-        </h1>
-
-        <!-- Live Match Section -->
-       <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
-        body {
-            background-color: #0A0A0A;
-            font-family: 'Inter', sans-serif;
-            color: #fff;
-        }
-        .glass-card {
-            background: rgba(100, 100, 100, 0.15);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 1rem;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .glass-card:hover {
-            transform: translateY(-5px) scale(1.01);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 15px rgba(52, 211, 153, 0.3);
-            border-color: rgba(52, 211, 153, 0.6);
-        }
-        .live-dot {
-            width: 10px; height: 10px; border-radius: 50%;
-            margin-right: 6px; display: inline-block;
-        }
-        .breathing { background: #ef4444; animation: pulse-dot 1.2s infinite; }
-        .stopped { background: #9ca3af; }
-        @keyframes pulse-dot {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.4); opacity: 0.5; }
-        }
-        .live-glow {
-            animation: pulse-glow 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
-        }
-        @keyframes pulse-glow {
-            0%, 100% {
-                opacity: 1;
-                text-shadow: 0 0 5px rgba(52, 211, 153, 0.5), 0 0 10px rgba(52, 211, 153, 0.2);
-            }
-            50% {
-                opacity: 0.9;
-                text-shadow: 0 0 8px rgba(52, 211, 153, 0.7), 0 0 15px rgba(52, 211, 153, 0.4);
-            }
-        }
-        .particle-bg {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: -1;
-            background-image: radial-gradient(#1f2937 0.5px, transparent 0.5px);
-            background-size: 20px 20px;
-            opacity: 0.2;
-        }
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-        }
-        @keyframes live-text-pulse {
-            0%, 100% { text-shadow: 0 0 3px #ff0000; }
-            50% { text-shadow: 0 0 8px #ff0000; }
-        }
-        .glass-card {
-            background: rgba(43, 43, 43, 0.4);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-        }
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -670,8 +551,8 @@
             });
         });
     </script>
-        </div>
-  
+
+
         <!-- Upcoming Fixtures Section -->
         <section id="upcoming" class="mb-20">
             <h2 class="text-3xl md:text-4xl font-bold mb-8 text-green-500 border-b-2 border-green-700 pb-2 flex items-center">
