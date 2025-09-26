@@ -1331,92 +1331,160 @@
 </script>
 
         <!-- Stats and Highlights sections -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-20">
-            <!-- Player Stats Section -->
-         <section id="stats">
-                <h2 class="text-3xl md:text-4xl font-bold mb-8 text-green-500 border-b-2 border-green-700 pb-2 flex items-center">
-                    <i class="fas fa-chart-line mr-3"></i> Player Leaderboards
-                </h2>
-                <div class="glass-card p-6 md:p-8 space-y-8">
-                    <div>
-                        <h3 class="text-2xl font-bold text-green-400 mb-6 flex items-center">⚽ Top Scorers</h3>
-                        <ul class="space-y-4">
-                            <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
-                                <div class="flex items-center">
-                                    <span class="text-xl font-extrabold text-green-400 mr-4 w-6">1.</span>
-                                    <span class="h-10 w-10 bg-red-600 rounded-full flex items-center justify-center font-bold text-sm">P9</span>
-                                    <div class="ml-3">
-                                        <p class="font-semibold">Haaland</p>
-                                        <p class="text-xs text-gray-400">Man. City</p>
-                                    </div>
-                                </div>
-                                <span class="font-extrabold text-2xl text-green-300">32</span>
-                            </li>
-                            <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
-                                <div class="flex items-center">
-                                    <span class="text-xl font-extrabold text-gray-300 mr-4 w-6">2.</span>
-                                    <span class="h-10 w-10 bg-blue-600 rounded-full flex items-center justify-center font-bold text-sm">P7</span>
-                                    <div class="ml-3">
-                                        <p class="font-semibold">Mbappé</p>
-                                        <p class="text-xs text-gray-400">PSG</p>
-                                    </div>
-                                </div>
-                                <span class="font-extrabold text-2xl">28</span>
-                            </li>
-                            <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
-                                <div class="flex items-center">
-                                    <span class="text-xl font-extrabold text-yellow-500 mr-4 w-6">3.</span>
-                                    <span class="h-10 w-10 bg-amber-600 rounded-full flex items-center justify-center font-bold text-sm">P10</span>
-                                    <div class="ml-3">
-                                        <p class="font-semibold">Lewandowski</p>
-                                        <p class="text-xs text-gray-400">Barcelona</p>
-                                    </div>
-                                </div>
-                                <span class="font-extrabold text-2xl">25</span>
-                            </li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h3 class="text-2xl font-bold text-green-400 mb-6 flex items-center">🎯 Top Assists</h3>
-                        <ul class="space-y-4">
-                            <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
-                                <div class="flex items-center">
-                                    <span class="text-xl font-extrabold text-green-400 mr-4 w-6">1.</span>
-                                    <span class="h-10 w-10 bg-yellow-600 rounded-full flex items-center justify-center font-bold text-sm">P17</span>
-                                    <div class="ml-3">
-                                        <p class="font-semibold">De Bruyne</p>
-                                        <p class="text-xs text-gray-400">Man. City</p>
-                                    </div>
-                                </div>
-                                <span class="font-extrabold text-2xl text-green-300">18</span>
-                            </li>
-                            <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
-                                <div class="flex items-center">
-                                    <span class="text-xl font-extrabold text-gray-300 mr-4 w-6">2.</span>
-                                    <span class="h-10 w-10 bg-red-800 rounded-full flex items-center justify-center font-bold text-sm">P11</span>
-                                    <div class="ml-3">
-                                        <p class="font-semibold">Salah</p>
-                                        <p class="text-xs text-gray-400">Liverpool</p>
-                                    </div>
-                                </div>
-                                <span class="font-extrabold text-2xl">15</span>
-                            </li>
-                            <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
-                                <div class="flex items-center">
-                                    <span class="text-xl font-extrabold text-yellow-500 mr-4 w-6">3.</span>
-                                    <span class="h-10 w-10 bg-lime-600 rounded-full flex items-center justify-center font-bold text-sm">P8</span>
-                                    <div class="ml-3">
-                                        <p class="font-semibold">Kroos</p>
-                                        <p class="text-xs text-gray-400">Real Madrid</p>
-                                    </div>
-                                </div>
-                                <span class="font-extrabold text-2xl">14</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-            
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-20">
+  <!-- Player Stats Section -->
+  <section id="stats">
+    <h2
+      class="text-3xl md:text-4xl font-bold mb-8 text-green-500 border-b-2 border-green-700 pb-2 flex items-center"
+    >
+      <i class="fas fa-chart-line mr-3"></i> Player Leaderboards
+    </h2>
+
+    <div class="glass-card p-6 md:p-8 space-y-10">
+      <!-- Top Scorers -->
+      <div>
+        <h3
+          class="text-2xl font-bold text-green-400 mb-6 flex items-center gap-2"
+        >
+          ⚽ Top Scorers
+        </h3>
+        <ul class="space-y-4">
+          <!-- Player -->
+          <li
+            class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition"
+          >
+            <div class="flex items-center">
+              <span
+                class="text-xl font-extrabold text-green-400 mr-4 w-6 text-center"
+                >1.</span
+              >
+              <span
+                class="h-10 w-10 bg-red-600 rounded-full flex items-center justify-center font-bold text-sm text-white"
+                >P9</span
+              >
+              <div class="ml-3">
+                <p class="font-semibold">Haaland</p>
+                <p class="text-xs text-gray-400">Man. City</p>
+              </div>
+            </div>
+            <span class="font-extrabold text-2xl text-green-300">32</span>
+          </li>
+
+          <li
+            class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition"
+          >
+            <div class="flex items-center">
+              <span
+                class="text-xl font-extrabold text-gray-300 mr-4 w-6 text-center"
+                >2.</span
+              >
+              <span
+                class="h-10 w-10 bg-blue-600 rounded-full flex items-center justify-center font-bold text-sm text-white"
+                >P7</span
+              >
+              <div class="ml-3">
+                <p class="font-semibold">Mbappé</p>
+                <p class="text-xs text-gray-400">PSG</p>
+              </div>
+            </div>
+            <span class="font-extrabold text-2xl">28</span>
+          </li>
+
+          <li
+            class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition"
+          >
+            <div class="flex items-center">
+              <span
+                class="text-xl font-extrabold text-yellow-500 mr-4 w-6 text-center"
+                >3.</span
+              >
+              <span
+                class="h-10 w-10 bg-amber-600 rounded-full flex items-center justify-center font-bold text-sm text-white"
+                >P10</span
+              >
+              <div class="ml-3">
+                <p class="font-semibold">Lewandowski</p>
+                <p class="text-xs text-gray-400">Barcelona</p>
+              </div>
+            </div>
+            <span class="font-extrabold text-2xl">25</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Top Assists -->
+      <div>
+        <h3
+          class="text-2xl font-bold text-green-400 mb-6 flex items-center gap-2"
+        >
+          🎯 Top Assists
+        </h3>
+        <ul class="space-y-4">
+          <li
+            class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition"
+          >
+            <div class="flex items-center">
+              <span
+                class="text-xl font-extrabold text-green-400 mr-4 w-6 text-center"
+                >1.</span
+              >
+              <span
+                class="h-10 w-10 bg-yellow-600 rounded-full flex items-center justify-center font-bold text-sm text-white"
+                >P17</span
+              >
+              <div class="ml-3">
+                <p class="font-semibold">De Bruyne</p>
+                <p class="text-xs text-gray-400">Man. City</p>
+              </div>
+            </div>
+            <span class="font-extrabold text-2xl text-green-300">18</span>
+          </li>
+
+          <li
+            class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition"
+          >
+            <div class="flex items-center">
+              <span
+                class="text-xl font-extrabold text-gray-300 mr-4 w-6 text-center"
+                >2.</span
+              >
+              <span
+                class="h-10 w-10 bg-red-800 rounded-full flex items-center justify-center font-bold text-sm text-white"
+                >P11</span
+              >
+              <div class="ml-3">
+                <p class="font-semibold">Salah</p>
+                <p class="text-xs text-gray-400">Liverpool</p>
+              </div>
+            </div>
+            <span class="font-extrabold text-2xl">15</span>
+          </li>
+
+          <li
+            class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition"
+          >
+            <div class="flex items-center">
+              <span
+                class="text-xl font-extrabold text-yellow-500 mr-4 w-6 text-center"
+                >3.</span
+              >
+              <span
+                class="h-10 w-10 bg-lime-600 rounded-full flex items-center justify-center font-bold text-sm text-white"
+                >P8</span
+              >
+              <div class="ml-3">
+                <p class="font-semibold">Kroos</p>
+                <p class="text-xs text-gray-400">Real Madrid</p>
+              </div>
+            </div>
+            <span class="font-extrabold text-2xl">14</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</div>
+
             <!-- Highlights and News Section -->
             <section id="highlights">
                 <h2 class="text-3xl md:text-4xl font-bold mb-8 text-green-500 border-b-2 border-green-700 pb-2 flex items-center">
