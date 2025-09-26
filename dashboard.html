@@ -1344,48 +1344,97 @@
       class="grid grid-cols-1 lg:grid-cols-2 gap-10 mt-10"
     >
       <!-- Top Scorers (Left on desktop) -->
-      <div class="glass-card p-6 md:p-8 space-y-8">
-        <h3 class="text-2xl font-bold text-green-400 mb-6 flex items-center gap-2">
-          ⚽ Top Scorers
-        </h3>
-        <ul class="space-y-4">
-          <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
-            <div class="flex items-center">
-              <span class="text-xl font-extrabold text-green-400 mr-4 w-6 text-center">1.</span>
-              <span class="h-10 w-10 bg-red-600 rounded-full flex items-center justify-center font-bold text-sm text-white">P9</span>
-              <div class="ml-3">
-                <p class="font-semibold">Haaland</p>
-                <p class="text-xs text-gray-400">Man. City</p>
-              </div>
-            </div>
-            <span class="font-extrabold text-2xl text-green-300">32</span>
-          </li>
+     <div class="glass-card p-6 md:p-8 space-y-6 mt-6">
+  <h3 class="text-2xl font-bold text-green-400 mb-4 flex items-center gap-2">
+    ⚽ Top Scorers
+  </h3>
 
-          <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
-            <div class="flex items-center">
-              <span class="text-xl font-extrabold text-gray-300 mr-4 w-6 text-center">2.</span>
-              <span class="h-10 w-10 bg-blue-600 rounded-full flex items-center justify-center font-bold text-sm text-white">P7</span>
-              <div class="ml-3">
-                <p class="font-semibold">Mbappé</p>
-                <p class="text-xs text-gray-400">PSG</p>
-              </div>
-            </div>
-            <span class="font-extrabold text-2xl">28</span>
-          </li>
+  <!-- Nav Tabs -->
+  <div class="flex space-x-4 border-b border-green-400/40 pb-2">
+    <button class="tab-link font-semibold text-green-400 border-b-2 border-green-400" data-tab="mikoko">
+      Mikoko League
+    </button>
+    <button class="tab-link font-semibold text-gray-400 hover:text-green-300" data-tab="glory">
+      Glory Cup
+    </button>
+    <button class="tab-link font-semibold text-gray-400 hover:text-green-300" data-tab="cit">
+      Cit League
+    </button>
+  </div>
 
-          <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
-            <div class="flex items-center">
-              <span class="text-xl font-extrabold text-yellow-500 mr-4 w-6 text-center">3.</span>
-              <span class="h-10 w-10 bg-amber-600 rounded-full flex items-center justify-center font-bold text-sm text-white">P10</span>
-              <div class="ml-3">
-                <p class="font-semibold">Lewandowski</p>
-                <p class="text-xs text-gray-400">Barcelona</p>
-              </div>
-            </div>
-            <span class="font-extrabold text-2xl">25</span>
-          </li>
-        </ul>
-      </div>
+  <!-- Tab Content -->
+  <div id="mikoko" class="tab-content space-y-4">
+    <ul class="space-y-4">
+      <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
+        <div class="flex items-center">
+          <span class="text-xl font-extrabold text-green-400 mr-4 w-6 text-center">1.</span>
+          <span class="h-10 w-10 bg-red-600 rounded-full flex items-center justify-center font-bold text-sm text-white">P9</span>
+          <div class="ml-3">
+            <p class="font-semibold">Haaland</p>
+            <p class="text-xs text-gray-400">Man. City</p>
+          </div>
+        </div>
+        <span class="font-extrabold text-2xl text-green-300">32</span>
+      </li>
+      <!-- Add more scorers for Mikoko -->
+    </ul>
+  </div>
+
+  <div id="glory" class="tab-content hidden space-y-4">
+    <ul class="space-y-4">
+      <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
+        <div class="flex items-center">
+          <span class="text-xl font-extrabold text-yellow-400 mr-4 w-6 text-center">1.</span>
+          <span class="h-10 w-10 bg-blue-600 rounded-full flex items-center justify-center font-bold text-sm text-white">P7</span>
+          <div class="ml-3">
+            <p class="font-semibold">Mbappé</p>
+            <p class="text-xs text-gray-400">PSG</p>
+          </div>
+        </div>
+        <span class="font-extrabold text-2xl text-yellow-300">29</span>
+      </li>
+      <!-- Add more scorers for Glory Cup -->
+    </ul>
+  </div>
+
+  <div id="cit" class="tab-content hidden space-y-4">
+    <ul class="space-y-4">
+      <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
+        <div class="flex items-center">
+          <span class="text-xl font-extrabold text-purple-400 mr-4 w-6 text-center">1.</span>
+          <span class="h-10 w-10 bg-purple-600 rounded-full flex items-center justify-center font-bold text-sm text-white">P10</span>
+          <div class="ml-3">
+            <p class="font-semibold">Lewandowski</p>
+            <p class="text-xs text-gray-400">Barcelona</p>
+          </div>
+        </div>
+        <span class="font-extrabold text-2xl text-purple-300">25</span>
+      </li>
+      <!-- Add more scorers for Cit League -->
+    </ul>
+  </div>
+</div>
+
+<script>
+  const tabs = document.querySelectorAll(".tab-link");
+  const contents = document.querySelectorAll(".tab-content");
+
+  tabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      // Reset all tabs
+      tabs.forEach(t => t.classList.remove("text-green-400", "border-green-400", "border-b-2"));
+      tabs.forEach(t => t.classList.add("text-gray-400"));
+      contents.forEach(c => c.classList.add("hidden"));
+
+      // Activate clicked tab
+      tab.classList.remove("text-gray-400");
+      tab.classList.add("text-green-400", "border-green-400", "border-b-2");
+
+      const target = document.getElementById(tab.dataset.tab);
+      target.classList.remove("hidden");
+    });
+  });
+</script>
 
       <!-- Top Assists (Right on desktop) -->
       <div class="glass-card p-6 md:p-8 space-y-8">
