@@ -940,6 +940,46 @@
 
     </div>
 </section>
+        <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const mikokoBtn = document.getElementById('mikoko-btn');
+        const gloryBtn = document.getElementById('glory-btn');
+        const citBtn = document.getElementById('cit-btn');
+        
+        const mikokoTable = document.getElementById('mikoko-table');
+        const gloryTable = document.getElementById('glory-table');
+        const citTable = document.getElementById('cit-table');
+
+        // Array of all table elements for easier hiding
+        const allTables = [mikokoTable, gloryTable, citTable];
+
+        /**
+         * Hides all tables and shows the one with the specified ID.
+         * @param {string} tableId The ID of the table to show.
+         */
+        function showTable(tableId) {
+            allTables.forEach(table => {
+                if (table.id === tableId) {
+                    table.classList.remove('hidden');
+                    // Use a short delay to ensure the visibility property is set after the transition starts.
+                    setTimeout(() => table.style.visibility = 'visible', 600);
+                } else {
+                    table.classList.add('hidden');
+                    table.style.visibility = 'hidden';
+                }
+            });
+        }
+
+        // Set the initial state to show the Mikoko League table
+        showTable('mikoko-table');
+
+        // Add event listeners to the buttons
+        mikokoBtn.addEventListener('click', () => showTable('mikoko-table'));
+        gloryBtn.addEventListener('click', () => showTable('glory-table'));
+        citBtn.addEventListener('click', () => showTable('cit-table'));
+    });
+</script>
+
         <!-- Stats and Highlights sections -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-20">
             <!-- Player Stats Section -->
