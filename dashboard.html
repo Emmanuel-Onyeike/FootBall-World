@@ -560,40 +560,195 @@
             </h2>
             <div class="glass-card p-4 md:p-6 shadow-xl">
                 <div class="space-y-4">
-                    <div class="flex items-center justify-between p-3 sm:p-4 border-b border-gray-700/50 last:border-b-0 hover:bg-white/5 rounded-lg transition">
+                    <div class="flex items-center justify-between p-3 sm:p-4 border-b border-gray-700/50 last:border-b-0 hover:bg-white/5 rounded-lg transition" data-upcoming-id="upcoming-1">
                         <div class="flex-1 min-w-0">
-                            <p class="text-sm font-light text-gray-400">Premier League | Saturday 15:00 GMT</p>
-                            <p class="text-xl font-semibold mt-1">Manchester United <span class="text-gray-500">vs</span> Liverpool</p>
+                            <p class="text-sm font-light text-gray-400">Mikoko League | </p>
+                            <p class="text-xl font-semibold mt-1">NIL <span class="text-gray-500">vs</span> NIl</p>
                         </div>
                         <div class="flex space-x-2 text-sm ml-4 flex-shrink-0">
-                            <button class="px-3 py-1 bg-green-700 rounded-full text-xs hover:bg-green-600 transition">Reminder</button>
-                            <button class="px-3 py-1 bg-gray-700 rounded-full text-xs hover:bg-gray-600 transition">Details</button>
+                            <button class="reminder-btn px-3 py-1 bg-green-700 rounded-full text-xs hover:bg-green-600 transition">Reminder</button>
+                            <button class="details-btn px-3 py-1 bg-gray-700 rounded-full text-xs hover:bg-gray-600 transition">Details</button>
                         </div>
                     </div>
-                    <div class="flex items-center justify-between p-3 sm:p-4 border-b border-gray-700/50 last:border-b-0 hover:bg-white/5 rounded-lg transition">
+                    <div class="flex items-center justify-between p-3 sm:p-4 border-b border-gray-700/50 last:border-b-0 hover:bg-white/5 rounded-lg transition" data-upcoming-id="upcoming-2">
                         <div class="flex-1 min-w-0">
-                            <p class="text-sm font-light text-gray-400">Champions League | Tuesday 20:00 GMT</p>
-                            <p class="text-xl font-semibold mt-1">Bayern Munich <span class="text-gray-500">vs</span> Real Madrid</p>
+                            <p class="text-sm font-light text-gray-400">Glory Champions Cup | </p>
+                            <p class="text-xl font-semibold mt-1">NIL <span class="text-gray-500">vs</span> NIL</p>
                         </div>
                         <div class="flex space-x-2 text-sm ml-4 flex-shrink-0">
-                            <button class="px-3 py-1 bg-green-700 rounded-full text-xs hover:bg-green-600 transition">Reminder</button>
-                            <button class="px-3 py-1 bg-gray-700 rounded-full text-xs hover:bg-gray-600 transition">Details</button>
+                            <button class="reminder-btn px-3 py-1 bg-green-700 rounded-full text-xs hover:bg-green-600 transition">Reminder</button>
+                            <button class="details-btn px-3 py-1 bg-gray-700 rounded-full text-xs hover:bg-gray-600 transition">Details</button>
                         </div>
                     </div>
-                    <div class="flex items-center justify-between p-3 sm:p-4 last:border-b-0 hover:bg-white/5 rounded-lg transition">
+                    <div class="flex items-center justify-between p-3 sm:p-4 last:border-b-0 hover:bg-white/5 rounded-lg transition" data-upcoming-id="upcoming-3">
                         <div class="flex-1 min-w-0">
-                            <p class="text-sm font-light text-gray-400">Laliga | Sunday 17:30 GMT</p>
-                            <p class="text-xl font-semibold mt-1">Barcelona <span class="text-gray-500">vs</span> Atletico Madrid</p>
+                            <p class="text-sm font-light text-gray-400">CIT League | </p>
+                            <p class="text-xl font-semibold mt-1">Spartans United <span class="text-gray-500">vs</span> Neons</p>
                         </div>
                         <div class="flex space-x-2 text-sm ml-4 flex-shrink-0">
-                            <button class="px-3 py-1 bg-green-700 rounded-full text-xs hover:bg-green-600 transition">Reminder</button>
-                            <button class="px-3 py-1 bg-gray-700 rounded-full text-xs hover:bg-gray-600 transition">Details</button>
+                            <button class="reminder-btn px-3 py-1 bg-green-700 rounded-full text-xs hover:bg-green-600 transition">Reminder</button>
+                            <button class="details-btn px-3 py-1 bg-gray-700 rounded-full text-xs hover:bg-gray-600 transition">Details</button>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
+    </main>
 
+    <!-- Match Center Modal -->
+    <div id="match-modal" class="modal-overlay hidden">
+        <div class="glass-card match-details-card w-full md:max-w-xl p-6 md:p-8 relative">
+            <button id="close-modal-btn" class="absolute top-4 right-4 text-gray-400 hover:text-white transition">
+                <i class="fas fa-times fa-2x"></i>
+            </button>
+            <h2 id="modal-title" class="text-3xl font-bold mb-4 text-green-500">Match Details</h2>
+            <div id="modal-content" class="text-gray-300">
+                <!-- Content will be injected here by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Upcoming Match Details Modal -->
+    <div id="upcoming-details-modal" class="modal-overlay hidden">
+        <div class="glass-card match-details-card w-full md:max-w-xl p-6 md:p-8 relative">
+            <button id="close-upcoming-modal-btn" class="absolute top-4 right-4 text-gray-400 hover:text-white transition">
+                <i class="fas fa-times fa-2x"></i>
+            </button>
+            <h2 id="upcoming-modal-title" class="text-3xl font-bold mb-4 text-green-500">Upcoming Match Details</h2>
+            <div id="upcoming-modal-content" class="text-gray-300">
+                <!-- Content will be injected by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Success/Reminder Notification Container -->
+    <div id="notification-container" class="notification-container glass-card w-64 md:w-80">
+        <div id="notification-icon"></div>
+        <p id="notification-message" class="text-lg font-semibold mt-4"></p>
+    </div>
+
+</section>
+    <script>
+          reminderBtns.forEach(button => {
+                button.addEventListener('click', () => {
+                    const parentDiv = button.closest('[data-upcoming-id]');
+                    const upcomingId = parentDiv.dataset.upcomingId;
+                    const isReminderSet = button.dataset.reminderSet === 'true';
+
+                    if (isReminderSet) {
+                        // Turn reminder off
+                        button.dataset.reminderSet = 'false';
+                        button.textContent = 'Reminder';
+                        button.classList.remove('bg-red-700', 'hover:bg-red-600');
+                        button.classList.add('bg-green-700', 'hover:bg-green-600');
+                        showNotification('Reminder off.', 'fas fa-bell-slash text-red-500');
+                    } else {
+                        // Set reminder
+                        button.dataset.reminderSet = 'true';
+                        button.textContent = 'Reminder Off';
+                        button.classList.remove('bg-green-700', 'hover:bg-green-600');
+                        button.classList.add('bg-red-700', 'hover:bg-red-600');
+                        showNotification('Reminder for game set. Turn on your notification sound.', 'fas fa-bell text-green-500');
+                    }
+                });
+            });
+
+            detailsBtns.forEach(button => {
+                button.addEventListener('click', () => {
+                    const parentDiv = button.closest('[data-upcoming-id]');
+                    const upcomingId = parentDiv.dataset.upcomingId;
+                    const data = upcomingMatchData[upcomingId];
+                    if (data) {
+                        showUpcomingDetails(data);
+                    }
+                });
+            });
+
+            closeUpcomingModalBtn.addEventListener('click', () => {
+                upcomingDetailsModal.classList.add('hidden');
+            });
+
+            upcomingDetailsModal.addEventListener('click', (e) => {
+                if (e.target === upcomingDetailsModal) {
+                    upcomingDetailsModal.classList.add('hidden');
+                }
+            });
+
+            function showNotification(message, iconClass) {
+                notificationMessage.textContent = message;
+                notificationIcon.innerHTML = `<i class="${iconClass} fa-3x mb-4"></i>`;
+                notificationContainer.classList.add('show');
+                
+                setTimeout(() => {
+                    notificationContainer.classList.remove('show');
+                }, 5000);
+            }
+
+            function showUpcomingDetails(data) {
+                upcomingModalTitle.textContent = `${data.teams} - Details`;
+                upcomingModalContent.innerHTML = `
+                    <ul class="text-left space-y-4">
+                        <li><span class="font-bold text-green-400">League:</span> ${data.league}</li>
+                        <li><span class="font-bold text-green-400">Date:</span> ${data.date}</li>
+                        <li><span class="font-bold text-green-400">Time:</span> ${data.time}</li>
+                        <li><span class="font-bold text-green-400">Venue:</span> ${data.venue}</li>
+                    </ul>
+                `;
+                upcomingDetailsModal.classList.remove('hidden');
+            }
+
+            // Timer and status logic for live matches
+            const statusBtns = document.querySelectorAll('.status');
+            const timers = {};
+            const intervals = {};
+
+            statusBtns.forEach(btn => {
+                const matchCard = btn.closest('.glass-card');
+                const matchId = matchCard.dataset.matchId;
+                const statusDot = btn.querySelector('.live-dot');
+                const statusText = btn.querySelector('.status-text');
+                const liveTimer = matchCard.querySelector('.live-timer');
+                const minuteText = matchCard.querySelector('.minute-text');
+                const kickoffInfo = matchCard.querySelector('.kickoff-info');
+
+                let isLive = false;
+                timers[matchId] = 0;
+
+                btn.addEventListener('click', () => {
+                    isLive = !isLive;
+                    if (isLive) {
+                        statusDot.classList.remove('stopped');
+                        statusDot.classList.add('breathing');
+                        statusText.textContent = 'Live';
+                        liveTimer.classList.remove('hidden');
+                        kickoffInfo.classList.add('hidden');
+                        const viewMatchBtn = matchCard.querySelector('.view-match-btn');
+                        const tooltipText = matchCard.querySelector('.tooltip-text');
+                        
+                        // Change button state and style
+                        viewMatchBtn.dataset.state = 'enabled';
+                        viewMatchBtn.classList.remove('bg-gray-600', 'cursor-not-allowed');
+                        viewMatchBtn.classList.add('bg-green-600', 'hover:bg-green-500');
+                        tooltipText.style.visibility = 'hidden';
+
+                        intervals[matchId] = setInterval(() => {
+                            timers[matchId]++;
+                            minuteText.textContent = `${timers[matchId]}'`;
+                        }, 1000);
+                    } else {
+                        statusDot.classList.add('stopped');
+                        statusDot.classList.remove('breathing');
+                        statusText.textContent = 'Full Time';
+                        liveTimer.classList.add('hidden');
+                        kickoffInfo.classList.remove('hidden');
+                        kickoffInfo.textContent = 'Match Finished';
+
+                        clearInterval(intervals[matchId]);
+                    }
+                });
+            });
+        });
+    </script>
         <!-- Standings Section (Updated with a Table) -->
         <section id="standings" class="mb-20">
             <h2 class="text-3xl md:text-4xl font-bold mb-8 text-green-500 border-b-2 border-green-700 pb-2 flex items-center">
