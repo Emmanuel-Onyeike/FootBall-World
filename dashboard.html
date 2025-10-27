@@ -793,7 +793,7 @@
   <button id="cit-btn" class="w-full md:w-auto flex-1 border-2 border-green-500 text-green-500 font-bold py-3 px-6 rounded-xl hover:bg-green-500 hover:text-white transition shadow-md">
     CIT League
   </button>
-      <button id="glory-btn" class="w-full md:w-auto flex-1 border-2 border-green-500 text-green-500 font-bold py-3 px-6 rounded-xl hover:bg-green-500 hover:text-white transition shadow-md">
+      <button id="friend-btn" class="w-full md:w-auto flex-1 border-2 border-green-500 text-green-500 font-bold py-3 px-6 rounded-xl hover:bg-green-500 hover:text-white transition shadow-md">
  Friendlies 
   </button>
 </div>
@@ -1170,8 +1170,8 @@
             </div>
         </div>
 
-  <div id="glory-table" class="league-table hidden p-4 md:p-6 shadow-xl absolute w-full top-0" style="background: rgba(255, 255, 255, 0.05); border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1);">
-            <h2 class="text-3xl font-bold mb-4 text-blue-400">Glory Champions Cup Standings</h2>
+  <div id="friend-table" class="league-table hidden p-4 md:p-6 shadow-xl absolute w-full top-0" style="background: rgba(255, 255, 255, 0.05); border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1);">
+            <h2 class="text-3xl font-bold mb-4 text-pink-400">Friendlies</h2>
             <div class="overflow-x-auto rounded-xl" style="max-height: 400px; overflow-y: auto;">
                 <table class="min-w-full bg-[#121212] rounded-xl border-collapse">
                     <thead>
@@ -1544,13 +1544,15 @@
         const mikokoBtn = document.getElementById('mikoko-btn');
         const gloryBtn = document.getElementById('glory-btn');
         const citBtn = document.getElementById('cit-btn');
+        const friendbtn = document.getElementById('friend-btn');
         
         const mikokoTable = document.getElementById('mikoko-table');
         const gloryTable = document.getElementById('glory-table');
         const citTable = document.getElementById('cit-table');
+         const friendTable = document.getElementById('friend-table');
 
         // Array of all table elements for easier hiding
-        const allTables = [mikokoTable, gloryTable, citTable];
+        const allTables = [mikokoTable, gloryTable, citTable, friendTable];
 
         /**
          * Hides all tables and shows the one with the specified ID.
@@ -1576,6 +1578,7 @@
         mikokoBtn.addEventListener('click', () => showTable('mikoko-table'));
         gloryBtn.addEventListener('click', () => showTable('glory-table'));
         citBtn.addEventListener('click', () => showTable('cit-table'));
+         friendbtn.addEventListener('click', () => showTable('friend-table'));
     });
 </script>
 
