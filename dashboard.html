@@ -236,144 +236,196 @@
         </h1>
 
         <!-- Live Match Section -->
-        <section id="live" class="flex-1 mb-20">
-            <h2 class="text-3xl md:text-4xl font-bold mb-8 text-green-500 border-b-2 border-green-700 pb-2 flex items-center">
-                <i class="fas fa-broadcast-tower mr-3 text-red-500 live-glow"></i> LIVE Match
-            </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="glass-card p-6 md:p-8 relative flex flex-col justify-between" data-match-id="match-1">
-                    <div class="absolute top-4 left-4 text-sm text-gray-400 font-semibold flex items-center">
-                        <i class="fas fa-trophy text-yellow-500 mr-2"></i> MIKOKO LEAGUE
-                    </div>
-                    <div class="status absolute top-4 right-4 text-xs bg-gray-800 px-3 py-1 rounded-full flex items-center cursor-pointer hover:bg-gray-700 transition">
-                        <span class="live-dot stopped"></span>
-                        <span class="status-text font-semibold">Not Started</span>
-                    </div>
-                    <div class="flex justify-between items-center mt-8 mb-6">
-                        <div class="text-center flex-1">
-                            <div class="h-16 w-16 md:h-20 md:w-20 flex items-center justify-center bg-green-700 rounded-full mx-auto font-extrabold text-2xl shadow-xl border-4 border-green-400">NIL</div>
-                            <p class="mt-2 text-lg md:text-xl font-medium">NIL</p>
-                        </div>
-                        <div class="text-center mx-4 flex-shrink-0">
-                            <div class="text-5xl md:text-6xl font-extrabold text-green-300 live-score">0 - 0</div>
-                            <div class="match-time-container text-xs mt-1">
-                                <div class="kickoff-info text-gray-300 font-semibold"></div>
-                                <div class="live-timer hidden mt-1 font-bold text-xl md:text-2xl text-red-400 live-glow"><span class="minute-text"></span></div>
-                            </div>
-                        </div>
-                        <div class="text-center flex-1">
-                            <div class="h-16 w-16 md:h-20 md:w-20 flex items-center justify-center bg-sky-700 rounded-full mx-auto font-extrabold text-2xl shadow-xl border-4 border-sky-400">NIL</div>
-                            <p class="mt-2 text-lg md:text-xl font-medium">NIL</p>
-                        </div>
-                    </div>
-                    <div class="tooltip-container">
-                        <button class="view-match-btn w-full mt-4 bg-gray-600 cursor-not-allowed transition py-3 rounded-xl text-lg font-bold shadow-md" data-state="disabled">View Match Center</button>
-                        <span class="tooltip-text">Match center will be available after the game.</span>
+    <section id="live" class="flex-1 mb-20">
+    <h2 class="text-3xl md:text-4xl font-bold mb-8 text-green-500 border-b-2 border-green-700 pb-2 flex items-center">
+        <i class="fas fa-broadcast-tower mr-3 text-red-500 live-glow"></i> LIVE Match
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Match 1 -->
+        <div class="glass-card p-6 md:p-8 relative flex flex-col justify-between" data-match-id="match-1">
+            <div class="absolute top-4 left-4 text-sm text-gray-400 font-semibold flex items-center">
+                <i class="fas fa-trophy text-yellow-500 mr-2"></i> MIKOKO LEAGUE
+            </div>
+            <div class="status absolute top-4 right-4 text-xs bg-gray-800 px-3 py-1 rounded-full flex items-center cursor-pointer hover:bg-gray-700 transition">
+                <span class="live-dot stopped"></span>
+                <span class="status-text font-semibold">Not Started</span>
+            </div>
+            <div class="flex justify-between items-center mt-8 mb-6">
+                <div class="text-center flex-1">
+                    <div class="h-16 w-16 md:h-20 md:w-20 flex items-center justify-center bg-green-700 rounded-full mx-auto font-extrabold text-2xl shadow-xl border-4 border-green-400">NIL</div>
+                    <p class="mt-2 text-lg md:text-xl font-medium">NIL</p>
+                </div>
+                <div class="text-center mx-4 flex-shrink-0">
+                    <div class="text-5xl md:text-6xl font-extrabold text-green-300 live-score">0 - 0</div>
+                    <div class="match-time-container text-xs mt-1">
+                        <div class="kickoff-info text-gray-300 font-semibold"></div>
+                        <div class="live-timer hidden mt-1 font-bold text-xl md:text-2xl text-red-400 live-glow"><span class="minute-text"></span></div>
                     </div>
                 </div>
-                <div class="glass-card p-6 md:p-8 relative flex flex-col justify-between" data-match-id="match-2">
-                    <div class="absolute top-4 left-4 text-sm text-gray-400 font-semibold flex items-center">
-                        <i class="fas fa-trophy text-yellow-500 mr-2"></i> GLORY CHAMPIONS CUP
-                    </div>
-                    <div class="status absolute top-4 right-4 text-xs bg-gray-800 px-3 py-1 rounded-full flex items-center cursor-pointer hover:bg-gray-700 transition">
-                        <span class="live-dot stopped"></span>
-                        <span class="status-text font-semibold">Not Started</span>
-                    </div>
-                    <div class="flex justify-between items-center mt-8 mb-6">
-                        <div class="text-center flex-1">
-                            <div class="h-16 w-16 md:h-20 md:w-20 flex items-center justify-center bg-red-700 rounded-full mx-auto font-extrabold text-2xl shadow-xl border-4 border-red-400">NIL</div>
-                            <p class="mt-2 text-lg md:text-xl font-medium">NIL</p>
-                        </div>
-                        <div class="text-center mx-4 flex-shrink-0">
-                            <div class="text-5xl md:text-6xl font-extrabold text-green-300 live-score">0 - 0</div>
-                            <div class="match-time-container text-xs mt-1">
-                                <div class="kickoff-info text-gray-300 font-semibold"></div>
-                                <div class="live-timer hidden mt-1 font-bold text-xl md:text-2xl text-red-400 live-glow"><span class="minute-text"></span></div>
-                            </div>
-                        </div>
-                        <div class="text-center flex-1">
-                            <div class="h-16 w-16 md:h-20 md:w-20 flex items-center justify-center bg-blue-700 rounded-full mx-auto font-extrabold text-2xl shadow-xl border-4 border-blue-400">NIL</div>
-                            <p class="mt-2 text-lg md:text-xl font-medium">NIL</p>
-                        </div>
-                    </div>
-                    <div class="tooltip-container">
-                        <button class="view-match-btn w-full mt-4 bg-gray-600 cursor-not-allowed transition py-3 rounded-xl text-lg font-bold shadow-md" data-state="disabled">View Match Center</button>
-                        <span class="tooltip-text">Match center will be available after the game.</span>
-                    </div>
-                </div>
-                <div class="glass-card p-6 md:p-8 relative flex flex-col justify-between" data-match-id="match-3">
-                    <div class="absolute top-4 left-4 text-sm text-gray-400 font-semibold flex items-center">
-                        <i class="fas fa-trophy text-yellow-500 mr-2"></i> CIT LEAGUE
-                    </div>
-                    <div class="status absolute top-4 right-4 text-xs bg-gray-800 px-3 py-1 rounded-full flex items-center cursor-pointer hover:bg-gray-700 transition">
-                        <span class="live-dot stopped"></span>
-                        <span class="status-text font-semibold">Not Started</span>
-                    </div>
-                    <div class="flex justify-between items-center mt-8 mb-6">
-                        <div class="text-center flex-1">
-                            <div class="h-16 w-16 md:h-20 md:w-20 flex items-center justify-center bg-slate-700 rounded-full mx-auto font-extrabold text-2xl shadow-xl border-4 border-slate-400">SIY</div>
-                            <p class="mt-2 text-lg md:text-xl font-medium">SILVER CITY</p>
-                        </div>
-                        <div class="text-center mx-4 flex-shrink-0">
-                            <div class="text-5xl md:text-6xl font-extrabold text-green-300 live-score">0 - 0</div>
-                            <div class="match-time-container text-xs mt-1">
-                                <div class="kickoff-info text-gray-300 font-semibold"></div>
-                                <div class="live-timer hidden mt-1 font-bold text-xl md:text-2xl text-red-400 live-glow"><span class="minute-text"></span></div>
-                            </div>
-                        </div>
-                        <div class="text-center flex-1">
-                            <div class="h-16 w-16 md:h-20 md:w-20 flex items-center justify-center bg-lime-700 rounded-full mx-auto font-extrabold text-2xl shadow-xl border-4 border-lime-400">VUTD</div>
-                            <p class="mt-2 text-lg md:text-xl font-medium">VALOR UNITED</p>
-                        </div>
-                    </div>
-                    <div class="tooltip-container">
-                        <button class="view-match-btn w-full mt-4 bg-gray-600 cursor-not-allowed transition py-3 rounded-xl text-lg font-bold shadow-md" data-state="disabled">View Match Center</button>
-                        <span class="tooltip-text">Match center will be available after the game.</span>
-                    </div>
+                <div class="text-center flex-1">
+                    <div class="h-16 w-16 md:h-20 md:w-20 flex items-center justify-center bg-sky-700 rounded-full mx-auto font-extrabold text-2xl shadow-xl border-4 border-sky-400">NIL</div>
+                    <p class="mt-2 text-lg md:text-xl font-medium">NIL</p>
                 </div>
             </div>
-        </section>
+            <div class="tooltip-container">
+                <button class="view-match-btn w-full mt-4 bg-gray-600 cursor-not-allowed transition py-3 rounded-xl text-lg font-bold shadow-md" data-state="disabled">View Match Center</button>
+                <span class="tooltip-text">Match center will be available after the game.</span>
+            </div>
+        </div>
+
+        <!-- Match 2 -->
+        <div class="glass-card p-6 md:p-8 relative flex flex-col justify-between" data-match-id="match-2">
+            <div class="absolute top-4 left-4 text-sm text-gray-400 font-semibold flex items-center">
+                <i class="fas fa-trophy text-yellow-500 mr-2"></i> GLORY CHAMPIONS CUP
+            </div>
+            <div class="status absolute top-4 right-4 text-xs bg-gray-800 px-3 py-1 rounded-full flex items-center cursor-pointer hover:bg-gray-700 transition">
+                <span class="live-dot stopped"></span>
+                <span class="status-text font-semibold">Not Started</span>
+            </div>
+            <div class="flex justify-between items-center mt-8 mb-6">
+                <div class="text-center flex-1">
+                    <div class="h-16 w-16 md:h-20 md:w-20 flex items-center justify-center bg-red-700 rounded-full mx-auto font-extrabold text-2xl shadow-xl border-4 border-red-400">NIL</div>
+                    <p class="mt-2 text-lg md:text-xl font-medium">NIL</p>
+                </div>
+                <div class="text-center mx-4 flex-shrink-0">
+                    <div class="text-5xl md:text-6xl font-extrabold text-green-300 live-score">0 - 0</div>
+                    <div class="match-time-container text-xs mt-1">
+                        <div class="kickoff-info text-gray-300 font-semibold"></div>
+                        <div class="live-timer hidden mt-1 font-bold text-xl md:text-2xl text-red-400 live-glow"><span class="minute-text"></span></div>
+                    </div>
+                </div>
+                <div class="text-center flex-1">
+                    <div class="h-16 w-16 md:h-20 md:w-20 flex items-center justify-center bg-blue-700 rounded-full mx-auto font-extrabold text-2xl shadow-xl border-4 border-blue-400">NIL</div>
+                    <p class="mt-2 text-lg md:text-xl font-medium">NIL</p>
+                </div>
+            </div>
+            <div class="tooltip-container">
+                <button class="view-match-btn w-full mt-4 bg-gray-600 cursor-not-allowed transition py-3 rounded-xl text-lg font-bold shadow-md" data-state="disabled">View Match Center</button>
+                <span class="tooltip-text">Match center will be available after the game.</span>
+            </div>
+        </div>
+
+        <!-- Match 3 -->
+        <div class="glass-card p-6 md:p-8 relative flex flex-col justify-between" data-match-id="match-3">
+            <div class="absolute top-4 left-4 text-sm text-gray-400 font-semibold flex items-center">
+                <i class="fas fa-trophy text-yellow-500 mr-2"></i> CIT LEAGUE
+            </div>
+            <div class="status absolute top-4 right-4 text-xs bg-gray-800 px-3 py-1 rounded-full flex items-center cursor-pointer hover:bg-gray-700 transition">
+                <span class="live-dot stopped"></span>
+                <span class="status-text font-semibold">Not Started</span>
+            </div>
+            <div class="flex justify-between items-center mt-8 mb-6">
+                <div class="text-center flex-1">
+                    <div class="h-16 w-16 md:h-20 md:w-20 flex items-center justify-center bg-slate-700 rounded-full mx-auto font-extrabold text-2xl shadow-xl border-4 border-slate-400">SIY</div>
+                    <p class="mt-2 text-lg md:text-xl font-medium">SILVER CITY</p>
+                </div>
+                <div class="text-center mx-4 flex-shrink-0">
+                    <div class="text-5xl md:text-6xl font-extrabold text-green-300 live-score">0 - 0</div>
+                    <div class="match-time-container text-xs mt-1">
+                        <div class="kickoff-info text-gray-300 font-semibold"></div>
+                        <div class="live-timer hidden mt-1 font-bold text-xl md:text-2xl text-red-400 live-glow"><span class="minute-text"></span></div>
+                    </div>
+                </div>
+                <div class="text-center flex-1">
+                    <div class="h-16 w-16 md:h-20 md:w-20 flex items-center justify-center bg-lime-700 rounded-full mx-auto font-extrabold text-2xl shadow-xl border-4 border-lime-400">VUTD</div>
+                    <p class="mt-2 text-lg md:text-xl font-medium">VALOR UNITED</p>
+                </div>
+            </div>
+            <div class="tooltip-container">
+                <button class="view-match-btn w-full mt-4 bg-gray-600 cursor-not-allowed transition py-3 rounded-xl text-lg font-bold shadow-md" data-state="disabled">View Match Center</button>
+                <span class="tooltip-text">Match center will be available after the game.</span>
+            </div>
+        </div>
+
+        <!-- New Friendly Fixture -->
+        <div class="glass-card p-6 md:p-8 relative flex flex-col justify-between" data-match-id="match-4">
+            <div class="absolute top-4 left-4 text-sm text-gray-400 font-semibold flex items-center">
+                <i class="fas fa-handshake text-green-400 mr-2"></i> FRIENDLY FIXTURE
+            </div>
+            <div class="status absolute top-4 right-4 text-xs bg-gray-800 px-3 py-1 rounded-full flex items-center cursor-pointer hover:bg-gray-700 transition">
+                <span class="live-dot stopped"></span>
+                <span class="status-text font-semibold">Not Started</span>
+            </div>
+            <div class="flex justify-between items-center mt-8 mb-6">
+                <div class="text-center flex-1">
+                    <div class="h-16 w-16 md:h-20 md:w-20 flex items-center justify-center bg-emerald-700 rounded-full mx-auto font-extrabold text-2xl shadow-xl border-4 border-emerald-400">CSC</div>
+                    <p class="mt-2 text-lg md:text-xl font-medium">Computer Science 200 Level</p>
+                </div>
+                <div class="text-center mx-4 flex-shrink-0">
+                    <div class="text-5xl md:text-6xl font-extrabold text-green-300 live-score">0 - 0</div>
+                    <div class="match-time-container text-xs mt-1">
+                        <div class="kickoff-info text-gray-300 font-semibold">Friendly Game</div>
+                        <div class="live-timer hidden mt-1 font-bold text-xl md:text-2xl text-red-400 live-glow"><span class="minute-text"></span></div>
+                    </div>
+                </div>
+                <div class="text-center flex-1">
+                    <div class="h-16 w-16 md:h-20 md:w-20 flex items-center justify-center bg-pink-700 rounded-full mx-auto font-extrabold text-2xl shadow-xl border-4 border-pink-400">NUR</div>
+                    <p class="mt-2 text-lg md:text-xl font-medium">Nursing 200 Level</p>
+                </div>
+            </div>
+            <div class="tooltip-container">
+                <button class="view-match-btn w-full mt-4 bg-gray-600 cursor-not-allowed transition py-3 rounded-xl text-lg font-bold shadow-md" data-state="disabled">View Match Center</button>
+                <span class="tooltip-text">Match center will be available after the game.</span>
+            </div>
+        </div>
+    </div>
+</section>
+
 
         <!-- Upcoming Fixtures Section -->
-        <section id="upcoming" class="mb-20">
-            <h2 class="text-3xl md:text-4xl font-bold mb-8 text-green-500 border-b-2 border-green-700 pb-2 flex items-center">
-                <i class="fas fa-calendar-alt mr-3"></i> Upcoming Fixtures
-            </h2>
-            <div class="glass-card p-4 md:p-6 shadow-xl">
-                <div class="space-y-4">
-                    <div class="flex items-center justify-between p-3 sm:p-4 border-b border-gray-700/50 last:border-b-0 hover:bg-white/5 rounded-lg transition" data-upcoming-id="upcoming-1">
-                        <div class="flex-1 min-w-0">
-                            <p class="text-sm font-light text-gray-400">Mikoko League | </p>
-                            <p class="text-xl font-semibold mt-1">NIL <span class="text-gray-500">vs</span> NIl</p>
-                        </div>
-                        <div class="flex space-x-2 text-sm ml-4 flex-shrink-0">
-                            <button class="reminder-btn px-3 py-1 bg-green-700 rounded-full text-xs hover:bg-green-600 transition">Reminder</button>
-                            <button class="details-btn px-3 py-1 bg-gray-700 rounded-full text-xs hover:bg-gray-600 transition">Details</button>
-                        </div>
-                    </div>
-                    <div class="flex items-center justify-between p-3 sm:p-4 border-b border-gray-700/50 last:border-b-0 hover:bg-white/5 rounded-lg transition" data-upcoming-id="upcoming-2">
-                        <div class="flex-1 min-w-0">
-                            <p class="text-sm font-light text-gray-400">Glory Champions Cup | </p>
-                            <p class="text-xl font-semibold mt-1">NIL <span class="text-gray-500">vs</span> NIL</p>
-                        </div>
-                        <div class="flex space-x-2 text-sm ml-4 flex-shrink-0">
-                            <button class="reminder-btn px-3 py-1 bg-green-700 rounded-full text-xs hover:bg-green-600 transition">Reminder</button>
-                            <button class="details-btn px-3 py-1 bg-gray-700 rounded-full text-xs hover:bg-gray-600 transition">Details</button>
-                        </div>
-                    </div>
-                    <div class="flex items-center justify-between p-3 sm:p-4 last:border-b-0 hover:bg-white/5 rounded-lg transition" data-upcoming-id="upcoming-3">
-                        <div class="flex-1 min-w-0">
-                            <p class="text-sm font-light text-gray-400">CIT League | </p>
-                            <p class="text-xl font-semibold mt-1">Spartans United <span class="text-gray-500">vs</span> Neons</p>
-                        </div>
-                        <div class="flex space-x-2 text-sm ml-4 flex-shrink-0">
-                            <button class="reminder-btn px-3 py-1 bg-green-700 rounded-full text-xs hover:bg-green-600 transition">Reminder</button>
-                            <button class="details-btn px-3 py-1 bg-gray-700 rounded-full text-xs hover:bg-gray-600 transition">Details</button>
-                        </div>
-                    </div>
+       <section id="upcoming" class="mb-20">
+    <h2 class="text-3xl md:text-4xl font-bold mb-8 text-green-500 border-b-2 border-green-700 pb-2 flex items-center">
+        <i class="fas fa-calendar-alt mr-3"></i> Upcoming Fixtures
+    </h2>
+    <div class="glass-card p-4 md:p-6 shadow-xl">
+        <div class="space-y-4">
+            <div class="flex items-center justify-between p-3 sm:p-4 border-b border-gray-700/50 last:border-b-0 hover:bg-white/5 rounded-lg transition" data-upcoming-id="upcoming-1">
+                <div class="flex-1 min-w-0">
+                    <p class="text-sm font-light text-gray-400">Mikoko League | </p>
+                    <p class="text-xl font-semibold mt-1">NIL <span class="text-gray-500">vs</span> NIL</p>
+                </div>
+                <div class="flex space-x-2 text-sm ml-4 flex-shrink-0">
+                    <button class="reminder-btn px-3 py-1 bg-green-700 rounded-full text-xs hover:bg-green-600 transition">Reminder</button>
+                    <button class="details-btn px-3 py-1 bg-gray-700 rounded-full text-xs hover:bg-gray-600 transition">Details</button>
                 </div>
             </div>
-        </section>
+
+            <div class="flex items-center justify-between p-3 sm:p-4 border-b border-gray-700/50 last:border-b-0 hover:bg-white/5 rounded-lg transition" data-upcoming-id="upcoming-2">
+                <div class="flex-1 min-w-0">
+                    <p class="text-sm font-light text-gray-400">Glory Champions Cup | </p>
+                    <p class="text-xl font-semibold mt-1">NIL <span class="text-gray-500">vs</span> NIL</p>
+                </div>
+                <div class="flex space-x-2 text-sm ml-4 flex-shrink-0">
+                    <button class="reminder-btn px-3 py-1 bg-green-700 rounded-full text-xs hover:bg-green-600 transition">Reminder</button>
+                    <button class="details-btn px-3 py-1 bg-gray-700 rounded-full text-xs hover:bg-gray-600 transition">Details</button>
+                </div>
+            </div>
+
+            <div class="flex items-center justify-between p-3 sm:p-4 border-b border-gray-700/50 last:border-b-0 hover:bg-white/5 rounded-lg transition" data-upcoming-id="upcoming-3">
+                <div class="flex-1 min-w-0">
+                    <p class="text-sm font-light text-gray-400">CIT League | </p>
+                    <p class="text-xl font-semibold mt-1">Spartans United <span class="text-gray-500">vs</span> Neons</p>
+                </div>
+                <div class="flex space-x-2 text-sm ml-4 flex-shrink-0">
+                    <button class="reminder-btn px-3 py-1 bg-green-700 rounded-full text-xs hover:bg-green-600 transition">Reminder</button>
+                    <button class="details-btn px-3 py-1 bg-gray-700 rounded-full text-xs hover:bg-gray-600 transition">Details</button>
+                </div>
+            </div>
+
+            <!-- New Friendly Fixture -->
+            <div class="flex items-center justify-between p-3 sm:p-4 hover:bg-white/5 rounded-lg transition" data-upcoming-id="upcoming-4">
+                <div class="flex-1 min-w-0">
+                    <p class="text-sm font-light text-gray-400">Friendly Fixture | </p>
+                    <p class="text-xl font-semibold mt-1">Computer Science 200 Level Dept <span class="text-gray-500">vs</span> Nursing Dept 200 Level</p>
+                </div>
+                <div class="flex space-x-2 text-sm ml-4 flex-shrink-0">
+                    <button class="reminder-btn px-3 py-1 bg-green-700 rounded-full text-xs hover:bg-green-600 transition">Reminder</button>
+                    <button class="details-btn px-3 py-1 bg-gray-700 rounded-full text-xs hover:bg-gray-600 transition">Details</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 
     <!-- Match Center Modal -->
@@ -1332,19 +1384,8 @@
 
      <div class="mb-20">
   <!-- Player Stats Section -->
-  <section id="stats">
-    <h2
-      class="text-3xl md:text-4xl font-bold mb-8 text-green-500 border-b-2 border-green-700 pb-2 flex items-center"
-    >
-      <i class="fas fa-chart-line mr-3"></i> Player Leaderboards
-    </h2>
-
-    <!-- Grid layout -->
-    <div
-      class="grid grid-cols-1 lg:grid-cols-2 gap-10 mt-10"
-    >
-      <!-- Top Scorers (Left on desktop) -->
-     <div class="glass-card p-6 md:p-8 space-y-6 mt-6">
+ <!-- Top Scorers (Left on desktop) -->
+<div class="glass-card p-6 md:p-8 space-y-6 mt-6">
   <h3 class="text-2xl font-bold text-green-400 mb-4 flex items-center gap-2">
     ⚽ Top Scorers
   </h3>
@@ -1360,9 +1401,12 @@
     <button class="tab-link font-semibold text-gray-400 hover:text-green-300" data-tab="cit">
       Cit League
     </button>
+    <button class="tab-link font-semibold text-gray-400 hover:text-green-300" data-tab="friendlies">
+      Friendlies
+    </button>
   </div>
 
-  <!-- Tab Content -->
+  <!-- Mikoko League -->
   <div id="mikoko" class="tab-content space-y-4">
     <ul class="space-y-4">
       <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
@@ -1376,32 +1420,11 @@
         </div>
         <span class="font-extrabold text-2xl text-green-300">0</span>
       </li>
-           <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
-        <div class="flex items-center">
-          <span class="text-xl font-extrabold text-green-400 mr-4 w-6 text-center">2.</span>
-          <span class="h-10 w-10 bg-red-600 rounded-full flex items-center justify-center font-bold text-sm text-white">P9</span>
-          <div class="ml-3">
-            <p class="font-semibold">Unknown</p>
-            <p class="text-xs text-gray-400">NIL</p>
-          </div>
-        </div>
-        <span class="font-extrabold text-2xl text-green-300">0</span>
-      </li>
-           <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
-        <div class="flex items-center">
-          <span class="text-xl font-extrabold text-green-400 mr-4 w-6 text-center">3.</span>
-          <span class="h-10 w-10 bg-red-600 rounded-full flex items-center justify-center font-bold text-sm text-white">P9</span>
-          <div class="ml-3">
-            <p class="font-semibold">Unknown</p>
-            <p class="text-xs text-gray-400">NIL</p>
-          </div>
-        </div>
-        <span class="font-extrabold text-2xl text-green-300">0</span>
-      </li>
-      <!-- Add more scorers for Mikoko -->
+      <!-- More players -->
     </ul>
   </div>
 
+  <!-- Glory Cup -->
   <div id="glory" class="tab-content hidden space-y-4">
     <ul class="space-y-4">
       <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
@@ -1410,37 +1433,15 @@
           <span class="h-10 w-10 bg-blue-600 rounded-full flex items-center justify-center font-bold text-sm text-white">P7</span>
           <div class="ml-3">
             <p class="font-semibold">Unknown</p>
-            <p class="text-xs text-gray-400">NIl</p>
-          </div>
-        </div>
-        <span class="font-extrabold text-2xl text-yellow-300">0</span>
-      </li>
-        <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
-        <div class="flex items-center">
-          <span class="text-xl font-extrabold text-yellow-400 mr-4 w-6 text-center">2.</span>
-          <span class="h-10 w-10 bg-blue-600 rounded-full flex items-center justify-center font-bold text-sm text-white">P7</span>
-          <div class="ml-3">
-            <p class="font-semibold">Unknown</p>
-            <p class="text-xs text-gray-400">NIl</p>
-          </div>
-        </div>
-        <span class="font-extrabold text-2xl text-yellow-300">0</span>
-      </li>
-        <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
-        <div class="flex items-center">
-          <span class="text-xl font-extrabold text-yellow-400 mr-4 w-6 text-center">3.</span>
-          <span class="h-10 w-10 bg-blue-600 rounded-full flex items-center justify-center font-bold text-sm text-white">P7</span>
-          <div class="ml-3">
-            <p class="font-semibold">Unknown</p>
             <p class="text-xs text-gray-400">NIL</p>
           </div>
         </div>
         <span class="font-extrabold text-2xl text-yellow-300">0</span>
       </li>
-      <!-- Add more scorers for Glory Cup -->
     </ul>
   </div>
 
+  <!-- Cit League -->
   <div id="cit" class="tab-content hidden space-y-4">
     <ul class="space-y-4">
       <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
@@ -1454,29 +1455,34 @@
         </div>
         <span class="font-extrabold text-2xl text-purple-300">0</span>
       </li>
-         <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
+    </ul>
+  </div>
+
+  <!-- Friendlies -->
+  <div id="friendlies" class="tab-content hidden space-y-4">
+    <ul class="space-y-4">
+      <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
         <div class="flex items-center">
-          <span class="text-xl font-extrabold text-purple-400 mr-4 w-6 text-center">2.</span>
-          <span class="h-10 w-10 bg-purple-600 rounded-full flex items-center justify-center font-bold text-sm text-white">P10</span>
+          <span class="text-xl font-extrabold text-pink-400 mr-4 w-6 text-center">1.</span>
+          <span class="h-10 w-10 bg-pink-600 rounded-full flex items-center justify-center font-bold text-sm text-white">P5</span>
           <div class="ml-3">
             <p class="font-semibold">Unknown</p>
             <p class="text-xs text-gray-400">NIL</p>
           </div>
         </div>
-        <span class="font-extrabold text-2xl text-purple-300">0</span>
+        <span class="font-extrabold text-2xl text-pink-300">0</span>
       </li>
-         <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
+      <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
         <div class="flex items-center">
-          <span class="text-xl font-extrabold text-purple-400 mr-4 w-6 text-center">3.</span>
-          <span class="h-10 w-10 bg-purple-600 rounded-full flex items-center justify-center font-bold text-sm text-white">P10</span>
+          <span class="text-xl font-extrabold text-pink-400 mr-4 w-6 text-center">2.</span>
+          <span class="h-10 w-10 bg-pink-600 rounded-full flex items-center justify-center font-bold text-sm text-white">P6</span>
           <div class="ml-3">
             <p class="font-semibold">Unknown</p>
             <p class="text-xs text-gray-400">NIL</p>
           </div>
         </div>
-        <span class="font-extrabold text-2xl text-purple-300">0</span>
+        <span class="font-extrabold text-2xl text-pink-300">0</span>
       </li>
-      <!-- Add more scorers for Cit League -->
     </ul>
   </div>
 </div>
