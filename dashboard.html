@@ -427,67 +427,152 @@
     </div>
 </section>
 <!-- Recent Match Section -->
+<style>
+  /* Base styles for the player badge, centralized here for clean HTML */
+  .player-badge {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 5rem; /* w-20 */
+    height: 5rem; /* h-20 */
+    background-color: #1f2937; /* bg-gray-800 */
+    border-radius: 9999px; /* rounded-full */
+    border: 4px solid #10b981; /* border-4 border-green-600 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* shadow-md */
+  }
+  .player-badge .rating {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #f59e0b; /* bg-yellow-500 */
+    color: black;
+    font-size: 0.75rem; /* text-xs */
+    font-weight: 700; /* font-bold */
+    padding: 0.25rem 0.5rem; /* px-2 py-1 */
+    border-radius: 9999px; /* rounded-full */
+  }
+  /* Style for player/sub divs for better structuring */
+  .player, .sub-player {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
+  .sub-player .player-badge {
+    width: 4rem; /* w-16 */
+    height: 4rem; /* h-16 */
+  }
+  .sub-player p {
+    font-size: 0.75rem; /* text-xs */
+    margin-top: 0.25rem; /* mt-1 */
+  }
+  .match-list-container {
+    max-height: 500px; /* Adjust as needed */
+    overflow-y: auto;
+  }
+  .match-card {
+    border: 1px solid rgba(17, 24, 39, 0.4); /* border-gray-700/40 */
+    border-radius: 0.5rem; /* rounded-lg */
+    padding: 1rem; /* p-4 */
+    background-color: rgba(0, 0, 0, 0.4); /* bg-black/40 */
+  }
+</style>
+
 <section id="recent" class="mb-20">
-  <h2
-    class="text-3xl md:text-4xl font-bold mb-8 text-green-500 border-b-2 border-green-700 pb-2 flex items-center"
-  >
-    <i class="fas fa-history mr-3"></i> Recent Matches
-  </h2>
+  <h2
+    class="text-3xl md:text-4xl font-bold mb-8 text-green-500 border-b-2 border-green-700 pb-2 flex items-center"
+  >
+    <i class="fas fa-history mr-3"></i> Recent Matches
+  </h2>
 
-  <div class="glass-card p-4 md:p-6 shadow-xl space-y-6">
-    <div class="border border-gray-700/40 rounded-lg p-4 bg-black/40" data-date="25-10-2025">
-      <div class="flex items-center justify-between border-b border-gray-700/50 pb-2 mb-3">
-        <p class="text-gray-300 text-sm flex items-center gap-2">
-          <i class="far fa-calendar-alt text-green-500"></i> Saturday, 25th October 2025 – 11:00 PM
-        </p>
-        <span class="text-xs bg-green-800 text-green-100 px-2 py-1 rounded-full"
-          >Friendly Match</span
-        >
-      </div>
+  <div class="glass-card p-4 md:p-6 shadow-xl match-list-container">
+    <div class="flex flex-col md:flex-row gap-6">
 
-      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div>
-          <p class="text-lg font-semibold text-white">
-            Computer Science 200 Level <span class="text-gray-500 font-normal">vs</span> Computer
-            Science 100 Level
-          </p>
-          <p class="text-sm text-gray-400 mt-1">Venue: Campus Main Field</p>
-        </div>
+      <div class="match-card flex-1 min-w-full md:min-w-[48%]" data-date="25-10-2025">
+        <div class="flex items-center justify-between border-b border-gray-700/50 pb-2 mb-3">
+          <p class="text-gray-300 text-sm flex items-center gap-2">
+            <i class="far fa-calendar-alt text-green-500"></i> Sat, 25th Oct 2025 – 11:00 PM
+          </p>
+          <span class="text-xs bg-green-800 text-green-100 px-2 py-1 rounded-full">Friendly Match</span>
+        </div>
 
-        <div class="text-2xl font-bold text-green-400 text-center sm:text-right">4<span class="text-gray-400">–</span>2</div>
-      </div>
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <p class="text-lg font-semibold text-white">
+              Computer Science 200 Level <span class="text-gray-500 font-normal">vs</span> Computer
+              Science 100 Level
+            </p>
+            <p class="text-sm text-gray-400 mt-1">Venue: Campus Main Field</p>
+          </div>
 
-      <div class="mt-4 flex justify-end">
-        <button
-          onclick="openMatchModal()"
-          class="bg-green-700 hover:bg-green-600 text-white text-sm px-4 py-2 rounded-md flex items-center gap-2"
-        >
-          <i class="fas fa-eye"></i> View Match Details
-        </button>
-      </div>
-    </div>
-  </div>
+          <div class="text-2xl font-bold text-green-400 text-center sm:text-right">4<span class="text-gray-400">–</span>2</div>
+        </div>
+
+        <div class="mt-4 flex justify-end">
+          <button
+            onclick="openMatchModal('csc-match')"
+            class="bg-green-700 hover:bg-green-600 text-white text-sm px-4 py-2 rounded-md flex items-center gap-2"
+          >
+            <i class="fas fa-eye"></i> View Details
+          </button>
+        </div>
+      </div>
+
+      <div class="match-card flex-1 min-w-full md:min-w-[48%]" data-date="25-10-2025">
+        <div class="flex items-center justify-between border-b border-gray-700/50 pb-2 mb-3">
+          <p class="text-gray-300 text-sm flex items-center gap-2">
+            <i class="far fa-calendar-alt text-green-500"></i> Sat, 25th Oct 2025 – 9:00 PM
+          </p>
+          <span class="text-xs bg-blue-800 text-blue-100 px-2 py-1 rounded-full">League Match</span>
+        </div>
+
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <p class="text-lg font-semibold text-white">
+              Nursing 200 Level <span class="text-gray-500 font-normal">vs</span> Medicine 200
+              Level
+            </p>
+            <p class="text-sm text-gray-400 mt-1">Venue: Stadium Pitch 2</p>
+          </div>
+
+          <div class="text-2xl font-bold text-green-400 text-center sm:text-right">7<span class="text-gray-400">–</span>3</div>
+        </div>
+
+        <div class="mt-4 flex justify-end">
+          <button
+            onclick="openMatchModal('nursing-match')"
+            class="bg-green-700 hover:bg-green-600 text-white text-sm px-4 py-2 rounded-md flex items-center gap-2"
+          >
+            <i class="fas fa-eye"></i> View Details
+          </button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
 </section>
 
 <div
-  id="recentMatchModal"
+  id="csc-match-modal"
   class="fixed inset-0 bg-black/80 flex items-center justify-center p-4 hidden z-50"
 >
   <div
     class="bg-[#111] text-white rounded-xl shadow-2xl w-full max-w-sm md:max-w-3xl p-6 relative border border-green-700/40 max-h-[95vh] overflow-y-auto"
   >
-    <button onclick="closeMatchModal()" class="absolute top-3 right-3 text-gray-400 hover:text-white">
+    <button onclick="closeMatchModal('csc-match')" class="absolute top-3 right-3 text-gray-400 hover:text-white">
       <i class="fas fa-times text-xl"></i>
     </button>
+    <h2 class="text-2xl font-bold mb-4">CSC 200 vs CSC 100</h2>
 
     <div class="flex gap-4 border-b border-gray-700 mb-4">
-      <button id="tab-summary" class="tab-btn text-green-400 border-b-2 border-green-500 pb-2">
+      <button data-tab-target="csc-summary" class="tab-btn csc-tab-btn text-green-400 border-b-2 border-green-500 pb-2">
         Match Summary
       </button>
-      <button id="tab-players" class="tab-btn text-gray-400 pb-2">Players</button>
+      <button data-tab-target="csc-players" class="tab-btn csc-tab-btn text-gray-400 pb-2">Players</button>
     </div>
 
-    <div id="summary" class="tab-content">
+    <div id="csc-summary" class="tab-content csc-tab-content">
       <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
         <i class="fas fa-futbol text-green-500"></i> Match Timeline
       </h3>
@@ -501,72 +586,91 @@
         <li>⚽ 90+3’ – Daniel (CSC 200)</li>
       </ul>
     </div>
-
-    <!-- Players Tab -->
-    <div id="players" class="tab-content hidden">
+    
+    <div id="csc-players" class="tab-content csc-tab-content hidden">
       <div class="flex justify-between items-center mb-4">
-        <h3 id="playerTeamTitle" class="text-xl font-bold flex items-center gap-2">
+        <h3 id="cscPlayerTeamTitle" class="text-xl font-bold flex items-center gap-2">
           <i class="fas fa-users text-green-500"></i> CSC 200 Players
         </h3>
         <button
-          id="switchTeamBtn"
+          id="cscSwitchTeamBtn"
           class="text-sm bg-green-700 hover:bg-green-600 px-3 py-1 rounded-md"
         >
           Switch to CSC 100
         </button>
       </div>
 
-      <!-- CSC 200 PLAYERS -->
-      <div id="team200" class="grid grid-cols-3 gap-y-8 md:gap-y-12 gap-x-4 justify-items-center text-center">
+      <div id="csc-team200" class="csc-team-content grid grid-cols-3 gap-y-8 md:gap-y-12 gap-x-4 justify-items-center text-center">
         <div class="col-span-3 flex flex-col items-center relative mb-4">
-          <div class="relative flex items-center justify-center w-20 h-20 bg-gray-800 rounded-full border-4 border-green-600 shadow-md">
+          <div class="player-badge">
             <i class="fas fa-hand-paper text-3xl text-green-400"></i>
-            <span class="absolute top-0 right-0 bg-yellow-500 text-black text-xs font-bold px-2 py-1 rounded-full">8.6</span>
+            <span class="rating">8.6</span>
           </div>
           <p class="mt-2 text-sm font-semibold text-white">Goalkeeper</p>
         </div>
- <div class="flex flex-col items-center relative">
+        <div class="player">
           <div class="player-badge"><span class="text-2xl font-bold text-gray-300">J</span><span class="rating">8.2</span></div>
           <p class="mt-2 text-sm font-semibold">Jaso (LB)</p>
         </div>
-        <div class="flex flex-col items-center relative">
+        <div class="player">
           <div class="player-badge"><span class="text-2xl font-bold text-gray-300">ZU</span><span class="rating">8.3</span></div>
           <p class="mt-2 text-sm font-semibold">Zubby (CB)</p>
         </div>
-
-       
-
-        <div class="flex flex-col items-center relative">
+        <div class="player">
           <div class="player-badge"><span class="text-2xl font-bold text-gray-300">A</span><span class="rating">8.0</span></div>
           <p class="mt-2 text-sm font-semibold">Akachukwu (RB)</p>
         </div>
-
         <div class="col-span-3 w-full border-b border-gray-700/50 my-2"></div>
-
         <div class="col-span-3 flex justify-center gap-10 md:gap-20">
-          <div class="player"><span class="text-2xl font-bold text-gray-300">C</span><span class="rating">8.0</span><p>Cush (CM) <span class="text-green-400 text-xs">(C)</span></p></div>
-          <div class="player"><span class="text-2xl font-bold text-gray-300">CH</span><span class="rating">7.8</span><p>Chiama (CM)</p></div>
+          <div class="player">
+            <div class="player-badge"><span class="text-2xl font-bold text-gray-300">C</span><span class="rating">8.0</span></div>
+            <p class="mt-2 text-sm font-semibold">Cush (CM) <span class="text-green-400 text-xs">(C)</span></p>
+          </div>
+          <div class="player">
+            <div class="player-badge"><span class="text-2xl font-bold text-gray-300">CH</span><span class="rating">7.8</span></div>
+            <p class="mt-2 text-sm font-semibold">Chiama (CM)</p>
+          </div>
         </div>
-
         <div class="col-span-3 w-full border-b border-gray-700/50 my-2"></div>
-     <div class="player"><span class="text-2xl font-bold text-gray-300">DL</span><span class="rating">8.4</span><p>Daniel (RW)</p></div>
-        <div class="player"><span class="text-2xl font-bold text-gray-300">PW</span><span class="rating">7.9</span><p>Princewill (CF)</p></div>
-  
-        <div class="player"><span class="text-2xl font-bold text-gray-300">S</span><span class="rating">8.4</span><p>Sammy (LW)</p></div>
-
+        <div class="player">
+          <div class="player-badge"><span class="text-2xl font-bold text-gray-300">DL</span><span class="rating">8.4</span></div>
+          <p class="mt-2 text-sm font-semibold">Daniel (RW)</p>
+        </div>
+        <div class="player">
+          <div class="player-badge"><span class="text-2xl font-bold text-gray-300">PW</span><span class="rating">7.9</span></div>
+          <p class="mt-2 text-sm font-semibold">Princewill (CF)</p>
+        </div>
+        <div class="player">
+          <div class="player-badge"><span class="text-2xl font-bold text-gray-300">S</span><span class="rating">8.4</span></div>
+          <p class="mt-2 text-sm font-semibold">Sammy (LW)</p>
+        </div>
         <div class="col-span-3 border-t border-gray-700 mt-6 pt-4 w-full text-center">
           <h4 class="text-green-400 font-semibold mb-3">
             <i class="fas fa-exchange-alt"></i> Substitutes
           </h4>
           <div class="flex flex-wrap justify-center gap-4">
-            <div class="sub">C - Chibuike (7.3)</div>
-            <div class="sub">E - Eddy (7.5)</div>
-            <div class="sub">EM - Emperor (7.6)</div>
-            <div class="sub">KO - Kev O (7.9)</div>
-            <div class="sub">I - Igwe (7.1)</div>
+            <div class="sub-player">
+              <div class="player-badge"><span class="text-xl font-bold text-gray-300">C</span><span class="rating">7.3</span></div>
+              <p>Chibuike</p>
+            </div>
+            <div class="sub-player">
+              <div class="player-badge"><span class="text-xl font-bold text-gray-300">E</span><span class="rating">7.5</span></div>
+              <p>Eddy</p>
+            </div>
+            <div class="sub-player">
+              <div class="player-badge"><span class="text-xl font-bold text-gray-300">EM</span><span class="rating">7.6</span></div>
+              <p>Emperor</p>
+            </div>
+            <div class="sub-player">
+              <div class="player-badge"><span class="text-xl font-bold text-gray-300">KO</span><span class="rating">7.9</span></div>
+              <p>Kev O</p>
+            </div>
+            <div class="sub-player">
+              <div class="player-badge"><span class="text-xl font-bold text-gray-300">I</span><span class="rating">7.1</span></div>
+              <p>Igwe</p>
+            </div>
           </div>
         </div>
-
         <div class="col-span-3 text-center mt-6">
           <p class="text-sm text-gray-400">
             <i class="fas fa-user-tie text-green-500 mr-2"></i> Coach Honour
@@ -574,77 +678,177 @@
         </div>
       </div>
 
-      <!-- CSC 100 PLAYERS -->
-      <div id="team100" class="hidden grid grid-cols-3 gap-y-8 md:gap-y-12 gap-x-4 justify-items-center text-center">
+      <div id="csc-team100" class="csc-team-content hidden grid grid-cols-3 gap-y-8 md:gap-y-12 gap-x-4 justify-items-center text-center">
         <div class="col-span-3 flex flex-col items-center relative mb-4">
           <div class="player-badge">
-          
-            <span class="rating">8.1</span>
+            <i class="fas fa-hand-paper text-3xl text-green-400"></i>
+            <span class="rating">7.9</span>
           </div>
-          <p class="mt-2 text-sm font-semibold text-white">Chukwuemeka</p>
+          <p class="mt-2 text-sm font-semibold text-white">Goalkeeper</p>
         </div>
-
-        <div class="player"><span class="text-2xl font-bold text-gray-300">C</span><span class="rating">7.8</span><p>Calvin </p></div>
-        <div class="player"><span class="text-2xl font-bold text-gray-300">U</span><span class="rating">7.4</span><p>Ugo</p></div>
-        <div class="player"><span class="text-2xl font-bold text-gray-300">E</span><span class="rating">7.5</span><p>Elijah</p></div>
-        <div class="player"><span class="text-2xl font-bold text-gray-300">CL</span><span class="rating">7.3</span><p>Clinton</p></div>
-        <div class="player"><span class="text-2xl font-bold text-gray-300">P</span><span class="rating">7.6</span><p>Paschal</p></div>
-        <div class="player"><span class="text-2xl font-bold text-gray-300">R</span><span class="rating">7.5</span><p>Raphael</p></div>
-        <div class="player"><span class="text-2xl font-bold text-gray-300">IL</span><span class="rating">7.7</span><p>Iloka Chukwudalu</p></div>
+        <div class="player">
+          <div class="player-badge"><span class="text-2xl font-bold text-gray-300">C</span><span class="rating">7.8</span></div>
+          <p class="mt-2 text-sm font-semibold">Calvin (LB)</p>
+        </div>
+        <div class="player">
+          <div class="player-badge"><span class="text-2xl font-bold text-gray-300">U</span><span class="rating">7.4</span></div>
+          <p class="mt-2 text-sm font-semibold">Ugo (CB)</p>
+        </div>
+        <div class="player">
+          <div class="player-badge"><span class="text-2xl font-bold text-gray-300">E</span><span class="rating">7.5</span></div>
+          <p class="mt-2 text-sm font-semibold">Elijah (RB)</p>
+        </div>
+        <div class="col-span-3 w-full border-b border-gray-700/50 my-2"></div>
+        <div class="col-span-3 flex justify-center gap-10 md:gap-20">
+          <div class="player">
+            <div class="player-badge"><span class="text-2xl font-bold text-gray-300">CL</span><span class="rating">7.3</span></div>
+            <p class="mt-2 text-sm font-semibold">Clinton (CM)</p>
+          </div>
+          <div class="player">
+            <div class="player-badge"><span class="text-2xl font-bold text-gray-300">P</span><span class="rating">7.6</span></div>
+            <p class="mt-2 text-sm font-semibold">Paschal (CM) <span class="text-green-400 text-xs">(C)</span></p>
+          </div>
+        </div>
+        <div class="col-span-3 w-full border-b border-gray-700/50 my-2"></div>
+        <div class="player">
+          <div class="player-badge"><span class="text-2xl font-bold text-gray-300">R</span><span class="rating">7.5</span></div>
+          <p class="mt-2 text-sm font-semibold">Raphael (RW)</p>
+        </div>
+        <div class="player">
+          <div class="player-badge"><span class="text-2xl font-bold text-gray-300">IL</span><span class="rating">7.7</span></div>
+          <p class="mt-2 text-sm font-semibold">Iloka (CF)</p>
+        </div>
+        <div class="player">
+          <div class="player-badge"><span class="text-2xl font-bold text-gray-300">CE</span><span class="rating">8.1</span></div>
+          <p class="mt-2 text-sm font-semibold">Chukwuemeka (LW)</p>
+        </div>
+        <div class="col-span-3 border-t border-gray-700 mt-6 pt-4 w-full text-center">
+          <h4 class="text-green-400 font-semibold mb-3">
+            <i class="fas fa-exchange-alt"></i> Substitutes
+          </h4>
+          <p class="text-sm text-gray-500">Substitutes for CSC 100 not available yet.</p>
+        </div>
+        <div class="col-span-3 text-center mt-6">
+          <p class="text-sm text-gray-400">
+            <i class="fas fa-user-tie text-green-500 mr-2"></i> Coach Name (TBD)
+          </p>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
+<div
+  id="nursing-match-modal"
+  class="fixed inset-0 bg-black/80 flex items-center justify-center p-4 hidden z-50"
+>
+  <div
+    class="bg-[#111] text-white rounded-xl shadow-2xl w-full max-w-sm md:max-w-3xl p-6 relative border border-green-700/40 max-h-[95vh] overflow-y-auto"
+  >
+    <button onclick="closeMatchModal('nursing-match')" class="absolute top-3 right-3 text-gray-400 hover:text-white">
+      <i class="fas fa-times text-xl"></i>
+    </button>
+    <h2 class="text-2xl font-bold mb-4">Nursing 200 vs Medicine 200</h2>
+
+    <div class="flex gap-4 border-b border-gray-700 mb-4">
+      <button data-tab-target="nursing-summary" class="tab-btn nursing-tab-btn text-green-400 border-b-2 border-green-500 pb-2">
+        Match Summary
+      </button>
+      <button data-tab-target="nursing-players" class="tab-btn nursing-tab-btn text-gray-400 pb-2">Players</button>
+    </div>
+
+    <div id="nursing-summary" class="tab-content nursing-tab-content">
+      <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+        <i class="fas fa-futbol text-green-500"></i> Match Timeline
+      </h3>
+      <p class="text-gray-400">Match timeline details to be added for this match.</p>
+    </div>
+    
+    <div id="nursing-players" class="tab-content nursing-tab-content hidden">
+      <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+        <i class="fas fa-users text-green-500"></i> Nursing 200 Players
+      </h3>
+      <p class="text-gray-400">Player details will be entered here later.</p>
+    </div>
+  </div>
+</div>
+
 <script>
-  const modal = document.getElementById('recentMatchModal');
-  const summaryTab = document.getElementById('summary');
-  const playersTab = document.getElementById('players');
-  const tabSummaryBtn = document.getElementById('tab-summary');
-  const tabPlayersBtn = document.getElementById('tab-players');
-  const team200 = document.getElementById('team200');
-  const team100 = document.getElementById('team100');
-  const playerTeamTitle = document.getElementById('playerTeamTitle');
-  const switchTeamBtn = document.getElementById('switchTeamBtn');
+  // Utility function to handle tab switching logic generically
+  function setupTabs(modalId) {
+    const modal = document.getElementById(modalId);
+    if (!modal) return;
 
-  let currentTeam = 200;
+    const tabButtons = modal.querySelectorAll('.tab-btn');
+    const tabContents = modal.querySelectorAll('.tab-content');
 
-  function openMatchModal() {
-    modal.classList.remove('hidden');
+    tabButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const targetId = button.getAttribute('data-tab-target');
+        
+        // Deactivate all tabs and hide all content in this modal
+        tabButtons.forEach(btn => {
+          btn.classList.remove('text-green-400', 'border-b-2', 'border-green-500');
+          btn.classList.add('text-gray-400');
+        });
+        tabContents.forEach(content => {
+          content.classList.add('hidden');
+        });
+
+        // Activate the clicked tab and show its content
+        button.classList.add('text-green-400', 'border-b-2', 'border-green-500');
+        button.classList.remove('text-gray-400');
+        document.getElementById(targetId).classList.remove('hidden');
+      });
+    });
   }
-  function closeMatchModal() {
-    modal.classList.add('hidden');
-  }
 
-  tabSummaryBtn.addEventListener('click', () => {
-    summaryTab.classList.remove('hidden');
-    playersTab.classList.add('hidden');
-    tabSummaryBtn.classList.add('text-green-400', 'border-b-2', 'border-green-500');
-    tabPlayersBtn.classList.remove('text-green-400', 'border-b-2', 'border-green-500');
-  });
-
-  tabPlayersBtn.addEventListener('click', () => {
-    playersTab.classList.remove('hidden');
-    summaryTab.classList.add('hidden');
-    tabPlayersBtn.classList.add('text-green-400', 'border-b-2', 'border-green-500');
-    tabSummaryBtn.classList.remove('text-green-400', 'border-b-2', 'border-green-500');
-  });
-
-  switchTeamBtn.addEventListener('click', () => {
-    if (currentTeam === 200) {
-      team200.classList.add('hidden');
-      team100.classList.remove('hidden');
-      playerTeamTitle.innerHTML = `<i class="fas fa-users text-green-500"></i> CSC 100 Players`;
-      switchTeamBtn.textContent = "Switch to CSC 200";
-      currentTeam = 100;
-    } else {
-      team100.classList.add('hidden');
-      team200.classList.remove('hidden');
-      playerTeamTitle.innerHTML = `<i class="fas fa-users text-green-500"></i> CSC 200 Players`;
-      switchTeamBtn.textContent = "Switch to CSC 100";
-      currentTeam = 200;
+  // Generic function to open a specific modal
+  function openMatchModal(matchId) {
+    const modal = document.getElementById(matchId + '-modal');
+    if (modal) {
+      modal.classList.remove('hidden');
     }
-  });
+  }
+
+  // Generic function to close a specific modal
+  function closeMatchModal(matchId) {
+    const modal = document.getElementById(matchId + '-modal');
+    if (modal) {
+      modal.classList.add('hidden');
+    }
+  }
+
+  // CSC Team Switcher
+  let cscCurrentTeam = 200;
+  const cscSwitchTeamBtn = document.getElementById('cscSwitchTeamBtn');
+  const cscTeam200 = document.getElementById('csc-team200');
+  const cscTeam100 = document.getElementById('csc-team100');
+  const cscPlayerTeamTitle = document.getElementById('cscPlayerTeamTitle');
+
+  if (cscSwitchTeamBtn) {
+    cscSwitchTeamBtn.addEventListener('click', () => {
+      if (cscCurrentTeam === 200) {
+        cscTeam200.classList.add('hidden');
+        cscTeam100.classList.remove('hidden');
+        cscPlayerTeamTitle.innerHTML = `<i class="fas fa-users text-green-500"></i> CSC 100 Players`;
+        cscSwitchTeamBtn.textContent = "Switch to CSC 200";
+        cscCurrentTeam = 100;
+      } else {
+        cscTeam100.classList.add('hidden');
+        cscTeam200.classList.remove('hidden');
+        cscPlayerTeamTitle.innerHTML = `<i class="fas fa-users text-green-500"></i> CSC 200 Players`;
+        cscSwitchTeamBtn.textContent = "Switch to CSC 100";
+        cscCurrentTeam = 200;
+      }
+    });
+  }
+
+
+  // Initialize tabs for both modals
+  setupTabs('csc-match-modal');
+  setupTabs('nursing-match-modal');
+
 </script>
 
     <!-- Match Center Modal -->
