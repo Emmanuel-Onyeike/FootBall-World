@@ -426,14 +426,13 @@
         </div>
     </div>
 </section>
+<!-- Recent Match Section -->
 <section id="recent" class="mb-20">
   <h2 class="text-3xl md:text-4xl font-bold mb-8 text-green-500 border-b-2 border-green-700 pb-2 flex items-center">
     <i class="fas fa-history mr-3"></i> Recent Matches
   </h2>
 
   <div class="glass-card p-4 md:p-6 shadow-xl space-y-6">
-
-    <!-- Match Date Group -->
     <div class="border border-gray-700/40 rounded-lg p-4 bg-black/40" data-date="25-10-2025">
       <div class="flex items-center justify-between border-b border-gray-700/50 pb-2 mb-3">
         <p class="text-gray-300 text-sm flex items-center gap-2">
@@ -442,7 +441,6 @@
         <span class="text-xs bg-green-800 text-green-100 px-2 py-1 rounded-full">Friendly Match</span>
       </div>
 
-      <!-- Match Card -->
       <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <p class="text-lg font-semibold text-white">
@@ -456,7 +454,6 @@
         </div>
       </div>
 
-      <!-- View Details Button -->
       <div class="mt-4 flex justify-end">
         <button onclick="openMatchModal()" class="bg-green-700 hover:bg-green-600 text-white text-sm px-4 py-2 rounded-md flex items-center gap-2">
           <i class="fas fa-eye"></i> View Match Details
@@ -467,15 +464,15 @@
 </section>
 
 <!-- Match Details Modal -->
-<!-- Match Details Modal -->
-<div id="recentMatchModal" class="fixed inset-0 bg-black/80 flex items-center justify-center hidden z-50">
-  <div class="bg-[#111] text-white rounded-xl shadow-2xl w-full max-w-3xl p-6 relative border border-green-700/40">
-    <button onclick="closeMatchModal()" class="absolute top-3 right-3 text-gray-400 hover:text-white">
-      <i class="fas fa-times text-xl"></i>
+<div id="recentMatchModal" class="fixed inset-0 bg-black/80 flex items-center justify-center hidden z-50 px-3">
+  <div class="bg-[#111] text-white rounded-xl shadow-2xl w-full max-w-2xl md:max-w-3xl p-5 sm:p-6 relative border border-green-700/40 max-h-[90vh] overflow-y-auto">
+    <!-- Close Icon -->
+    <button onclick="closeMatchModal()" class="absolute top-3 right-4 text-gray-400 hover:text-white transition-colors">
+      <i class="fas fa-times text-2xl"></i>
     </button>
 
     <!-- Tabs -->
-    <div class="flex gap-4 border-b border-gray-700 mb-4">
+    <div class="flex gap-4 border-b border-gray-700 mb-4 text-sm sm:text-base mt-2 sm:mt-0">
       <button id="tab-summary" class="tab-btn text-green-400 border-b-2 border-green-500 pb-2">Match Summary</button>
       <button id="tab-players" class="tab-btn text-gray-400 pb-2">Players</button>
     </div>
@@ -485,7 +482,7 @@
       <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
         <i class="fas fa-futbol text-green-500"></i> Match Timeline
       </h3>
-      <ul class="space-y-2 text-sm">
+      <ul class="space-y-2 text-sm sm:text-base">
         <li>⚽ 7’ – Daniel (CSC 200)</li>
         <li>⚽ 14’ – Princewill (CSC 200)</li>
         <li>⚽ 20’ – CSC 100</li>
@@ -498,7 +495,7 @@
 
     <!-- Players Tab -->
     <div id="players" class="tab-content hidden">
-      <div class="flex justify-between items-center mb-4">
+      <div class="flex flex-col sm:flex-row justify-between items-center mb-4 gap-3">
         <h3 class="text-xl font-bold flex items-center gap-2">
           <i class="fas fa-users text-green-500"></i> CSC 200 Players
         </h3>
@@ -507,114 +504,20 @@
         </button>
       </div>
 
-      <!-- Formation 3-2-3 -->
-      <div class="grid grid-cols-3 gap-6 justify-items-center">
-
-        <!-- Goalkeeper -->
-        <div class="col-span-3 flex flex-col items-center relative">
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-5 justify-items-center">
+        <!-- Example player -->
+        <div class="flex flex-col items-center relative">
           <div class="relative">
-            <img src="https://i.pravatar.cc/100?img=11" class="w-20 h-20 rounded-full border-4 border-green-600 shadow-md">
+            <img src="https://i.pravatar.cc/100?img=11" class="w-20 h-20 sm:w-24 sm:h-24 rounded-full border-4 border-green-600 shadow-md">
             <span class="absolute top-0 right-0 bg-yellow-500 text-black text-xs font-bold px-2 py-1 rounded-full">8.2</span>
           </div>
-          <p class="mt-2 text-sm font-semibold">Goalkeeper</p>
+          <p class="mt-2 text-sm font-semibold text-center">Goalkeeper</p>
         </div>
 
-        <!-- Defenders -->
-        <div class="flex flex-col items-center relative">
-          <div class="relative">
-            <img src="https://i.pravatar.cc/100?img=12" class="w-20 h-20 rounded-full border-4 border-green-600 shadow-md">
-            <span class="absolute top-0 right-0 bg-yellow-500 text-black text-xs font-bold px-2 py-1 rounded-full">8.0</span>
-          </div>
-          <p class="mt-2 text-sm font-semibold">Jaso (LB)</p>
-        </div>
-
-        <div class="flex flex-col items-center relative">
-          <div class="relative">
-            <img src="https://i.pravatar.cc/100?img=13" class="w-20 h-20 rounded-full border-4 border-green-600 shadow-md">
-            <span class="absolute top-0 right-0 bg-yellow-500 text-black text-xs font-bold px-2 py-1 rounded-full">8.3</span>
-          </div>
-          <p class="mt-2 text-sm font-semibold">Zubby (CB)</p>
-        </div>
-
-        <div class="flex flex-col items-center relative">
-          <div class="relative">
-            <img src="https://i.pravatar.cc/100?img=14" class="w-20 h-20 rounded-full border-4 border-green-600 shadow-md">
-            <span class="absolute top-0 right-0 bg-yellow-500 text-black text-xs font-bold px-2 py-1 rounded-full">8.4</span>
-          </div>
-          <p class="mt-2 text-sm font-semibold">Akachukwu (RB)</p>
-        </div>
-
-        <!-- Midfielders -->
-        <div class="flex flex-col items-center relative">
-          <div class="relative">
-            <img src="https://i.pravatar.cc/100?img=15" class="w-20 h-20 rounded-full border-4 border-green-600 shadow-md">
-            <span class="absolute top-0 right-0 bg-yellow-500 text-black text-xs font-bold px-2 py-1 rounded-full">7.6</span>
-          </div>
-          <p class="mt-2 text-sm font-semibold">Cush (CM) <span class="text-green-400 text-xs">(C)</span></p>
-        </div>
-
-        <div class="flex flex-col items-center relative">
-          <div class="relative">
-            <img src="https://i.pravatar.cc/100?img=16" class="w-20 h-20 rounded-full border-4 border-green-600 shadow-md">
-            <span class="absolute top-0 right-0 bg-yellow-500 text-black text-xs font-bold px-2 py-1 rounded-full">8.1</span>
-          </div>
-          <p class="mt-2 text-sm font-semibold">Chiama (CM)</p>
-        </div>
-
-        <!-- Forwards -->
-        <div class="flex flex-col items-center relative">
-          <div class="relative">
-            <img src="https://i.pravatar.cc/100?img=17" class="w-20 h-20 rounded-full border-4 border-green-600 shadow-md">
-            <span class="absolute top-0 right-0 bg-yellow-500 text-black text-xs font-bold px-2 py-1 rounded-full">7.8</span>
-          </div>
-          <p class="mt-2 text-sm font-semibold">Kevo (RW)</p>
-        </div>
-
-        <div class="flex flex-col items-center relative">
-          <div class="relative">
-            <img src="https://i.pravatar.cc/100?img=18" class="w-20 h-20 rounded-full border-4 border-green-600 shadow-md">
-            <span class="absolute top-0 right-0 bg-yellow-500 text-black text-xs font-bold px-2 py-1 rounded-full">8.5</span>
-          </div>
-          <p class="mt-2 text-sm font-semibold">Princewill (CF)</p>
-        </div>
-
-        <div class="flex flex-col items-center relative">
-          <div class="relative">
-            <img src="https://i.pravatar.cc/100?img=19" class="w-20 h-20 rounded-full border-4 border-green-600 shadow-md">
-            <span class="absolute top-0 right-0 bg-yellow-500 text-black text-xs font-bold px-2 py-1 rounded-full">8.4</span>
-          </div>
-          <p class="mt-2 text-sm font-semibold">Sammy (LW)</p>
-        </div>
-
-        <!-- Substitutes -->
-        <div class="col-span-3 border-t border-gray-700 mt-6 pt-4 w-full text-center">
-          <h4 class="text-green-400 font-semibold mb-3"><i class="fas fa-exchange-alt"></i> Substitutes</h4>
-          <div class="flex flex-wrap justify-center gap-4">
-            <div class="relative">
-              <img src="https://i.pravatar.cc/100?img=20" class="w-16 h-16 rounded-full border-4 border-green-600 shadow-md">
-              <span class="absolute top-0 right-0 bg-yellow-500 text-black text-xs font-bold px-2 py-1 rounded-full">7.3</span>
-              <p class="text-xs mt-1">Chibuike</p>
-            </div>
-            <div class="relative">
-              <img src="https://i.pravatar.cc/100?img=21" class="w-16 h-16 rounded-full border-4 border-green-600 shadow-md">
-              <span class="absolute top-0 right-0 bg-yellow-500 text-black text-xs font-bold px-2 py-1 rounded-full">7.5</span>
-              <p class="text-xs mt-1">Eddy</p>
-            </div>
-            <div class="relative">
-              <img src="https://i.pravatar.cc/100?img=22" class="w-16 h-16 rounded-full border-4 border-green-600 shadow-md">
-              <span class="absolute top-0 right-0 bg-yellow-500 text-black text-xs font-bold px-2 py-1 rounded-full">7.6</span>
-              <p class="text-xs mt-1">Emperor</p>
-            </div>
-            <div class="relative">
-              <img src="https://i.pravatar.cc/100?img=23" class="w-16 h-16 rounded-full border-4 border-green-600 shadow-md">
-              <span class="absolute top-0 right-0 bg-yellow-500 text-black text-xs font-bold px-2 py-1 rounded-full">7.1</span>
-              <p class="text-xs mt-1">Igwe</p>
-            </div>
-          </div>
-        </div>
+        <!-- (keep your remaining player blocks unchanged — they’ll scale automatically on mobile) -->
 
         <!-- Coach -->
-        <div class="col-span-3 text-center mt-6">
+        <div class="col-span-2 sm:col-span-3 text-center mt-6">
           <p class="text-sm text-gray-400"><i class="fas fa-user-tie text-green-500 mr-2"></i> Coach Honour</p>
         </div>
       </div>
@@ -631,9 +534,12 @@
 
   function openMatchModal() {
     modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
   }
+
   function closeMatchModal() {
     modal.classList.add('hidden');
+    document.body.style.overflow = 'auto';
   }
 
   tabSummaryBtn.addEventListener('click', () => {
@@ -650,6 +556,7 @@
     tabSummaryBtn.classList.remove('text-green-400', 'border-b-2', 'border-green-500');
   });
 </script>
+
 
     <!-- Match Center Modal -->
     <div id="match-modal" class="modal-overlay hidden">
