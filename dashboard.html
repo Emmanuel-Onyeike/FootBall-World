@@ -456,10 +456,143 @@
           4<span class="text-gray-400">–</span>2
         </div>
       </div>
-    </div>
 
+      <!-- View Details Button -->
+      <div class="mt-4 flex justify-end">
+        <button onclick="openMatchModal()" class="bg-green-700 hover:bg-green-600 text-white text-sm px-4 py-2 rounded-md flex items-center gap-2">
+          <i class="fas fa-eye"></i> View Match Details
+        </button>
+      </div>
+    </div>
   </div>
 </section>
+
+<!-- Match Details Modal -->
+<div id="recentMatchModal" class="fixed inset-0 bg-black/80 flex items-center justify-center hidden z-50">
+  <div class="bg-[#111] text-white rounded-xl shadow-2xl w-full max-w-3xl p-6 relative border border-green-700/40">
+    <button onclick="closeMatchModal()" class="absolute top-3 right-3 text-gray-400 hover:text-white">
+      <i class="fas fa-times text-xl"></i>
+    </button>
+
+    <!-- Tabs -->
+    <div class="flex gap-4 border-b border-gray-700 mb-4">
+      <button id="tab-summary" class="tab-btn text-green-400 border-b-2 border-green-500 pb-2">Match Summary</button>
+      <button id="tab-players" class="tab-btn text-gray-400 pb-2">Players</button>
+    </div>
+
+    <!-- Summary Tab -->
+    <div id="summary" class="tab-content">
+      <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+        <i class="fas fa-futbol text-green-500"></i> Match Timeline
+      </h3>
+
+      <ul class="space-y-2 text-sm">
+        <li>⚽ 7’ – Daniel (CSC 200)</li>
+        <li>⚽ 14’ – Princewill (CSC 200)</li>
+        <li>⚽ 20’ – CSC 100</li>
+        <li>⚽ 22’ – CSC 100</li>
+        <li>⏸️ Half Time</li>
+        <li>⚽ 55’ – Sammy (CSC 200)</li>
+        <li>⚽ 90+3’ – Daniel (CSC 200)</li>
+      </ul>
+    </div>
+
+    <!-- Players Tab -->
+    <div id="players" class="tab-content hidden">
+      <div class="flex justify-between items-center mb-3">
+        <h3 class="text-xl font-bold flex items-center gap-2"><i class="fas fa-users text-green-500"></i> CSC 200 Players</h3>
+        <button onclick="alert('Check next update for CSC 100 players!')" class="text-sm bg-green-700 hover:bg-green-600 px-3 py-1 rounded-md">
+          Switch to CSC 100
+        </button>
+      </div>
+
+      <!-- Formation -->
+      <div class="grid grid-cols-3 gap-4 text-center">
+        <!-- Goalkeeper -->
+        <div class="col-span-3 bg-green-900/20 p-3 rounded-lg">
+          <p class="font-semibold">🧤 Goalkeeper</p>
+          <p class="text-sm text-gray-300">Dived and saved multiple shots. Couldn’t stop two strong goals.</p>
+          <span class="absolute right-4 text-yellow-400 font-bold">8.2</span>
+        </div>
+
+        <!-- Defenders -->
+        <div class="bg-green-900/20 p-3 rounded-lg">
+          <p class="font-semibold">LB – Jaso</p>
+          <p class="text-sm text-gray-300">Solid blocks, great tackling, controlled left flank.</p>
+          <span class="absolute right-4 text-yellow-400 font-bold">8.0</span>
+        </div>
+        <div class="bg-green-900/20 p-3 rounded-lg">
+          <p class="font-semibold">CB – Zubby</p>
+          <p class="text-sm text-gray-300">Strong in air, key interceptions, last man defending.</p>
+          <span class="absolute right-4 text-yellow-400 font-bold">8.3</span>
+        </div>
+        <div class="bg-green-900/20 p-3 rounded-lg">
+          <p class="font-semibold">RB – Akachukwu</p>
+          <p class="text-sm text-gray-300">Clean tackles, great recovery runs, consistent performer.</p>
+          <span class="absolute right-4 text-yellow-400 font-bold">8.4</span>
+        </div>
+
+        <!-- Midfielders -->
+        <div class="bg-green-900/20 p-3 rounded-lg">
+          <p class="font-semibold">CM – Cush</p>
+          <p class="text-sm text-gray-300">Energetic, smart passes, injured mid-game.</p>
+          <span class="absolute right-4 text-yellow-400 font-bold">7.6</span>
+        </div>
+        <div class="bg-green-900/20 p-3 rounded-lg">
+          <p class="font-semibold">CM – Chiama</p>
+          <p class="text-sm text-gray-300">Physical, composed, dominated midfield.</p>
+          <span class="absolute right-4 text-yellow-400 font-bold">8.1</span>
+        </div>
+
+        <!-- Attackers -->
+        <div class="bg-green-900/20 p-3 rounded-lg">
+          <p class="font-semibold">RW – Kevo</p>
+          <p class="text-sm text-gray-300">Quick, dangerous runs, few attempts.</p>
+          <span class="absolute right-4 text-yellow-400 font-bold">7.8</span>
+        </div>
+        <div class="bg-green-900/20 p-3 rounded-lg">
+          <p class="font-semibold">CF – Princewill</p>
+          <p class="text-sm text-gray-300">Sharp finisher, one goal, good positioning.</p>
+          <span class="absolute right-4 text-yellow-400 font-bold">8.5</span>
+        </div>
+        <div class="bg-green-900/20 p-3 rounded-lg">
+          <p class="font-semibold">LW – Sammy</p>
+          <p class="text-sm text-gray-300">Creative, took shots, scored once.</p>
+          <span class="absolute right-4 text-yellow-400 font-bold">8.4</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const modal = document.getElementById('recentMatchModal');
+  const summaryTab = document.getElementById('summary');
+  const playersTab = document.getElementById('players');
+  const tabSummaryBtn = document.getElementById('tab-summary');
+  const tabPlayersBtn = document.getElementById('tab-players');
+
+  function openMatchModal() {
+    modal.classList.remove('hidden');
+  }
+  function closeMatchModal() {
+    modal.classList.add('hidden');
+  }
+
+  tabSummaryBtn.addEventListener('click', () => {
+    summaryTab.classList.remove('hidden');
+    playersTab.classList.add('hidden');
+    tabSummaryBtn.classList.add('text-green-400', 'border-b-2', 'border-green-500');
+    tabPlayersBtn.classList.remove('text-green-400', 'border-b-2', 'border-green-500');
+  });
+
+  tabPlayersBtn.addEventListener('click', () => {
+    playersTab.classList.remove('hidden');
+    summaryTab.classList.add('hidden');
+    tabPlayersBtn.classList.add('text-green-400', 'border-b-2', 'border-green-500');
+    tabSummaryBtn.classList.remove('text-green-400', 'border-b-2', 'border-green-500');
+  });
+</script>
 
 
     <!-- Match Center Modal -->
