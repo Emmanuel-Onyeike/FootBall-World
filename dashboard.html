@@ -470,213 +470,183 @@
 </section>
 
 <div
-  id="recentMatchModal"
-  class="fixed inset-0 bg-black/80 flex items-center justify-center p-4 hidden z-50"
+  id="recentMatchModal"
+  class="fixed inset-0 bg-black/80 flex items-center justify-center p-4 hidden z-50"
 >
-  <div
-    class="bg-[#111] text-white rounded-xl shadow-2xl w-full max-w-sm md:max-w-3xl p-6 relative border border-green-700/40 max-h-[95vh] overflow-y-auto"
-  >
-    <button onclick="closeMatchModal()" class="absolute top-3 right-3 text-gray-400 hover:text-white">
-      <i class="fas fa-times text-xl"></i>
-    </button>
+  <div
+    class="bg-[#111] text-white rounded-xl shadow-2xl w-full max-w-sm md:max-w-3xl p-6 relative border border-green-700/40 max-h-[95vh] overflow-y-auto"
+  >
+    <button onclick="closeMatchModal()" class="absolute top-3 right-3 text-gray-400 hover:text-white">
+      <i class="fas fa-times text-xl"></i>
+    </button>
 
-    <div class="flex gap-4 border-b border-gray-700 mb-4">
-      <button id="tab-summary" class="tab-btn text-green-400 border-b-2 border-green-500 pb-2">
-        Match Summary
-      </button>
-      <button id="tab-players" class="tab-btn text-gray-400 pb-2">Players</button>
-    </div>
+    <div class="flex gap-4 border-b border-gray-700 mb-4">
+      <button id="tab-summary" class="tab-btn text-green-400 border-b-2 border-green-500 pb-2">
+        Match Summary
+      </button>
+      <button id="tab-players" class="tab-btn text-gray-400 pb-2">Players</button>
+    </div>
 
-    <div id="summary" class="tab-content">
-      <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
-        <i class="fas fa-futbol text-green-500"></i> Match Timeline
-      </h3>
-      <ul class="space-y-2 text-sm">
-        <li>⚽ 7’ – Daniel (CSC 200)</li>
-        <li>⚽ 14’ – Princewill (CSC 200)</li>
-        <li>⚽ 20’ – CSC 100</li>
-        <li>⚽ 22’ – CSC 100</li>
-        <li>⏸️ Half Time</li>
-        <li>⚽ 55’ – Sammy (CSC 200)</li>
-        <li>⚽ 90+3’ – Daniel (CSC 200)</li>
-      </ul>
-    </div>
+    <div id="summary" class="tab-content">
+      <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+        <i class="fas fa-futbol text-green-500"></i> Match Timeline
+      </h3>
+      <ul class="space-y-2 text-sm">
+        <li>⚽ 7’ – Daniel (CSC 200)</li>
+        <li>⚽ 14’ – Princewill (CSC 200)</li>
+        <li>⚽ 20’ – ChukwuEmeka (CSC 100)</li>
+        <li>⚽ 22’ – Calvin (CSC 100)</li>
+        <li>⏸️ Half Time</li>
+        <li>⚽ 55’ – Sammy (CSC 200)</li>
+        <li>⚽ 90+3’ – Daniel (CSC 200)</li>
+      </ul>
+    </div>
 
-    <div id="players" class="tab-content hidden">
-      <div class="flex justify-between items-center mb-4">
-        <h3 class="text-xl font-bold flex items-center gap-2">
-          <i class="fas fa-users text-green-500"></i> CSC 200 Players
-        </h3>
-        <button
-          onclick="alert('Check next update for CSC 100 players!')"
-          class="text-sm bg-green-700 hover:bg-green-600 px-3 py-1 rounded-md"
-        >
-          Switch to CSC 100
-        </button>
-      </div>
+    <!-- Players Tab -->
+    <div id="players" class="tab-content hidden">
+      <div class="flex justify-between items-center mb-4">
+        <h3 id="playerTeamTitle" class="text-xl font-bold flex items-center gap-2">
+          <i class="fas fa-users text-green-500"></i> CSC 200 Players
+        </h3>
+        <button
+          id="switchTeamBtn"
+          class="text-sm bg-green-700 hover:bg-green-600 px-3 py-1 rounded-md"
+        >
+          Switch to CSC 100
+        </button>
+      </div>
 
-      <div class="grid grid-cols-3 gap-y-8 md:gap-y-12 gap-x-4 justify-items-center text-center">
-                <div class="col-span-3 flex flex-col items-center relative mb-4">
-          <div class="relative flex items-center justify-center w-20 h-20 bg-gray-800 rounded-full border-4 border-green-600 shadow-md">
-            <i class="fas fa-hand-paper text-3xl text-green-400"></i>
-            <span class="absolute top-0 right-0 bg-yellow-500 text-black text-xs font-bold px-2 py-1 rounded-full">8.6</span>
-          </div>
-          <p class="mt-2 text-sm font-semibold text-white">Goalkeeper</p>
-        </div>
+      <!-- CSC 200 PLAYERS -->
+      <div id="team200" class="grid grid-cols-3 gap-y-8 md:gap-y-12 gap-x-4 justify-items-center text-center">
+        <div class="col-span-3 flex flex-col items-center relative mb-4">
+          <div class="relative flex items-center justify-center w-20 h-20 bg-gray-800 rounded-full border-4 border-green-600 shadow-md">
+            <i class="fas fa-hand-paper text-3xl text-green-400"></i>
+            <span class="absolute top-0 right-0 bg-yellow-500 text-black text-xs font-bold px-2 py-1 rounded-full">8.6</span>
+          </div>
+          <p class="mt-2 text-sm font-semibold text-white">Goalkeeper</p>
+        </div>
 
-                <div class="flex flex-col items-center relative">
-          <div class="relative flex items-center justify-center w-20 h-20 bg-gray-800 rounded-full border-4 border-green-600 shadow-md">
-            <span class="text-2xl font-bold text-gray-300">ZU</span>
-            <span class="absolute top-0 right-0 bg-yellow-500 text-black text-xs font-bold px-2 py-1 rounded-full">8.3</span>
-          </div>
-          <p class="mt-2 text-sm font-semibold">Zubby (CB)</p>
-        </div>
+        <div class="flex flex-col items-center relative">
+          <div class="player-badge"><span class="text-2xl font-bold text-gray-300">ZU</span><span class="rating">8.3</span></div>
+          <p class="mt-2 text-sm font-semibold">Zubby (CB)</p>
+        </div>
 
-        <div class="flex flex-col items-center relative">
-          <div class="relative flex items-center justify-center w-20 h-20 bg-gray-800 rounded-full border-4 border-green-600 shadow-md">
-            <span class="text-2xl font-bold text-gray-300">J</span>
-            <span class="absolute top-0 right-0 bg-yellow-500 text-black text-xs font-bold px-2 py-1 rounded-full">8.2</span>
-          </div>
-          <p class="mt-2 text-sm font-semibold">Jaso (LB)</p>
-        </div>
+        <div class="flex flex-col items-center relative">
+          <div class="player-badge"><span class="text-2xl font-bold text-gray-300">J</span><span class="rating">8.2</span></div>
+          <p class="mt-2 text-sm font-semibold">Jaso (LB)</p>
+        </div>
 
-        <div class="flex flex-col items-center relative">
-          <div class="relative flex items-center justify-center w-20 h-20 bg-gray-800 rounded-full border-4 border-green-600 shadow-md">
-            <span class="text-2xl font-bold text-gray-300">A</span>
-            <span class="absolute top-0 right-0 bg-yellow-500 text-black text-xs font-bold px-2 py-1 rounded-full">8.0</span>
-          </div>
-          <p class="mt-2 text-sm font-semibold">Akachukwu (RB)</p>
-        </div>
-        
+        <div class="flex flex-col items-center relative">
+          <div class="player-badge"><span class="text-2xl font-bold text-gray-300">A</span><span class="rating">8.0</span></div>
+          <p class="mt-2 text-sm font-semibold">Akachukwu (RB)</p>
+        </div>
+
         <div class="col-span-3 w-full border-b border-gray-700/50 my-2"></div>
 
+        <div class="col-span-3 flex justify-center gap-10 md:gap-20">
+          <div class="player"><span class="text-2xl font-bold text-gray-300">C</span><span class="rating">8.0</span><p>Cush (CM) <span class="text-green-400 text-xs">(C)</span></p></div>
+          <div class="player"><span class="text-2xl font-bold text-gray-300">CH</span><span class="rating">7.8</span><p>Chiama (CM)</p></div>
+        </div>
 
-                <div class="col-span-3 flex justify-center gap-10 md:gap-20">
-          <div class="flex flex-col items-center relative">
-            <div class="relative flex items-center justify-center w-20 h-20 bg-gray-800 rounded-full border-4 border-green-600 shadow-md">
-              <span class="text-2xl font-bold text-gray-300">C</span>
-              <span class="absolute top-0 right-0 bg-yellow-500 text-black text-xs font-bold px-2 py-1 rounded-full">8.0</span>
-            </div>
-            <p class="mt-2 text-sm font-semibold">Cush (CM) <span class="text-green-400 text-xs">(C)</span></p>
-          </div>
-
-          <div class="flex flex-col items-center relative">
-            <div class="relative flex items-center justify-center w-20 h-20 bg-gray-800 rounded-full border-4 border-green-600 shadow-md">
-              <span class="text-2xl font-bold text-gray-300">CH</span>
-              <span class="absolute top-0 right-0 bg-yellow-500 text-black text-xs font-bold px-2 py-1 rounded-full">7.8</span>
-            </div>
-            <p class="mt-2 text-sm font-semibold">Chiama (CM)</p>
-          </div>
-        </div>
-        
         <div class="col-span-3 w-full border-b border-gray-700/50 my-2"></div>
 
+        <div class="player"><span class="text-2xl font-bold text-gray-300">PW</span><span class="rating">7.9</span><p>Princewill (CF)</p></div>
+        <div class="player"><span class="text-2xl font-bold text-gray-300">DL</span><span class="rating">8.4</span><p>Daniel (RW)</p></div>
+        <div class="player"><span class="text-2xl font-bold text-gray-300">S</span><span class="rating">8.4</span><p>Sammy (LW)</p></div>
 
-                <div class="flex flex-col items-center relative">
-          <div class="relative flex items-center justify-center w-20 h-20 bg-gray-800 rounded-full border-4 border-green-600 shadow-md">
-            <span class="text-2xl font-bold text-gray-300">PW</span>
-            <span class="absolute top-0 right-0 bg-yellow-500 text-black text-xs font-bold px-2 py-1 rounded-full">7.9</span>
-          </div>
-          <p class="mt-2 text-sm font-semibold">Princewill (CF)</p>
-        </div>
+        <div class="col-span-3 border-t border-gray-700 mt-6 pt-4 w-full text-center">
+          <h4 class="text-green-400 font-semibold mb-3">
+            <i class="fas fa-exchange-alt"></i> Substitutes
+          </h4>
+          <div class="flex flex-wrap justify-center gap-4">
+            <div class="sub">C - Chibuike (7.3)</div>
+            <div class="sub">E - Eddy (7.5)</div>
+            <div class="sub">EM - Emperor (7.6)</div>
+            <div class="sub">KO - Kev O (7.9)</div>
+            <div class="sub">I - Igwe (7.1)</div>
+          </div>
+        </div>
 
-        <div class="flex flex-col items-center relative">
-          <div class="relative flex items-center justify-center w-20 h-20 bg-gray-800 rounded-full border-4 border-green-600 shadow-md">
-            <span class="text-2xl font-bold text-gray-300">DL</span>
-            <span class="absolute top-0 right-0 bg-yellow-500 text-black text-xs font-bold px-2 py-1 rounded-full">8.4</span>
-          </div>
-          <p class="mt-2 text-sm font-semibold">Daniel (RW)</p>
-        </div>
+        <div class="col-span-3 text-center mt-6">
+          <p class="text-sm text-gray-400">
+            <i class="fas fa-user-tie text-green-500 mr-2"></i> Coach Honour
+          </p>
+        </div>
+      </div>
 
-        <div class="flex flex-col items-center relative">
-          <div class="relative flex items-center justify-center w-20 h-20 bg-gray-800 rounded-full border-4 border-green-600 shadow-md">
-            <span class="text-2xl font-bold text-gray-300">S</span>
-            <span class="absolute top-0 right-0 bg-yellow-500 text-black text-xs font-bold px-2 py-1 rounded-full">8.4</span>
-          </div>
-          <p class="mt-2 text-sm font-semibold">Sammy (LW)</p>
-        </div>
+      <!-- CSC 100 PLAYERS -->
+      <div id="team100" class="hidden grid grid-cols-3 gap-y-8 md:gap-y-12 gap-x-4 justify-items-center text-center">
+        <div class="col-span-3 flex flex-col items-center relative mb-4">
+          <div class="player-badge">
+            <i class="fas fa-hand-paper text-3xl text-green-400"></i>
+            <span class="rating">8.1</span>
+          </div>
+          <p class="mt-2 text-sm font-semibold text-white">Chukwuemeka</p>
+        </div>
 
-                <div class="col-span-3 border-t border-gray-700 mt-6 pt-4 w-full text-center">
-          <h4 class="text-green-400 font-semibold mb-3">
-            <i class="fas fa-exchange-alt"></i> Substitutes
-          </h4>
-          <div class="flex flex-wrap justify-center gap-4">
-            <div class="relative flex flex-col items-center">
-              <div class="relative flex items-center justify-center w-16 h-16 bg-gray-800 rounded-full border-4 border-green-600 shadow-md">
-                <span class="text-xl font-bold text-gray-300">C</span>
-                <span class="absolute top-0 right-0 bg-yellow-500 text-black text-xs font-bold px-2 py-1 rounded-full">7.3</span>
-              </div>
-              <p class="text-xs mt-1">Chibuike</p>
-            </div>
-            <div class="relative flex flex-col items-center">
-              <div class="relative flex items-center justify-center w-16 h-16 bg-gray-800 rounded-full border-4 border-green-600 shadow-md">
-                <span class="text-xl font-bold text-gray-300">E</span>
-                <span class="absolute top-0 right-0 bg-yellow-500 text-black text-xs font-bold px-2 py-1 rounded-full">7.5</span>
-              </div>
-              <p class="text-xs mt-1">Eddy</p>
-            </div>
-            <div class="relative flex flex-col items-center">
-              <div class="relative flex items-center justify-center w-16 h-16 bg-gray-800 rounded-full border-4 border-green-600 shadow-md">
-                <span class="text-xl font-bold text-gray-300">EM</span>
-                <span class="absolute top-0 right-0 bg-yellow-500 text-black text-xs font-bold px-2 py-1 rounded-full">7.6</span>
-              </div>
-              <p class="text-xs mt-1">Emperor</p>
-            </div>
-               <div class="relative flex flex-col items-center">
-              <div class="relative flex items-center justify-center w-16 h-16 bg-gray-800 rounded-full border-4 border-green-600 shadow-md">
-                <span class="text-xl font-bold text-gray-300">KO</span>
-                <span class="absolute top-0 right-0 bg-yellow-500 text-black text-xs font-bold px-2 py-1 rounded-full">7.9</span>
-              </div>
-              <p class="text-xs mt-1">Kev O</p>
-            </div>
-            <div class="relative flex flex-col items-center">
-              <div class="relative flex items-center justify-center w-16 h-16 bg-gray-800 rounded-full border-4 border-green-600 shadow-md">
-                <span class="text-xl font-bold text-gray-300">I</span>
-                <span class="absolute top-0 right-0 bg-yellow-500 text-black text-xs font-bold px-2 py-1 rounded-full">7.1</span>
-              </div>
-              <p class="text-xs mt-1">Igwe</p>
-            </div>
-          </div>
-        </div>
-
-                <div class="col-span-3 text-center mt-6">
-          <p class="text-sm text-gray-400">
-            <i class="fas fa-user-tie text-green-500 mr-2"></i> Coach Honour
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
+        <div class="player"><span class="text-2xl font-bold text-gray-300">C</span><span class="rating">7.8</span><p>Calvin </p></div>
+        <div class="player"><span class="text-2xl font-bold text-gray-300">U</span><span class="rating">7.4</span><p>Ugo</p></div>
+        <div class="player"><span class="text-2xl font-bold text-gray-300">E</span><span class="rating">7.5</span><p>Elijah</p></div>
+        <div class="player"><span class="text-2xl font-bold text-gray-300">CL</span><span class="rating">7.3</span><p>Clinton</p></div>
+        <div class="player"><span class="text-2xl font-bold text-gray-300">P</span><span class="rating">7.6</span><p>Paschal</p></div>
+        <div class="player"><span class="text-2xl font-bold text-gray-300">R</span><span class="rating">7.5</span><p>Raphael</p></div>
+        <div class="player"><span class="text-2xl font-bold text-gray-300">IL</span><span class="rating">7.7</span><p>Iloka Chukwudalu</p></div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
-  const modal = document.getElementById('recentMatchModal');
-  const summaryTab = document.getElementById('summary');
-  const playersTab = document.getElementById('players');
-  const tabSummaryBtn = document.getElementById('tab-summary');
-  const tabPlayersBtn = document.getElementById('tab-players');
+  const modal = document.getElementById('recentMatchModal');
+  const summaryTab = document.getElementById('summary');
+  const playersTab = document.getElementById('players');
+  const tabSummaryBtn = document.getElementById('tab-summary');
+  const tabPlayersBtn = document.getElementById('tab-players');
+  const team200 = document.getElementById('team200');
+  const team100 = document.getElementById('team100');
+  const playerTeamTitle = document.getElementById('playerTeamTitle');
+  const switchTeamBtn = document.getElementById('switchTeamBtn');
 
-  function openMatchModal() {
-    modal.classList.remove('hidden');
-  }
-  function closeMatchModal() {
-    modal.classList.add('hidden');
-  }
+  let currentTeam = 200;
 
-  tabSummaryBtn.addEventListener('click', () => {
-    summaryTab.classList.remove('hidden');
-    playersTab.classList.add('hidden');
-    tabSummaryBtn.classList.add('text-green-400', 'border-b-2', 'border-green-500');
-    tabPlayersBtn.classList.remove('text-green-400', 'border-b-2', 'border-green-500');
-  });
+  function openMatchModal() {
+    modal.classList.remove('hidden');
+  }
+  function closeMatchModal() {
+    modal.classList.add('hidden');
+  }
 
-  tabPlayersBtn.addEventListener('click', () => {
-    playersTab.classList.remove('hidden');
-    summaryTab.classList.add('hidden');
-    tabPlayersBtn.classList.add('text-green-400', 'border-b-2', 'border-green-500');
-    tabSummaryBtn.classList.remove('text-green-400', 'border-b-2', 'border-green-500');
-  });
+  tabSummaryBtn.addEventListener('click', () => {
+    summaryTab.classList.remove('hidden');
+    playersTab.classList.add('hidden');
+    tabSummaryBtn.classList.add('text-green-400', 'border-b-2', 'border-green-500');
+    tabPlayersBtn.classList.remove('text-green-400', 'border-b-2', 'border-green-500');
+  });
+
+  tabPlayersBtn.addEventListener('click', () => {
+    playersTab.classList.remove('hidden');
+    summaryTab.classList.add('hidden');
+    tabPlayersBtn.classList.add('text-green-400', 'border-b-2', 'border-green-500');
+    tabSummaryBtn.classList.remove('text-green-400', 'border-b-2', 'border-green-500');
+  });
+
+  switchTeamBtn.addEventListener('click', () => {
+    if (currentTeam === 200) {
+      team200.classList.add('hidden');
+      team100.classList.remove('hidden');
+      playerTeamTitle.innerHTML = `<i class="fas fa-users text-green-500"></i> CSC 100 Players`;
+      switchTeamBtn.textContent = "Switch to CSC 200";
+      currentTeam = 100;
+    } else {
+      team100.classList.add('hidden');
+      team200.classList.remove('hidden');
+      playerTeamTitle.innerHTML = `<i class="fas fa-users text-green-500"></i> CSC 200 Players`;
+      switchTeamBtn.textContent = "Switch to CSC 100";
+      currentTeam = 200;
+    }
+  });
 </script>
+
     <!-- Match Center Modal -->
     <div id="match-modal" class="modal-overlay hidden">
         <div class="glass-card match-details-card w-full md:max-w-xl p-6 md:p-8 relative">
