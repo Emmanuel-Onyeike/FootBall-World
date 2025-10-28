@@ -426,7 +426,47 @@
         </div>
     </div>
 </section>
-<!-- Recent Matches Section -->
+<section id="recent" class="mb-20">
+  <h2 class="text-3xl md:text-4xl font-bold mb-8 text-green-500 border-b-2 border-green-700 pb-2 flex items-center">
+    <i class="fas fa-history mr-3"></i> Recent Matches
+  </h2>
+
+  <div class="glass-card p-4 md:p-6 shadow-xl space-y-6">
+
+    <!-- Match Date Group -->
+    <div class="border border-gray-700/40 rounded-lg p-4 bg-black/40" data-date="25-10-2025">
+      <div class="flex items-center justify-between border-b border-gray-700/50 pb-2 mb-3">
+        <p class="text-gray-300 text-sm flex items-center gap-2">
+          <i class="far fa-calendar-alt text-green-500"></i> Saturday, 25th October 2025 – 11:00 PM
+        </p>
+        <span class="text-xs bg-green-800 text-green-100 px-2 py-1 rounded-full">Friendly Match</span>
+      </div>
+
+      <!-- Match Card -->
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+          <p class="text-lg font-semibold text-white">
+            Computer Science 200 Level <span class="text-gray-500 font-normal">vs</span> Computer Science 100 Level
+          </p>
+          <p class="text-sm text-gray-400 mt-1">Venue: Campus Main Field</p>
+        </div>
+
+        <div class="text-2xl font-bold text-green-400 text-center sm:text-right">
+          4<span class="text-gray-400">–</span>2
+        </div>
+      </div>
+
+      <!-- View Details Button -->
+      <div class="mt-4 flex justify-end">
+        <button onclick="openMatchModal()" class="bg-green-700 hover:bg-green-600 text-white text-sm px-4 py-2 rounded-md flex items-center gap-2">
+          <i class="fas fa-eye"></i> View Match Details
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Match Details Modal -->
 <!-- Match Details Modal -->
 <div id="recentMatchModal" class="fixed inset-0 bg-black/80 flex items-center justify-center hidden z-50">
   <div class="bg-[#111] text-white rounded-xl shadow-2xl w-full max-w-3xl p-6 relative border border-green-700/40">
@@ -610,8 +650,6 @@
     tabSummaryBtn.classList.remove('text-green-400', 'border-b-2', 'border-green-500');
   });
 </script>
-
-
 
     <!-- Match Center Modal -->
     <div id="match-modal" class="modal-overlay hidden">
