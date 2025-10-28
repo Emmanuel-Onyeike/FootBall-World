@@ -761,14 +761,37 @@
       <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
         <i class="fas fa-futbol text-green-500"></i> Match Timeline
       </h3>
-      <p class="text-gray-400">Match timeline details to be added for this match.</p>
+      <p class="text-gray-400">Match timeline details to be added for this match (Goals: Nursing 7, Medicine 3).</p>
     </div>
     
     <div id="nursing-players" class="tab-content nursing-tab-content hidden">
-      <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
-        <i class="fas fa-users text-green-500"></i> Nursing 200 Players
-      </h3>
-      <p class="text-gray-400">Player details will be entered here later.</p>
+      <div class="flex justify-between items-center mb-4">
+        <h3 id="nursingPlayerTeamTitle" class="text-xl font-bold flex items-center gap-2">
+          <i class="fas fa-users text-green-500"></i> Nursing 200 Players
+        </h3>
+        <button
+          id="nursingSwitchTeamBtn"
+          class="text-sm bg-green-700 hover:bg-green-600 px-3 py-1 rounded-md"
+        >
+          Switch to Medicine 200
+        </button>
+      </div>
+
+      <div id="nursing-team200" class="nursing-team-content grid grid-cols-3 gap-y-8 md:gap-y-12 gap-x-4 justify-items-center text-center">
+        <p class="col-span-3 text-gray-500">Player details for Nursing 200 to be added here.</p>
+        <div class="player">
+          <div class="player-badge"><span class="text-2xl font-bold text-gray-300">N</span><span class="rating">TBD</span></div>
+          <p class="mt-2 text-sm font-semibold">Nursing Player</p>
+        </div>
+        </div>
+      
+      <div id="nursing-team100" class="nursing-team-content hidden grid grid-cols-3 gap-y-8 md:gap-y-12 gap-x-4 justify-items-center text-center">
+        <p class="col-span-3 text-gray-500">Player details for Medicine 200 to be added here.</p>
+        <div class="player">
+          <div class="player-badge"><span class="text-2xl font-bold text-gray-300">M</span><span class="rating">TBD</span></div>
+          <p class="mt-2 text-sm font-semibold">Medicine Player</p>
+        </div>
+        </div>
     </div>
   </div>
 </div>
@@ -844,13 +867,36 @@
     });
   }
 
+  // --- NEW NURSING/MEDICINE Team Switcher ---
+  let nursingCurrentTeam = 'Nursing';
+  const nursingSwitchTeamBtn = document.getElementById('nursingSwitchTeamBtn');
+  const nursingTeam200 = document.getElementById('nursing-team200'); // Nursing 200 (Home team)
+  const medicineTeam200 = document.getElementById('nursing-team100'); // Medicine 200 (Away team, re-using a naming convention)
+  const nursingPlayerTeamTitle = document.getElementById('nursingPlayerTeamTitle');
+
+  if (nursingSwitchTeamBtn) {
+    nursingSwitchTeamBtn.addEventListener('click', () => {
+      if (nursingCurrentTeam === 'Nursing') {
+        nursingTeam200.classList.add('hidden');
+        medicineTeam200.classList.remove('hidden');
+        nursingPlayerTeamTitle.innerHTML = `<i class="fas fa-users text-green-500"></i> Medicine 200 Players`;
+        nursingSwitchTeamBtn.textContent = "Switch to Nursing 200";
+        nursingCurrentTeam = 'Medicine';
+      } else {
+        medicineTeam200.classList.add('hidden');
+        nursingTeam200.classList.remove('hidden');
+        nursingPlayerTeamTitle.innerHTML = `<i class="fas fa-users text-green-500"></i> Nursing 200 Players`;
+        nursingSwitchTeamBtn.textContent = "Switch to Medicine 200";
+        nursingCurrentTeam = 'Nursing';
+      }
+    });
+  }
 
   // Initialize tabs for both modals
   setupTabs('csc-match-modal');
   setupTabs('nursing-match-modal');
 
 </script>
-
     <!-- Match Center Modal -->
     <div id="match-modal" class="modal-overlay hidden">
         <div class="glass-card match-details-card w-full md:max-w-xl p-6 md:p-8 relative">
