@@ -1093,6 +1093,66 @@
     </div>
   </div>
 </div>
+<script>
+  // Open modal
+  function openModal(id) {
+    document.getElementById(id).classList.remove('hidden');
+  }
+
+  // Close modal
+  function closeModal(id) {
+    document.getElementById(id).classList.add('hidden');
+  }
+
+  // Tab switching: show one tab, hide the other
+  function switchTab(showId, hideId) {
+    document.getElementById(showId).classList.remove('hidden');
+    document.getElementById(hideId).classList.add('hidden');
+
+    // Update tab button styles
+    const allTabBtns = document.querySelectorAll('.tab-btn');
+    allTabBtns.forEach(btn => {
+      if (btn.dataset.tabTarget === showId) {
+        btn.classList.add('text-green-400', 'border-b-2', 'border-green-500');
+        btn.classList.remove('text-gray-400');
+      } else if (btn.dataset.tabTarget === hideId) {
+        btn.classList.remove('text-green-400', 'border-b-2', 'border-green-500');
+        btn.classList.add('text-gray-400');
+      }
+    });
+  }
+
+  // Switch between Nursing 200 and CSC 200 team players
+  let currentCscNursingTeam = 'nursing';
+  function switchCscNursingTeam() {
+    const nursingTeam = document.getElementById('csc-nursing-team200');
+    const cscTeam = document.getElementById('csc-nursing-team100');
+    const title = document.getElementById('cscNursingPlayerTeamTitle');
+    const btn = document.getElementById('cscNursingSwitchTeamBtn');
+
+    if (currentCscNursingTeam === 'nursing') {
+      nursingTeam.classList.add('hidden');
+      cscTeam.classList.remove('hidden');
+      title.innerHTML = '<i class="fas fa-users text-green-500"></i> CSC 200 Players';
+      btn.textContent = 'Switch to Nursing 200';
+      currentCscNursingTeam = 'csc';
+    } else {
+      cscTeam.classList.add('hidden');
+      nursingTeam.classList.remove('hidden');
+      title.innerHTML = '<i class="fas fa-users text-green-500"></i> Nursing 200 Players';
+      btn.textContent = 'Switch to CSC 200';
+      currentCscNursingTeam = 'nursing';
+    }
+  }
+
+  // Optional: Close modal when clicking outside the modal content
+  window.addEventListener('click', function(e) {
+    const modal = document.getElementById('csc-nursing-match-modal-1');
+    if (!modal.contains(e.target) && !modal.classList.contains('hidden')) {
+      closeModal('csc-nursing-match-modal-1');
+    }
+  });
+</script>
 
 <script>
   // Modal open/close
