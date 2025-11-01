@@ -450,7 +450,7 @@
                 </div>
                 <div class="flex space-x-2 text-sm ml-4 flex-shrink-0">
                     <button class="reminder-btn px-3 py-1 bg-green-700 rounded-full text-xs hover:bg-green-600 transition">Reminder</button>
-                    <button class="details-btn px-3 py-1 bg-gray-700 rounded-full text-xs hover:bg-gray-600 transition">Details</button>
+                    <button class="details-btn px-3 py-1 bg-red-700 rounded-full text-xs hover:bg-red-600 transition">Finished</button>
                 </div>
             </div>
                <div class="flex items-center justify-between p-3 sm:p-4 border-b border-gray-700/50 last:border-b-0 hover:bg-white/5 rounded-lg transition" data-upcoming-id="upcoming-3">
@@ -460,7 +460,7 @@
                 </div>
                 <div class="flex space-x-2 text-sm ml-4 flex-shrink-0">
                     <button class="reminder-btn px-3 py-1 bg-green-700 rounded-full text-xs hover:bg-green-600 transition">Reminder</button>
-                    <button class="details-btn px-3 py-1 bg-gray-700 rounded-full text-xs hover:bg-gray-600 transition">Details</button>
+                    <button class="details-btn px-3 py-1 bg-red-700 rounded-full text-xs hover:bg-red-600 transition">Not Started yet</button>
                 </div>
             </div>
 
@@ -618,6 +618,33 @@
           </button>
         </div>
       </div>
+      <div class="match-card flex-shrink-0 w-full md:w-[48%] border border-gray-700/40 rounded-lg p-4 bg-black/40" data-date="01-11-2025">
+  <div class="flex items-center justify-between border-b border-gray-700/50 pb-2 mb-3">
+    <p class="text-gray-300 text-sm flex items-center gap-2">
+      <i class="far fa-calendar-alt text-green-500"></i> Sat, 1st Nov 2025 – 10:00 AM
+    </p>
+    <span class="text-xs bg-green-800 text-green-100 px-2 py-1 rounded-full">Friendly Match</span>
+  </div>
+
+  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+    <div>
+      <p class="text-lg font-semibold text-white">
+        Nursing 200 Level <span class="text-gray-500 font-normal">vs</span> CSC 200 Level
+      </p>
+      <p class="text-sm text-gray-400 mt-1">Venue: Campus 2</p>
+    </div>
+
+    <div class="text-2xl font-bold text-green-400 text-center sm:text-right">2<span class="text-gray-400">–</span>2</div>
+  </div>
+
+<div class="mt-4 flex justify-end">
+  <button onclick="openModal('csc-nursing-match-modal-1')" class="bg-green-700 hover:bg-green-600 text-white text-sm px-4 py-2 rounded-md flex items-center gap-2">
+    <i class="fas fa-eye"></i> View Details
+  </button>
+</div>
+
+</div>
+
 
     </div> <!-- /.match-scroll -->
   </div> <!-- /.glass-card -->
@@ -944,6 +971,81 @@
         Players
       </button>
     </div>
+<div
+  id="csc-nursing-match-modal-1"
+  class="fixed inset-0 bg-black/80 flex items-center justify-center p-4 hidden z-50"
+>
+  <div
+    class="bg-[#111] text-white rounded-xl shadow-2xl w-full max-w-sm md:max-w-3xl p-6 relative border border-green-700/40 max-h-[95vh] overflow-y-auto"
+  >
+    <button onclick="closeModal('csc-nursing-match-modal-1')" class="absolute top-3 right-3 text-gray-400 hover:text-white">
+      <i class="fas fa-times text-xl"></i>
+    </button>
+
+    <h2 class="text-2xl font-bold mb-4">Nursing 200 vs CSC 200</h2>
+
+    <!-- Tabs -->
+    <div class="flex gap-4 border-b border-gray-700 mb-4">
+      <button data-tab-target="csc-nursing-summary" class="tab-btn text-green-400 border-b-2 border-green-500 pb-2" onclick="switchTab('csc-nursing-summary','csc-nursing-players')">
+        Match Summary
+      </button>
+      <button data-tab-target="csc-nursing-players" class="tab-btn text-gray-400 pb-2" onclick="switchTab('csc-nursing-players','csc-nursing-summary')">
+        Players
+      </button>
+    </div>
+
+    <!-- Summary Tab -->
+    <div id="csc-nursing-summary" class="tab-content">
+      <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+        <i class="fas fa-futbol text-green-500"></i> Match Highlights
+      </h3>
+      <p class="text-gray-400 mb-4">
+        The match ended in a thrilling <span class="text-green-400 font-bold">2-2</span> draw! Nursing 200 and CSC 200 displayed amazing skill, teamwork, and resilience. Here’s a detailed play-by-play:
+      </p>
+      <ul class="space-y-2 text-sm text-gray-300">
+        <li>🟢 Kickoff: Nursing started strongly with good possession.</li>
+        <li>⚽ 22' – Onyema (Nursing): Scores after a defensive error by CSC. Nursing leads 1-0.</li>
+        <li>⚽ 24' – Emmanuel (Nursing): A striker attempt slightly across the bar, narrowly missing a 2-0 lead.</li>
+        <li>⚽ 27' – Kev A (CSC): Takes a shot placed toward the goalpost, deflected by Nursing defense, giving Princewill (CSC) a rebound opportunity, who scores to equalize 1-1.</li>
+        <li>⚽ 27 - princewill takes a rebound shot to the bottom left corner to Equal the scroe line </li>
+        <li>💥 Near-miss: Nursing almost regains the lead but Zubby (CSC) clears off the line.</li>
+         <li>   Sammy (CSC) tries a chip over the bar, narrowly missing a lead.</li>
+        <li>🟢 First Half ends: 1-1</li>
+        <li>⚽ 50' – Onyema (Nursing): Scores again after a defensive error. Nursing leads 2-1.</li>
+        <li>🟢 60- Marvin (CSC): Gets into the box, plays it small thinking it will enter the net, but the Nursing keeper intercepts to keep the lead safe.</li>
+        <li>⚽ 78' – Penalty (CSC): Marvin calmly converts to the top right corner. Game equalized 2-2.</li>
+        <li>💥 Late chance: Paschal (CSC) controls a rebound and shoots over the bar, failing to give CSC the lead.</li>
+        <li>🏁 Full Time: Nursing 200 2 – 2 CSC 200</li>
+      </ul>
+    </div>
+
+    <!-- Players Tab -->
+    <div id="csc-nursing-players" class="tab-content hidden">
+      <div class="flex justify-between items-center mb-4">
+        <h3 id="cscNursingPlayerTeamTitle" class="text-xl font-bold flex items-center gap-2">
+          <i class="fas fa-users text-green-500"></i> Nursing 200 Players
+        </h3>
+        <button
+          id="cscNursingSwitchTeamBtn"
+          class="text-sm bg-green-700 hover:bg-green-600 px-3 py-1 rounded-md"
+          onclick="switchCscNursingTeam()"
+        >
+          Switch to CSC 200
+        </button>
+      </div>
+
+      <!-- Nursing Team -->
+      <div id="csc-nursing-team200" class="grid grid-cols-3 gap-y-8 md:gap-y-12 gap-x-4 justify-items-center text-center">
+        <p class="col-span-3 text-gray-500">Player details for Nursing 200 to be added here.</p>
+      </div>
+
+      <!-- CSC Team -->
+      <div id="csc-nursing-team100" class="hidden grid grid-cols-3 gap-y-8 md:gap-y-12 gap-x-4 justify-items-center text-center">
+        <p class="col-span-3 text-gray-500">Player details for CSC 200 to be added here.</p>
+      </div>
+    </div>
+  </div>
+</div>
 
     <!-- Summary Tab -->
     <div id="nursing-summary" class="tab-content nursing-tab-content">
