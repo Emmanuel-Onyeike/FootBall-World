@@ -1,131 +1,368 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI Match Simulator | Player Setup</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AI Match Simulator | Team Setup</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://kit.fontawesome.com/a2e0a6c6c2.js" crossorigin="anonymous"></script>
   <style>
     body {
       background: radial-gradient(circle at center, #0b0b0b 0%, #000 100%);
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
     }
     .glass {
-      background: rgba(20, 20, 20, 0.8);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(0, 255, 120, 0.2);
+      background: rgba(20,20,20,0.85);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(0,255,120,0.08);
     }
+    .player-card.selected { outline: 3px solid rgba(34,197,94,0.18); box-shadow: 0 6px 18px rgba(0,0,0,0.6); }
+    .player-card.confirmed { border-color: rgba(34,197,94,0.5); }
+    /* small scrollbar styling */
+    .scroll-y::-webkit-scrollbar { width: 8px; height: 8px; }
+    .scroll-y::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.06); border-radius: 999px; }
   </style>
 </head>
+<body class="text-white min-h-screen p-4 md:p-8 flex items-center justify-center">
 
-<body class="text-white min-h-screen p-4 md:p-8 flex flex-col items-center justify-center">
-  <!-- Container -->
-  <div id="playerSetup" class="glass max-w-5xl w-full mx-auto rounded-2xl shadow-2xl p-6 md:p-10 border border-green-700/40">
-    <h1 class="text-3xl md:text-4xl font-bold text-green-400 text-center mb-8">⚽ Player Ability Setup</h1>
+  <div class="w-full max-w-6xl glass rounded-2xl p-6 md:p-10 relative">
 
-    <p class="text-center text-gray-400 mb-6">Assign 3 abilities and positions to each player before match simulation.</p>
+    <!-- Commentary / Events panel (top-right) -->
+    <div class="absolute right-6 top-6 w-80 bg-[#0f0f0f]/90 border border-gray-800 rounded-lg p-4 shadow-lg z-30">
+      <div class="flex items-center justify-between mb-3">
+        <h3 class="text-sm font-semibold text-green-400">Live Commentary</h3>
+        <div class="text-xs text-gray-400">Events</div>
+      </div>
 
-    <div id="teamPlayersContainer" class="space-y-10"></div>
+      <div id="eventCounts" class="flex gap-3 justify-between mb-3 text-xs">
+        <div class="text-left">
+          <div class="font-semibold text-gray-300" id="teamANameHeader">Team A</div>
+          <div class="text-gray-400 text-xs">Fouls: <span id="teamA-fouls">0</span> · YC: <span id="teamA-y">0</span> · RC: <span id="teamA-r">0</span></div>
+        </div>
+        <div class="text-right">
+          <div class="font-semibold text-gray-300" id="teamBNameHeader">Team B</div>
+          <div class="text-gray-400 text-xs">Fouls: <span id="teamB-fouls">0</span> · YC: <span id="teamB-y">0</span> · RC: <span id="teamB-r">0</span></div>
+        </div>
+      </div>
 
-    <div class="flex justify-center mt-10">
-      <button 
-        id="startMatch"
-        class="bg-green-600 hover:bg-green-500 px-8 py-3 rounded-xl font-semibold transition"
-      >Kick Off Match ⚽</button>
+      <div class="mb-3">
+        <div class="text-xs text-gray-400 mb-2">Selected player: <span id="selectedPlayerLabel" class="font-semibold text-gray-200">None</span></div>
+        <div class="flex gap-2">
+          <button id="btnFoul" class="flex-1 bg-yellow-700/10 hover:bg-yellow-700/20 text-yellow-300 px-2 py-2 rounded-md text-sm"><i class="fas fa-hand-paper mr-2"></i>Foul</button>
+          <button id="btnYellow" class="flex-1 bg-yellow-700/10 hover:bg-yellow-700/20 text-yellow-300 px-2 py-2 rounded-md text-sm"><i class="fas fa-square mr-2"></i>Yellow</button>
+          <button id="btnRed" class="flex-1 bg-red-700/10 hover:bg-red-700/20 text-red-400 px-2 py-2 rounded-md text-sm"><i class="fas fa-square-full mr-2"></i>Red</button>
+        </div>
+      </div>
+
+      <div>
+        <div class="text-xs text-gray-400 mb-2">Commentary log</div>
+        <div id="commentaryLog" class="h-36 overflow-auto scroll-y bg-[#0b0b0b] p-2 rounded-md text-xs text-gray-300"></div>
+      </div>
+    </div>
+
+    <!-- Header -->
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6 gap-4">
+      <h1 class="text-2xl md:text-3xl font-bold text-green-400">⚽ Create Teams — Player Setup</h1>
+      <div class="flex gap-3 w-full md:w-auto">
+        <input id="teamAName" placeholder="Team A name" class="w-full md:w-48 p-2 rounded-lg bg-[#0b0b0b] border border-gray-700 text-white" />
+        <input id="teamBName" placeholder="Team B name" class="w-full md:w-48 p-2 rounded-lg bg-[#0b0b0b] border border-gray-700 text-white" />
+      </div>
+    </div>
+
+    <!-- Teams grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+      <!-- Team A -->
+      <div>
+        <div class="flex items-center justify-between mb-3">
+          <h2 id="teamATitle" class="text-lg font-semibold text-green-300">Team A</h2>
+          <div class="text-xs text-gray-400">11 starters · 4 subs</div>
+        </div>
+        <div id="players-A" class="space-y-3 max-h-[60vh] overflow-auto scroll-y p-1 rounded-md"></div>
+      </div>
+
+      <!-- Team B -->
+      <div>
+        <div class="flex items-center justify-between mb-3">
+          <h2 id="teamBTitle" class="text-lg font-semibold text-green-300">Team B</h2>
+          <div class="text-xs text-gray-400">11 starters · 4 subs</div>
+        </div>
+        <div id="players-B" class="space-y-3 max-h-[60vh] overflow-auto scroll-y p-1 rounded-md"></div>
+      </div>
+
+    </div>
+
+    <!-- Start button -->
+    <div class="mt-6 flex justify-center">
+      <button id="startMatch" class="hidden bg-green-600 hover:bg-green-500 px-6 py-3 rounded-xl font-semibold">Start Match ⚽</button>
     </div>
   </div>
 
-  <!-- Script -->
-  <script>
-    // For testing/demo purpose, preload some data
-    if (!localStorage.getItem('teamSetup')) {
-      localStorage.setItem('teamSetup', JSON.stringify({
-        teamA: "CSC 200 Level",
-        teamB: "Nursing 200 Level",
-        playersA: ["Kev O", "Princewill", "Marvin", "Paschal", "Zubby"],
-        playersB: ["Onyema", "Emmanuel", "Austin", "Sammy", "Chris"]
-      }));
-    }
+<script>
+/*
+  Features implemented:
+  - 11 starters + 4 subs per team
+  - Type name -> abilities appear -> choose exactly 3 -> choose position -> green check appears
+  - Click player to select (for events)
+  - Commentary panel top-right: Foul / Yellow / Red buttons apply to selected player and update team counters + log
+  - When all 30 players confirmed Start Match button becomes visible
+*/
 
-    const teamData = JSON.parse(localStorage.getItem('teamSetup'));
-    if (!teamData) {
-      document.body.innerHTML = '<p class="text-center mt-20 text-red-500 text-xl">⚠ No team data found. Please go back and set up your teams first.</p>';
-    }
+const abilities = ['Shooting','Passing','Pace','Physical','Dribbling'];
+const positions = ['GK','DEF','MID','ATT'];
 
-    const container = document.getElementById('teamPlayersContainer');
-    const abilities = ['Shooting', 'Passing', 'Pace', 'Physical', 'Dribbling'];
-    const positions = ['GK', 'DEF', 'MID', 'ATT'];
+const teamANameInput = document.getElementById('teamAName');
+const teamBNameInput = document.getElementById('teamBName');
+const teamAHeader = document.getElementById('teamANameHeader');
+const teamBHeader = document.getElementById('teamBNameHeader');
+const teamATitle = document.getElementById('teamATitle');
+const teamBTitle = document.getElementById('teamBTitle');
 
-    // Generate team blocks
-    ['A', 'B'].forEach(side => {
-      const teamName = teamData[`team${side}`];
-      const players = teamData[`players${side}`];
+teamANameInput.addEventListener('input', ()=> { teamAHeader.textContent = teamANameInput.value || 'Team A'; teamATitle.textContent = teamANameInput.value || 'Team A';});
+teamBNameInput.addEventListener('input', ()=> { teamBHeader.textContent = teamBNameInput.value || 'Team B'; teamBTitle.textContent = teamBNameInput.value || 'Team B';});
 
-      const teamBlock = document.createElement('div');
-      teamBlock.innerHTML = `
-        <h3 class="text-2xl font-bold text-green-400 mb-4">${teamName}</h3>
-        <div class="grid gap-4">
-          ${players.map(player => `
-            <div class="bg-[#1a1a1a] rounded-xl p-4 border border-gray-700">
-              <h4 class="font-semibold mb-3 text-lg">${player}</h4>
+// counters
+const counters = {
+  teamA: { fouls:0, yellow:0, red:0 },
+  teamB: { fouls:0, yellow:0, red:0 }
+};
+function updateCountersUI() {
+  document.getElementById('teamA-fouls').textContent = counters.teamA.fouls;
+  document.getElementById('teamA-y').textContent = counters.teamA.yellow;
+  document.getElementById('teamA-r').textContent = counters.teamA.red;
+  document.getElementById('teamB-fouls').textContent = counters.teamB.fouls;
+  document.getElementById('teamB-y').textContent = counters.teamB.yellow;
+  document.getElementById('teamB-r').textContent = counters.teamB.red;
+}
 
-              <div class="flex flex-wrap gap-3 mb-3">
-                ${abilities.map(ab => `
-                  <label class="flex items-center gap-2 text-sm">
-                    <input type="checkbox" name="${teamName}-${player}-abilities" value="${ab}" class="accent-green-600 ability-checkbox">
-                    <span>${ab}</span>
-                  </label>
-                `).join('')}
-              </div>
-
-              <select name="${teamName}-${player}-position" 
-                class="bg-[#111] border border-gray-600 rounded-lg p-2 w-full text-white focus:ring-2 focus:ring-green-500">
-                <option value="">Select Position</option>
-                ${positions.map(pos => `<option value="${pos}">${pos}</option>`).join('')}
-              </select>
-            </div>
-          `).join('')}
+// create players
+function createTeam(teamId) {
+  const container = document.getElementById('players-' + teamId);
+  container.innerHTML = ''; // clear
+  const starters = 11, subs = 4, total = starters + subs;
+  for (let i=1;i<=total;i++) {
+    const slotLabel = i<=11 ? `Player ${i}` : `Sub ${i-11}`;
+    const card = document.createElement('div');
+    card.className = 'player-card bg-[#111] border border-gray-700 p-3 rounded-md cursor-pointer';
+    card.dataset.team = teamId;
+    card.dataset.index = i;
+    card.dataset.confirmed = 'false';
+    card.innerHTML = `
+      <div class="flex items-center justify-between">
+        <div>
+          <div class="text-sm text-gray-300 font-semibold">${slotLabel}</div>
+          <div class="mt-2">
+            <input placeholder="Name..." class="player-name w-full p-2 rounded-md bg-[#0b0b0b] border border-gray-600 text-sm" />
+          </div>
         </div>
-      `;
-      container.appendChild(teamBlock);
-    });
+        <div class="ml-3 flex items-center gap-2">
+          <div class="text-xs text-gray-400">pos</div>
+        </div>
+      </div>
 
-    // Limit abilities to 3 per player
-    document.addEventListener('change', (e) => {
-      if (e.target.classList.contains('ability-checkbox')) {
-        const group = e.target.name;
-        const checkboxes = document.querySelectorAll(`input[name="${group}"]`);
-        const checked = [...checkboxes].filter(c => c.checked);
-        if (checked.length > 3) {
-          e.target.checked = false;
-          alert('You can only select 3 abilities per player!');
-        }
-      }
-    });
+      <div class="abilities-area mt-3 hidden"></div>
+      <div class="positions-area mt-3 hidden"></div>
 
-    // Start Match
-    document.getElementById('startMatch').onclick = () => {
-      const allPlayers = [];
-      let allComplete = true;
+      <div class="mt-3 flex items-center justify-between gap-2">
+        <div class="text-xs text-gray-400">status: <span class="status-text text-gray-300">incomplete</span></div>
+        <div class="flex items-center gap-2">
+          <button class="confirm-btn hidden bg-green-600 hover:bg-green-500 p-2 rounded-full text-white" title="Confirm"><i class="fas fa-check"></i></button>
+        </div>
+      </div>
+      <div class="meta mt-2 text-xs text-gray-400 hidden"></div>
+    `;
+    container.appendChild(card);
 
-      document.querySelectorAll('.bg-[#1a1a1a]').forEach(card => {
-        const playerName = card.querySelector('h4').innerText;
-        const selectedAbilities = [...card.querySelectorAll('.ability-checkbox:checked')].map(cb => cb.value);
-        const position = card.querySelector('select').value;
+    // event wiring
+    wirePlayerCard(card);
+  }
+}
 
-        if (selectedAbilities.length !== 3 || !position) {
-          alert(`Please complete setup for ${playerName}`);
-          allComplete = false;
-          return;
-        }
+function wirePlayerCard(card) {
+  const nameInput = card.querySelector('.player-name');
+  const abilitiesArea = card.querySelector('.abilities-area');
+  const positionsArea = card.querySelector('.positions-area');
+  const confirmBtn = card.querySelector('.confirm-btn');
+  const statusText = card.querySelector('.status-text');
+  const meta = card.querySelector('.meta');
 
-        allPlayers.push({ playerName, selectedAbilities, position });
-      });
+  // clicking card selects it for events
+  card.addEventListener('click', (e) => {
+    // avoid selecting if clicking inside inputs/buttons
+    if (e.target.tagName === 'INPUT' || e.target.closest('.confirm-btn') || e.target.tagName === 'SELECT' || e.target.tagName === 'LABEL') return;
+    selectPlayerCard(card);
+  });
 
-      if (!allComplete) return;
+  nameInput.addEventListener('input', () => {
+    if (nameInput.value.trim().length > 1) {
+      renderAbilities(abilitiesArea, card);
+      abilitiesArea.classList.remove('hidden');
+    } else {
+      abilitiesArea.classList.add('hidden');
+      positionsArea.classList.add('hidden');
+      confirmBtn.classList.add('hidden');
+      statusText.textContent = 'incomplete';
+    }
+  });
 
-      localStorage.setItem('playerSetup', JSON.stringify(allPlayers));
-      window.location.href = 'match.html'; // Move to the pitch screen
-    };
-  </script>
+  confirmBtn.addEventListener('click', (ev) => {
+    ev.stopPropagation();
+    // finalize
+    card.dataset.confirmed = 'true';
+    card.classList.add('confirmed');
+    confirmBtn.classList.add('hidden');
+    statusText.textContent = 'confirmed';
+    // lock inputs
+    card.querySelectorAll('input, select').forEach(i => i.disabled = true);
+    // show meta (abilities/position)
+    const chosen = [...card.querySelectorAll('.ability-checkbox:checked')].map(n=>n.value).join(', ');
+    const pos = card.querySelector('.position-select').value;
+    meta.classList.remove('hidden');
+    meta.textContent = `Abilities: ${chosen} · Position: ${pos}`;
+    checkAllConfirmed();
+  });
+}
+
+function renderAbilities(container, card) {
+  // if already rendered skip (but ensure event wired)
+  container.innerHTML = `
+    <div class="text-xs text-gray-400 mb-2">Select 3 abilities</div>
+    <div class="flex flex-wrap gap-2 abilities-list"></div>
+  `;
+  const list = container.querySelector('.abilities-list');
+  abilities.forEach(ab => {
+    const id = `ab-${card.dataset.team}-${card.dataset.index}-${ab}`;
+    const label = document.createElement('label');
+    label.className = 'flex items-center gap-2 text-sm cursor-pointer';
+    label.innerHTML = `<input id="${id}" type="checkbox" class="ability-checkbox accent-green-500" value="${ab}"> <span>${ab}</span>`;
+    list.appendChild(label);
+    label.querySelector('input').addEventListener('change', (e)=> handleAbilityChange(card));
+  });
+}
+
+function handleAbilityChange(card) {
+  const checked = card.querySelectorAll('.ability-checkbox:checked');
+  if (checked.length > 3) {
+    // undo last
+    event.target.checked = false;
+    alert('Pick only 3 abilities');
+    return;
+  }
+  if (checked.length === 3) {
+    renderPositionSelect(card.querySelector('.positions-area'), card);
+  }
+}
+
+function renderPositionSelect(container, card) {
+  container.innerHTML = `
+    <div class="text-xs text-gray-400 mb-2">Select Position</div>
+    <select class="position-select w-full p-2 rounded-md bg-[#0b0b0b] border border-gray-600 text-sm">
+      <option value="">-- choose --</option>
+      ${positions.map(p=>`<option value="${p}">${p}</option>`).join('')}
+    </select>
+  `;
+  container.classList.remove('hidden');
+
+  const sel = container.querySelector('select');
+  sel.addEventListener('change', () => {
+    if (sel.value) {
+      // show green confirm icon
+      const confirmBtn = card.querySelector('.confirm-btn');
+      confirmBtn.classList.remove('hidden');
+      // show short preview
+      card.querySelector('.status-text').textContent = 'ready';
+    }
+  });
+}
+
+// selection management (for events)
+let currentlySelectedCard = null;
+function selectPlayerCard(card) {
+  // unselect previous
+  document.querySelectorAll('.player-card.selected').forEach(el => el.classList.remove('selected'));
+  // set
+  card.classList.add('selected');
+  currentlySelectedCard = card;
+  const nm = card.querySelector('.player-name').value || `#${card.dataset.index}`;
+  document.getElementById('selectedPlayerLabel').textContent = `${nm} — ${ (card.dataset.team === 'A') ? (teamANameInput.value || 'Team A') : (teamBNameInput.value || 'Team B') }`;
+}
+
+// create both teams
+createTeam('A');
+createTeam('B');
+
+// commentary / event buttons
+const btnFoul = document.getElementById('btnFoul');
+const btnYellow = document.getElementById('btnYellow');
+const btnRed = document.getElementById('btnRed');
+const log = document.getElementById('commentaryLog');
+
+function pushLog(msg) {
+  const time = new Date();
+  const hh = String(time.getHours()).padStart(2,'0');
+  const mm = String(time.getMinutes()).padStart(2,'0');
+  const el = document.createElement('div');
+  el.className = 'mb-1';
+  el.innerHTML = `<span class="text-gray-500 text-xs">[${hh}:${mm}]</span> <span class="text-sm">${msg}</span>`;
+  log.prepend(el);
+}
+
+function applyEvent(type) {
+  if (!currentlySelectedCard) { alert('Select a player card first (click the card)'); return; }
+  const team = currentlySelectedCard.dataset.team === 'A' ? 'teamA' : 'teamB';
+  const playerName = currentlySelectedCard.querySelector('.player-name').value || `#${currentlySelectedCard.dataset.index}`;
+  if (type === 'foul') {
+    counters[team].fouls += 1;
+    pushLog(`${playerName} ( ${team === 'teamA' ? (teamANameInput.value || 'Team A') : (teamBNameInput.value || 'Team B')} ) committed a foul`);
+  } else if (type === 'yc') {
+    counters[team].yellow += 1;
+    pushLog(`Yellow card → ${playerName}`);
+  } else if (type === 'rc') {
+    counters[team].red += 1;
+    pushLog(`Red card → ${playerName} — sent off`);
+    // visually mark card (optional)
+    currentlySelectedCard.classList.add('opacity-60');
+  }
+  updateCountersUI();
+}
+
+btnFoul.addEventListener('click', ()=>applyEvent('foul'));
+btnYellow.addEventListener('click', ()=>applyEvent('yc'));
+btnRed.addEventListener('click', ()=>applyEvent('rc'));
+
+// check completion & Start Match
+const startMatchBtn = document.getElementById('startMatch');
+function checkAllConfirmed() {
+  const allCards = document.querySelectorAll('.player-card');
+  const confirmed = [...allCards].filter(c => c.dataset.confirmed === 'true').length;
+  if (confirmed === allCards.length) {
+    startMatchBtn.classList.remove('hidden');
+    pushLog('All players confirmed — Ready to start match');
+  }
+}
+
+// wire up Start Match to save setup and open modal (placeholder)
+startMatchBtn.addEventListener('click', ()=> {
+  // gather data
+  const teams = { A: { name: teamANameInput.value || 'Team A', players: [] }, B: { name: teamBNameInput.value || 'Team B', players: [] } };
+  document.querySelectorAll('.player-card').forEach(card=>{
+    const team = card.dataset.team;
+    const name = card.querySelector('.player-name').value || `#${card.dataset.index}`;
+    const abilitiesSelected = [...card.querySelectorAll('.ability-checkbox:checked')].map(i=>i.value);
+    const posEl = card.querySelector('.position-select');
+    const pos = posEl ? posEl.value : '';
+    const confirmed = card.dataset.confirmed === 'true';
+    teams[team].players.push({ name, abilities: abilitiesSelected, pos, confirmed });
+  });
+  // for now we store to localStorage and show alert; next step -> modal match engine
+  localStorage.setItem('simSetup', JSON.stringify({ teams, counters }));
+  pushLog('Match setup saved. Opening match (placeholder)');
+  alert('Match setup saved. (In next stage we will open the simulation modal / pitch)');
+});
+
+// small helper to update UI counters initially
+updateCountersUI();
+
+</script>
 </body>
 </html>
