@@ -274,22 +274,46 @@ function uniqueName(excludeSet){
 function wait(ms){ return new Promise(res=>setTimeout(res, ms)); }
 
 // ------------------------------
-// AI Fill function (real players)
+// AI Fill function (real players) — updated to force Messi & Ronaldo
 // ------------------------------
 function aiGenerateTeam(teamId, displayName){
-  // ensure uniqueness
   const used = new Set();
   const players = [];
-  // formation: GK(1), DEF(4), MID(4), ATT(2)
   const starterPositions = ['GK','DEF','DEF','DEF','DEF','MID','MID','MID','MID','ATT','ATT'];
+
+  // Force Ronaldo for Team A, Messi for Team B
+  if (teamId === 'A') {
+    players.push({
+      name: "C. Ronaldo",
+      position: "CF",
+      abilities: ["Shooting", "Pace", "Physical"],
+      isSub: false,
+      confirmed: true
+    });
+    used.add("C. Ronaldo");
+  }
+  if (teamId === 'B') {
+    players.push({
+      name: "L. Messi",
+      position: "CAM",
+      abilities: ["Dribbling", "Passing", "Shooting"],
+      isSub: false,
+      confirmed: true
+    });
+    used.add("L. Messi");
+  }
+
+  // Fill remaining starters
   for (let i=0;i<starterPositions.length;i++){
     const pos = starterPositions[i];
+    if ((teamId === 'A' && i === 10) || (teamId === 'B' && i === 9)) continue;
     const name = uniqueName(used);
     used.add(name);
     const abil = shuffle([...abilitiesList]).slice(0,3);
     players.push({ name, position: pos, abilities: abil, isSub:false, confirmed:true });
   }
-  // subs
+
+  // Add substitutes
   for (let s=0;s<subsCount;s++){
     const name = uniqueName(used); used.add(name);
     const abil = shuffle([...abilitiesList]).slice(0,3);
@@ -298,10 +322,11 @@ function aiGenerateTeam(teamId, displayName){
   }
 
   state[teamId].name = displayName || state[teamId].name;
-  state[teamId].players = players;
+  state[teamId].players = shuffle(players);
   renderTeamList(teamId);
   checkStartReady();
 }
+
 
 // ------------------------------
 // UI rendering for roster lists
