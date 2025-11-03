@@ -178,35 +178,30 @@ const starterCount = 11, subsCount = 4;
 const abilitiesList = ['Shooting','Passing','Pace','Physical','Dribbling'];
 const positions = ['GK','DEF','MID','ATT'];
 
-// Real famous players pool (mix of international club stars)
+// Real famous players pool (international stars)
 const proPool = [
   // Global stars
   "C. Ronaldo", "L. Messi", "K. Mbappé", "E. Haaland", "K. De Bruyne",
   "Neymar Jr", "V. Jr.", "M. Salah", "K. Benzema", "R. Lewandowski",
   "H. Kane", "B. Silva", "J. Kimmich", "T. Müller", "P. Foden",
   "J. Grealish", "R. Sterling", "F. Valverde", "B. Fernandes", "Casemiro",
-
   // Defenders & Goalkeepers
   "Virgil van Dijk", "Trent Alexander-Arnold", "Rúben Dias", "João Cancelo",
   "A. Robertson", "Sergio Ramos", "Thiago Silva", "Marquinhos", "E. Martínez",
   "M. ter Stegen", "G. Donnarumma", "A. Becker", "Ederson", "K. Trippier",
-
   // Midfielders
   "Pedri", "Gavi", "Rodri", "T. Kroos", "L. Modrić", "J. Bellingham",
   "M. Ødegaard", "N. Kanté", "B. Guimarães", "Declan Rice", "Enzo Fernández",
   "Marco Reus", "Ilkay Gündoğan", "Paulo Dybala", "Phil Foden", "Jack Grealish",
-
   // Attackers
   "João Félix", "Gabriel Jesus", "Rashford", "Sancho", "Dembele",
   "Lautaro Martínez", "O. Giroud", "Antony", "Luis Díaz", "Darwin Núñez",
   "Federico Chiesa", "R. Leão", "Ansu Fati", "T. Werner", "S. Mané",
-
-  // Extra realism / icons
+  // Legends / Extras
   "Luka Jović", "Angel Di María", "Paul Pogba", "Memphis Depay",
   "Christian Eriksen", "Z. Ibrahimović", "Coutinho", "Mesut Özil",
-  "Eden Hazard", "Bale", "Busquets", "Chiellini", "Bonucci"
+  "Eden Hazard", "Gareth Bale", "Busquets", "Chiellini", "Bonucci"
 ];
-
 
 // ------------------------------
 // Elements
@@ -251,30 +246,24 @@ const subBtn = document.getElementById('subBtn');
 // State
 // ------------------------------
 let state = {
-  A: { name: 'Team A', players: [], counters: { fouls:0,y:0,r:0 } },
-  B: { name: 'Team B', players: [], counters: { fouls:0,y:0,r:0 } },
+  A: { name: 'Team A', players: [], counters:{fouls:0,y:0,r:0} },
+  B: { name: 'Team B', players: [], counters:{fouls:0,y:0,r:0} },
   sim: {
     running:false, minute:0, total:90, extra:5, scoreA:0, scoreB:0, possessionA:50,
-    minuteMs: 450, interval: null, minGoalGuaranteeApplied:false
+    minuteMs:450, interval:null, minGoalGuaranteeApplied:false
   }
 };
 
 // ------------------------------
 // Helpers
 // ------------------------------
-function randPick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
-function shuffle(arr){ for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]] } return arr; }
-function uniqueName(excludeSet){
-  let name;
-  do {
-    name = randPick(proPool) + (Math.random()<0.15?(' '+Math.floor(Math.random()*90+10)):'');
-  } while (excludeSet && excludeSet.has(name));
-  return name;
-}
-function wait(ms){ return new Promise(res=>setTimeout(res, ms)); }
+const randPick = arr => arr[Math.floor(Math.random()*arr.length)];
+function shuffle(arr){ for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]];} return arr;}
+function uniqueName(exclude){ let name; do{ name=randPick(proPool);} while(exclude.has(name)); return name; }
+const wait = ms => new Promise(res=>setTimeout(res,ms));
 
 // ------------------------------
-// AI Fill function (real players) — updated to force Messi & Ronaldo
+// AI team generator (includes Ronaldo & Messi)
 // ------------------------------
 function aiGenerateTeam(teamId, displayName){
   const used = new Set();
@@ -282,122 +271,86 @@ function aiGenerateTeam(teamId, displayName){
   const starterPositions = ['GK','DEF','DEF','DEF','DEF','MID','MID','MID','MID','ATT','ATT'];
 
   // Force Ronaldo for Team A, Messi for Team B
-  if (teamId === 'A') {
-    players.push({
-      name: "C. Ronaldo",
-      position: "CF",
-      abilities: ["Shooting", "Pace", "Physical"],
-      isSub: false,
-      confirmed: true
-    });
-    used.add("C. Ronaldo");
+  if(teamId==='A'){
+    players.push({name:'C. Ronaldo',position:'CF',abilities:['Shooting','Pace','Physical'],isSub:false,confirmed:true});
+    used.add('C. Ronaldo');
   }
-  if (teamId === 'B') {
-    players.push({
-      name: "L. Messi",
-      position: "CAM",
-      abilities: ["Dribbling", "Passing", "Shooting"],
-      isSub: false,
-      confirmed: true
-    });
-    used.add("L. Messi");
+  if(teamId==='B'){
+    players.push({name:'L. Messi',position:'CAM',abilities:['Dribbling','Passing','Shooting'],isSub:false,confirmed:true});
+    used.add('L. Messi');
   }
 
   // Fill remaining starters
-  for (let i=0;i<starterPositions.length;i++){
-    const pos = starterPositions[i];
-    if ((teamId === 'A' && i === 10) || (teamId === 'B' && i === 9)) continue;
-    const name = uniqueName(used);
-    used.add(name);
-    const abil = shuffle([...abilitiesList]).slice(0,3);
-    players.push({ name, position: pos, abilities: abil, isSub:false, confirmed:true });
+  for(let i=0;i<starterPositions.length;i++){
+    if((teamId==='A'&&i===10)||(teamId==='B'&&i===9))continue;
+    const pos=starterPositions[i];
+    const name=uniqueName(used); used.add(name);
+    const abil=shuffle([...abilitiesList]).slice(0,3);
+    players.push({name,position:pos,abilities:abil,isSub:false,confirmed:true});
   }
 
-  // Add substitutes
-  for (let s=0;s<subsCount;s++){
-    const name = uniqueName(used); used.add(name);
-    const abil = shuffle([...abilitiesList]).slice(0,3);
-    const pos = randPick(['DEF','MID','ATT']);
-    players.push({ name, position: pos, abilities: abil, isSub:true, confirmed:true });
+  // Substitutes
+  for(let s=0;s<subsCount;s++){
+    const name=uniqueName(used); used.add(name);
+    const abil=shuffle([...abilitiesList]).slice(0,3);
+    const pos=randPick(['DEF','MID','ATT']);
+    players.push({name,position:pos,abilities:abil,isSub:true,confirmed:true});
   }
 
-  state[teamId].name = displayName || state[teamId].name;
-  state[teamId].players = shuffle(players);
+  state[teamId].name=displayName||state[teamId].name;
+  state[teamId].players=shuffle(players);
   renderTeamList(teamId);
   checkStartReady();
 }
 
-
 // ------------------------------
-// UI rendering for roster lists
+// UI rendering
 // ------------------------------
 function renderTeamList(teamId){
-  const cont = teamId==='A' ? playersAContainer : playersBContainer;
-  cont.innerHTML = '';
+  const cont = teamId==='A'?playersAContainer:playersBContainer;
+  cont.innerHTML='';
   const team = state[teamId];
-  // header refresh
-  if (teamId === 'A') document.getElementById('teamATitle').textContent = team.name;
-  else document.getElementById('teamBTitle').textContent = team.name;
-  team.players.forEach((p, idx) => {
-    const isSub = idx >= starterCount;
-    const slot = isSub ? `Sub ${idx - starterCount + 1}` : `Player ${idx+1}`;
-    const row = document.createElement('div');
-    row.className = 'flex items-center justify-between bg-[#071413] p-2 rounded-md border border-gray-800';
-    row.innerHTML = `
-      <div>
-        <div class="text-sm text-gray-300 font-semibold">${slot} — <span class="text-green-300">${p.name}</span></div>
-        <div class="text-xs text-gray-400 mt-1">${p.position} · ${p.abilities.join(' · ')}</div>
-      </div>
-      <div class="text-xs text-gray-400">${p.isSub ? 'Sub' : 'Starter'}</div>
-    `;
-    cont.appendChild(row);
+  document.getElementById(teamId==='A'?'teamATitle':'teamBTitle').textContent=team.name;
+  team.players.forEach((p,idx)=>{
+    const isSub=idx>=starterCount;
+    cont.insertAdjacentHTML('beforeend',`
+      <div class="flex items-center justify-between bg-[#071413] p-2 rounded-md border border-gray-800">
+        <div>
+          <div class="text-sm text-gray-300 font-semibold">${isSub?'Sub':'Player '+(idx+1)} — 
+            <span class="text-green-300">${p.name}</span></div>
+          <div class="text-xs text-gray-400 mt-1">${p.position} · ${p.abilities.join(' · ')}</div>
+        </div>
+        <div class="text-xs text-gray-400">${isSub?'Sub':'Starter'}</div>
+      </div>`);
   });
 }
 
 // ------------------------------
-// Ticks (user tells AI to generate)
+// Tick logic (auto-generate)
 // ------------------------------
-let tickAOn=false, tickBOn=false;
-tickA.addEventListener('click', ()=>{
-  const nm = teamANameInput.value.trim() || 'Real Team A';
-  tickAOn = !tickAOn;
-  tickA.classList.toggle('tick-on', tickAOn);
-  tickA.classList.toggle('bg-gray-900', !tickAOn);
-  tickA.classList.toggle('text-white', tickAOn);
-  if (tickAOn) { aiGenerateTeam('A', nm); teamANameInput.classList.add('border-green-500'); }
-  else { state.A.players=[]; renderTeamList('A'); teamANameInput.classList.remove('border-green-500'); }
+let tickAOn=false,tickBOn=false;
+tickA.addEventListener('click',()=>{
+  const nm=teamANameInput.value.trim()||'Team A';
+  tickAOn=!tickAOn;
+  tickA.classList.toggle('tick-on',tickAOn);
+  if(tickAOn){aiGenerateTeam('A',nm);} else{state.A.players=[];renderTeamList('A');}
 });
+tickB.addEventListener('click',()=>{
+  const nm=teamBNameInput.value.trim()||'Team B';
+  tickBOn=!tickBOn;
+  tickB.classList.toggle('tick-on',tickBOn);
+  if(tickBOn){aiGenerateTeam('B',nm);} else{state.B.players=[];renderTeamList('B');}
+});
+teamANameInput.addEventListener('input',()=>{if(tickAOn)aiGenerateTeam('A',teamANameInput.value.trim());});
+teamBNameInput.addEventListener('input',()=>{if(tickBOn)aiGenerateTeam('B',teamBNameInput.value.trim());});
 
-tickB.addEventListener('click', ()=>{
-  const nm = teamBNameInput.value.trim() || 'Real Team B';
-  tickBOn = !tickBOn;
-  tickB.classList.toggle('tick-on', tickBOn);
-  tickB.classList.toggle('bg-gray-900', !tickBOn);
-  tickB.classList.toggle('text-white', tickBOn);
-  if (tickBOn) { aiGenerateTeam('B', nm); teamBNameInput.classList.add('border-green-500'); }
-  else { state.B.players=[]; renderTeamList('B'); teamBNameInput.classList.remove('border-green-500'); }
-});
-
-// also regenerate if user types and ticks are on (helpful)
-teamANameInput.addEventListener('input', ()=> {
-  if (tickAOn && teamANameInput.value.trim().length>0) aiGenerateTeam('A', teamANameInput.value.trim());
-});
-teamBNameInput.addEventListener('input', ()=> {
-  if (tickBOn && teamBNameInput.value.trim().length>0) aiGenerateTeam('B', teamBNameInput.value.trim());
-});
-
-// ------------------------------
-// Start Flow enabling
-// ------------------------------
 function checkStartReady(){
-  const readyA = state.A.players.length >= starterCount + subsCount;
-  const readyB = state.B.players.length >= starterCount + subsCount;
-  const nameA = teamANameInput.value.trim().length>0 || state.A.name;
-  const nameB = teamBNameInput.value.trim().length>0 || state.B.name;
-  if (readyA && readyB && tickAOn && tickBOn && nameA && nameB){
-    startFlowBtn.disabled = false;
-  } else startFlowBtn.disabled = true;
+  const readyA=state.A.players.length>=starterCount+subsCount;
+  const readyB=state.B.players.length>=starterCount+subsCount;
+  startFlowBtn.disabled=!(readyA&&readyB&&tickAOn&&tickBOn);
 }
+setInterval(checkStartReady,400);
+
 
 // call checkStartReady when roster changes (after auto generate)
 const originalAiGenerateTeam = aiGenerateTeam;
