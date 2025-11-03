@@ -11,33 +11,31 @@
     body{ background: radial-gradient(circle at center,#0b0b0b 0%, #000 100%); font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; }
     .glass { background: var(--glass-bg); backdrop-filter: blur(10px); border:1px solid rgba(0,255,120,0.06); }
     .small-scroll::-webkit-scrollbar{ height:8px; width:8px; } .small-scroll::-webkit-scrollbar-thumb{ background: rgba(255,255,255,0.04); border-radius:999px; }
-    .player-card.confirmed { border-color: rgba(34,197,94,0.5); box-shadow: 0 6px 18px rgba(0,0,0,0.6); }
+    .player-card.confirmed { border-color: rgba(34,197,94,0.6); box-shadow: 0 6px 18px rgba(34,197,94,0.04); }
     .goal-flash { animation: goalFlash 1.8s ease; }
     @keyframes goalFlash { 0%{transform:translateY(-8px); opacity:0} 20%{opacity:1; transform:translateY(0)} 80%{opacity:1} 100%{opacity:0; transform:translateY(-12px)}}
     .overlay-center { position: fixed; inset:0; display:flex; align-items:center; justify-content:center; z-index:60; background: rgba(0,0,0,0.6); }
-    .tick-btn { width:40px; height:40px; display:inline-flex; align-items:center; justify-content:center; border-radius:8px; }
-    .player-pill { transition: transform .08s linear; user-select:none; touch-action:none; }
+    .green-tick { width:36px; height:36px; display:inline-flex; align-items:center; justify-content:center; border-radius:8px; cursor:pointer; border:1px solid rgba(34,197,94,0.15); }
+    .green-tick.ready { background:linear-gradient(180deg, rgba(34,197,94,0.16), rgba(34,197,94,0.06)); box-shadow: 0 4px 12px rgba(34,197,94,0.06); }
+    .player-pill { user-select:none; touch-action:none; -webkit-user-select:none; }
+    .draggable-grab { cursor:grab; }
+    .draggable-grabbing { cursor:grabbing; }
   </style>
 </head>
 <body class="text-white min-h-screen p-4 md:p-8 flex items-center justify-center">
 
   <div class="w-full max-w-6xl glass rounded-2xl p-6 md:p-10 relative">
-
     <!-- header -->
     <div class="flex flex-col md:flex-row items-center justify-between mb-6 gap-4">
-      <h1 class="text-2xl md:text-3xl font-bold text-green-400">⚽ AI Match Simulator — Full Flow</h1>
+      <h1 class="text-2xl md:text-3xl font-bold text-green-400">⚽ AI Match Simulator — Team Setup</h1>
       <div class="flex gap-3 w-full md:w-auto items-center">
-        <div class="relative flex items-center gap-2">
-          <input id="teamAName" placeholder="Team A name" class="w-48 p-2 rounded-lg bg-[#0b0b0b] border border-gray-700 text-white" />
-          <button id="teamAConfirm" class="tick-btn bg-gray-800 border border-gray-700 text-green-400" title="Click to let AI generate squad">
-            <i class="fas fa-check"></i>
-          </button>
+        <div class="flex items-center gap-2">
+          <input id="teamAName" placeholder="Team A name (type to auto-fill)" class="w-full md:w-64 p-2 rounded-lg bg-[#0b0b0b] border border-gray-700 text-white" />
+          <div id="teamAConfirm" class="green-tick" title="Click when team A name is ready"><i class="fas fa-check text-gray-300"></i></div>
         </div>
-        <div class="relative flex items-center gap-2">
-          <input id="teamBName" placeholder="Team B name" class="w-48 p-2 rounded-lg bg-[#0b0b0b] border border-gray-700 text-white" />
-          <button id="teamBConfirm" class="tick-btn bg-gray-800 border border-gray-700 text-green-400" title="Click to let AI generate squad">
-            <i class="fas fa-check"></i>
-          </button>
+        <div class="flex items-center gap-2">
+          <input id="teamBName" placeholder="Team B name (type to auto-fill)" class="w-full md:w-64 p-2 rounded-lg bg-[#0b0b0b] border border-gray-700 text-white" />
+          <div id="teamBConfirm" class="green-tick" title="Click when team B name is ready"><i class="fas fa-check text-gray-300"></i></div>
         </div>
       </div>
     </div>
@@ -63,7 +61,7 @@
     </div>
 
     <div class="mt-6 flex justify-between items-center">
-      <div class="text-sm text-gray-400">Tip: type names, click the green tick for each team — AI will auto-fill squads. Then click <strong>Start Match Flow</strong>.</div>
+      <div class="text-sm text-gray-400">Tip: Click the green tick after typing a team name to tell the AI to generate the squad. You can edit names & positions afterwards.</div>
       <button id="startFlowBtn" class="bg-green-600 hover:bg-green-500 px-6 py-3 rounded-xl font-semibold disabled:opacity-50" disabled>
         Start Match Flow
       </button>
@@ -72,7 +70,7 @@
 
   <!-- Center overlay for loading / countdown -->
   <div id="loadingOverlay" class="overlay-center hidden">
-    <div class="bg-[#0b0b0b] border border-green-700/40 p-8 rounded-xl text-center w-[92%] max-w-sm glass">
+    <div class="bg-[#0b0b0b] border border-green-700/40 p-8 rounded-xl text-center w-[90%] max-w-sm glass">
       <div id="loadingIcon" class="mb-4">
         <i class="fas fa-spinner fa-spin text-3xl text-green-400"></i>
       </div>
@@ -88,18 +86,16 @@
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-4">
           <div class="text-xs text-gray-400">Time</div>
-          <div id="matchTime" class="text-xl font-bold">00'</div>
+          <div id="matchTime" class="text-xl font-bold">00:00</div>
         </div>
 
         <div class="text-center">
           <div id="scoreBoard" class="text-2xl md:text-3xl font-extrabold">
-            <span id="teamAHeaderModal">Team A</span>
-            <span class="mx-2 text-green-400" id="scoreA">0</span>
+            <span id="teamAHeaderModal">Team A</span> <span id="scoreA" class="text-green-400">0</span>
             <span class="text-gray-400">—</span>
-            <span class="mx-2 text-red-400" id="scoreB">0</span>
-            <span id="teamBHeaderModal">Team B</span>
+            <span id="scoreB" class="text-red-400">0</span> <span id="teamBHeaderModal">Team B</span>
           </div>
-          <div class="text-xs text-gray-400 mt-1" id="scorersList"></div>
+          <div class="text-xs text-gray-400 mt-1" id="goalEventFlashHolder"></div>
         </div>
 
         <div class="w-80">
@@ -113,8 +109,10 @@
         <!-- pitch (left / center) -->
         <div class="flex-1 min-h-[420px] bg-[#07120a] rounded-md border border-green-800/10 relative overflow-hidden">
           <!-- pitch grid (placeholders for players) -->
-          <div id="pitch" class="absolute inset-4 md:inset-6 bg-[linear-gradient(180deg,#063018,#042218)] rounded-md p-2 touch-none">
+          <div id="pitch" class="absolute inset-4 md:inset-6 bg-[linear-gradient(180deg,#063018,#042218)] rounded-md p-2">
             <!-- players will be drawn here as absolutely positioned elements -->
+            <!-- ball element -->
+            <div id="ball" class="absolute w-6 h-6 bg-yellow-400 rounded-full shadow-md" style="left:50%; top:50%; transform:translate(-50%,-50%)"></div>
           </div>
         </div>
 
@@ -142,7 +140,7 @@
             </div>
             <div class="mt-3 text-xs text-gray-400">Substitute</div>
             <div class="mt-2">
-              <button id="subBtn" class="bg-green-700 px-3 py-2 rounded text-sm w-full">Make Sub (pause)</button>
+              <button id="subBtn" class="bg-green-700 px-3 py-2 rounded text-sm w-full">Make Sub (pauses)</button>
             </div>
           </div>
         </div>
@@ -165,29 +163,30 @@
   </div>
 
 <script>
-/* Full flow script
-   - click the green tick next to team input to ask the AI (script) to generate that team's roster.
-   - when both teams are confirmed: Start Match Flow enabled.
-   - clicking Start Flow triggers: overlay -> 5s countdown -> 2s matchmaking -> modal opens and simulation begins.
-   - simulation: accelerated (approx 450ms per minute), random events, scoreboard updates, draggable players on pitch.
+/* Full flow script:
+ - green ticks confirm team name -> triggers AI roster generation
+ - both teams confirmed -> enable Start Flow
+ - Start Flow -> loading overlay (5s) -> countdown -> matchmaking -> modal
+ - Simulation: players on pitch, ball possession, passes/shots/block/save/goals, fouls/cards/penalties, commentary & event logs
 */
 
-// CONFIG
-const STARTER_COUNT = 11, SUB_COUNT = 4;
-const ABILITIES = ['Shooting','Passing','Pace','Physical','Dribbling'];
-const POSITIONS = ['GK','DEF','MID','ATT'];
-const NAME_POOL = ["Austin","Emmanuel","Princewill","Kev","Marvin","Onyema","Ikenna","Sammy","Zubby","Paschal","Chibuike","Eddy","Igwe","Reynald","Calvin","Ugo","Elijah","Raphael","Iloka","Chukwuemeka","Chris","Aaron","David","John","Peter","Paul","Victor","Musa","Ade","Nneka"];
-// DOM refs
-const teamANameInput = document.getElementById('teamAName');
-const teamBNameInput = document.getElementById('teamBName');
-const teamATitle = document.getElementById('teamATitle');
-const teamBTitle = document.getElementById('teamBTitle');
-const teamAConfirmBtn = document.getElementById('teamAConfirm');
-const teamBConfirmBtn = document.getElementById('teamBConfirm');
-const playersAContainer = document.getElementById('players-A');
-const playersBContainer = document.getElementById('players-B');
-const startFlowBtn = document.getElementById('startFlowBtn');
+// config
+const starters = 11, subs = 4;
+const abilitiesList = ['Shooting','Passing','Pace','Physical','Dribbling'];
+const positions = ['GK','DEF','MID','ATT'];
 
+// name pools to produce realistic full names
+const firstNames = ["Marcus","David","Samuel","Emmanuel","Isaac","Brian","Peter","Daniel","Michael","Victor","John","Paul","Elias","Benjamin","Ethan","Oluwaseun","Chinedu","Ifeanyi","Ahmed","Mohammed","Yusuf","Victor","Kevin","Andrew"];
+const lastNames  = ["Silva","Okafor","Adeyemi","Mensah","Johnson","Garcia","Rodriguez","Brown","O'Connor","Nguyen","Khan","Miller","Smith","Adebayo","Ibrahim","Okoye","Nweke","Osei","Adams","Ali","Nguyen","Hernandez","Bell","Costa"];
+
+// DOM references
+const teamAInput = document.getElementById('teamAName');
+const teamBInput = document.getElementById('teamBName');
+const teamAConfirm = document.getElementById('teamAConfirm');
+const teamBConfirm = document.getElementById('teamBConfirm');
+const playersACont = document.getElementById('players-A');
+const playersBCont = document.getElementById('players-B');
+const startFlowBtn = document.getElementById('startFlowBtn');
 const loadingOverlay = document.getElementById('loadingOverlay');
 const countdownEl = document.getElementById('countdown');
 const loadingText = document.getElementById('loadingText');
@@ -209,426 +208,564 @@ const mA_y = document.getElementById('mA-y');
 const mB_y = document.getElementById('mB-y');
 const mA_r = document.getElementById('mA-r');
 const mB_r = document.getElementById('mB-r');
-const scorersList = document.getElementById('scorersList');
+const goalEventFlashHolder = document.getElementById('goalEventFlashHolder');
+const pitchEl = document.getElementById('pitch');
+const ballEl = document.getElementById('ball');
 
 let state = {
-  A: { name: 'Team A', players: [], confirmed:false },
-  B: { name: 'Team B', players: [], confirmed:false },
+  A: { name: 'Team A', players: [], confirmed: false },
+  B: { name: 'Team B', players: [], confirmed: false },
   counters: { A: { fouls:0,y:0,r:0 }, B: { fouls:0,y:0,r:0 } }
 };
 
 // helpers
-function wait(ms){ return new Promise(r=>setTimeout(r,ms)); }
-function randPick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
-function uniqueName(usedSet){
-  let n;
-  do {
-    n = randPick(NAME_POOL) + (Math.random()<0.28?(' '+Math.floor(Math.random()*90+10)):'');
-  } while (usedSet && usedSet.has(n));
-  return n;
-}
-function shuffle(arr){ for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]];} return arr; }
+function rand(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+function randInt(min,max){ return Math.floor(Math.random()*(max-min+1))+min; }
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]];} return a; }
+function fullname(){ return rand(firstNames) + ' ' + rand(lastNames); }
 
-// Tick button behavior: when user clicks tick, run AI generation for that team
-teamAConfirmBtn.addEventListener('click', async ()=>{
-  const nm = teamANameInput.value.trim();
-  if (!nm) { alert('Please type Team A name first'); return; }
-  teamAConfirmBtn.disabled = true;
-  teamAConfirmBtn.classList.remove('bg-gray-800'); teamAConfirmBtn.classList.add('bg-green-700','text-white');
-  teamAConfirmBtn.innerHTML = `<i class="fas fa-cog fa-spin"></i>`;
-  // simulate AI thinking
-  await wait(600);
-  autoFillTeam('A', nm);
-  teamAConfirmBtn.innerHTML = `<i class="fas fa-check"></i>`;
-  state.A.confirmed = true;
-  toggleStartFlow();
-});
-
-teamBConfirmBtn.addEventListener('click', async ()=>{
-  const nm = teamBNameInput.value.trim();
-  if (!nm) { alert('Please type Team B name first'); return; }
-  teamBConfirmBtn.disabled = true;
-  teamBConfirmBtn.classList.remove('bg-gray-800'); teamBConfirmBtn.classList.add('bg-green-700','text-white');
-  teamBConfirmBtn.innerHTML = `<i class="fas fa-cog fa-spin"></i>`;
-  // simulate AI thinking
-  await wait(600);
-  autoFillTeam('B', nm);
-  teamBConfirmBtn.innerHTML = `<i class="fas fa-check"></i>`;
-  state.B.confirmed = true;
-  toggleStartFlow();
-});
-
-function autoFillTeam(teamId, displayName){
-  // create roster
+// AI generation: build realistic roster
+function buildRoster(teamName) {
   const used = new Set();
   const players = [];
+  // starters distribution: GK, 4 DEF, 4 MID, 2 ATT
   const starterPositions = ['GK','DEF','DEF','DEF','DEF','MID','MID','MID','MID','ATT','ATT'];
   for (let i=0;i<starterPositions.length;i++){
-    const pos = starterPositions[i];
-    const name = uniqueName(used);
+    let name;
+    do { name = fullname(); } while (used.has(name));
     used.add(name);
-    const abil = shuffle([...ABILITIES]).slice(0,3);
-    players.push({ name, position: pos, abilities: abil, isSub:false, confirmed:true });
+    const abil = shuffle([...abilitiesList]).slice(0,3);
+    players.push({ name, pos: starterPositions[i], abilities: abil, isSub:false });
   }
-  for (let s=0;s<SUB_COUNT;s++){
-    const name = uniqueName(used);
+  // subs (4)
+  for (let s=0;s<subs;s++){
+    let name;
+    do { name = fullname(); } while (used.has(name));
     used.add(name);
-    const abil = shuffle([...ABILITIES]).slice(0,3);
-    const pos = randPick(['DEF','MID','ATT']);
-    players.push({ name, position: pos, abilities: abil, isSub:true, confirmed:true });
+    const abil = shuffle([...abilitiesList]).slice(0,3);
+    players.push({ name, pos: rand(['DEF','MID','ATT']), abilities: abil, isSub:true });
   }
-  state[teamId].name = displayName || state[teamId].name;
-  state[teamId].players = players;
-  renderTeamCards(teamId);
+  return players;
 }
 
-// render players panel
-function renderTeamCards(teamId){
-  const container = teamId === 'A' ? playersAContainer : playersBContainer;
+// UI: render roster cards
+function renderRosterUI(teamKey){
+  const container = teamKey === 'A' ? playersACont : playersBCont;
   container.innerHTML = '';
-  const teamName = state[teamId].name;
-  if (teamId === 'A') teamATitle.textContent = teamName;
-  else teamBTitle.textContent = teamName;
+  const data = state[teamKey];
+  // header update
+  if (teamKey==='A') document.getElementById('teamATitle').textContent = data.name;
+  else document.getElementById('teamBTitle').textContent = data.name;
 
-  state[teamId].players.forEach((p, idx) => {
-    const slotLabel = idx < STARTER_COUNT ? `Player ${idx+1}` : `Sub ${idx - STARTER_COUNT + 1}`;
+  data.players.forEach((p, i) => {
+    const label = i < starters ? `Player ${i+1}` : `Sub ${i - starters + 1}`;
     const card = document.createElement('div');
-    card.className = 'player-card bg-[#111] border border-gray-700 p-3 rounded-md';
-    if (p.confirmed) card.classList.add('confirmed');
+    card.className = 'player-card bg-[#111] border border-gray-700 p-3 rounded-md flex flex-col gap-2';
     card.innerHTML = `
-      <div class="flex items-center justify-between">
+      <div class="flex items-start justify-between">
         <div>
-          <div class="text-sm text-gray-300 font-semibold">${slotLabel}</div>
-          <div class="mt-2">
-            <input class="player-name w-full p-2 rounded-md bg-[#0b0b0b] border border-gray-600 text-sm" value="${p.name}" />
-          </div>
+          <div class="text-sm text-gray-300 font-semibold">${label}</div>
+          <input class="player-name mt-2 w-full p-2 rounded-md bg-[#0b0b0b] border border-gray-600 text-sm text-white" value="${p.name}" />
         </div>
-        <div class="ml-3 text-xs text-gray-400">${p.position}</div>
+        <div class="text-xs text-gray-400">${p.pos}</div>
       </div>
-      <div class="abilities-area mt-3 text-xs text-gray-400">Abilities: <span class="ability-list">${p.abilities.join(', ')}</span></div>
-      <div class="meta mt-2 text-xs text-gray-400">${p.position} · ${p.isSub ? 'Sub' : 'Starter'}</div>
+      <div class="text-xs text-gray-400">Abilities: <span class="text-gray-200">${p.abilities.join(', ')}</span></div>
     `;
     container.appendChild(card);
 
+    // allow editing name
     const nameInput = card.querySelector('.player-name');
-    nameInput.addEventListener('change', (ev) => {
-      state[teamId].players[idx].name = ev.target.value.trim() || state[teamId].players[idx].name;
-      renderTeamCards(teamId); // re-render small (keeps state)
+    nameInput.addEventListener('change', (e)=>{
+      p.name = e.target.value.trim() || p.name;
+      // keep commentary consistent — updated name will be used henceforth
     });
   });
 }
 
-// toggle Start Flow
-function toggleStartFlow(){
-  const readyA = state.A.confirmed && state.A.players.length === (STARTER_COUNT+SUB_COUNT);
-  const readyB = state.B.confirmed && state.B.players.length === (STARTER_COUNT+SUB_COUNT);
-  if (readyA && readyB) startFlowBtn.disabled = false;
-  else startFlowBtn.disabled = true;
+// green tick behavior
+function setTickState(el, ready){
+  if (ready) { el.classList.add('ready'); el.innerHTML = `<i class="fas fa-check text-green-50"></i>`; }
+  else { el.classList.remove('ready'); el.innerHTML = `<i class="fas fa-check text-gray-300"></i>`; }
 }
 
-// START FLOW: loading -> countdown -> matchmaking -> open modal & simulate
+// clicking tick: generate roster for that team
+teamAConfirm.addEventListener('click', async ()=>{
+  const name = teamAInput.value.trim();
+  if (!name) { alert('Type a Team A name first'); return; }
+  // show interim visual
+  setTickState(teamAConfirm, true);
+  // simulate "AI writing" delay
+  teamAConfirm.title = 'AI generating squad...';
+  await wait(450);
+  state.A.name = name;
+  state.A.players = buildRoster(name);
+  state.A.confirmed = true;
+  renderRosterUI('A');
+  teamAConfirm.title = 'Team A ready';
+  toggleStartBtn();
+});
+teamBConfirm.addEventListener('click', async ()=>{
+  const name = teamBInput.value.trim();
+  if (!name) { alert('Type a Team B name first'); return; }
+  setTickState(teamBConfirm, true);
+  teamBConfirm.title = 'AI generating squad...';
+  await wait(450);
+  state.B.name = name;
+  state.B.players = buildRoster(name);
+  state.B.confirmed = true;
+  renderRosterUI('B');
+  teamBConfirm.title = 'Team B ready';
+  toggleStartBtn();
+});
+
+function toggleStartBtn(){
+  if (state.A.confirmed && state.B.confirmed) {
+    startFlowBtn.disabled = false;
+    startFlowBtn.classList.remove('opacity-50');
+  } else {
+    startFlowBtn.disabled = true;
+  }
+}
+
+function wait(ms){ return new Promise(r=>setTimeout(r, ms)); }
+
+// Start flow: overlay countdown, then matchmaking, then modal + simulation
 startFlowBtn.addEventListener('click', async ()=>{
-  // ensure updated names
-  state.A.name = teamANameInput.value.trim() || state.A.name;
-  state.B.name = teamBNameInput.value.trim() || state.B.name;
+  // save latest names into state
+  if (teamAInput.value.trim()) state.A.name = teamAInput.value.trim();
+  if (teamBInput.value.trim()) state.B.name = teamBInput.value.trim();
 
-  // show overlay
   loadingOverlay.classList.remove('hidden');
-  loadingText.textContent = 'AI filling final details & preparing match…';
+  loadingText.textContent = 'AI filling squads & preparing match…';
   countdownEl.textContent = '5';
-
-  // 5 second countdown (visual)
+  // 5 second countdown visually
   for (let i=5;i>=1;i--){
     countdownEl.textContent = i;
     await wait(1000);
   }
-
-  // matchmaking writeup (2s)
-  loadingText.textContent = 'Matchmaking — generating lineups & tactics';
+  // matchmaking writeup
+  loadingText.textContent = 'Matchmaking — generating tactics & physics';
   countdownEl.textContent = '';
   await wait(1800);
-
-  // hide overlay & open modal
   loadingOverlay.classList.add('hidden');
+
+  // open modal and start simulation
   openMatchModalAndStart();
 });
 
-// ------- Match modal & simulation -------
+// ------------------ MATCH SIMULATION ------------------
+const minuteMs = 450; // 450ms per simulated minute (fast demo)
 let sim = {
   running: false,
   minute: 0,
-  totalMinutes: 90,
-  extra: 3,
+  total: 90,
+  extra: 5,
   scoreA: 0,
   scoreB: 0,
   possessionA: 50,
-  timelineInterval: null,
-  scorers: []
+  intervalId: null,
+  ballHolder: null, // {team:'A' or 'B', index:playerIndex}
 };
 
+// open modal and prepare
 function openMatchModalAndStart(){
-  // set names & UI
   modalTeamAName.textContent = state.A.name;
   modalTeamBName.textContent = state.B.name;
   teamAHeaderModal.textContent = state.A.name;
   teamBHeaderModal.textContent = state.B.name;
-  document.getElementById('modalTeamAName').textContent = state.A.name;
-  document.getElementById('modalTeamBName').textContent = state.B.name;
-
-  // reset sim
-  sim.minute = 0; sim.scoreA = 0; sim.scoreB = 0; sim.possessionA = 50; sim.scorers = [];
+  // reset
+  sim.minute = 0; sim.scoreA = 0; sim.scoreB = 0; sim.possessionA = 50;
   scoreAEl.textContent = '0'; scoreBEl.textContent = '0';
-  eventLog.innerHTML = ''; modalCommentary.innerHTML = ''; scorersList.textContent = '';
-
-  // draw pitch
-  drawPlayersOnPitch();
-
-  // show modal
+  eventLog.innerHTML = ''; modalCommentary.innerHTML = '';
+  mA_fouls.textContent = '0'; mB_fouls.textContent = '0'; mA_y.textContent='0'; mB_y.textContent='0'; mA_r.textContent='0'; mB_r.textContent='0';
+  goalEventFlashHolder.innerHTML = '';
+  // draw players & ball
+  drawPlayers();
+  // set initial ball to a random player from one team based on possession
+  sim.ballHolder = determineInitialBallHolder();
+  moveBallToPlayer(sim.ballHolder);
+  pushEvent(`${getPlayerName(sim.ballHolder)} starts with the ball.`);
   matchModal.classList.remove('hidden');
-
-  // start accelerated simulation
-  const minuteTickMs = 450; // ~450ms per simulated minute
+  // start loop
   sim.running = true;
-  sim.timelineInterval = setInterval(() => {
-    if (!sim.running) return;
-    sim.minute++;
-    updateTimeUI(sim.minute);
-    simulationMinuteTick(sim.minute);
-    if (sim.minute >= (sim.totalMinutes + sim.extra)) {
-      clearInterval(sim.timelineInterval);
-      pushEvent(`Full Time — ${state.A.name} ${sim.scoreA} — ${sim.scoreB} ${state.B.name}`);
-      sim.running = false;
-    }
-  }, minuteTickMs);
+  sim.intervalId = setInterval(simMinuteTick, minuteMs);
 }
 
-function updateTimeUI(min){
-  const m = Math.min(min, sim.totalMinutes + sim.extra);
-  matchTimeEl.textContent = `${m}'`;
+function determineInitialBallHolder(){
+  const team = (Math.random()*100 < sim.possessionA)?'A':'B';
+  const available = state[team].players.slice(0,starters);
+  const idx = Math.floor(Math.random()*available.length);
+  return { team, index: idx };
 }
 
-// small event & commentary helpers
+// draw players as draggable pills
+function drawPlayers(){
+  pitchEl.innerHTML = '';
+  // left/right positions
+  const layoutA = getPositions('A');
+  const layoutB = getPositions('B');
+
+  // create elements
+  state.A.players.slice(0,starters).forEach((p,i)=> {
+    const el = createPlayerPill(p.name, 'A', i, layoutA[i]);
+    pitchEl.appendChild(el);
+  });
+  state.B.players.slice(0,starters).forEach((p,i)=> {
+    const el = createPlayerPill(p.name, 'B', i, layoutB[i]);
+    pitchEl.appendChild(el);
+  });
+
+  // ball is separate element already in DOM; ensure above players
+  pitchEl.appendChild(ballEl);
+
+  // make draggable
+  enableDragOnPitch();
+}
+
+function getPositions(team){
+  const left = team==='A'?25:75;
+  const positions = [];
+  // GK
+  positions.push({x:left, y:88});
+  // DEF (4)
+  for (let i=0;i<4;i++) positions.push({x:left-18 + i*12, y:68});
+  // MID (4)
+  for (let i=0;i<4;i++) positions.push({x:left-18 + i*12, y:48});
+  // ATT (2)
+  positions.push({x:left-8, y:28}); positions.push({x:left+8, y:28});
+  return positions;
+}
+
+function createPlayerPill(name, team, idx, pos){
+  const el = document.createElement('div');
+  el.className = 'player-pill draggable-grab absolute rounded-full px-3 py-1 text-xs border';
+  el.style.left = pos.x + '%'; el.style.top = pos.y + '%';
+  el.style.transform = 'translate(-50%,-50%)';
+  el.style.background = team==='A' ? 'rgba(34,197,94,0.06)' : 'rgba(239,68,68,0.06)';
+  el.style.border = team==='A' ? '1px solid rgba(34,197,94,0.18)' : '1px solid rgba(239,68,68,0.14)';
+  el.style.color = '#e6ffe6';
+  el.dataset.team = team; el.dataset.idx = idx;
+  el.innerHTML = `<span class="font-semibold">${name}</span>`;
+  return el;
+}
+
+function enableDragOnPitch(){
+  let dragging = null, offsetX=0, offsetY=0;
+  // pointer events for all pills
+  const pills = pitchEl.querySelectorAll('.player-pill');
+  pills.forEach(p => {
+    p.addEventListener('pointerdown', (ev) => {
+      dragging = p;
+      p.setPointerCapture(ev.pointerId);
+      const rect = pitchEl.getBoundingClientRect();
+      // compute offset from pointer to element center
+      offsetX = ev.clientX - rect.left - (parseFloat(p.style.left)/100)*rect.width;
+      offsetY = ev.clientY - rect.top - (parseFloat(p.style.top)/100)*rect.height;
+      p.classList.remove('draggable-grab'); p.classList.add('draggable-grabbing');
+    });
+    p.addEventListener('pointermove', (ev) => {
+      if (!dragging || dragging !== p) return;
+      const rect = pitchEl.getBoundingClientRect();
+      let x = (ev.clientX - rect.left - offsetX)/rect.width * 100;
+      let y = (ev.clientY - rect.top - offsetY)/rect.height * 100;
+      x = Math.max(2, Math.min(98, x)); y = Math.max(2, Math.min(98, y));
+      p.style.left = x + '%'; p.style.top = y + '%';
+      // if dragging a player with ball, move ball to same
+      if (sim.ballHolder && sim.ballHolder.team === p.dataset.team && sim.ballHolder.index == p.dataset.idx) {
+        const ballX = x, ballY = y;
+        ballEl.style.left = ballX + '%'; ballEl.style.top = ballY + '%';
+      }
+    });
+    p.addEventListener('pointerup', (ev) => {
+      try { p.releasePointerCapture(ev.pointerId); } catch(e){}
+      p.classList.remove('draggable-grabbing'); p.classList.add('draggable-grab');
+      dragging = null;
+    });
+  });
+  // also ensure ball style set
+  ballEl.style.width='14px'; ballEl.style.height='14px'; ballEl.style.borderRadius='50%';
+  ballEl.style.boxShadow = '0 2px 6px rgba(0,0,0,0.8)';
+}
+
+// move ball DOM to player location with small animation
+function moveBallToPlayer(holder){
+  const playerEl = Array.from(pitchEl.querySelectorAll('.player-pill')).find(pp => pp.dataset.team === holder.team && Number(pp.dataset.idx) === holder.index);
+  if (!playerEl) return;
+  // position ball at player's center
+  ballEl.style.left = playerEl.style.left; ballEl.style.top = playerEl.style.top;
+}
+
+// get player name from holder
+function getPlayerName(holder){ return state[holder.team].players[holder.index].name; }
+
+// pick random teammate or opponent
+function pickRandomTeamPlayer(team, includeSubs=false){
+  const pool = state[team].players.slice(0, starters + (includeSubs?subs:0));
+  return Math.floor(Math.random()*pool.length);
+}
+
+// push event/commentary
 function pushEvent(msg){
   const el = document.createElement('div');
   el.className = 'mb-1 text-sm text-gray-300';
-  el.innerText = msg;
+  el.textContent = msg;
   eventLog.prepend(el);
   pushCommentary(msg);
 }
 function pushCommentary(msg){
   const el = document.createElement('div');
-  el.className = 'mb-1 text-sm';
-  const ts = new Date();
-  el.innerHTML = `<span class="text-gray-500 text-xs">[${String(ts.getMinutes()).padStart(2,'0')}:${String(ts.getSeconds()).padStart(2,'0')}]</span> <span>${msg}</span>`;
+  el.className = 'mb-1 text-xs';
+  const mm = String(new Date().getMinutes()).padStart(2,'0');
+  const ss = String(new Date().getSeconds()).padStart(2,'0');
+  el.innerHTML = `<span class="text-gray-500">[${sim.minute}' ${mm}:${ss}]</span> <span>${msg}</span>`;
   modalCommentary.prepend(el);
 }
 
-// simulation per minute with probabilistic events
-function simulationMinuteTick(minute){
-  // small possession fluctuation
-  const delta = Math.floor((Math.random()*5)-2);
-  sim.possessionA = Math.max(30, Math.min(70, sim.possessionA + delta));
-  const pA = sim.possessionA, pB = 100 - pA;
-  posessionInfo.textContent = `Possession — ${state.A.name} ${pA}% · ${state.B.name} ${pB}%`;
-
-  // goal probabilities
-  const baseGoalChance = 0.0175;
-  const goalChanceA = baseGoalChance + (pA-50)/1000;
-  const goalChanceB = baseGoalChance + (pB-50)/1000;
-  if (Math.random() < goalChanceA){
-    const scorer = pickRandomPlayer(state.A);
-    sim.scoreA++; scoreAEl.textContent = sim.scoreA;
-    sim.scorers.push({team:'A', name:scorer, minute});
-    updateScorersUI();
-    pushEvent(`${scorer} — GOAL for ${state.A.name} (${minute}')`);
-    flashGoal(`${scorer} — ${state.A.name} (${minute}')`);
-  } else if (Math.random() < goalChanceB){
-    const scorer = pickRandomPlayer(state.B);
-    sim.scoreB++; scoreBEl.textContent = sim.scoreB;
-    sim.scorers.push({team:'B', name:scorer, minute});
-    updateScorersUI();
-    pushEvent(`${scorer} — GOAL for ${state.B.name} (${minute}')`);
-    flashGoal(`${scorer} — ${state.B.name} (${minute}')`);
-  }
-
-  // fouls
-  if (Math.random() < 0.06){
-    const team = Math.random()<0.5 ? 'A' : 'B';
-    const player = pickRandomPlayer(state[team]);
-    state.counters[team].fouls++;
-    if (team === 'A') mA_fouls.textContent = state.counters[team].fouls;
-    else mB_fouls.textContent = state.counters[team].fouls;
-    pushEvent(`Foul: ${player} (${state[team].name}) — ${minute}'`);
-  }
-
-  // yellow
-  if (Math.random() < 0.03){
-    const team = Math.random()<0.5 ? 'A' : 'B';
-    const player = pickRandomPlayer(state[team]);
-    state.counters[team].y++;
-    if (team === 'A') mA_y.textContent = state.counters[team].y;
-    else mB_y.textContent = state.counters[team].y;
-    pushEvent(`Yellow card → ${player} (${state[team].name}) — ${minute}'`);
-  }
-
-  // red (rare)
-  if (Math.random() < 0.008){
-    const team = Math.random()<0.5 ? 'A' : 'B';
-    const player = pickRandomPlayer(state[team]);
-    state.counters[team].r++;
-    if (team === 'A') mA_r.textContent = state.counters[team].r;
-    else mB_r.textContent = state.counters[team].r;
-    pushEvent(`Red card → ${player} sent off (${state[team].name}) — ${minute}'`);
-  }
-
-  // micro commentary
-  if (Math.random() < 0.24) pushCommentary(`${minute}' — Tight moment, probing and build-up play.`);
-}
-
-function updateScorersUI(){
-  scorersList.innerHTML = sim.scorers.map(s => `${s.name} ${s.minute}'`).join(' · ');
-}
+// small goal flash
 function flashGoal(text){
-  const holder = document.getElementById('scorersList');
-  holder.classList.add('goal-flash');
-  setTimeout(()=> holder.classList.remove('goal-flash'), 1600);
+  goalEventFlashHolder.innerHTML = `<div class="goal-flash bg-green-700/10 text-green-300 inline-block px-4 py-2 rounded">${text}</div>`;
+  setTimeout(()=>{ goalEventFlashHolder.innerHTML=''; }, 2000);
 }
 
-// pick random player name from team (starters)
-function pickRandomPlayer(teamObj){
-  const confirmed = (teamObj.players||[]).filter(p=>p && p.name);
-  if (!confirmed.length) return 'Unknown';
-  return confirmed[Math.floor(Math.random()*confirmed.length)].name;
+// Simulation minute tick: passes, shots, fouls, cards, penalties
+function simMinuteTick(){
+  if (!sim.running) return;
+  sim.minute++;
+  matchTimeEl.textContent = `${Math.min(sim.minute, sim.total + sim.extra)}'`;
+
+  // slight possession drift
+  sim.possessionA = Math.max(28, Math.min(72, sim.possessionA + randInt(-3,3)));
+  const possA = sim.possessionA, possB = 100-possA;
+  posessionInfo.textContent = `Possession — ${state.A.name} ${possA}% · ${state.B.name} ${possB}%`;
+
+  // if no ballHolder set, set one now
+  if (!sim.ballHolder) { sim.ballHolder = determineInitialBallHolder(); moveBallToPlayer(sim.ballHolder); }
+
+  // decide event: pass or shot or foul
+  // compute ball team probabilities
+  const ballTeam = sim.ballHolder.team;
+  // attempt pass with high chance, shot rarer
+  let actionRand = Math.random();
+  // increase shot probability when in attacking third (approx by Y position of holder)
+  const holderEl = Array.from(pitchEl.querySelectorAll('.player-pill')).find(pp => pp.dataset.team === sim.ballHolder.team && Number(pp.dataset.idx) === sim.ballHolder.index);
+  let holderY = 50;
+  if (holderEl) holderY = parseFloat(holderEl.style.top);
+  const attackingFactor = (sim.ballHolder.team === 'A') ? (100 - holderY) : holderY; // the higher toward opponent goal, higher attackingFactor
+  const shotBias = Math.max(0, (attackingFactor - 40)/60); // 0..1
+  const shotChance = 0.015 + shotBias*0.04; // tuned
+
+  // small chance of losing ball due to tackle/foul
+  if (Math.random() < 0.03){
+    // bad tackle -> foul
+    applyFoul(sim.ballHolder.team);
+    // ball may switch to opponent
+    if (Math.random() < 0.6) {
+      sim.ballHolder = { team: (ballTeam==='A'?'B':'A'), index: pickRandomTeamPlayer(ballTeam==='A'?'B':'A') };
+      moveBallToPlayer(sim.ballHolder);
+    }
+    return;
+  }
+
+  if (Math.random() < shotChance) {
+    // attempt shot
+    attemptShot(sim.ballHolder);
+  } else {
+    // pass attempt
+    attemptPass(sim.ballHolder);
+  }
+
+  // random micro commentary
+  if (Math.random() < 0.25) {
+    pushCommentary(`${sim.minute}' — both sides probing, tempo increasing.`);
+  }
+
+  // end match condition
+  if (sim.minute >= sim.total + sim.extra) {
+    clearInterval(sim.intervalId);
+    sim.running = false;
+    pushEvent(`Full Time — ${state.A.name} ${sim.scoreA} — ${sim.scoreB} ${state.B.name}`);
+  }
 }
 
-// draw players on pitch and allow dragging
-function drawPlayersOnPitch(){
-  const pitch = document.getElementById('pitch');
-  pitch.innerHTML = '';
-  const layoutA = getFormationPositions('A');
-  const layoutB = getFormationPositions('B');
+// attempt pass: chance of successful pass influenced by passer's Passing ability and recipient's position
+function attemptPass(holder){
+  const hPlayer = state[holder.team].players[holder.index];
+  const passingSkill = hPlayer.abilities.includes('Passing') ? 0.75 : 0.45; // simple
+  // choose teammate more forward sometimes
+  const team = holder.team;
+  const teammateIdx = pickRandomTeamPlayer(team);
+  const success = Math.random() < (passingSkill + (Math.random()*0.2 - 0.1));
+  const passerName = hPlayer.name;
+  const targetName = state[team].players[teammateIdx].name;
+  if (success){
+    sim.ballHolder = { team, index: teammateIdx };
+    // move ball to that player's element
+    moveBallToPlayer(sim.ballHolder);
+    pushEvent(`${passerName} ➜ ${targetName} — pass completed.`);
+  } else {
+    // intercepted by opponent
+    const oppTeam = team === 'A' ? 'B' : 'A';
+    const oppIdx = pickRandomTeamPlayer(oppTeam);
+    sim.ballHolder = { team: oppTeam, index: oppIdx };
+    moveBallToPlayer(sim.ballHolder);
+    pushEvent(`${passerName} attempts pass to ${targetName} — intercepted by ${state[oppTeam].players[oppIdx].name}!`);
+  }
+}
 
-  state.A.players.slice(0, STARTER_COUNT).forEach((p,i) => {
-    const el = createPlayerEl(p.name, 'A', i, layoutA[i]);
-    pitch.appendChild(el);
+// attempt shot: chance influenced by Shooting ability + distance
+function attemptShot(holder){
+  const hPlayer = state[holder.team].players[holder.index];
+  const hName = hPlayer.name;
+  // approximate distance by holder's Y position on pitch
+  const holderEl = Array.from(pitchEl.querySelectorAll('.player-pill')).find(pp => pp.dataset.team === holder.team && Number(pp.dataset.idx) === holder.index);
+  let yPos = 50; if (holderEl) yPos = parseFloat(holderEl.style.top);
+  // nearer to opponent goal => higher chance
+  let shotQuality = 0.08; // base
+  if (hPlayer.abilities.includes('Shooting')) shotQuality += 0.08;
+  // distance factor
+  const distFactor = (holder.team === 'A') ? (100 - yPos)/100 : (yPos/100);
+  shotQuality += distFactor*0.25; // up to +0.25
+  // defenders/keeper chance to save
+  const defendingTeam = holder.team === 'A' ? 'B' : 'A';
+  const keeper = state[defendingTeam].players[0]; // GK at index 0 in our layout
+  const keeperSkill = keeper && keeper.abilities.includes('Physical') ? 0.6 : 0.42;
+  const finalShotRoll = Math.random();
+  pushEvent(`${hName} takes a shot!`);
+  // some chance shot is blocked by defender first
+  if (Math.random() < 0.12) {
+    // blocked
+    pushEvent(`Blocked by defender! ${defendingTeam} block.`);
+    // possession may stay with defender
+    const blkIdx = pickRandomTeamPlayer(defendingTeam);
+    sim.ballHolder = { team: defendingTeam, index: blkIdx };
+    moveBallToPlayer(sim.ballHolder);
+    return;
+  }
+  // keeper save check
+  if (finalShotRoll < shotQuality && Math.random() > keeperSkill) {
+    // GOAL
+    if (holder.team === 'A') sim.scoreA++; else sim.scoreB++;
+    scoreAEl.textContent = sim.scoreA; scoreBEl.textContent = sim.scoreB;
+    pushEvent(`GOAL! ${hName} — ${state[holder.team].name} (${sim.minute}')`);
+    flashGoal(`${hName} — ${state[holder.team].name} (${sim.minute}')`);
+    // possession goes to conceding team kickoff
+    sim.ballHolder = { team: holder.team === 'A' ? 'B' : 'A', index: pickRandomTeamPlayer(holder.team === 'A' ? 'B' : 'A') };
+    moveBallToPlayer(sim.ballHolder);
+  } else {
+    // saved or missed
+    if (Math.random() < 0.6) {
+      pushEvent(`Saved! ${keeper.name} gets down to stop it.`);
+      // keeper holds
+      sim.ballHolder = { team: defendingTeam, index: 0 };
+      moveBallToPlayer(sim.ballHolder);
+    } else {
+      pushEvent(`Missed! The shot goes wide.`);
+      // corner or opponent gets ball — opponent gets it
+      sim.ballHolder = { team: defendingTeam, index: pickRandomTeamPlayer(defendingTeam) };
+      moveBallToPlayer(sim.ballHolder);
+    }
+  }
+}
+
+// apply foul: increments counters; if inside box -> penalty possibility
+function applyFoul(team){
+  const tKey = team === 'A' ? 'A' : 'B';
+  state.counters[tKey] = state.counters[tKey] || { fouls:0, y:0, r:0 };
+  state.counters[tKey].fouls = (state.counters[tKey].fouls || 0) + 1;
+  if (tKey==='A') mA_fouls.textContent = state.counters[tKey].fouls; else mB_fouls.textContent = state.counters[tKey].fouls;
+  // commentary
+  pushEvent(`Foul by ${state[tKey].name} — referee stops play.`);
+  // small chance yellow or red
+  if (Math.random() < 0.18) {
+    state.counters[tKey].y = (state.counters[tKey].y || 0) + 1;
+    if (tKey==='A') mA_y.textContent = state.counters[tKey].y; else mB_y.textContent = state.counters[tKey].y;
+    pushEvent(`Yellow card shown to ${pickRandomTeamPlayerName(tKey)}`);
+  }
+  if (Math.random() < 0.04) {
+    state.counters[tKey].r = (state.counters[tKey].r || 0) + 1;
+    if (tKey==='A') mA_r.textContent = state.counters[tKey].r; else mB_r.textContent = state.counters[tKey].r;
+    pushEvent(`Red card! ${pickRandomTeamPlayerName(tKey)} sent off.`);
+  }
+  // penalty: small chance (if inside box)
+  if (Math.random() < 0.08) {
+    // penalty awarded to opposite team
+    const atk = team === 'A' ? 'B' : 'A';
+    pushEvent(`Penalty awarded to ${state[atk].name}!`);
+    resolvePenalty(atk);
+  }
+}
+
+function pickRandomTeamPlayerName(teamKey){
+  const arr = state[teamKey].players.filter(p=>!!p).map(p=>p.name);
+  return arr[Math.floor(Math.random()*arr.length)];
+}
+
+function resolvePenalty(attackingTeam){
+  // pick best shooter from attacking team (prefer those with Shooting ability)
+  const candidates = state[attackingTeam].players.slice(0,starters);
+  candidates.sort((a,b)=>{
+    const aS = a.abilities.includes('Shooting') ? 1 : 0;
+    const bS = b.abilities.includes('Shooting') ? 1 : 0;
+    return bS - aS;
   });
-  state.B.players.slice(0, STARTER_COUNT).forEach((p,i) => {
-    const el = createPlayerEl(p.name, 'B', i, layoutB[i]);
-    pitch.appendChild(el);
-  });
-
-  makePitchDraggable(pitch);
+  const shooter = candidates[0];
+  pushEvent(`${shooter.name} steps up to take the penalty.`);
+  // penalty resolution: 75% chance converted, keeper influences
+  const defendingTeam = attackingTeam === 'A' ? 'B' : 'A';
+  const keeper = state[defendingTeam].players[0];
+  let keeperFactor = keeper.abilities.includes('Physical') ? 0.18 : 0.28;
+  let base = 0.76;
+  const roll = Math.random();
+  if (roll < base - keeperFactor) {
+    // goal
+    if (attackingTeam==='A') sim.scoreA++; else sim.scoreB++;
+    scoreAEl.textContent = sim.scoreA; scoreBEl.textContent = sim.scoreB;
+    pushEvent(`Penalty converted! ${shooter.name} scores.`);
+    flashGoal(`${shooter.name} — ${state[attackingTeam].name} (pen)`);
+    // restart: ball to other team
+    sim.ballHolder = { team: defendingTeam, index: pickRandomTeamPlayer(defendingTeam) };
+  } else {
+    pushEvent(`Penalty saved/missed! ${keeper.name} denies it.`);
+    sim.ballHolder = { team: defendingTeam, index: 0 };
+  }
+  moveBallToPlayer(sim.ballHolder);
 }
 
-function createPlayerEl(name, team, idx, pos){
-  const el = document.createElement('div');
-  el.className = 'player-pill absolute rounded-full px-3 py-1 text-xs flex items-center gap-2';
-  el.style.left = pos.x + '%';
-  el.style.top = pos.y + '%';
-  el.style.transform = 'translate(-50%,-50%)';
-  el.innerHTML = `<div class="font-semibold">${name}</div>`;
-  el.dataset.team = team; el.dataset.idx = idx;
-  // style
-  el.style.padding = '6px 10px';
-  el.style.borderRadius = '999px';
-  el.style.border = team==='A' ? '1px solid rgba(34,197,94,0.18)' : '1px solid rgba(239,68,68,0.16)';
-  el.style.background = team==='A' ? 'rgba(34,197,94,0.04)' : 'rgba(239,68,68,0.04)';
-  el.style.color = '#defce8';
-  el.style.cursor = 'grab';
-  return el;
+// util: move ball element to selected player on pitch
+function moveBallToPlayer(holder){
+  const playerEl = Array.from(pitchEl.querySelectorAll('.player-pill')).find(pp => pp.dataset.team === holder.team && Number(pp.dataset.idx) === holder.index);
+  if (!playerEl) return;
+  ballEl.style.left = playerEl.style.left; ballEl.style.top = playerEl.style.top;
 }
 
-function getFormationPositions(team){
-  const left = team === 'A' ? 25 : 75;
-  const positions = [];
-  // GK
-  positions.push({x:left, y:88});
-  // DEF (4)
-  for (let i=0;i<4;i++) positions.push({ x:left - 18 + (i*12), y:68 });
-  // MID (4)
-  for (let i=0;i<4;i++) positions.push({ x:left - 18 + (i*12), y:48 });
-  // ATT (2)
-  positions.push({ x:left - 7, y:28 });
-  positions.push({ x:left + 7, y:28 });
-  return positions;
+// helper pick random player index
+function pickRandomTeamPlayer(teamKey){
+  const pool = state[teamKey].players.slice(0,starters);
+  return Math.floor(Math.random()*pool.length);
 }
 
-function makePitchDraggable(pitch){
-  let dragging = null, pointerId = null, offsetX = 0, offsetY = 0;
-  // attach pointer handlers to newly created .player-pill
-  pitch.querySelectorAll('.player-pill').forEach(el=>{
-    el.addEventListener('pointerdown', (ev) => {
-      dragging = el;
-      pointerId = ev.pointerId;
-      el.setPointerCapture(pointerId);
-      const rect = pitch.getBoundingClientRect();
-      const leftPx = rect.left + (parseFloat(el.style.left)/100)*rect.width;
-      const topPx = rect.top + (parseFloat(el.style.top)/100)*rect.height;
-      offsetX = ev.clientX - leftPx;
-      offsetY = ev.clientY - topPx;
-      el.style.cursor = 'grabbing';
-    });
-    el.addEventListener('pointermove', (ev) => {
-      if (!dragging || dragging !== el) return;
-      const rect = pitch.getBoundingClientRect();
-      let x = (ev.clientX - rect.left - offsetX) / rect.width * 100;
-      let y = (ev.clientY - rect.top - offsetY) / rect.height * 100;
-      x = Math.max(2, Math.min(98, x)); y = Math.max(2, Math.min(98, y));
-      el.style.left = x + '%';
-      el.style.top = y + '%';
-    });
-    el.addEventListener('pointerup', (ev) => {
-      try { el.releasePointerCapture(ev.pointerId); } catch(e){}
-      el.style.cursor = 'grab';
-      dragging = null;
-    });
-    el.addEventListener('pointercancel', ()=> { dragging=null; });
-  });
+// close match
+function closeMatch(){
+  if (sim.intervalId) clearInterval(sim.intervalId);
+  sim.running = false;
+  matchModal.classList.add('hidden');
 }
 
-// controls
+// pause/resume & fast-forward
 document.getElementById('pauseBtn').addEventListener('click', ()=>{
   sim.running = !sim.running;
   document.getElementById('pauseBtn').textContent = sim.running ? '⏸ Pause' : '▶ Resume';
 });
 document.getElementById('skipBtn').addEventListener('click', ()=>{
+  // quick-forward 10 minutes
   sim.minute += 10;
-  updateTimeUI(sim.minute);
-});
-document.getElementById('subBtn').addEventListener('click', ()=>{
-  // pause and show a quick prompt for substitute
-  sim.running = false;
-  const who = prompt('Enter name of player to substitute (exact) — will remove from pitch and replace from subs (auto picks):');
-  if (who){
-    // simple replacement: find in starters and swap with first available sub
-    ['A','B'].forEach(t=>{
-      const foundIndex = state[t].players.findIndex(p=>p.name.toLowerCase()===who.toLowerCase() && !p.isSub);
-      if (foundIndex >= 0){
-        const subs = state[t].players.filter(p=>p.isSub);
-        if (subs.length){
-          const sub = subs.shift();
-          // swap arrays: replace starter with sub, mark sub as starter, old as sub
-          state[t].players[foundIndex] = {...sub, isSub:false};
-          // push old starter into subs (making it a sub)
-          state[t].players.push({...state[t].players[foundIndex], isSub:true});
-          pushEvent(`Substitution: ${who} → ${sub.name} (${state[t].name})`);
-        } else pushEvent('No subs available for ' + state[t].name);
-      }
-    });
-    drawPlayersOnPitch();
-  }
-  sim.running = true;
+  matchTimeEl.textContent = `${sim.minute}'`;
 });
 
-// closing
-function closeMatch(){
-  if (sim.timelineInterval) clearInterval(sim.timelineInterval);
-  sim.running = false;
-  matchModal.classList.add('hidden');
-}
-
-// expose for debugging
+// expose small convenient methods for debugging in console
 window._state = state;
+window._start = () => { if (state.A.confirmed && state.B.confirmed) startFlowBtn.click(); };
+
 </script>
 </body>
 </html>
