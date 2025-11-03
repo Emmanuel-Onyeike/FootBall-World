@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>GOLDEN FIRE MATCH PRO — 13.0</title>
+  <title>GOLDEN FIRE MATCH PRO — 11.0</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
@@ -15,225 +15,205 @@
       --fire: #f97316;
       --pitch-dark: #013a2a;
       --pitch-light: #02584b;
-      --danger-glow: 0 0 35px rgba(251,191,36,0.9);
-      --safe-glow: 0 0 25px rgba(34,197,94,0.7);
-      --ball-shadow: 0 5px 15px rgba(0,0,0,0.6), 0 0 20px rgba(251,191,36,0.5);
-      --pitch-glow: inset 0 0 60px rgba(251,191,36,0.2);
+      --danger-glow: 0 0 25px rgba(251,191,36,0.7);
+      --safe-glow: 0 0 15px rgba(34,197,94,0.5);
     }
     body { font-family: 'Inter', sans-serif; background: #000; }
-    .pitch-container {
-      background: radial-gradient(circle at center, #034c3c 0%, #013a2a 100%);
-      border-radius: 28px; position: relative; overflow: hidden;
-      box-shadow: 0 40px 80px rgba(0,0,0,0.85), var(--pitch-glow);
-      border: 4px solid rgba(251,191,36,0.4);
-      width: 100%; height: 720px; max-width: 1100px; margin: 0 auto;
-      padding: 20px;
-    }
-    .pitch {
-      position: relative; width: 100%; height: 100%; overflow: hidden;
-      border-radius: 20px;
-      background: linear-gradient(180deg, #02584b 0%, #013a2a 100%);
-    }
-    .pitch-line { 
-      position: absolute; background: rgba(255,255,255,0.28); 
-      box-shadow: 0 0 8px rgba(255,255,255,0.3);
-    }
-    .center-circle { 
-      position: absolute; width: 140px; height: 140px; border: 3.5px solid rgba(251,191,36,0.45); 
-      border-radius: 50%; left: 50%; top: 50%; transform: translate(-50%,-50%); 
-    }
-    .center-spot { 
-      position: absolute; width: 14px; height: 14px; background: #fbbf24; border-radius: 50%; 
-      left: 50%; top: 50%; transform: translate(-50%,-50%); box-shadow: 0 0 25px rgba(251,191,36,1);
-    }
-    .penalty-area { 
-      position: absolute; border: 3px solid rgba(255,255,255,0.35); 
-      background: rgba(255,255,255,0.04);
-    }
-    .goal-area { 
-      position: absolute; border: 3px solid rgba(255,255,255,0.35); 
-      background: rgba(255,255,255,0.06);
-    }
-    .goal-post {
-      position: absolute; width: 10px; height: 56px; background: #fff; 
-      box-shadow: 0 0 20px rgba(255,255,255,0.8); z-index: 10;
-      border-radius: 4px;
-    }
-    .goal-net {
-      position: absolute; width: 120px; height: 60px; background: repeating-linear-gradient(45deg, rgba(255,255,255,0.12), rgba(255,255,255,0.12) 12px, transparent 12px, transparent 24px);
-      border: 3px solid rgba(255,255,255,0.35); z-index: 5; opacity: 0.7;
-      border-radius: 6px;
+    .pitch { 
+      background: linear-gradient(180deg, var(--pitch-light) 0%, var(--pitch-dark) 100%);
+      border-radius: 16px; position: relative; overflow: hidden; 
+      box-shadow: 0 25px 50px rgba(0,0,0,0.7), inset 0 0 30px rgba(251,191,36,0.15);
+      border: 2px solid rgba(251,191,36,0.3);
     }
     .player-pill {
-      min-width: 74px; height: 50px; text-align: center; 
-      box-shadow: 0 12px 32px rgba(0,0,0,0.75), 0 0 22px rgba(251,191,36,0.4);
-      transition: all .26s cubic-bezier(.4,0,.2,1); z-index: 30; cursor: grab; font-weight: 700;
-      display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 9999px;
-      backdrop-filter: blur(10px); border: 3px solid;
-      font-size: 0.82rem; letter-spacing: 0.7px; padding: 0 8px;
-      background: rgba(0,0,0,0.3);
+      min-width: 60px; height: 40px; text-align: center; 
+      box-shadow: 0 8px 24px rgba(0,0,0,0.8), 0 0 15px rgba(251,191,36,0.3);
+      transition: all .22s cubic-bezier(.4,0,.2,1); z-index: 30; cursor: grab; font-weight: 700;
+      display: flex; align-items: center; justify-content: center; border-radius: 9999px;
+      backdrop-filter: blur(6px); border: 2px solid;
+      font-size: 0.75rem; letter-spacing: 0.5px;
     }
-    .player-pill:active { cursor: grabbing; transform: scale(1.2); }
+    .player-pill:active { cursor: grabbing; transform: scale(1.15); }
     .player-pill.team-a { 
-      background: linear-gradient(135deg, rgba(16,185,129,0.35), rgba(5,150,105,0.25)); 
-      border-color: rgba(16,185,129,0.7); color: #d1fae5; 
+      background: linear-gradient(135deg, rgba(16,185,129,0.25), rgba(5,150,105,0.15)); 
+      border-color: rgba(16,185,129,0.6); color: #d1fae5; 
     }
     .player-pill.team-b { 
-      background: linear-gradient(135deg, rgba(239,68,68,0.35), rgba(220,38,38,0.25)); 
-      border-color: rgba(239,68,68,0.7); color: #fecaca; 
+      background: linear-gradient(135deg, rgba(239,68,68,0.25), rgba(220,38,38,0.15)); 
+      border-color: rgba(239,68,68,0.6); color: #fecaca; 
     }
     .player-pill.danger {
-      animation: dangerPulse 1.2s infinite;
-      box-shadow: var(--danger-glow), 0 0 25px rgba(249,115,22,1) !important;
+      animation: dangerPulse 1.4s infinite;
+      box-shadow: 0 0 30px rgba(251,191,36,0.9), 0 0 15px rgba(249,115,22,0.8) !important;
       border-color: #fbbf24 !important;
     }
     .player-pill.safe {
-      animation: safePulse 1.6s infinite;
-      box-shadow: var(--safe-glow), 0 0 18px rgba(16,185,129,0.8) !important;
+      animation: safePulse 1.8s infinite;
+      box-shadow: 0 0 20px rgba(34,197,94,0.7), 0 0 10px rgba(16,185,129,0.6) !important;
       border-color: #10b981 !important;
     }
     @keyframes dangerPulse {
       0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.25); }
+      50% { transform: scale(1.18); }
     }
     @keyframes safePulse {
       0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.18); }
-    }
-    .ball {
-      width: 32px; height: 32px; 
-      background: radial-gradient(circle at 40% 40%, #fff, #e5e7eb 60%, #bbb 100%);
-      box-shadow: var(--ball-shadow); z-index: 25; 
-      transition: all .32s cubic-bezier(0.4, 0, 0.2, 1); border: 2.5px solid #fbbf24;
-      border-radius: 50%; position: absolute;
-    }
-    .ball.danger { animation: ballDanger 0.85s infinite; }
-    @keyframes ballDanger { 0%,100% { box-shadow: var(--ball-shadow), 0 0 30px #f97316; } 50% { box-shadow: var(--ball-shadow), 0 0 45px #f97316; } }
-    .pass-line {
-      position: absolute; height: 3px; background: rgba(251,191,36,0.8); 
-      transform-origin: left center; z-index: 15; opacity: 0;
-      box-shadow: 0 0 15px rgba(251,191,36,0.7);
-      border-radius: 2px;
-    }
-    .pass-line.show { animation: passAnim 0.65s ease-out forwards; }
-    @keyframes passAnim {
-      0% { opacity: 1; transform: scaleX(0); }
-      70% { opacity: 1; transform: scaleX(1.15); }
-      100% { opacity: 0; transform: scaleX(1); }
+      50% { transform: scale(1.12); }
     }
     .goal-flash { 
-      animation: goalPulse 0.85s ease-out forwards; position: absolute; top: 20px; left: 50%; transform: translateX(-50%);
-      background: linear-gradient(90deg, rgba(251,191,36,0.4), rgba(34,197,94,0.4)); 
-      color: #fbbf24; padding: 16px 36px; border-radius: 16px; font-weight: 800; font-size: 1.3rem;
-      box-shadow: 0 0 60px rgba(251,191,36,0.8), 0 0 30px rgba(34,197,94,0.7); 
-      backdrop-filter: blur(12px); border: 2.5px solid rgba(251,191,36,0.6);
-      text-shadow: 0 3px 12px rgba(0,0,0,0.7);
+      animation: goalPulse 0.7s ease-out forwards; position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
+      background: linear-gradient(90deg, rgba(251,191,36,0.3), rgba(34,197,94,0.3)); 
+      color: #fbbf24; padding: 12px 28px; border-radius: 12px; font-weight: 800; font-size: 1.1rem;
+      box-shadow: 0 0 40px rgba(251,191,36,0.6), 0 0 20px rgba(34,197,94,0.5); 
+      backdrop-filter: blur(8px); border: 1px solid rgba(251,191,36,0.4);
+      text-shadow: 0 2px 8px rgba(0,0,0,0.5);
     }
     @keyframes goalPulse {
-      0% { transform: translateX(-50%) scale(0.5); opacity: 0; }
-      40% { transform: translateX(-50%) scale(1.45); }
+      0% { transform: translateX(-50%) scale(0.7); opacity: 0; }
+      40% { transform: translateX(-50%) scale(1.3); }
       100% { transform: translateX(-50%) scale(1); opacity: 1; }
     }
-    .loading-overlay { backdrop-filter: blur(16px); background: rgba(0,0,0,0.96); }
-    .team-card { transition: all .3s; }
-    .team-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(251,191,36,0.2); }
-    .possession-bar { height: 12px; border-radius: 6px; overflow: hidden; background: #1f2937; border: 1.5px solid #374151; }
-    .possession-fill { height: 100%; transition: width .9s ease; }
+    .ball { 
+      width: 20px; height: 20px; background: radial-gradient(circle at 35% 35%, #fff, #e5e7eb);
+      box-shadow: 0 3px 10px rgba(0,0,0,0.6), 0 0 15px rgba(251,191,36,0.5); z-index: 25; 
+      transition: all .28s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid #fbbf24;
+    }
+    .ball.danger { animation: ballDanger 0.8s infinite; }
+    @keyframes ballDanger { 0%,100% { box-shadow: 0 0 20px #f97316; } 50% { box-shadow: 0 0 35px #f97316; } }
+    .loading-overlay { backdrop-filter: blur(12px); background: rgba(0,0,0,0.92); }
+    .team-card { transition: all .25s; }
+    .team-card:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(251,191,36,0.15); }
+    .event-item { transition: opacity .35s; }
+    .event-item.new { animation: fadeIn .45s; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: none; } }
+    .possession-bar { height: 8px; border-radius: 4px; overflow: hidden; background: #1f2937; border: 1px solid #374151; }
+    .possession-fill { height: 100%; transition: width .7s ease; }
     .possession-fill.a { background: linear-gradient(90deg, #10b981, #34d399); }
     .possession-fill.b { background: linear-gradient(90deg, #ef4444, #fca5a5); }
     .btn-primary { 
       background: linear-gradient(135deg, #f59e0b, #f97316); color: white; font-weight: 700; 
-      box-shadow: 0 10px 20px rgba(249,115,22,0.5);
-      border-radius: 14px;
+      box-shadow: 0 6px 15px rgba(249,115,22,0.4);
     }
-    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 26px rgba(249,115,22,0.6); }
-    .btn-secondary { background: #374151; border-radius: 12px; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(249,115,22,0.5); }
+    .btn-secondary { background: #374151; }
     .btn-secondary:hover { background: #4b5563; }
-    .commentary-line { font-size: 14.5px; line-height: 1.8; }
+    .commentary-line { font-size: 13.5px; line-height: 1.6; }
     .commentary-line .time { color: #94a3b8; font-family: monospace; font-weight: 600; }
+    .pitch-line { position: absolute; border: 1.5px solid rgba(255,255,255,0.18); }
+    .center-circle { 
+      position: absolute; width: 90px; height: 90px; border: 2.5px solid rgba(251,191,36,0.3); 
+      border-radius: 50%; left: 50%; top: 50%; transform: translate(-50%,-50%); 
+    }
+    .penalty-spot { 
+      position: absolute; width: 10px; height: 10px; background: #fbbf24; border-radius: 50%; 
+      box-shadow: 0 0 15px rgba(251,191,36,0.8);
+    }
+    .penalty-spot.a { left: 12%; top: 12%; }
+    .penalty-spot.b { right: 12%; top: 12%; }
+    .substitution-popup {
+      position: absolute; background: rgba(0,0,0,0.95); color: white; padding: 10px 16px; 
+      border-radius: 12px; font-size: 13px; pointer-events: none; z-index: 100; opacity: 0;
+      transition: opacity .3s; backdrop-filter: blur(8px); border: 1.5px solid rgba(251,191,36,0.4);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    }
+    .substitution-popup.show { opacity: 1; }
     .score-line {
-      font-weight: 900; font-size: 4rem; letter-spacing: -4px;
+      font-weight: 900; font-size: 3.2rem; letter-spacing: -3px;
       background: linear-gradient(90deg, #10b981, #fbbf24, #ef4444);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      text-shadow: 0 5px 15px rgba(0,0,0,0.6);
-      transition: all .4s ease;
+      text-shadow: 0 3px 10px rgba(0,0,0,0.5);
+      transition: all .35s ease;
     }
-    .score-line.goal { animation: scorePulse 0.8s ease-out; }
+    .score-line.goal { 
+      animation: scorePulse 0.7s ease-out;
+    }
     @keyframes scorePulse {
       0% { transform: scale(1); }
-      45% { transform: scale(1.4); }
+      45% { transform: scale(1.35); }
       100% { transform: scale(1); }
     }
     .commentary-line.live {
-      color: #fbbf24; font-weight: 700; animation: liveBlink 1.4s infinite;
-      text-shadow: 0 0 14px rgba(251,191,36,0.7);
+      color: #fbbf24;
+      font-weight: 700;
+      animation: liveBlink 1.6s infinite;
+      text-shadow: 0 0 10px rgba(251,191,36,0.5);
     }
     @keyframes liveBlink {
       0%, 100% { opacity: 1; }
-      50% { opacity: 0.8; }
+      50% { opacity: 0.75; }
+    }
+    .free-kick-zone {
+      position: absolute; width: 80px; height: 80px; border: 3px dashed #fbbf24; 
+      border-radius: 50%; opacity: 0; pointer-events: none; z-index: 20;
+      box-shadow: 0 0 20px rgba(251,191,36,0.6); animation: fkZonePulse 2s infinite;
+    }
+    .free-kick-zone.show { opacity: 0.7; }
+    @keyframes fkZonePulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
     }
     .arrow-indicator {
-      position: absolute; font-size: 2.2rem; color: #fbbf24; z-index: 28; opacity: 0;
-      transition: opacity .35s; text-shadow: 0 0 20px rgba(251,191,36,1);
-      animation: arrowPulse 1s infinite;
+      position: absolute; font-size: 1.8rem; color: #fbbf24; z-index: 28; opacity: 0;
+      transition: opacity .3s; text-shadow: 0 0 15px rgba(251,191,36,0.8);
+      animation: arrowPulse 1.2s infinite;
     }
     .arrow-indicator.show { opacity: 1; }
     @keyframes arrowPulse {
       0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-12px); }
+      50% { transform: translateY(-8px); }
     }
   </style>
 </head>
 <body class="bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-slate-100 min-h-screen">
 
-  <div class="container mx-auto p-5 md:p-8 max-w-7xl">
+  <div class="container mx-auto p-4 md:p-6 max-w-7xl">
     <!-- Header -->
-    <header class="mb-10 text-center">
-      <h1 class="text-6xl md:md:text-7xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 via-amber-400 to-rose-500 drop-shadow-lg">
-        <i class="fas fa-futbol mr-4 animate-pulse"></i> GOLDEN FIRE MATCH PRO
+    <header class="mb-8 text-center">
+      <h1 class="text-5xl md:text-6xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 via-amber-400 to-rose-500">
+        <i class="fas fa-futbol mr-3 animate-pulse"></i> GOLDEN FIRE MATCH PRO
       </h1>
-      <p class="text-slate-300 mt-4 text-lg md:text-xl font-medium">
-        <i class="fas fa-bolt mr-2 text-amber-400"></i> Real-Time • Moving Ball • Dynamic Players • Full Pitch
+      <p class="text-slate-300 mt-3 text-base md:text-lg font-medium">
+        <i class="fas fa-bolt mr-2 text-amber-400"></i> Free Kicks • Penalties • Danger Arrows • Ball Flow
       </p>
     </header>
 
-    <main class="grid lg:grid-cols-12 gap-8">
+    <main class="grid lg:grid-cols-12 gap-6">
       <!-- Team A Panel -->
       <section class="lg:col-span-3">
-        <div class="bg-slate-900/90 backdrop-blur-3xl p-7 rounded-3xl border border-amber-500/35 shadow-2xl team-card">
-          <div class="flex items-center justify-between mb-6">
-            <input id="teamAName" class="flex-1 bg-transparent border border-slate-700 rounded-xl px-5 py-3 text-sm focus:border-amber-500 focus:outline-none transition" 
+        <div class="bg-slate-900/85 backdrop-blur-2xl p-6 rounded-2xl border border-amber-500/30 shadow-2xl team-card">
+          <div class="flex items-center justify-between mb-5">
+            <input id="teamAName" class="flex-1 bg-transparent border border-slate-700 rounded-lg px-4 py-2.5 text-sm focus:border-amber-500 focus:outline-none transition" 
                    placeholder="Team A name" value="Real Team A"/>
-            <button id="tickA" class="ml-4 px-6 py-3 rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 text-white font-bold text-sm hover:from-amber-700 hover:to-amber-800 transition shadow-xl">
+            <button id="tickA" class="ml-3 px-5 py-2.5 rounded-lg bg-gradient-to-r from-amber-600 to-amber-700 text-white font-bold text-sm hover:from-amber-700 hover:to-amber-800 transition shadow-lg">
               <i class="fas fa-robot mr-1"></i> AI
             </button>
           </div>
-          <h3 id="teamATitle" class="text-2xl font-bold text-emerald-400 mb-5 flex items-center">
+          <h3 id="teamATitle" class="text-2xl font-bold text-emerald-400 mb-4 flex items-center">
             <i class="fas fa-shield-alt mr-2"></i> Real Team A
           </h3>
-          <div id="players-A" class="space-y-3 max-h-96 overflow-y-auto pr-2"></div>
+          <div id="players-A" class="space-y-2.5 max-h-96 overflow-y-auto pr-1"></div>
         </div>
       </section>
 
       <!-- Center: Pitch + Controls -->
       <section class="lg:col-span-6">
-        <div class="bg-slate-900/90 backdrop-blur-3xl p-7 rounded-3xl border border-amber-500/35 shadow-2xl">
+        <div class="bg-slate-900/85 backdrop-blur-2xl p-6 rounded-2xl border border-amber-500/30 shadow-2xl">
           <!-- Controls -->
-          <div class="flex flex-wrap gap-4 mb-7">
-            <button id="startFlowBtn" class="flex-1 md:flex-initial px-8 py-4 rounded-2xl btn-primary text-white font-bold text-lg disabled:opacity-50 disabled:cursor-not-allowed shadow-xl">
+          <div class="flex flex-wrap gap-3 mb-6">
+            <button id="startFlowBtn" class="flex-1 md:flex-initial px-7 py-3.5 rounded-xl btn-primary text-white font-bold text-lg disabled:opacity-50 disabled:cursor-not-allowed shadow-lg">
               <i class="fas fa-play mr-2"></i> IGNITE MATCH
             </button>
-            <button id="pauseBtn" class="px-7 py-4 rounded-xl btn-secondary text-white font-bold shadow-lg">
+            <button id="pauseBtn" class="px-6 py-3.5 rounded-xl btn-secondary text-white font-bold shadow-md">
               <i class="fas fa-pause"></i> Pause
             </button>
-            <button id="ffBtn" class="px-7 py-4 rounded-xl btn-secondary text-white font-bold shadow-lg">
+            <button id="ffBtn" class="px-6 py-3.5 rounded-xl btn-secondary text-white font-bold shadow-md">
               <i class="fas fa-forward"></i> +6'
             </button>
           </div>
 
           <!-- Score & Time -->
-          <div class="bg-gradient-to-r from-slate-800/85 to-slate-900/85 backdrop-blur p-6 rounded-2xl mb-7 border border-amber-500/25 shadow-2xl">
+          <div class="bg-gradient-to-r from-slate-800/80 to-slate-900/80 backdrop-blur p-5 rounded-xl mb-6 border border-amber-500/20 shadow-xl">
             <div class="grid grid-cols-3 items-center text-center">
               <div>
                 <div id="modalTeamA" class="text-xl font-bold text-emerald-400 flex items-center justify-center">
@@ -242,16 +222,16 @@
                 <div id="modalTeamAName" class="text-xs text-slate-300 mt-1">Real Team A</div>
               </div>
               <div>
-                <div class="flex items-center justify-center gap-5">
+                <div class="flex items-center justify-center gap-4">
                   <div id="scoreA" class="score-line">0</div>
-                  <div class="text-5xl font-bold text-amber-400">—</div>
+                  <div class="text-4xl font-bold text-amber-400">—</div>
                   <div id="scoreB" class="score-line">0</div>
                 </div>
-                <div id="matchTime" class="text-3xl font-mono text-amber-400 mt-3 font-bold">0'</div>
-                <div class="possession-bar mt-4">
+                <div id="matchTime" class="text-2xl font-mono text-amber-400 mt-2 font-bold">0'</div>
+                <div class="possession-bar mt-3">
                   <div id="possessionFillA" class="possession-fill a" style="width:50%"></div>
                 </div>
-                <div id="possessionInfo" class="text-sm text-slate-300 mt-3 font-medium">Possession — 50% · 50%</div>
+                <div id="possessionInfo" class="text-sm text-slate-300 mt-2 font-medium">Possession — 50% · 50%</div>
               </div>
               <div>
                 <div id="modalTeamB" class="text-xl font-bold text-rose-400 flex items-center justify-center">
@@ -262,55 +242,30 @@
             </div>
           </div>
 
-          <!-- SPACIOUS PITCH -->
-          <div class="pitch-container relative">
-            <div class="pitch" id="pitch">
-              <!-- Pitch Lines -->
-              <div class="pitch-line" style="left:0;right:0;top:50%;height:3px;"></div>
-              <div class="pitch-line" style="left:50%;top:0;bottom:0;width:3px;"></div>
-              <div class="center-circle"></div>
-              <div class="center-spot"></div>
-
-              <!-- Penalty Areas -->
-              <div class="penalty-area" style="left:4%;top:18%;width:28%;height:64%;"></div>
-              <div class="penalty-area" style="right:4%;top:18%;width:28%;height:64%;"></div>
-              <div class="goal-area" style="left:10%;top:32%;width:16%;height:36%;"></div>
-              <div class="goal-area" style="right:10%;top:32%;width:16%;height:36%;"></div>
-
-              <!-- Goalposts & Nets -->
-              <div class="goal-post" style="left:0.8%;top:40%;"></div>
-              <div class="goal-post" style="left:4.2%;top:40%;"></div>
-              <div class="goal-net" style="left:-3%;top:38%;"></div>
-
-              <div class="goal-post" style="right:0.8%;top:40%;"></div>
-              <div class="goal-post" style="right:4.2%;top:40%;"></div>
-              <div class="goal-net" style="right:-3%;top:38%;"></div>
-
-              <!-- Ball -->
-              <div id="ball" class="ball" style="left:50%;top:50%;transform:translate(-50%,-50%)"></div>
-
-              <!-- Pass Line -->
-              <div id="passLine" class="pass-line"></div>
-
-              <!-- Goal Flash -->
-              <div id="goalFlashHolder" class="absolute top-6 left-1/2 -translate-x-1/2"></div>
-
-              <!-- Arrow Indicator -->
-              <div id="arrowIndicator" class="arrow-indicator">Down Arrow</div>
-            </div>
+          <!-- Pitch -->
+          <div class="pitch h-96 md:h-[480px] rounded-xl relative" id="pitch">
+            <div class="pitch-line" style="left:0;right:0;top:50%;border-top-style:dashed;"></div>
+            <div class="pitch-line" style="left:16.7%;right:16.7%;top:0;bottom:0;border-left-style:dashed;border-right-style:dashed;"></div>
+            <div class="center-circle"></div>
+            <div class="penalty-spot a"></div>
+            <div class="penalty-spot b"></div>
+            <div id="ball" class="ball absolute rounded-full" style="left:50%;top:50%;transform:translate(-50%,-50%)"></div>
+            <div id="goalFlashHolder" class="absolute top-4 left-1/2 -translate-x-1/2"></div>
+            <div id="fkZone" class="free-kick-zone"></div>
+            <div id="arrowIndicator" class="arrow-indicator">Down Arrow</div>
           </div>
 
-          <!-- Stats -->
-          <div class="grid grid-cols-3 gap-5 mt-7 text-center">
-            <div class="bg-gradient-to-b from-slate-800/75 to-slate-900/75 p-5 rounded-xl border border-amber-500/25 backdrop-blur">
+          <!-- Stats Row -->
+          <div class="grid grid-cols-3 gap-4 mt-6 text-center">
+            <div class="bg-gradient-to-b from-slate-800/70 to-slate-900/70 p-4 rounded-lg border border-amber-500/20 backdrop-blur">
               <div class="text-sm text-slate-300 font-medium">Fouls</div>
               <div class="text-2xl font-bold text-amber-400"><span id="mA-fouls">0</span> · <span id="mB-fouls">0</span></div>
             </div>
-            <div class="bg-gradient-to-b from-slate-800/75 to-slate-900/75 p-5 rounded-xl border border-amber-500/25 backdrop-blur">
+            <div class="bg-gradient-to-b from-slate-800/70 to-slate-900/70 p-4 rounded-lg border border-amber-500/20 backdrop-blur">
               <div class="text-sm text-slate-300 font-medium">Yellow</div>
               <div class="text-2xl font-bold text-amber-400"><span id="mA-y">0</span> · <span id="mB-y">0</span></div>
             </div>
-            <div class="bg-gradient-to-b from-slate-800/75 to-slate-900/75 p-5 rounded-xl border border-amber-500/25 backdrop-blur">
+            <div class="bg-gradient-to-b from-slate-800/70 to-slate-900/70 p-4 rounded-lg border border-amber-500/20 backdrop-blur">
               <div class="text-sm text-slate-300 font-medium">Red</div>
               <div class="text-2xl font-bold text-amber-400"><span id="mA-r">0</span> · <span id="mB-r">0</span></div>
             </div>
@@ -320,64 +275,81 @@
 
       <!-- Team B + Events -->
       <section class="lg:col-span-3">
-        <div class="bg-slate-900/90 backdrop-blur-3xl p-7 rounded-3xl border border-amber-500/35 shadow-2xl team-card">
-          <div class="flex items-center justify-between mb-6">
-            <input id="teamBName" class="flex-1 bg-transparent border border-slate-700 rounded-xl px-5 py-3 text-sm focus:border-amber-500 focus:outline-none transition" 
+        <div class="bg-slate-900/85 backdrop-blur-2xl p-6 rounded-2xl border border-amber-500/30 shadow-2xl team-card">
+          <div class="flex items-center justify-between mb-5">
+            <input id="teamBName" class="flex-1 bg-transparent border border-slate-700 rounded-lg px-4 py-2.5 text-sm focus:border-amber-500 focus:outline-none transition" 
                    placeholder="Team B name" value="Real Team B"/>
-            <button id="tickB" class="ml-4 px-6 py-3 rounded-xl bg-gradient-to-r from-amber-600 to-amber-700 text-white font-bold text-sm hover:from-amber-700 hover:to-amber-800 transition shadow-xl">
+            <button id="tickB" class="ml-3 px-5 py-2.5 rounded-lg bg-gradient-to-r from-amber-600 to-amber-700 text-white font-bold text-sm hover:from-amber-700 hover:to-amber-800 transition shadow-lg">
               <i class="fas fa-robot mr-1"></i> AI
             </button>
           </div>
-          <h3 id="teamBTitle" class="text-2xl font-bold text-rose-400 mb-5 flex items-center">
+          <h3 id="teamBTitle" class="text-2xl font-bold text-rose-400 mb-4 flex items-center">
             <i class="fas fa-shield-alt mr-2"></i> Real Team B
           </h3>
-          <div id="players-B" class="space-y-3 max-h-64 overflow-y-auto pr-2 mb-7"></div>
+          <div id="players-B" class="space-y-2.5 max-h-64 overflow-y-auto pr-1 mb-6"></div>
 
-          <div class="text-sm font-bold text-amber-400 mb-4 flex items-center">
+          <div class="text-sm font-bold text-amber-400 mb-3 flex items-center">
             <i class="fas fa-list-ul mr-2"></i> LIVE EVENT LOG
           </div>
-          <div id="eventLog" class="bg-slate-800/65 p-5 rounded-xl h-64 overflow-y-auto text-sm font-mono border border-amber-500/25 backdrop-blur"></div>
+          <div id="eventLog" class="bg-slate-800/60 p-4 rounded-lg h-64 overflow-y-auto text-sm font-mono border border-amber-500/20 backdrop-blur"></div>
         </div>
       </section>
     </main>
 
     <!-- Commentary -->
-    <section class="mt-10 bg-gradient-to-r from-slate-900/90 to-slate-950/90 backdrop-blur-3xl p-7 rounded-3xl border border-amber-500/35 shadow-2xl">
-      <div class="flex items-center justify-between mb-6">
+    <section class="mt-8 bg-gradient-to-r from-slate-900/90 to-slate-950/90 backdrop-blur-2xl p-6 rounded-2xl border border-amber-500/30 shadow-2xl">
+      <div class="flex items-center justify-between mb-5">
         <h4 class="text-2xl font-bold flex items-center text-amber-400">
           <i class="fas fa-microphone mr-3 animate-pulse"></i> LIVE GOLDEN COMMENTARY
         </h4>
-        <div class="text-sm text-slate-300">Real-time play-by-play</div>
+        <div class="text-sm text-slate-300">Real-time fire play-by-play</div>
       </div>
-      <div id="modalCommentary" class="h-60 overflow-y-auto pr-4 space-y-2 commentary-line text-sm"></div>
+      <div id="modalCommentary" class="h-56 overflow-y-auto pr-3 space-y-1.5 commentary-line text-sm"></div>
     </section>
+
+    <!-- Substitution Popup -->
+    <div id="subPopup" class="substitution-popup fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+      <div id="subText" class="text-lg font-bold"></div>
+    </div>
 
     <!-- Loading Overlay -->
     <div id="loadingOverlay" class="hidden fixed inset-0 z-50 flex items-center justify-center loading-overlay">
-      <div class="bg-slate-900/98 p-12 rounded-3xl text-center border-3 border-amber-500/60 shadow-3xl">
-        <div class="w-24 h-24 border-6 border-amber-500 border-t-transparent rounded-full animate-spin mx-auto mb-6"></div>
-        <div id="loadingText" class="text-3xl font-bold text-amber-400">IGNITING THE PITCH…</div>
-        <div id="countdown" class="text-6xl font-bold text-white mt-5">5</div>
+      <div class="bg-slate-900/98 p-10 rounded-3xl text-center border-2 border-amber-500/50 shadow-2xl">
+        <div class="w-20 h-20 border-5 border-amber-500 border-t-transparent rounded-full animate-spin mx-auto mb-5"></div>
+        <div id="loadingText" class="text-2xl font-bold text-amber-400">IGNITING THE PITCH…</div>
+        <div id="countdown" class="text-5xl font-bold text-white mt-4">5</div>
       </div>
     </div>
   </div>
 
 <script>
 // ==============================
-// FULL CONFIG & DATA
+// CONFIGURATION & DATA POOLS
 // ==============================
 const starterCount = 11, subsCount = 4;
 const abilitiesList = ['Shooting','Passing','Pace','Physical','Dribbling'];
-const proPool = ["C. Ronaldo","L. Messi","K. Mbappé","E. Haaland","K. De Bruyne","Neymar Jr","V. Jr.","M. Salah","K. Benzema","R. Lewandowski","H. Kane","B. Silva","J. Kimmich","T. Müller","P. Foden","J. Grealish","R. Sterling","F. Valverde","B. Fernandes","Casemiro","Virgil van Dijk","T. Alexander-Arnold","Rúben Dias","João Cancelo","A. Robertson","Sergio Ramos","Thiago Silva","Marquinhos","E. Martínez","M. ter Stegen","G. Donnarumma","A. Becker","Ederson","K. Trippier","Pedri","Gavi","Rodri","T. Kroos","L. Modrić","J. Bellingham","M. Ødegaard","N. Kanté","B. Guimarães","Declan Rice","Enzo Fernández","Marco Reus","Ilkay Gündoğan","Paulo Dybala","Phil Foden","Jack Grealish","João Félix","Gabriel Jesus","Rashford","Sancho","Dembele","Lautaro Martínez","O. Giroud","Antony","Luis Díaz","Darwin Núñez","Federico Chiesa","R. Leão","Ansu Fati","T. Werner","S. Mané","Luka Jović","Angel Di María","Paul Pogba","Memphis Depay","Christian Eriksen","Z. Ibrahimović","Coutinho","Mesut Özil","Eden Hazard","Bale","Busquets","Chiellini","Bonucci"];
+const proPool = [
+  "C. Ronaldo", "L. Messi", "K. Mbappé", "E. Haaland", "K. De Bruyne",
+  "Neymar Jr", "V. Jr.", "M. Salah", "K. Benzema", "R. Lewandowski",
+  "H. Kane", "B. Silva", "J. Kimmich", "T. Müller", "P. Foden",
+  "J. Grealish", "R. Sterling", "F. Valverde", "B. Fernandes", "Casemiro",
+  "Virgil van Dijk", "Trent Alexander-Arnold", "Rúben Dias", "João Cancelo",
+  "A. Robertson", "Sergio Ramos", "Thiago Silva", "Marquinhos", "E. Martínez",
+  "M. ter Stegen", "G. Donnarumma", "A. Becker", "Ederson", "K. Trippier",
+  "Pedri", "Gavi", "Rodri", "T. Kroos", "L. Modrić", "J. Bellingham",
+  "M. Ødegaard", "N. Kanté", "B. Guimarães", "Declan Rice", "Enzo Fernández",
+  "Marco Reus", "Ilkay Gündoğan", "Paulo Dybala", "Phil Foden", "Jack Grealish",
+  "João Félix", "Gabriel Jesus", "Rashford", "Sancho", "Dembele",
+  "Lautaro Martínez", "O. Giroud", "Antony", "Luis Díaz", "Darwin Núñez",
+  "Federico Chiesa", "R. Leão", "Ansu Fati", "T. Werner", "S. Mané",
+  "Luka Jović", "Angel Di María", "Paul Pogba", "Memphis Depay",
+  "Christian Eriksen", "Z. Ibrahimović", "Coutinho", "Mesut Özil",
+  "Eden Hazard", "Bale", "Busquets", "Chiellini", "Bonucci"
+];
 
 // ==============================
 // ELEMENTS
 // ==============================
-const pitchEl = document.getElementById('pitch');
-const ballEl = document.getElementById('ball');
-const passLine = document.getElementById('passLine');
-const goalFlashHolder = document.getElementById('goalFlashHolder');
-const arrowIndicator = document.getElementById('arrowIndicator');
 const teamANameInput = document.getElementById('teamAName');
 const teamBNameInput = document.getElementById('teamBName');
 const tickA = document.getElementById('tickA');
@@ -385,11 +357,10 @@ const tickB = document.getElementById('tickB');
 const playersAContainer = document.getElementById('players-A');
 const playersBContainer = document.getElementById('players-B');
 const startFlowBtn = document.getElementById('startFlowBtn');
-const pauseBtn = document.getElementById('pauseBtn');
-const ffBtn = document.getElementById('ffBtn');
 const loadingOverlay = document.getElementById('loadingOverlay');
 const countdownEl = document.getElementById('countdown');
 const loadingText = document.getElementById('loadingText');
+
 const modalTeamA = document.getElementById('modalTeamA');
 const modalTeamB = document.getElementById('modalTeamB');
 const modalTeamAName = document.getElementById('modalTeamAName');
@@ -407,6 +378,17 @@ const mA_y = document.getElementById('mA-y');
 const mB_y = document.getElementById('mB-y');
 const mA_r = document.getElementById('mA-r');
 const mB_r = document.getElementById('mB-r');
+const goalFlashHolder = document.getElementById('goalFlashHolder');
+const ballEl = document.getElementById('ball');
+const pitchEl = document.getElementById('pitch');
+const pauseBtn = document.getElementById('pauseBtn');
+const ffBtn = document.getElementById('ffBtn');
+const fkZone = document.getElementById('fkZone');
+const arrowIndicator = document.getElementById('arrowIndicator');
+
+let currentDangerPlayer = null;
+let currentSafePlayer = null;
+let isSetPiece = false;
 
 // ==============================
 // STATE
@@ -414,114 +396,29 @@ const mB_r = document.getElementById('mB-r');
 let state = {
   A: { name: 'Team A', players: [], counters: { fouls:0,y:0,r:0 } },
   B: { name: 'Team B', players: [], counters: { fouls:0,y:0,r:0 } },
-  sim: { running:false, minute:0, total:90, extra:5, scoreA:0, scoreB:0, possessionA:50, interval: null, minGoalGuaranteeApplied: false }
+  sim: {
+    running:false, minute:0, total:90, extra:5, scoreA:0, scoreB:0, possessionA:50,
+    minuteMs: 900, interval: null, minGoalGuaranteeApplied:false
+  }
 };
-let currentBallHolder = null;
-let currentDangerPlayer = null;
-let isSetPiece = false;
 
 // ==============================
 // HELPERS
 // ==============================
 function randPick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
 function shuffle(arr){ for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]] } return arr; }
-function wait(ms){ return new Promise(res=>setTimeout(res, ms)); }
 function uniqueName(excludeSet){
   let name;
-  do { name = randPick(proPool) + (Math.random()<0.15?(' '+Math.floor(Math.random()*90+10)):''); } 
-  while (excludeSet && excludeSet.has(name));
+  do {
+    name = randPick(proPool) + (Math.random()<0.15?(' '+Math.floor(Math.random()*90+10)):'');
+  } while (excludeSet && excludeSet.has(name));
   return name;
 }
+function wait(ms){ return new Promise(res=>setTimeout(res, ms)); }
+
 function makePlayer(name, pos, isSub=false){
   const abil = shuffle([...abilitiesList]).slice(0,3);
   return { name, position: pos, abilities: abil, isSub:isSub, confirmed:true, sentOff:false };
-}
-
-// ==============================
-// PLAYER & BALL MOVEMENT
-// ==============================
-function movePlayerTo(el, x, y, duration = 700) {
-  el.style.transition = `all ${duration}ms cubic-bezier(0.4, 0, 0.2, 1)`;
-  el.style.left = x + '%';
-  el.style.top = y + '%';
-}
-function moveBallTo(x, y, duration = 600) {
-  ballEl.style.transition = `all ${duration}ms cubic-bezier(0.4, 0, 0.2, 1)`;
-  ballEl.style.left = x + '%';
-  ballEl.style.top = y + '%';
-}
-function drawPassLine(fromX, fromY, toX, toY) {
-  const dx = toX - fromX;
-  const dy = toY - fromY;
-  const length = Math.sqrt(dx*dx + dy*dy);
-  const angle = Math.atan2(dy, dx) * 180 / Math.PI;
-  passLine.style.width = length + '%';
-  passLine.style.left = fromX + '%';
-  passLine.style.top = fromY + '%';
-  passLine.style.transform = `rotate(${angle}deg)`;
-  passLine.classList.remove('show');
-  void passLine.offsetWidth;
-  passLine.classList.add('show');
-}
-async function passBall(fromPlayerEl, toPlayerEl) {
-  const fromRect = fromPlayerEl.getBoundingClientRect();
-  const toRect = toPlayerEl.getBoundingClientRect();
-  const pitchRect = pitchEl.getBoundingClientRect();
-  const fromX = ((fromRect.left + fromRect.width/2) - pitchRect.left) / pitchRect.width * 100;
-  const fromY = ((fromRect.top + fromRect.height/2) - pitchRect.top) / pitchRect.height * 100;
-  const toX = ((toRect.left + toRect.width/2) - pitchRect.left) / pitchRect.width * 100;
-  const toY = ((toRect.top + toRect.height/2) - pitchRect.top) / pitchRect.height * 100;
-  drawPassLine(fromX, fromY, toX, toY);
-  moveBallTo(toX, toY, 650);
-  currentBallHolder = toPlayerEl;
-  await wait(700);
-}
-
-// ==============================
-// PITCH & FORMATIONS
-// ==============================
-function drawPitchPlayers(){
-  pitchEl.innerHTML = '';
-  const layoutA = formationPositions('A');
-  const layoutB = formationPositions('B');
-  state.A.players.slice(0, starterCount).forEach((p,i)=>{
-    if (p.sentOff) return;
-    const el = createPlayerPill(p.name, 'A', i, layoutA[i]);
-    pitchEl.appendChild(el);
-  });
-  state.B.players.slice(0, starterCount).forEach((p,i)=>{
-    if (p.sentOff) return;
-    const el = createPlayerPill(p.name, 'B', i, layoutB[i]);
-    pitchEl.appendChild(el);
-  });
-  setBallPosition(50, 50);
-  currentBallHolder = null;
-}
-function formationPositions(team){
-  const baseX = team === 'A' ? 12 : 88;
-  const pos = [];
-  pos.push({ x: baseX, y: 50 });
-  for (let i = 0; i < 4; i++) pos.push({ x: baseX + (team==='A'?1:-1)*(18 + i*14), y: 72 });
-  for (let i = 0; i < 4; i++) pos.push({ x: baseX + (team==='A'?1:-1)*(12 + i*16), y: 45 });
-  pos.push({ x: baseX + (team==='A'?1:-1)*30, y: 22 });
-  pos.push({ x: baseX + (team==='A'?1:-1)*40, y: 22 });
-  return pos;
-}
-function createPlayerPill(name, team, idx, pos){
-  const el = document.createElement('div');
-  el.className = `player-pill team-${team} absolute flex flex-col items-center justify-center text-xs font-semibold px-3 py-1 rounded-full gap-0.5`;
-  el.dataset.team = team; el.dataset.idx = idx;
-  el.style.left = pos.x + '%';
-  el.style.top = pos.y + '%';
-  el.style.transform = 'translate(-50%,-50%)';
-  const short = name.split(' ')[0];
-  el.innerHTML = `<div class="text-[9px] opacity-75">${team==='A'?'A':'B'}${idx+1}</div><div class="text-xs">${short}</div>`;
-  return el;
-}
-function setBallPosition(x, y){
-  ballEl.style.left = x + '%';
-  ballEl.style.top = y + '%';
-  ballEl.style.transform = 'translate(-50%,-50%)';
 }
 
 // ==============================
@@ -531,8 +428,18 @@ function aiGenerateTeam(teamId, displayName){
   const used = new Set();
   const starterPositions = ['GK','DEF','DEF','DEF','DEF','MID','MID','MID','MID','ATT','ATT'];
   const starters = new Array(starterPositions.length).fill(null);
-  if (teamId === 'A') { starters[10] = makePlayer("C. Ronaldo", "CF", false); used.add("C. Ronaldo"); }
-  if (teamId === 'B') { let idx = starterPositions.lastIndexOf('MID'); if (idx === -1) idx = starterPositions.lastIndexOf('ATT'); starters[idx] = makePlayer("L. Messi", "CAM", false); used.add("L. Messi"); }
+
+  if (teamId === 'A') {
+    starters[10] = makePlayer("C. Ronaldo", "CF", false);
+    used.add("C. Ronaldo");
+  }
+  if (teamId === 'B') {
+    let idx = starterPositions.lastIndexOf('MID');
+    if (idx === -1) idx = starterPositions.lastIndexOf('ATT');
+    starters[idx] = makePlayer("L. Messi", "CAM", false);
+    used.add("L. Messi");
+  }
+
   for (let i=0;i<starterPositions.length;i++){
     if (starters[i]) continue;
     const pos = starterPositions[i];
@@ -540,6 +447,7 @@ function aiGenerateTeam(teamId, displayName){
     let posStr = pos === 'ATT' ? 'ST' : (pos === 'MID' ? 'CM' : pos);
     starters[i] = makePlayer(name, posStr, false);
   }
+
   const subs = [];
   for (let s=0;s<subsCount;s++){
     const name = uniqueName(used); used.add(name);
@@ -548,12 +456,18 @@ function aiGenerateTeam(teamId, displayName){
     subs.push(makePlayer(name, posStr, true));
   }
   shuffle(subs);
+
   const finalPlayers = starters.concat(subs);
+
   state[teamId].name = displayName || state[teamId].name;
   state[teamId].players = finalPlayers;
   renderTeamList(teamId);
   checkStartReady();
 }
+
+// ==============================
+// RENDER TEAM LIST
+// ==============================
 function renderTeamList(teamId){
   const cont = teamId==='A' ? playersAContainer : playersBContainer;
   cont.innerHTML = '';
@@ -564,7 +478,7 @@ function renderTeamList(teamId){
     const isSub = idx >= starterCount;
     const slot = isSub ? `Sub ${idx - starterCount + 1}` : `Player ${idx+1}`;
     const row = document.createElement('div');
-    row.className = 'flex items-center justify-between bg-[#071413] p-3 rounded-xl border border-gray-800';
+    row.className = 'flex items-center justify-between bg-[#071413] p-2 rounded-md border border-gray-800';
     row.innerHTML = `
       <div>
         <div class="text-sm text-gray-300 font-semibold">${slot} — <span class="text-green-300">${p.name}</span></div>
@@ -577,154 +491,543 @@ function renderTeamList(teamId){
 }
 
 // ==============================
-// UI & CONTROLS
+// AI BUTTONS
 // ==============================
 let tickAOn=false, tickBOn=false;
-tickA.addEventListener('click', ()=>{ const nm = teamANameInput.value.trim() || 'Real Team A'; tickAOn = !tickAOn; tickA.classList.toggle('ring-2', tickAOn); tickA.classList.toggle('ring-amber-500', tickAOn); if (tickAOn) { aiGenerateTeam('A', nm); teamANameInput.classList.add('border-amber-500'); } else { state.A.players=[]; renderTeamList('A'); teamANameInput.classList.remove('border-amber-500'); } });
-tickB.addEventListener('click', ()=>{ const nm = teamBNameInput.value.trim() || 'Real Team B'; tickBOn = !tickBOn; tickB.classList.toggle('ring-2', tickBOn); tickB.classList.toggle('ring-amber-500', tickBOn); if (tickBOn) { aiGenerateTeam('B', nm); teamBNameInput.classList.add('border-amber-500'); } else { state.B.players=[]; renderTeamList('B'); teamBNameInput.classList.remove('border-amber-500'); } });
-teamANameInput.addEventListener('input', ()=>{ if (tickAOn && teamANameInput.value.trim().length>0) aiGenerateTeam('A', teamANameInput.value.trim()); });
-teamBNameInput.addEventListener('input', ()=>{ if (tickBOn && teamBNameInput.value.trim().length>0) aiGenerateTeam('B', teamBNameInput.value.trim()); });
-function checkStartReady(){ const readyA = state.A.players.length >= starterCount + subsCount; const readyB = state.B.players.length >= starterCount + subsCount; const nameA = teamANameInput.value.trim().length>0 || state.A.name; const nameB = teamBNameInput.value.trim().length>0 || state.B.name; if (readyA && readyB && tickAOn && tickBOn && nameA && nameB){ startFlowBtn.disabled = false; } else startFlowBtn.disabled = true; }
+tickA.addEventListener('click', ()=>{
+  const nm = teamANameInput.value.trim() || 'Real Team A';
+  tickAOn = !tickAOn;
+  tickA.classList.toggle('ring-2', tickAOn);
+  tickA.classList.toggle('ring-amber-500', tickAOn);
+  if (tickAOn) { aiGenerateTeam('A', nm); teamANameInput.classList.add('border-amber-500'); }
+  else { state.A.players=[]; renderTeamList('A'); teamANameInput.classList.remove('border-amber-500'); }
+});
+
+tickB.addEventListener('click', ()=>{
+  const nm = teamBNameInput.value.trim() || 'Real Team B';
+  tickBOn = !tickBOn;
+  tickB.classList.toggle('ring-2', tickBOn);
+  tickB.classList.toggle('ring-amber-500', tickBOn);
+  if (tickBOn) { aiGenerateTeam('B', nm); teamBNameInput.classList.add('border-amber-500'); }
+  else { state.B.players=[]; renderTeamList('B'); teamBNameInput.classList.remove('border-amber-500'); }
+});
+
+teamANameInput.addEventListener('input', ()=> {
+  if (tickAOn && teamANameInput.value.trim().length>0) aiGenerateTeam('A', teamANameInput.value.trim());
+});
+teamBNameInput.addEventListener('input', ()=> {
+  if (tickBOn && teamBNameInput.value.trim().length>0) aiGenerateTeam('B', teamBNameInput.value.trim());
+});
+
+// ==============================
+// START BUTTON
+// ==============================
+function checkStartReady(){
+  const readyA = state.A.players.length >= starterCount + subsCount;
+  const readyB = state.B.players.length >= starterCount + subsCount;
+  const nameA = teamANameInput.value.trim().length>0 || state.A.name;
+  const nameB = teamBNameInput.value.trim().length>0 || state.B.name;
+  if (readyA && readyB && tickAOn && tickBOn && nameA && nameB){
+    startFlowBtn.disabled = false;
+  } else startFlowBtn.disabled = true;
+}
 setInterval(checkStartReady, 400);
 
 // ==============================
-// LOADING & START
+// LOADING + START
 // ==============================
 startFlowBtn.addEventListener('click', async ()=>{
   state.A.name = teamANameInput.value.trim() || state.A.name;
   state.B.name = teamBNameInput.value.trim() || state.B.name;
+
   loadingOverlay.classList.remove('hidden');
   loadingText.textContent = 'AI is locking lineups & preparing tactics…';
   await wait(600);
-  for (let i=5;i>=0;i--){ countdownEl.textContent = i; await wait(1000); }
+
+  for (let i=5;i>=0;i--){
+    countdownEl.textContent = i;
+    await wait(1000);
+  }
+
   loadingText.textContent = 'Matchmaking — generating tactical writeup...';
   countdownEl.textContent = '';
   await wait(1200);
+
   loadingOverlay.classList.add('hidden');
   openMatchModalAndStart();
 });
+
 function openMatchModalAndStart(){
-  modalTeamA.textContent = state.A.name; modalTeamB.textContent = state.B.name; modalTeamAName.textContent = state.A.name; modalTeamBName.textContent = state.B.name;
+  modalTeamA.textContent = state.A.name;
+  modalTeamB.textContent = state.B.name;
+  modalTeamAName.textContent = state.A.name;
+  modalTeamBName.textContent = state.B.name;
+
   state.sim.minute = 0; state.sim.scoreA = 0; state.sim.scoreB = 0; state.sim.possessionA = 50;
   scoreAEl.textContent = '0'; scoreBEl.textContent = '0'; matchTimeEl.textContent = "0'";
   eventLog.innerHTML=''; modalCommentary.innerHTML='';
   mA_fouls.textContent = 0; mB_fouls.textContent = 0; mA_y.textContent = 0; mB_y.textContent = 0; mA_r.textContent = 0; mB_r.textContent = 0;
   state.sim.minGoalGuaranteeApplied = false;
+
   drawPitchPlayers();
+
   state.sim.running = true;
-  const tick = 900;
+  const tick = state.sim.minuteMs;
   if (state.sim.interval) clearInterval(state.sim.interval);
-  state.sim.interval = setInterval(()=>{ if (!state.sim.running) return; state.sim.minute++; updateTimeUI(state.sim.minute); simulationTick(state.sim.minute); if (state.sim.minute >= (state.sim.total + state.sim.extra)){ clearInterval(state.sim.interval); finalizeMatch(); } }, tick);
+  state.sim.interval = setInterval(()=>{
+    if (!state.sim.running) return;
+    state.sim.minute++;
+    updateTimeUI(state.sim.minute);
+    simulationTick(state.sim.minute);
+
+    if (state.sim.minute >= (state.sim.total + state.sim.extra)){
+      clearInterval(state.sim.interval);
+      finalizeMatch();
+    }
+  }, tick);
 }
-function updateTimeUI(min){ const m = Math.min(min, state.sim.total + state.sim.extra); matchTimeEl.textContent = `${m}'`; }
+
+function updateTimeUI(min){
+  const m = Math.min(min, state.sim.total + state.sim.extra);
+  matchTimeEl.textContent = `${m}'`;
+}
 
 // ==============================
 // COMMENTARY & EVENTS
 // ==============================
-function pushCommentary(msg){ const el = document.createElement('div'); el.className = 'mb-2 text-sm commentary-line live'; const now = new Date(); const mm = String(now.getMinutes()).padStart(2,'0'); const ss = String(now.getSeconds()).padStart(2,'0'); el.innerHTML = `<span class="time">[${mm}:${ss}]</span> <span>${msg}</span>`; modalCommentary.prepend(el); setTimeout(() => { if (el.parentNode) el.classList.remove('live'); }, 4000); }
-function pushEvent(msg){ const el = document.createElement('div'); el.className = 'mb-1 text-sm text-gray-300 event-item new'; el.innerText = msg; eventLog.prepend(el); setTimeout(() => el.classList.remove('new'), 100); pushCommentary(msg); }
+function pushCommentary(msg){
+  const el = document.createElement('div');
+  el.className = 'mb-1.5 text-sm commentary-line live';
+  const now = new Date();
+  const mm = String(now.getMinutes()).padStart(2,'0');
+  const ss = String(now.getSeconds()).padStart(2,'0');
+  el.innerHTML = `<span class="time">[${mm}:${ss}]</span> <span>${msg}</span>`;
+  modalCommentary.prepend(el);
+  setTimeout(() => { if (el.parentNode) el.classList.remove('live'); }, 4000);
+}
+
+function pushEvent(msg){
+  const el = document.createElement('div');
+  el.className = 'mb-1 text-sm text-gray-300 event-item new';
+  el.innerText = msg;
+  eventLog.prepend(el);
+  setTimeout(() => el.classList.remove('new'), 100);
+  pushCommentary(msg);
+}
+
+// ==============================
+// DANGER & SAFE MARKERS
+// ==============================
+function markDanger(playerEl) {
+  if (currentDangerPlayer) currentDangerPlayer.classList.remove('danger');
+  playerEl.classList.add('danger');
+  currentDangerPlayer = playerEl;
+  ballEl.classList.add('danger');
+  arrowIndicator.classList.add('show');
+  arrowIndicator.style.left = playerEl.style.left;
+  arrowIndicator.style.top = parseFloat(playerEl.style.top) - 15 + '%';
+}
+function markSafe(playerEl) {
+  if (currentSafePlayer) currentSafePlayer.classList.remove('safe');
+  playerEl.classList.add('safe');
+  currentSafePlayer = playerEl;
+  ballEl.classList.remove('danger');
+}
+function clearIndicators() {
+  if (currentDangerPlayer) currentDangerPlayer.classList.remove('danger');
+  if (currentSafePlayer) currentSafePlayer.classList.remove('safe');
+  currentDangerPlayer = currentSafePlayer = null;
+  ballEl.classList.remove('danger');
+  arrowIndicator.classList.remove('show');
+  fkZone.classList.remove('show');
+}
+
+// ==============================
+// FREE KICK
+// ==============================
+async function handleFreeKick(team, minute) {
+  isSetPiece = true;
+  const taker = chooseSetPieceTaker(team);
+  const takerEl = [...pitchEl.querySelectorAll('.player-pill')].find(p => p.textContent.includes(taker.split(' ')[0]));
+  
+  pushCommentary(`${minute}' — FREE KICK to ${state[team].name}! ${taker} stands over it...`);
+  pushEvent(`Free kick — ${taker} (${state[team].name})`);
+
+  const x = team === 'A' ? 70 : 30;
+  fkZone.style.left = x + '%';
+  fkZone.style.top = '50%';
+  fkZone.classList.add('show');
+
+  if (takerEl) markDanger(takerEl);
+
+  await wait(2500);
+
+  const scored = Math.random() < 0.38;
+  if (scored) {
+    if (team === 'A') state.sim.scoreA++; else state.sim.scoreB++;
+    scoreAEl.textContent = state.sim.scoreA;
+    scoreBEl.textContent = state.sim.scoreB;
+    pushEvent(`GOAL FROM FREE KICK! ${taker} — ${state[team].name}`);
+    flashGoal(`${taker} (FK)`);
+    animateScore(team);
+  } else {
+    pushCommentary(`${minute}' — ${taker}'s free kick sails over! What a chance!`);
+  }
+
+  clearIndicators();
+  isSetPiece = false;
+  await wait(800);
+}
+
+function chooseSetPieceTaker(teamId) {
+  const pool = state[teamId].players.filter(p => !p.isSub && !p.sentOff);
+  const shooters = pool.filter(p => p.abilities.includes('Shooting') || p.abilities.includes('Passing'));
+  return shooters.length ? randPick(shooters).name : pickPlayerName(teamId);
+}
+
+// ==============================
+// PENALTY
+// ==============================
+async function handlePenalty(team, minute) {
+  isSetPiece = true;
+  const taker = choosePenaltyTaker(team);
+  const takerEl = [...pitchEl.querySelectorAll('.player-pill')].find(p => p.textContent.includes(taker.split(' ')[0]));
+
+  pushCommentary(`${minute}' — PENALTY to ${state[team].name}! ${taker} vs the keeper...`);
+  pushEvent(`Penalty — ${taker} (${state[team].name})`);
+
+  if (takerEl) markDanger(takerEl);
+  fkZone.style.left = team === 'A' ? '88%' : '12%';
+  fkZone.style.top = '12%';
+  fkZone.classList.add('show');
+
+  await wait(3000);
+
+  const scored = Math.random() < 0.78;
+  if (scored) {
+    if (team === 'A') state.sim.scoreA++; else state.sim.scoreB++;
+    scoreAEl.textContent = state.sim.scoreA;
+    scoreBEl.textContent = state.sim.scoreB;
+    pushEvent(`PENALTY SCORED — ${taker}`);
+    flashGoal(`${taker} (PEN)`);
+    animateScore(team);
+  } else {
+    pushEvent(`PENALTY MISSED — ${taker}`);
+    pushCommentary(`${minute}' — SAVED! The keeper denies ${taker}!`);
+  }
+
+  clearIndicators();
+  isSetPiece = false;
+  await wait(1000);
+}
 
 // ==============================
 // SIMULATION TICK
 // ==============================
 async function simulationTick(minute){
-  const delta = Math.floor((Math.random()*7))-3;
+  const delta = Math.floor((Math.random()*5)-2);
   state.sim.possessionA = Math.max(30, Math.min(70, state.sim.possessionA + delta));
   const pA = state.sim.possessionA, pB = 100-pA;
   possessionInfo.textContent = `Possession — ${pA}% · ${pB}%`;
   possessionFillA.style.width = `${pA}%`;
 
-  // Dynamic player movement
-  const players = pitchEl.querySelectorAll('.player-pill');
-  players.forEach(p => {
-    const team = p.dataset.team;
-    const baseX = team === 'A' ? 12 + (pA-50)*0.35 : 88 - (pA-50)*0.35;
-    const offset = parseInt(p.dataset.idx);
-    const yJitter = 20 + Math.random()*60;
-    const newX = baseX + (team==='A'?1:-1)*(offset % 4 * 10);
-    movePlayerTo(p, newX, yJitter, 900);
-  });
+  const attackRoll = Math.random();
+  const attackThresholdA = 0.45 + (pA-50)/200;
+  const attackThresholdB = 0.45 + (pB-50)/200;
 
-  // Ball flow
-  const attackingTeam = pA > 55 ? 'A' : (pB > 55 ? 'B' : (Math.random()<0.5?'A':'B'));
-  const holderPool = [...pitchEl.querySelectorAll(`.player-pill.team-${attackingTeam}`)];
-  if (!holderPool.length) return;
-  let newHolder = randPick(holderPool);
-  if (currentBallHolder && currentBallHolder !== newHolder && Math.random() < 0.65) {
-    await passBall(currentBallHolder, newHolder);
-  } else {
-    const rect = newHolder.getBoundingClientRect();
-    const pitchRect = pitchEl.getBoundingClientRect();
-    const ballX = ((rect.left + rect.width/2) - pitchRect.left) / pitchRect.width * 100;
-    const ballY = ((rect.top + rect.height/2) - pitchRect.top) / pitchRect.height * 100;
-    moveBallTo(ballX, ballY, 700);
-    currentBallHolder = newHolder;
+  if (!isSetPiece) {
+    if (attackRoll < attackThresholdA){
+      await resolveAttack('A', minute);
+    } else if (attackRoll > (1 - attackThresholdB)){
+      await resolveAttack('B', minute);
+    } else {
+      if (Math.random() < 0.35) pushCommentary(`${minute}' — Both teams locked in a fierce midfield duel.`);
+    }
   }
 
-  if (Math.random() < 0.19) await resolveAttack(attackingTeam, minute);
-  if (!state.sim.minGoalGuaranteeApplied && minute > 60 && state.sim.scoreA + state.sim.scoreB < 2){
-    state.sim.minGoalGuaranteeApplied = true;
-    setTimeout(()=> forceGoal(state.sim.possessionA >= 50 ? 'A' : 'B', minute + 1), 1800);
+  if (!isSetPiece && Math.random() < 0.065){
+    const team = Math.random()<0.5 ? 'A' : 'B';
+    const player = pickPlayerName(team);
+    state[team].counters.fouls++;
+    updateCountersUI();
+    pushEvent(`${player} (${state[team].name}) commits a foul — ${minute}'`);
+
+    if (Math.random() < 0.28){
+      state[team].counters.y++;
+      updateCountersUI();
+      pushEvent(`Yellow card → ${player} — ${state[team].name} (${minute}')`);
+      showTeamCard(team,'yellow');
+
+      if (Math.random()<0.05){
+        state[team].counters.r++; updateCountersUI();
+        pushEvent(`Red card! ${player} sent off — ${state[team].name} (${minute}')`);
+        showTeamCard(team,'red');
+        for (let p of state[team].players){
+          if (p.name === player){ p.sentOff = true; break; }
+        }
+        renderTeamList(team);
+        drawPitchPlayers();
+      }
+    }
+
+    if (Math.random() < 0.42) {
+      await handleFreeKick(team === 'A' ? 'B' : 'A', minute);
+    } else if (Math.random() < 0.18){
+      await handlePenalty(team === 'A' ? 'B' : 'A', minute);
+    }
+  }
+
+  if (!state.sim.minGoalGuaranteeApplied && minute > 60){
+    const totalGoals = state.sim.scoreA + state.sim.scoreB;
+    if (totalGoals < 2){
+      state.sim.minGoalGuaranteeApplied = true;
+      pushCommentary(`${minute}' — The stadium holds its breath...`);
+      setTimeout(()=> forceGoal(state.sim.possessionA >= 50 ? 'A' : 'B', minute + 1), state.sim.minuteMs * 2);
+    }
   }
 }
 
 // ==============================
-// ATTACK & GOAL
+// ATTACK RESOLUTION
 // ==============================
 async function resolveAttack(team, minute){
   const attacker = pickPlayerName(team);
   const attackerEl = [...pitchEl.querySelectorAll('.player-pill')].find(p => p.textContent.includes(attacker.split(' ')[0]));
   const defenderTeam = team === 'A' ? 'B' : 'A';
   const defender = pickPlayerName(defenderTeam);
+  const shootQuality = Math.random() * 0.7 + 0.15;
+  const shotOnTarget = Math.random() < 0.64;
+  const goalConversion = 0.12 + (shootQuality * 0.18);
+
   pushCommentary(`${minute}' — ${attacker} surges forward with intent!`);
+
   if (attackerEl) markDanger(attackerEl);
-  await wait(600);
+
+  await wait(state.sim.minuteMs * 0.6);
+
   const roll = Math.random();
-  if (roll < 0.18 && Math.random() > 0.24){
-    if (team==='A'){ state.sim.scoreA++; scoreAEl.textContent = state.sim.scoreA; } else { state.sim.scoreB++; scoreBEl.textContent = state.sim.scoreB; }
+  if (roll < goalConversion && shotOnTarget && Math.random()>0.24){
+    if (team==='A'){ state.sim.scoreA++; scoreAEl.textContent = state.sim.scoreA; }
+    else { state.sim.scoreB++; scoreBEl.textContent = state.sim.scoreB; }
     pushEvent(`GOAL! ${attacker} — ${state[team].name} (${minute}')`);
     flashGoal(`${attacker} — ${state[team].name}`);
+    animateBallToHalf(team==='A' ? 88 : 12, 12);
     animateScore(team);
-  } else if (roll < 0.54){
+  } else if (roll < (goalConversion + 0.36)){
     pushCommentary(`${minute}' — Keeper denies ${attacker}! Outstanding stop.`);
     if (attackerEl) markSafe(attackerEl);
+    animateBallToHalf(team==='A' ? 60 : 40, 50);
+  } else if (roll < (goalConversion + 0.36 + 0.24)){
+    pushCommentary(`${minute}' — ${defender} blocks heroically!`);
+    animateBallToHalf(team==='A' ? 55 : 45, 50);
   } else {
     pushCommentary(`${minute}' — ${attacker} blazes it wide. So close!`);
+    animateBallToHalf(team==='A' ? 80 : 20, 50);
   }
-  setTimeout(clearIndicators, 2000);
+
+  setTimeout(clearIndicators, 1800);
 }
-function markDanger(playerEl) { if (currentDangerPlayer) currentDangerPlayer.classList.remove('danger'); playerEl.classList.add('danger'); currentDangerPlayer = playerEl; ballEl.classList.add('danger'); arrowIndicator.classList.add('show'); arrowIndicator.style.left = playerEl.style.left; arrowIndicator.style.top = parseFloat(playerEl.style.top) - 18 + '%'; }
-function markSafe(playerEl) { if (currentDangerPlayer) currentDangerPlayer.classList.remove('safe'); playerEl.classList.add('safe'); }
-function clearIndicators() { if (currentDangerPlayer) currentDangerPlayer.classList.remove('danger'); currentDangerPlayer = null; ballEl.classList.remove('danger'); arrowIndicator.classList.remove('show'); }
-function flashGoal(text){ const el = document.createElement('div'); el.className = 'goal-flash'; el.textContent = text; goalFlashHolder.innerHTML = ''; goalFlashHolder.appendChild(el); setTimeout(()=> goalFlashHolder.innerHTML='', 3000); }
-function animateScore(team) { const el = team === 'A' ? scoreAEl : scoreBEl; el.classList.add('goal'); setTimeout(() => el.classList.remove('goal'), 800); }
-function forceGoal(team, minute){ const scorer = pickPlayerName(team); if (team==='A'){ state.sim.scoreA++; scoreAEl.textContent = state.sim.scoreA; } else { state.sim.scoreB++; scoreBEl.textContent = state.sim.scoreB; } pushEvent(`BREAKTHROUGH! ${scorer} — ${state[team].name} (${minute}')`); flashGoal(`${scorer} — ${state[team].name} (${minute}')`); animateScore(team); }
 
 // ==============================
 // UTILS
 // ==============================
-function pickPlayerName(teamId){ const pool = state[teamId].players.filter(p=>p && p.name && !p.sentOff); if (!pool.length) return 'Unknown'; const starters = pool.slice(0, starterCount); if (starters.length) return starters[Math.floor(Math.random()*starters.length)].name; return pool[Math.floor(Math.random()*pool.length)].name; }
+function pickPlayerName(teamId){
+  const pool = state[teamId].players.filter(p=>p && p.name && !p.sentOff);
+  if (!pool.length) return 'Unknown';
+  const starters = pool.slice(0, starterCount);
+  if (starters.length) return starters[Math.floor(Math.random()*starters.length)].name;
+  return pool[Math.floor(Math.random()*pool.length)].name;
+}
+
+function choosePenaltyTaker(teamId){
+  const pool = state[teamId].players.filter(p=>p && !p.isSub && !p.sentOff);
+  const shooters = pool.filter(p => p.abilities && p.abilities.includes('Shooting'));
+  if (shooters.length) return shooters[Math.floor(Math.random()*shooters.length)].name;
+  const attackers = pool.filter(p => /ATT|CF|ST|CAM|FW|ST/i.test(p.position));
+  if (attackers.length) return attackers[Math.floor(Math.random()*attackers.length)].name;
+  if (pool.length) return pool[Math.floor(Math.random()*pool.length)].name;
+  return pickPlayerName(teamId);
+}
+
+function flashGoal(text){
+  const el = document.createElement('div');
+  el.className = 'goal-flash';
+  el.textContent = text;
+  goalFlashHolder.innerHTML = '';
+  goalFlashHolder.appendChild(el);
+  setTimeout(()=> goalFlashHolder.innerHTML='', 2500);
+}
+
+function animateScore(team) {
+  const el = team === 'A' ? scoreAEl : scoreBEl;
+  el.classList.add('goal');
+  setTimeout(() => el.classList.remove('goal'), 700);
+}
+
+function updateCountersUI(){
+  mA_fouls.textContent = state.A.counters.fouls;
+  mB_fouls.textContent = state.B.counters.fouls;
+  mA_y.textContent = state.A.counters.y;
+  mB_y.textContent = state.B.counters.y;
+  mA_r.textContent = state.A.counters.r;
+  mB_r.textContent = state.B.counters.r;
+}
+
+function showTeamCard(teamId, type){
+  const targetEl = teamId === 'A' ? modalTeamAName : modalTeamBName;
+  if (!targetEl) return;
+  const exist = targetEl.querySelector('.team-card-badge');
+  if (exist) exist.remove();
+  const badge = document.createElement('span');
+  badge.className = 'team-card-badge ml-2 inline-flex items-center';
+  if (type === 'yellow'){
+    badge.textContent = 'Y';
+    badge.style.background = 'rgba(245,158,11,0.12)';
+    badge.style.color = '#f59e0b';
+  } else {
+    badge.textContent = 'R';
+    badge.style.background = 'rgba(239,68,68,0.08)';
+    badge.style.color = '#ef4444';
+  }
+  targetEl.appendChild(badge);
+  setTimeout(()=> { badge.remove(); }, 7000);
+}
+
+function forceGoal(team, minute){
+  const scorer = pickPlayerName(team);
+  if (team==='A'){ state.sim.scoreA++; scoreAEl.textContent = state.sim.scoreA; }
+  else { state.sim.scoreB++; scoreBEl.textContent = state.sim.scoreB; }
+  pushEvent(`BREAKTHROUGH! ${scorer} — ${state[team].name} (${minute}')`);
+  flashGoal(`${scorer} — ${state[team].name} (${minute}')`);
+  animateScore(team);
+}
+
+// ==============================
+// PITCH
+// ==============================
+function drawPitchPlayers(){
+  pitchEl.innerHTML = '';
+  const layoutA = formationPositions('A');
+  const layoutB = formationPositions('B');
+
+  state.A.players.slice(0, starterCount).forEach((p,i)=>{
+    if (p.sentOff) return;
+    const el = createPlayerPill(p.name, 'A', i, layoutA[i]);
+    pitchEl.appendChild(el);
+  });
+  state.B.players.slice(0, starterCount).forEach((p,i)=>{
+    if (p.sentOff) return;
+    const el = createPlayerPill(p.name, 'B', i, layoutB[i]);
+    pitchEl.appendChild(el);
+  });
+
+  setBallPosition(50, 50);
+}
+
+function formationPositions(team){
+  const left = team==='A' ? 28 : 72;
+  const pos = [];
+  pos.push({ x: left, y: 84 });
+  for (let i=0;i<4;i++) pos.push({ x: left - 18 + (i*12), y: 68 });
+  for (let i=0;i<4;i++) pos.push({ x: left - 18 + (i*12), y: 48 });
+  pos.push({ x: left - 6, y: 28 });
+  pos.push({ x: left + 6, y: 28 });
+  return pos;
+}
+
+function createPlayerPill(name, team, idx, pos){
+  const el = document.createElement('div');
+  el.className = `player-pill team-${team} absolute text-xs font-semibold px-3 py-1 rounded-full flex items-center gap-2`;
+  el.dataset.team = team; el.dataset.idx = idx;
+  el.style.left = pos.x + '%';
+  el.style.top = pos.y + '%';
+  el.style.transform = 'translate(-50%,-50%)';
+  el.style.cursor = 'grab';
+  el.style.minWidth = '48px';
+  const short = name.split(' ')[0];
+  el.innerHTML = `<span>${short}</span>`;
+  return el;
+}
+
+function setBallPosition(xPerc, yPerc){
+  ballEl.style.left = xPerc + '%';
+  ballEl.style.top = yPerc + '%';
+}
+function animateBallToHalf(xPerc, yPerc){
+  let startX = parseFloat(ballEl.style.left);
+  let startY = parseFloat(ballEl.style.top);
+  const steps = 12; let step = 0;
+  const dx = (xPerc - startX)/steps;
+  const dy = (yPerc - startY)/steps;
+  const t = setInterval(()=>{
+    step++;
+    setBallPosition(startX + dx*step, startY + dy*step);
+    if (step>=steps) clearInterval(t);
+  }, 30);
+}
 
 // ==============================
 // FINALIZE MATCH
 // ==============================
 async function finalizeMatch(){
   pushEvent(`Full Time — ${state.A.name} ${state.sim.scoreA} — ${state.sim.scoreB} ${state.B.name}`);
-  if (state.sim.scoreA === state.sim.scoreB){ pushCommentary('Match ends level — Preparing penalty shootout!'); await wait(1200); await runPenalties(); } 
-  else { const winner = state.sim.scoreA > state.sim.scoreB ? state.A.name : state.B.name; pushEvent(`${winner} wins! Final score: ${state.A.name} ${state.sim.scoreA} — ${state.sim.scoreB} ${state.B.name}`); flashGoal(`${winner} wins!`); }
+  const totalGoals = state.sim.scoreA + state.sim.scoreB;
+  if (totalGoals < 2){
+    const deficit = 2 - totalGoals;
+    for (let i=0;i<deficit;i++){
+      const fav = state.sim.possessionA >= 50 ? 'A' : 'B';
+      forceGoal(fav, state.sim.total + i + 1);
+      await wait(800);
+    }
+    pushEvent(`Full Time (adjusted) — ${state.A.name} ${state.sim.scoreA} — ${state.sim.scoreB} ${state.B.name}`);
+  }
+
+  if (state.sim.scoreA === state.sim.scoreB){
+    pushCommentary('Match ends level — Preparing penalty shootout!');
+    await wait(1200);
+    await runPenalties();
+  } else {
+    const winner = state.sim.scoreA > state.sim.scoreB ? state.A.name : state.B.name;
+    pushEvent(`${winner} wins! Final score: ${state.A.name} ${state.sim.scoreA} — ${state.sim.scoreB} ${state.B.name}`);
+    flashGoal(`${winner} wins!`);
+  }
   state.sim.running = false;
 }
+
 async function runPenalties(){
   pushCommentary('Penalty shootout starting — best of 5 each.');
   const shootersA = state.A.players.slice(0,5).map(p=>p.name);
   const shootersB = state.B.players.slice(0,5).map(p=>p.name);
   let scoreA = 0, scoreB = 0;
   for (let i=0;i<5;i++){
-    const shootA = shootersA[i]; const scoredA = Math.random() < 0.75; if (scoredA){ scoreA++; pushEvent(`Penalty scored — ${shootA} ( ${state.A.name} )`); flashGoal(`${shootA} (pen)`); } else pushEvent(`Penalty missed — ${shootA} ( ${state.A.name} )`); await wait(700);
-    const shootB = shootersB[i]; const scoredB = Math.random() < 0.75; if (scoredB){ scoreB++; pushEvent(`Penalty scored — ${shootB} ( ${state.B.name} )`); flashGoal(`${shootB} (pen)`); } else pushEvent(`Penalty missed — ${shootB} ( ${state.B.name} )`); await wait(700);
-    if (scoreA > scoreB + (4 - i) || scoreB > scoreA + (4 - i)) break;
+    const shootA = shootersA[i];
+    const scoredA = Math.random() < 0.75;
+    if (scoredA){ scoreA++; pushEvent(`Penalty scored — ${shootA} ( ${state.A.name} )`); flashGoal(`${shootA} (pen)`); }
+    else pushEvent(`Penalty missed — ${shootA} ( ${state.A.name} )`);
+    await wait(700);
+
+    const shootB = shootersB[i];
+    const scoredB = Math.random() < 0.75;
+    if (scoredB){ scoreB++; pushEvent(`Penalty scored — ${shootB} ( ${state.B.name} )`); flashGoal(`${shootB} (pen)`); }
+    else pushEvent(`Penalty missed — ${shootB} ( ${state.B.name} )`);
+    await wait(700);
+
+    const remainingA = 4 - i;
+    const remainingB = 4 - i;
+    if (scoreA > scoreB + remainingB){ break; }
+    if (scoreB > scoreA + remainingA){ break; }
   }
-  while (scoreA === scoreB){ const shooterA = pickPlayerName('A'); const shooterB = pickPlayerName('B'); const sA = Math.random() < 0.72; const sB = Math.random() < 0.72; if (sA){ scoreA++; pushEvent(`Sudden death — ${shooterA} scores for ${state.A.name}`); flashGoal(`${shooterA} (pen)`); } else pushEvent(`Sudden death — ${shooterA} misses`); await wait(700); if (sB){ scoreB++; pushEvent(`Sudden death — ${shooterB} scores for ${state.B.name}`); flashGoal(`${shooterB} (pen)`); } else pushEvent(`Sudden death — ${shooterB} misses`); await wait(700); if (scoreA !== scoreB) break; }
+  while (scoreA === scoreB){
+    const shooterA = pickPlayerName('A'); const shooterB = pickPlayerName('B');
+    const sA = Math.random() < 0.72; const sB = Math.random() < 0.72;
+    if (sA){ scoreA++; pushEvent(`Sudden death — ${shooterA} scores for ${state.A.name}`); flashGoal(`${shooterA} (pen)`); }
+    else pushEvent(`Sudden death — ${shooterA} misses`);
+    await wait(700);
+    if (sB){ scoreB++; pushEvent(`Sudden death — ${shooterB} scores for ${state.B.name}`); flashGoal(`${shooterB} (pen)`); }
+    else pushEvent(`Sudden death — ${shooterB} misses`);
+    await wait(700);
+    if (scoreA !== scoreB) break;
+  }
   pushEvent(`Penalties — ${state.A.name} ${scoreA} — ${scoreB} ${state.B.name}`);
   const winner = scoreA>scoreB ? state.A.name : state.B.name;
   pushEvent(`${winner} wins on penalties!`);
@@ -732,13 +1035,68 @@ async function runPenalties(){
 }
 
 // ==============================
-// CONTROLS & INIT
+// BALL MOVEMENT
 // ==============================
-pauseBtn.addEventListener('click', ()=>{ state.sim.running = !state.sim.running; pauseBtn.innerHTML = state.sim.running ? '<i class="fas fa-pause"></i> Pause' : '<i class="fas fa-play"></i> Resume'; });
-ffBtn.addEventListener('click', ()=>{ state.sim.minute += 6; updateTimeUI(state.sim.minute); });
+function randomBallMovement(){
+  if (!state.sim.running) return;
+  const pA = state.sim.possessionA;
+  const xTarget = 50 + (pA - 50) * 0.5;
+  const yTarget = 30 + Math.random()*40;
+  animateBallToHalf(xTarget, yTarget);
+}
+setInterval(randomBallMovement, 1200);
+
+// ==============================
+// DRAG PLAYERS
+// ==============================
+function enablePlayerDrag(){
+  let dragging = null, offsetX=0, offsetY=0;
+  pitchEl.addEventListener('pointerdown', (e)=>{
+    const target = e.target.closest('.player-pill');
+    if (!target) return;
+    dragging = target;
+    try { target.setPointerCapture(e.pointerId); } catch(e){}
+    const rect = pitchEl.getBoundingClientRect();
+    const leftPerc = parseFloat(target.style.left);
+    const topPerc = parseFloat(target.style.top);
+    offsetX = e.clientX - rect.left - (leftPerc/100)*rect.width;
+    offsetY = e.clientY - rect.top - (topPerc/100)*rect.height;
+    target.style.cursor = 'grabbing';
+  });
+  pitchEl.addEventListener('pointermove', (e)=>{
+    if (!dragging) return;
+    const rect = pitchEl.getBoundingClientRect();
+    let x = (e.clientX - rect.left - offsetX)/rect.width * 100;
+    let y = (e.clientY - rect.top - offsetY)/rect.height * 100;
+    x = Math.max(2, Math.min(98, x)); y = Math.max(2, Math.min(98, y));
+    dragging.style.left = x + '%';
+    dragging.style.top = y + '%';
+  });
+  pitchEl.addEventListener('pointerup', (e)=>{
+    if (dragging){ try { dragging.releasePointerCapture(e.pointerId); } catch(e){} dragging.style.cursor='grab'; dragging=null; }
+  });
+}
+enablePlayerDrag();
+
+// ==============================
+// CONTROLS
+// ==============================
+pauseBtn.addEventListener('click', ()=>{
+  state.sim.running = !state.sim.running;
+  pauseBtn.innerHTML = state.sim.running ? '<i class="fas fa-pause"></i> Pause' : '<i class="fas fa-play"></i> Resume';
+});
+ffBtn.addEventListener('click', ()=>{
+  state.sim.minute += 6;
+  updateTimeUI(state.sim.minute);
+});
 window.addEventListener('beforeunload', ()=>{ if (state.sim.interval) clearInterval(state.sim.interval); });
+
+// ==============================
+// INITIALIZE
+// ==============================
 aiGenerateTeam('A','Real Team A');
 aiGenerateTeam('B','Real Team B');
+
 </script>
 </body>
 </html>
