@@ -1,84 +1,43 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>AI Match Simulator | Team Setup</title>
+  <title>AI Match Simulator — Team Setup & Live Modal</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://kit.fontawesome.com/a2e0a6c6c2.js" crossorigin="anonymous"></script>
   <style>
-    body {
-      background: radial-gradient(circle at center, #0b0b0b 0%, #000 100%);
-      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-    }
-    .glass {
-      background: rgba(20,20,20,0.85);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(0,255,120,0.08);
-    }
-    .player-card.selected { outline: 3px solid rgba(34,197,94,0.18); box-shadow: 0 6px 18px rgba(0,0,0,0.6); }
+    :root{--glass-bg: rgba(20,20,20,0.85);}
+    body{ background: radial-gradient(circle at center,#0b0b0b 0%, #000 100%); font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; }
+    .glass { background: var(--glass-bg); backdrop-filter: blur(10px); border:1px solid rgba(0,255,120,0.06); }
+    .small-scroll::-webkit-scrollbar{ height:8px; width:8px; } .small-scroll::-webkit-scrollbar-thumb{ background: rgba(255,255,255,0.04); border-radius:999px; }
     .player-card.confirmed { border-color: rgba(34,197,94,0.5); }
-    /* small scrollbar styling */
-    .scroll-y::-webkit-scrollbar { width: 8px; height: 8px; }
-    .scroll-y::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.06); border-radius: 999px; }
+    .goal-flash { animation: goalFlash 1.8s ease; }
+    @keyframes goalFlash { 0%{transform:translateY(-8px); opacity:0} 20%{opacity:1; transform:translateY(0)} 80%{opacity:1} 100%{opacity:0; transform:translateY(-12px)}}
+    .overlay-center { position: fixed; inset:0; display:flex; align-items:center; justify-content:center; z-index:60; background: rgba(0,0,0,0.6); }
   </style>
 </head>
 <body class="text-white min-h-screen p-4 md:p-8 flex items-center justify-center">
 
   <div class="w-full max-w-6xl glass rounded-2xl p-6 md:p-10 relative">
 
-    <!-- Commentary / Events panel (top-right) -->
-    <div class="absolute right-6 top-6 w-80 bg-[#0f0f0f]/90 border border-gray-800 rounded-lg p-4 shadow-lg z-30">
-      <div class="flex items-center justify-between mb-3">
-        <h3 class="text-sm font-semibold text-green-400">Live Commentary</h3>
-        <div class="text-xs text-gray-400">Events</div>
-      </div>
-
-      <div id="eventCounts" class="flex gap-3 justify-between mb-3 text-xs">
-        <div class="text-left">
-          <div class="font-semibold text-gray-300" id="teamANameHeader">Team A</div>
-          <div class="text-gray-400 text-xs">Fouls: <span id="teamA-fouls">0</span> · YC: <span id="teamA-y">0</span> · RC: <span id="teamA-r">0</span></div>
-        </div>
-        <div class="text-right">
-          <div class="font-semibold text-gray-300" id="teamBNameHeader">Team B</div>
-          <div class="text-gray-400 text-xs">Fouls: <span id="teamB-fouls">0</span> · YC: <span id="teamB-y">0</span> · RC: <span id="teamB-r">0</span></div>
-        </div>
-      </div>
-
-      <div class="mb-3">
-        <div class="text-xs text-gray-400 mb-2">Selected player: <span id="selectedPlayerLabel" class="font-semibold text-gray-200">None</span></div>
-        <div class="flex gap-2">
-          <button id="btnFoul" class="flex-1 bg-yellow-700/10 hover:bg-yellow-700/20 text-yellow-300 px-2 py-2 rounded-md text-sm"><i class="fas fa-hand-paper mr-2"></i>Foul</button>
-          <button id="btnYellow" class="flex-1 bg-yellow-700/10 hover:bg-yellow-700/20 text-yellow-300 px-2 py-2 rounded-md text-sm"><i class="fas fa-square mr-2"></i>Yellow</button>
-          <button id="btnRed" class="flex-1 bg-red-700/10 hover:bg-red-700/20 text-red-400 px-2 py-2 rounded-md text-sm"><i class="fas fa-square-full mr-2"></i>Red</button>
-        </div>
-      </div>
-
-      <div>
-        <div class="text-xs text-gray-400 mb-2">Commentary log</div>
-        <div id="commentaryLog" class="h-36 overflow-auto scroll-y bg-[#0b0b0b] p-2 rounded-md text-xs text-gray-300"></div>
-      </div>
-    </div>
-
-    <!-- Header -->
-    <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6 gap-4">
-      <h1 class="text-2xl md:text-3xl font-bold text-green-400">⚽ Create Teams — Player Setup</h1>
+    <!-- header -->
+    <div class="flex flex-col md:flex-row items-center justify-between mb-6 gap-4">
+      <h1 class="text-2xl md:text-3xl font-bold text-green-400">⚽ AI Match Simulator — Team Setup</h1>
       <div class="flex gap-3 w-full md:w-auto">
-        <input id="teamAName" placeholder="Team A name" class="w-full md:w-48 p-2 rounded-lg bg-[#0b0b0b] border border-gray-700 text-white" />
-        <input id="teamBName" placeholder="Team B name" class="w-full md:w-48 p-2 rounded-lg bg-[#0b0b0b] border border-gray-700 text-white" />
+        <input id="teamAName" placeholder="Team A name (type to auto-fill)" class="w-full md:w-48 p-2 rounded-lg bg-[#0b0b0b] border border-gray-700 text-white" />
+        <input id="teamBName" placeholder="Team B name (type to auto-fill)" class="w-full md:w-48 p-2 rounded-lg bg-[#0b0b0b] border border-gray-700 text-white" />
       </div>
     </div>
 
-    <!-- Teams grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-
       <!-- Team A -->
       <div>
         <div class="flex items-center justify-between mb-3">
           <h2 id="teamATitle" class="text-lg font-semibold text-green-300">Team A</h2>
           <div class="text-xs text-gray-400">11 starters · 4 subs</div>
         </div>
-        <div id="players-A" class="space-y-3 max-h-[60vh] overflow-auto scroll-y p-1 rounded-md"></div>
+        <div id="players-A" class="space-y-3 max-h-[60vh] overflow-auto small-scroll p-1 rounded-md"></div>
       </div>
 
       <!-- Team B -->
@@ -87,282 +46,629 @@
           <h2 id="teamBTitle" class="text-lg font-semibold text-green-300">Team B</h2>
           <div class="text-xs text-gray-400">11 starters · 4 subs</div>
         </div>
-        <div id="players-B" class="space-y-3 max-h-[60vh] overflow-auto scroll-y p-1 rounded-md"></div>
+        <div id="players-B" class="space-y-3 max-h-[60vh] overflow-auto small-scroll p-1 rounded-md"></div>
       </div>
-
     </div>
 
-    <!-- Start button -->
-    <div class="mt-6 flex justify-center">
-      <button id="startMatch" class="hidden bg-green-600 hover:bg-green-500 px-6 py-3 rounded-xl font-semibold">Start Match ⚽</button>
+    <div class="mt-6 flex justify-between items-center">
+      <div class="text-sm text-gray-400">Tip: Type a team name — AI will auto-generate full squad & subs for you. You can still edit.</div>
+      <button id="startFlowBtn" class="bg-green-600 hover:bg-green-500 px-6 py-3 rounded-xl font-semibold disabled:opacity-50" disabled>
+        Start Match Flow
+      </button>
+    </div>
+  </div>
+
+  <!-- Center overlay for loading / countdown -->
+  <div id="loadingOverlay" class="overlay-center hidden">
+    <div class="bg-[#0b0b0b] border border-green-700/40 p-8 rounded-xl text-center w-[90%] max-w-sm glass">
+      <div id="loadingIcon" class="mb-4">
+        <i class="fas fa-spinner fa-spin text-3xl text-green-400"></i>
+      </div>
+      <div id="loadingText" class="text-lg font-semibold mb-2">Preparing teams…</div>
+      <div id="countdown" class="text-6xl font-extrabold text-green-400">5</div>
+    </div>
+  </div>
+
+  <!-- Match modal (centered) -->
+  <div id="matchModal" class="fixed inset-0 bg-black/70 flex items-center justify-center p-4 hidden z-50">
+    <div class="bg-[#0f0f0f] rounded-xl w-full max-w-5xl p-4 md:p-6 border border-green-700/30 relative">
+      <!-- top status row -->
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-4">
+          <div class="text-xs text-gray-400">Time</div>
+          <div id="matchTime" class="text-xl font-bold">00:00</div>
+        </div>
+
+        <div class="text-center">
+          <div id="scoreBoard" class="text-2xl md:text-3xl font-extrabold">
+            <span id="teamAHeaderModal">Team A</span> <span id="scoreA" class="text-green-400">0</span>
+            <span class="text-gray-400">—</span>
+            <span id="scoreB" class="text-red-400">0</span> <span id="teamBHeaderModal">Team B</span>
+          </div>
+          <div class="text-xs text-gray-400 mt-1" id="goalEventFlashHolder"></div>
+        </div>
+
+        <div class="w-80">
+          <div class="text-xs text-gray-400 mb-1">Live Commentary</div>
+          <div id="modalCommentary" class="h-20 overflow-auto small-scroll p-2 bg-[#070707] rounded text-sm text-gray-300"></div>
+        </div>
+      </div>
+
+      <!-- pitch + right column -->
+      <div class="flex flex-col md:flex-row gap-4 mt-4">
+        <!-- pitch (left / center) -->
+        <div class="flex-1 min-h-[360px] bg-[#07120a] rounded-md border border-green-800/10 relative overflow-hidden">
+          <!-- pitch grid (placeholders for players) -->
+          <div id="pitch" class="absolute inset-4 md:inset-6 bg-[linear-gradient(180deg,#063018,#042218)] rounded-md p-2">
+            <!-- players will be drawn here as absolutely positioned elements -->
+          </div>
+        </div>
+
+        <!-- right panel (events and cards) -->
+        <div class="w-full md:w-80 flex flex-col gap-3">
+          <div class="bg-[#0b0b0b] rounded-md p-3 border border-gray-800 small-scroll h-40 overflow-auto">
+            <div class="text-sm text-gray-400 mb-2">Events</div>
+            <div id="eventLog" class="text-sm text-gray-300"></div>
+          </div>
+
+          <div class="bg-[#0b0b0b] rounded-md p-3 border border-gray-800">
+            <div class="flex items-center justify-between mb-2">
+              <div class="text-sm text-gray-400">Fouls / Cards</div>
+              <div class="text-xs text-gray-400">Team counts</div>
+            </div>
+            <div class="flex justify-between text-xs text-gray-300">
+              <div>
+                <div id="modalTeamAName">Team A</div>
+                <div class="text-gray-400">Fouls: <span id="mA-fouls">0</span> · YC: <span id="mA-y">0</span> · RC: <span id="mA-r">0</span></div>
+              </div>
+              <div class="text-right">
+                <div id="modalTeamBName">Team B</div>
+                <div class="text-gray-400">Fouls: <span id="mB-fouls">0</span> · YC: <span id="mB-y">0</span> · RC: <span id="mB-r">0</span></div>
+              </div>
+            </div>
+            <div class="mt-3 text-xs text-gray-400">Substitute</div>
+            <div class="mt-2">
+              <button id="subBtn" class="bg-green-700 px-3 py-2 rounded text-sm w-full">Make Sub (pause)</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- bottom controls -->
+      <div class="flex items-center justify-between mt-4">
+        <div class="flex items-center gap-3">
+          <button id="pauseBtn" class="bg-yellow-700/10 hover:bg-yellow-700/20 px-3 py-2 rounded text-sm">⏸ Pause</button>
+          <button id="skipBtn" class="bg-gray-700/40 hover:bg-gray-700/60 px-3 py-2 rounded text-sm">⏩ Fast-forward</button>
+        </div>
+
+        <div class="text-xs text-gray-400">
+          <span id="posessionInfo">Possession — Team A 52% · Team B 48%</span>
+        </div>
+      </div>
+
+      <button onclick="closeMatch()" class="absolute top-3 right-3 text-gray-400 hover:text-white"><i class="fas fa-times"></i></button>
     </div>
   </div>
 
 <script>
-/*
-  Features implemented:
-  - 11 starters + 4 subs per team
-  - Type name -> abilities appear -> choose exactly 3 -> choose position -> green check appears
-  - Click player to select (for events)
-  - Commentary panel top-right: Foul / Yellow / Red buttons apply to selected player and update team counters + log
-  - When all 30 players confirmed Start Match button becomes visible
-*/
+/* -------------------------
+  Behaviour summary:
+  - When user types team name AI auto-fills that team's players (11 + 4 subs), abilities and positions.
+  - Player cards remain editable and show confirm button. User can still edit.
+  - When both teams have names and at least the roster auto-filled, Start Flow becomes enabled.
+  - Clicking Start Flow shows a centered loading overlay:
+      - 5s countdown
+      - then 2s matchmaking writeup
+      - then opens the match modal and starts accelerated simulation.
+  - Simulation is accelerated: each minute = 400ms (configurable).
+  - Random events (goals, fouls, cards) occur and update commentary + UI.
+------------------------- */
 
+const starterCount = 11, subsCount = 4;
 const abilities = ['Shooting','Passing','Pace','Physical','Dribbling'];
 const positions = ['GK','DEF','MID','ATT'];
 
+// basic name pools for AI fill
+const namePool = ["Austin","Emmanuel","Princewill","Kev","Marvin","Onyema","Ikenna","Sammy","Zubby","Paschal","Chibuike","Eddy","Igwe","Reynald","Calvin","Ugo","Elijah","Raphael","Iloka","Chukwuemeka","Chris","Aaron","David","John","Peter","Paul","Victor"];
+
 const teamANameInput = document.getElementById('teamAName');
 const teamBNameInput = document.getElementById('teamBName');
-const teamAHeader = document.getElementById('teamANameHeader');
-const teamBHeader = document.getElementById('teamBNameHeader');
 const teamATitle = document.getElementById('teamATitle');
 const teamBTitle = document.getElementById('teamBTitle');
 
-teamANameInput.addEventListener('input', ()=> { teamAHeader.textContent = teamANameInput.value || 'Team A'; teamATitle.textContent = teamANameInput.value || 'Team A';});
-teamBNameInput.addEventListener('input', ()=> { teamBHeader.textContent = teamBNameInput.value || 'Team B'; teamBTitle.textContent = teamBNameInput.value || 'Team B';});
+const playersAContainer = document.getElementById('players-A');
+const playersBContainer = document.getElementById('players-B');
+const startFlowBtn = document.getElementById('startFlowBtn');
 
-// counters
-const counters = {
-  teamA: { fouls:0, yellow:0, red:0 },
-  teamB: { fouls:0, yellow:0, red:0 }
+let state = {
+  A: { name: 'Team A', players: [] },
+  B: { name: 'Team B', players: [] },
+  counters: { A: { fouls:0,y:0,r:0 }, B: { fouls:0,y:0,r:0 } }
 };
-function updateCountersUI() {
-  document.getElementById('teamA-fouls').textContent = counters.teamA.fouls;
-  document.getElementById('teamA-y').textContent = counters.teamA.yellow;
-  document.getElementById('teamA-r').textContent = counters.teamA.red;
-  document.getElementById('teamB-fouls').textContent = counters.teamB.fouls;
-  document.getElementById('teamB-y').textContent = counters.teamB.yellow;
-  document.getElementById('teamB-r').textContent = counters.teamB.red;
+
+// utilities
+function randPick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+function uniqueName(exclude){ let n; do{ n = randPick(namePool) + (Math.random()<0.3?(' '+Math.floor(Math.random()*90+10)):''); } while(exclude && exclude.has(n)); return n; }
+function shuffle(arr){ for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]];} return arr; }
+
+// auto-fill team (creates internal state players and renders)
+function autoFillTeam(teamId, displayName){
+  // build roster: ensure GK=1, DEF ~4, MID ~4, ATT ~2 (starters)
+  const used = new Set();
+  const players = [];
+
+  // starters positions distribution
+  const starterPositions = ['GK','DEF','DEF','DEF','DEF','MID','MID','MID','MID','ATT','ATT'];
+  // fill starters
+  for (let i=0;i<starterPositions.length;i++){
+    const pos = starterPositions[i];
+    const name = uniqueName(used);
+    used.add(name);
+    const abil = shuffle([...abilities]).slice(0,3);
+    players.push({ name, position: pos, abilities: abil, isSub:false, confirmed:true });
+  }
+  // subs
+  for (let s=1;s<=subsCount;s++){
+    const name = uniqueName(used);
+    used.add(name);
+    const abil = shuffle([...abilities]).slice(0,3);
+    // subs get flexible positions: pick among DEF/MID/ATT
+    const pos = randPick(['DEF','MID','ATT']);
+    players.push({ name, position: pos, abilities: abil, isSub:true, confirmed:true });
+  }
+
+  state[teamId].name = displayName || state[teamId].name;
+  state[teamId].players = players;
+  renderTeamCards(teamId);
+  checkBothTeamsReady();
 }
 
-// create players
-function createTeam(teamId) {
-  const container = document.getElementById('players-' + teamId);
-  container.innerHTML = ''; // clear
-  const starters = 11, subs = 4, total = starters + subs;
-  for (let i=1;i<=total;i++) {
-    const slotLabel = i<=11 ? `Player ${i}` : `Sub ${i-11}`;
+// render UI player cards (editable — but prefilled)
+function renderTeamCards(teamId){
+  const container = teamId === 'A' ? playersAContainer : playersBContainer;
+  container.innerHTML = '';
+  const teamName = state[teamId].name;
+  if (teamId==='A') teamATitle.textContent = teamName;
+  else teamBTitle.textContent = teamName;
+
+  state[teamId].players.forEach((p, idx) => {
+    const slotLabel = idx < starterCount ? `Player ${idx+1}` : `Sub ${idx - starterCount + 1}`;
     const card = document.createElement('div');
-    card.className = 'player-card bg-[#111] border border-gray-700 p-3 rounded-md cursor-pointer';
-    card.dataset.team = teamId;
-    card.dataset.index = i;
-    card.dataset.confirmed = 'false';
+    card.className = 'player-card bg-[#111] border border-gray-700 p-3 rounded-md cursor-default';
+    card.dataset.team=teamId; card.dataset.index=idx;
+    if (p.confirmed) card.classList.add('confirmed');
     card.innerHTML = `
       <div class="flex items-center justify-between">
         <div>
           <div class="text-sm text-gray-300 font-semibold">${slotLabel}</div>
           <div class="mt-2">
-            <input placeholder="Name..." class="player-name w-full p-2 rounded-md bg-[#0b0b0b] border border-gray-600 text-sm" />
+            <input class="player-name w-full p-2 rounded-md bg-[#0b0b0b] border border-gray-600 text-sm" value="${p.name}" />
           </div>
         </div>
-        <div class="ml-3 flex items-center gap-2">
-          <div class="text-xs text-gray-400">pos</div>
-        </div>
+        <div class="ml-3 text-xs text-gray-400">${p.position}</div>
       </div>
 
-      <div class="abilities-area mt-3 hidden"></div>
+      <div class="abilities-area mt-3"></div>
       <div class="positions-area mt-3 hidden"></div>
 
       <div class="mt-3 flex items-center justify-between gap-2">
-        <div class="text-xs text-gray-400">status: <span class="status-text text-gray-300">incomplete</span></div>
+        <div class="text-xs text-gray-400">status: <span class="status-text text-gray-300">${p.confirmed?'confirmed':'incomplete'}</span></div>
         <div class="flex items-center gap-2">
-          <button class="confirm-btn hidden bg-green-600 hover:bg-green-500 p-2 rounded-full text-white" title="Confirm"><i class="fas fa-check"></i></button>
+          <button class="confirm-btn hidden bg-green-600 hover:bg-green-500 p-2 rounded-full text-white"><i class="fas fa-check"></i></button>
         </div>
       </div>
-      <div class="meta mt-2 text-xs text-gray-400 hidden"></div>
+      <div class="meta mt-2 text-xs text-gray-400">${p.abilities.join(', ')} · ${p.position}</div>
     `;
     container.appendChild(card);
+    // wire: name edits allowed, but meta shows current abilities/pos
+    const nameInput = card.querySelector('.player-name');
+    const abilitiesArea = card.querySelector('.abilities-area');
+    const meta = card.querySelector('.meta');
 
-    // event wiring
-    wirePlayerCard(card);
-  }
-}
+    // render ability checkboxes preselected
+    abilitiesArea.innerHTML = `<div class="text-xs text-gray-400 mb-1">Abilities</div><div class="flex flex-wrap gap-2 abilities-list"></div>`;
+    const list = abilitiesArea.querySelector('.abilities-list');
+    abilities.forEach(ab => {
+      const checked = p.abilities.includes(ab) ? 'checked' : '';
+      const label = document.createElement('label');
+      label.className='flex items-center gap-2 text-sm cursor-pointer';
+      label.innerHTML = `<input type="checkbox" class="ability-checkbox accent-green-500" value="${ab}" ${checked}> ${ab}`;
+      list.appendChild(label);
+    });
 
-function wirePlayerCard(card) {
-  const nameInput = card.querySelector('.player-name');
-  const abilitiesArea = card.querySelector('.abilities-area');
-  const positionsArea = card.querySelector('.positions-area');
-  const confirmBtn = card.querySelector('.confirm-btn');
-  const statusText = card.querySelector('.status-text');
-  const meta = card.querySelector('.meta');
+    // position select hidden (since auto-filled) — allow editing if user wants
+    const positionsArea = card.querySelector('.positions-area');
+    positionsArea.innerHTML = `<div class="text-xs text-gray-400 mb-1">Position</div>
+      <select class="position-select w-full p-2 rounded-md bg-[#0b0b0b] border border-gray-600 text-sm">
+        <option value="">-- choose --</option>
+        ${positions.map(x=>`<option value="${x}" ${x===p.position?'selected':''}>${x}</option>`).join('')}
+      </select>`;
+    positionsArea.classList.remove('hidden');
 
-  // clicking card selects it for events
-  card.addEventListener('click', (e) => {
-    // avoid selecting if clicking inside inputs/buttons
-    if (e.target.tagName === 'INPUT' || e.target.closest('.confirm-btn') || e.target.tagName === 'SELECT' || e.target.tagName === 'LABEL') return;
-    selectPlayerCard(card);
-  });
-
-  nameInput.addEventListener('input', () => {
-    if (nameInput.value.trim().length > 1) {
-      renderAbilities(abilitiesArea, card);
-      abilitiesArea.classList.remove('hidden');
-    } else {
-      abilitiesArea.classList.add('hidden');
-      positionsArea.classList.add('hidden');
-      confirmBtn.classList.add('hidden');
-      statusText.textContent = 'incomplete';
-    }
-  });
-
-  confirmBtn.addEventListener('click', (ev) => {
-    ev.stopPropagation();
-    // finalize
-    card.dataset.confirmed = 'true';
-    card.classList.add('confirmed');
-    confirmBtn.classList.add('hidden');
-    statusText.textContent = 'confirmed';
-    // lock inputs
-    card.querySelectorAll('input, select').forEach(i => i.disabled = true);
-    // show meta (abilities/position)
-    const chosen = [...card.querySelectorAll('.ability-checkbox:checked')].map(n=>n.value).join(', ');
-    const pos = card.querySelector('.position-select').value;
-    meta.classList.remove('hidden');
-    meta.textContent = `Abilities: ${chosen} · Position: ${pos}`;
-    checkAllConfirmed();
-  });
-}
-
-function renderAbilities(container, card) {
-  // if already rendered skip (but ensure event wired)
-  container.innerHTML = `
-    <div class="text-xs text-gray-400 mb-2">Select 3 abilities</div>
-    <div class="flex flex-wrap gap-2 abilities-list"></div>
-  `;
-  const list = container.querySelector('.abilities-list');
-  abilities.forEach(ab => {
-    const id = `ab-${card.dataset.team}-${card.dataset.index}-${ab}`;
-    const label = document.createElement('label');
-    label.className = 'flex items-center gap-2 text-sm cursor-pointer';
-    label.innerHTML = `<input id="${id}" type="checkbox" class="ability-checkbox accent-green-500" value="${ab}"> <span>${ab}</span>`;
-    list.appendChild(label);
-    label.querySelector('input').addEventListener('change', (e)=> handleAbilityChange(card));
-  });
-}
-
-function handleAbilityChange(card) {
-  const checked = card.querySelectorAll('.ability-checkbox:checked');
-  if (checked.length > 3) {
-    // undo last
-    event.target.checked = false;
-    alert('Pick only 3 abilities');
-    return;
-  }
-  if (checked.length === 3) {
-    renderPositionSelect(card.querySelector('.positions-area'), card);
-  }
-}
-
-function renderPositionSelect(container, card) {
-  container.innerHTML = `
-    <div class="text-xs text-gray-400 mb-2">Select Position</div>
-    <select class="position-select w-full p-2 rounded-md bg-[#0b0b0b] border border-gray-600 text-sm">
-      <option value="">-- choose --</option>
-      ${positions.map(p=>`<option value="${p}">${p}</option>`).join('')}
-    </select>
-  `;
-  container.classList.remove('hidden');
-
-  const sel = container.querySelector('select');
-  sel.addEventListener('change', () => {
-    if (sel.value) {
-      // show green confirm icon
+    // if it's a confirmed auto-player, hide confirm (it's already confirmed)
+    if (p.confirmed) {
       const confirmBtn = card.querySelector('.confirm-btn');
-      confirmBtn.classList.remove('hidden');
-      // show short preview
-      card.querySelector('.status-text').textContent = 'ready';
+      confirmBtn.classList.add('hidden');
+    } else {
+      // if not confirmed show ability select flow (not used in auto)
+      // wire event to show confirm when pos selected & 3 abilities selected
+      card.querySelectorAll('.ability-checkbox').forEach(cb => cb.addEventListener('change', ()=> {
+        const checked = card.querySelectorAll('.ability-checkbox:checked');
+        const select = card.querySelector('.position-select');
+        if (checked.length > 3) { cb.checked = false; alert('Only 3 abilities allowed'); return; }
+        if (checked.length === 3 && select.value) card.querySelector('.confirm-btn').classList.remove('hidden');
+      }));
+      card.querySelector('.position-select').addEventListener('change', ()=> {
+        const checked = card.querySelectorAll('.ability-checkbox:checked');
+        if (checked.length === 3) card.querySelector('.confirm-btn').classList.remove('hidden');
+      });
     }
+
+    // update state when name or position changed
+    nameInput.addEventListener('change', (ev)=> {
+      state[teamId].players[idx].name = ev.target.value || state[teamId].players[idx].name;
+      meta.textContent = `${state[teamId].players[idx].abilities.join(', ')} · ${state[teamId].players[idx].position}`;
+    });
+    positionsArea.querySelector('select').addEventListener('change', (ev)=> {
+      state[teamId].players[idx].position = ev.target.value;
+      card.querySelector('.ml-3').textContent = ev.target.value;
+      meta.textContent = `${state[teamId].players[idx].abilities.join(', ')} · ${state[teamId].players[idx].position}`;
+    });
+
   });
 }
 
-// selection management (for events)
-let currentlySelectedCard = null;
-function selectPlayerCard(card) {
-  // unselect previous
-  document.querySelectorAll('.player-card.selected').forEach(el => el.classList.remove('selected'));
-  // set
-  card.classList.add('selected');
-  currentlySelectedCard = card;
-  const nm = card.querySelector('.player-name').value || `#${card.dataset.index}`;
-  document.getElementById('selectedPlayerLabel').textContent = `${nm} — ${ (card.dataset.team === 'A') ? (teamANameInput.value || 'Team A') : (teamBNameInput.value || 'Team B') }`;
-}
-
-// create both teams
-createTeam('A');
-createTeam('B');
-
-// commentary / event buttons
-const btnFoul = document.getElementById('btnFoul');
-const btnYellow = document.getElementById('btnYellow');
-const btnRed = document.getElementById('btnRed');
-const log = document.getElementById('commentaryLog');
-
-function pushLog(msg) {
-  const time = new Date();
-  const hh = String(time.getHours()).padStart(2,'0');
-  const mm = String(time.getMinutes()).padStart(2,'0');
-  const el = document.createElement('div');
-  el.className = 'mb-1';
-  el.innerHTML = `<span class="text-gray-500 text-xs">[${hh}:${mm}]</span> <span class="text-sm">${msg}</span>`;
-  log.prepend(el);
-}
-
-function applyEvent(type) {
-  if (!currentlySelectedCard) { alert('Select a player card first (click the card)'); return; }
-  const team = currentlySelectedCard.dataset.team === 'A' ? 'teamA' : 'teamB';
-  const playerName = currentlySelectedCard.querySelector('.player-name').value || `#${currentlySelectedCard.dataset.index}`;
-  if (type === 'foul') {
-    counters[team].fouls += 1;
-    pushLog(`${playerName} ( ${team === 'teamA' ? (teamANameInput.value || 'Team A') : (teamBNameInput.value || 'Team B')} ) committed a foul`);
-  } else if (type === 'yc') {
-    counters[team].yellow += 1;
-    pushLog(`Yellow card → ${playerName}`);
-  } else if (type === 'rc') {
-    counters[team].red += 1;
-    pushLog(`Red card → ${playerName} — sent off`);
-    // visually mark card (optional)
-    currentlySelectedCard.classList.add('opacity-60');
-  }
-  updateCountersUI();
-}
-
-btnFoul.addEventListener('click', ()=>applyEvent('foul'));
-btnYellow.addEventListener('click', ()=>applyEvent('yc'));
-btnRed.addEventListener('click', ()=>applyEvent('rc'));
-
-// check completion & Start Match
-const startMatchBtn = document.getElementById('startMatch');
-function checkAllConfirmed() {
-  const allCards = document.querySelectorAll('.player-card');
-  const confirmed = [...allCards].filter(c => c.dataset.confirmed === 'true').length;
-  if (confirmed === allCards.length) {
-    startMatchBtn.classList.remove('hidden');
-    pushLog('All players confirmed — Ready to start match');
-  }
-}
-
-// wire up Start Match to save setup and open modal (placeholder)
-startMatchBtn.addEventListener('click', ()=> {
-  // gather data
-  const teams = { A: { name: teamANameInput.value || 'Team A', players: [] }, B: { name: teamBNameInput.value || 'Team B', players: [] } };
-  document.querySelectorAll('.player-card').forEach(card=>{
-    const team = card.dataset.team;
-    const name = card.querySelector('.player-name').value || `#${card.dataset.index}`;
-    const abilitiesSelected = [...card.querySelectorAll('.ability-checkbox:checked')].map(i=>i.value);
-    const posEl = card.querySelector('.position-select');
-    const pos = posEl ? posEl.value : '';
-    const confirmed = card.dataset.confirmed === 'true';
-    teams[team].players.push({ name, abilities: abilitiesSelected, pos, confirmed });
-  });
-  // for now we store to localStorage and show alert; next step -> modal match engine
-  localStorage.setItem('simSetup', JSON.stringify({ teams, counters }));
-  pushLog('Match setup saved. Opening match (placeholder)');
-  alert('Match setup saved. (In next stage we will open the simulation modal / pitch)');
+// when user types a team name -> run auto fill after short debounce
+let fillTimerA = null, fillTimerB = null;
+teamANameInput.addEventListener('input', ()=> {
+  clearTimeout(fillTimerA);
+  const nm = teamANameInput.value.trim();
+  teamANameInput.classList.remove('border-red-500');
+  fillTimerA = setTimeout(()=> {
+    if (nm.length>1) autoFillTeam('A', nm);
+    else { state.A.players = []; renderTeamCards('A'); }
+    toggleStartFlow();
+  }, 450);
+});
+teamBNameInput.addEventListener('input', ()=> {
+  clearTimeout(fillTimerB);
+  const nm = teamBNameInput.value.trim();
+  fillTimerB = setTimeout(()=> {
+    if (nm.length>1) autoFillTeam('B', nm);
+    else { state.B.players = []; renderTeamCards('B'); }
+    toggleStartFlow();
+  }, 450);
 });
 
-// small helper to update UI counters initially
-updateCountersUI();
+function toggleStartFlow(){
+  const readyA = state.A.players.length >= (starterCount + subsCount);
+  const readyB = state.B.players.length >= (starterCount + subsCount);
+  if (readyA && readyB && teamANameInput.value.trim().length>1 && teamBNameInput.value.trim().length>1) {
+    startFlowBtn.disabled = false;
+  } else {
+    startFlowBtn.disabled = true;
+  }
+}
 
+/* -------- Start flow: loading overlay -> countdown -> matchmaking -> modal open -> simulation start -------- */
+const loadingOverlay = document.getElementById('loadingOverlay');
+const countdownEl = document.getElementById('countdown');
+const loadingText = document.getElementById('loadingText');
+const matchModal = document.getElementById('matchModal');
+
+startFlowBtn.addEventListener('click', async () => {
+  // ensure latest names stored
+  state.A.name = teamANameInput.value.trim() || state.A.name;
+  state.B.name = teamBNameInput.value.trim() || state.B.name;
+
+  // show overlay
+  loadingOverlay.classList.remove('hidden');
+  loadingText.textContent = 'AI filling squad & preparing match…';
+  // short pause to feel responsive
+  await wait(600);
+
+  // run 5s countdown
+  for (let i=5;i>=0;i--){
+    countdownEl.textContent = i;
+    await wait(1000);
+  }
+
+  // matchmaking writeup 2s
+  loadingText.textContent = 'Matchmaking — generating lineups & tactics';
+  countdownEl.textContent = '';
+  await wait(2000);
+
+  // open modal and start simulation
+  loadingOverlay.classList.add('hidden');
+  openMatchModalAndStart();
+});
+
+function wait(ms){ return new Promise(res=>setTimeout(res, ms)); }
+
+// ------------ Match modal & simulation ------------
+const modalTeamAName = document.getElementById('modalTeamAName');
+const modalTeamBName = document.getElementById('modalTeamBName');
+const teamAHeaderModal = document.getElementById('teamAHeaderModal');
+const teamBHeaderModal = document.getElementById('teamBHeaderModal');
+const scoreAEl = document.getElementById('scoreA');
+const scoreBEl = document.getElementById('scoreB');
+const matchTimeEl = document.getElementById('matchTime');
+const eventLog = document.getElementById('eventLog');
+const modalCommentary = document.getElementById('modalCommentary');
+const posessionInfo = document.getElementById('posessionInfo');
+const mA_fouls = document.getElementById('mA-fouls');
+const mB_fouls = document.getElementById('mB-fouls');
+const mA_y = document.getElementById('mA-y');
+const mB_y = document.getElementById('mB-y');
+const mA_r = document.getElementById('mA-r');
+const mB_r = document.getElementById('mB-r');
+const goalEventFlashHolder = document.getElementById('goalEventFlashHolder');
+
+let sim = {
+  running: false,
+  minute: 0,
+  totalMinutes: 90,
+  extra: 5,
+  scoreA: 0,
+  scoreB: 0,
+  possessionA: 50,
+  timelineInterval: null,
+  eventSeed: Date.now()
+};
+
+function openMatchModalAndStart(){
+  // set headers
+  modalTeamAName.textContent = state.A.name;
+  modalTeamBName.textContent = state.B.name;
+  teamAHeaderModal.textContent = state.A.name;
+  teamBHeaderModal.textContent = state.B.name;
+
+  // reset counters & UI
+  sim.minute = 0; sim.scoreA = 0; sim.scoreB = 0;
+  sim.possessionA = 50;
+  mA_fouls.textContent = 0; mB_fouls.textContent = 0; mA_y.textContent=0; mB_y.textContent=0; mA_r.textContent=0; mB_r.textContent=0;
+  scoreAEl.textContent = '0'; scoreBEl.textContent = '0';
+  eventLog.innerHTML = ''; modalCommentary.innerHTML = ''; posessionInfo.textContent = `Possession — ${state.A.name} 50% · ${state.B.name} 50%`;
+  goalEventFlashHolder.innerHTML = '';
+
+  // draw players on pitch
+  drawPlayersOnPitch();
+
+  // show modal
+  matchModal.classList.remove('hidden');
+
+  // start simulation (accelerated): set minuteTickMs small so match runs quicker
+  const minuteTickMs = 450; // 450ms per match-minute (90 minutes -> ~40.5s)
+  sim.running = true;
+  sim.timelineInterval = setInterval(() => {
+    if (!sim.running) return;
+    sim.minute++;
+    updateTimeUI(sim.minute);
+    simulationMinuteTick(sim.minute);
+    if (sim.minute >= (sim.totalMinutes + sim.extra)) {
+      // end match
+      clearInterval(sim.timelineInterval);
+      pushEvent(`Full Time — ${state.A.name} ${sim.scoreA} — ${sim.scoreB} ${state.B.name}`);
+      sim.running = false;
+    }
+  }, minuteTickMs);
+}
+
+// update time display (format mm')
+function updateTimeUI(min){
+  const m = Math.min(min, sim.totalMinutes + sim.extra);
+  let display = `${m}'`;
+  matchTimeEl.textContent = display;
+}
+
+// simulation logic per minute: random events
+function simulationMinuteTick(minute){
+  // adjust possession slightly randomly
+  const delta = Math.floor((Math.random()*5)-2); // -2..+2
+  sim.possessionA = Math.max(30, Math.min(70, sim.possessionA + delta));
+  const pA = sim.possessionA, pB = 100-pA;
+  posessionInfo.textContent = `Possession — ${state.A.name} ${pA}% · ${state.B.name} ${pB}%`;
+
+  // event probabilities (tuned for demo):
+  // goal chance base: 0.035 per minute, increased by possession
+  const baseGoalChance = 0.02;
+  const goalChanceA = baseGoalChance + (pA-50)/1000; // slight bump
+  const goalChanceB = baseGoalChance + (pB-50)/1000;
+  if (Math.random() < goalChanceA){
+    // goal for A
+    const scorer = pickRandomPlayer(state.A);
+    sim.scoreA++; scoreAEl.textContent = sim.scoreA;
+    pushEvent(`${scorer} ( ${state.A.name} ) — GOAL! (${minute}')`);
+    flashGoal(`${scorer} — ${state.A.name} (${minute}')`);
+  } else if (Math.random() < goalChanceB){
+    // goal for B
+    const scorer = pickRandomPlayer(state.B);
+    sim.scoreB++; scoreBEl.textContent = sim.scoreB;
+    pushEvent(`${scorer} ( ${state.B.name} ) — GOAL! (${minute}')`);
+    flashGoal(`${scorer} — ${state.B.name} (${minute}')`);
+  }
+
+  // fouls/cards chance
+  if (Math.random() < 0.06){
+    const team = (Math.random()<0.5)?'A':'B';
+    const player = pickRandomPlayer(state[team]);
+    state.counters = state.counters || {A:{},B:{}};
+    if (!state.counters[team]) state.counters[team] = {fouls:0,y:0,r:0};
+    state.counters[team].fouls = (state.counters[team].fouls || 0) + 1;
+    if (team==='A') mA_fouls.textContent = state.counters[team].fouls;
+    else mB_fouls.textContent = state.counters[team].fouls;
+    pushEvent(`Foul on ${player} — ${state[team].name} (${minute}')`);
+  }
+
+  // yellow card
+  if (Math.random() < 0.03){
+    const team = (Math.random()<0.5)?'A':'B';
+    const player = pickRandomPlayer(state[team]);
+    state.counters[team].y = (state.counters[team].y||0)+1;
+    if (team==='A') mA_y.textContent = state.counters[team].y;
+    else mB_y.textContent = state.counters[team].y;
+    pushEvent(`Yellow card for ${player} — ${state[team].name} (${minute}')`);
+  }
+  // red card (rare)
+  if (Math.random() < 0.008){
+    const team = (Math.random()<0.5)?'A':'B';
+    const player = pickRandomPlayer(state[team]);
+    state.counters[team].r = (state.counters[team].r||0)+1;
+    if (team==='A') mA_r.textContent = state.counters[team].r;
+    else mB_r.textContent = state.counters[team].r;
+    pushEvent(`Red card! ${player} sent off — ${state[team].name} (${minute}')`);
+  }
+
+  // extra micro commentary push sometimes
+  if (Math.random() < 0.2){
+    pushCommentary(`${minute}' — Tight moment, both teams probing for space.`);
+  }
+}
+
+// small helper to pick a random *confirmed* player name for team object
+function pickRandomPlayer(teamObj){
+  const confirmed = teamObj.players.filter(p=>p && p.name);
+  if (!confirmed.length) return 'Unknown';
+  return confirmed[Math.floor(Math.random()*confirmed.length)].name;
+}
+
+function pushEvent(msg){
+  const wrapper = document.createElement('div');
+  wrapper.className = 'mb-1 text-sm text-gray-300';
+  wrapper.innerText = msg;
+  eventLog.prepend(wrapper);
+  // also to commentary (short)
+  pushCommentary(msg);
+}
+
+function pushCommentary(msg){
+  const el = document.createElement('div');
+  el.className = 'mb-1';
+  el.innerHTML = `<span class="text-gray-500 text-xs">[${new Date().getMinutes()}:${String(new Date().getSeconds()).padStart(2,'0')}]</span> <span>${msg}</span>`;
+  modalCommentary.prepend(el);
+}
+
+// small goal flash UI
+function flashGoal(text){
+  goalEventFlashHolder.innerHTML = `<div class="goal-flash bg-green-700/10 text-green-300 inline-block px-4 py-2 rounded">${text}</div>`;
+  // clear after 2s
+  setTimeout(()=>{ goalEventFlashHolder.innerHTML=''; }, 2000);
+}
+
+// draw players (simple grid positions and draggable)
+function drawPlayersOnPitch(){
+  const pitch = document.getElementById('pitch');
+  pitch.innerHTML = '';
+  // draw team A on left half, team B on right half
+  const layoutA = getFormationPositions('A');
+  const layoutB = getFormationPositions('B');
+  // create draggable elements
+  state.A.players.slice(0, starterCount).forEach((p,i)=>{
+    const el = createPlayerEl(p.name, 'A', i, layoutA[i]);
+    pitch.appendChild(el);
+  });
+  state.B.players.slice(0, starterCount).forEach((p,i)=>{
+    const el = createPlayerEl(p.name, 'B', i, layoutB[i]);
+    pitch.appendChild(el);
+  });
+
+  // make elements draggable by mouse/touch (very simple)
+  makePitchDraggable(pitch);
+}
+
+function createPlayerEl(name, team, idx, pos){
+  const el = document.createElement('div');
+  el.className = `player-pill absolute cursor-grab bg-[${team==='A'?'rgba(34,197,94,0.12)':'rgba(239,68,68,0.08)'] } rounded-full px-2 py-1 text-xs border border-gray-700`;
+  // inline style for position
+  el.style.left = pos.x + '%';
+  el.style.top = pos.y + '%';
+  el.style.transform = 'translate(-50%,-50%)';
+  el.innerHTML = `<span class="font-semibold">${name}</span>`;
+  el.dataset.team = team; el.dataset.idx = idx;
+  el.style.padding = '6px 8px';
+  el.style.borderRadius = '999px';
+  el.style.border = team==='A' ? '1px solid rgba(34,197,94,0.18)' : '1px solid rgba(239,68,68,0.16)';
+  el.style.background = team==='A' ? 'rgba(34,197,94,0.04)' : 'rgba(239,68,68,0.04)';
+  el.style.color = '#d7ffea';
+  return el;
+}
+
+// simple layout generator (returns array of positions for 11 players)
+function getFormationPositions(team){
+  // use simple rows: GK, Def(4), Mid(4), Attack(2)
+  // return array of objects {x: %, y: %}
+  const left = team==='A' ? 25 : 75;
+  const positions = [];
+  // GK
+  positions.push({ x: left, y: 88 });
+  // DEF row
+  const defYs = [68];
+  for (let i=0;i<4;i++) positions.push({ x: left - 18 + (i*12), y: 68 });
+  // MID row
+  for (let i=0;i<4;i++) positions.push({ x: left - 18 + (i*12), y: 48 });
+  // ATT row
+  positions.push({ x: left - 8, y: 28 });
+  positions.push({ x: left + 8, y: 28 });
+  return positions;
+}
+
+// simple drag to move players on pitch (mouse and touch)
+function makePitchDraggable(pitch){
+  let dragging = null, offsetX=0, offsetY=0;
+  pitch.querySelectorAll('.player-pill').forEach(p => {
+    p.addEventListener('pointerdown', (e)=>{
+      dragging = p;
+      p.setPointerCapture(e.pointerId);
+      const rect = pitch.getBoundingClientRect();
+      offsetX = e.clientX - rect.left - (parseFloat(p.style.left)/100)*rect.width;
+      offsetY = e.clientY - rect.top - (parseFloat(p.style.top)/100)*rect.height;
+      p.style.cursor='grabbing';
+    });
+    p.addEventListener('pointermove', (e)=>{
+      if (!dragging || dragging !== p) return;
+      const rect = pitch.getBoundingClientRect();
+      // convert to percentage
+      let x = (e.clientX - rect.left - offsetX)/rect.width * 100;
+      let y = (e.clientY - rect.top - offsetY)/rect.height * 100;
+      x = Math.max(2, Math.min(98, x)); y = Math.max(2, Math.min(98, y));
+      p.style.left = x + '%'; p.style.top = y + '%';
+    });
+    p.addEventListener('pointerup', (e)=>{
+      p.releasePointerCapture(e.pointerId);
+      p.style.cursor='grab';
+      dragging=null;
+    });
+    // make touch friendly
+  });
+}
+
+// pause / controls
+document.getElementById('pauseBtn').addEventListener('click', ()=>{
+  sim.running = !sim.running;
+  document.getElementById('pauseBtn').textContent = sim.running ? '⏸ Pause' : '▶ Resume';
+});
+document.getElementById('skipBtn').addEventListener('click', ()=>{
+  // advance by +10 minutes quickly
+  sim.minute += 10;
+  updateTimeUI(sim.minute);
+});
+
+// close match modal
+function closeMatch(){ 
+  if (sim.timelineInterval) clearInterval(sim.timelineInterval);
+  sim.running = false;
+  matchModal.classList.add('hidden');
+}
+
+/* helpers */
+function updateCountersUI(){
+  // nothing here because counters updated in simulation
+}
+
+/* expose some functions to console for testing */
+window._autoFillTeam = autoFillTeam;
+window._state = state;
 </script>
+
 </body>
 </html>
