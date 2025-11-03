@@ -169,37 +169,7 @@
       <button id="closeModalBtn" class="absolute top-3 right-3 text-gray-400 hover:text-white"><i class="fas fa-times"></i></button>
     </div>
   </div>
-You're right — there **are errors** in the current code that prevent it from working properly. The main issues are:
 
----
-
-### Critical Bugs Found
-
-1. **`realPos()` function fails**  
-   → It tries to match player names with dots (e.g., "V. Jr.") but doesn't handle all cases → `undefined` → infinite loop in `aiGenerateTeam`.
-
-2. **Ronaldo/Messi not properly placed in ATT slot**  
-   → They are added first, but then skipped incorrectly in the `required.forEach` loop.
-
-3. **`formationPositions()` assigns wrong indices**  
-   → GK gets index 0, DEF 1–4, MID 5–8, ATT 9–10 → but Ronaldo/Messi are inserted at the **beginning**, so they end up in **DEF/MID** slots.
-
-4. **`uniqueName()` can return duplicates**  
-   → Because it adds a number (`#10`) sometimes, but `used.has(name)` checks exact string → still possible collision.
-
-5. **Penalty logic calls `resolvePenalty()` with wrong team**  
-   → Foul by Team A → penalty for Team B (correct), but timing and animation missing.
-
-6. **Card icons appear but block interaction**  
-   → `position: relative` on pill breaks layout.
-
----
-
-## FULLY FIXED & WORKING VERSION
-
-Replace **your entire `<script>` block** with this **corrected, tested, and working** version:
-
-```html
 <script>
 /* --------------------------------------------------------------
    CONFIG & DATA POOLS
