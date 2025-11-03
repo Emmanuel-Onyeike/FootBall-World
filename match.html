@@ -3,89 +3,171 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Match Simulator — Live 10.0</title>
+  <title>Match Simulator — GOLDEN FIRE 11.0</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <style>
     :root {
       --green-team: #10b981;
       --red-team: #ef4444;
+      --gold: #fbbf24;
+      --fire: #f97316;
       --pitch-dark: #013a2a;
       --pitch-light: #02584b;
       --card-glow: 0 0 20px rgba(34,197,94,0.4);
+      --danger-glow: 0 0 25px rgba(251,191,36,0.7);
+      --safe-glow: 0 0 15px rgba(34,197,94,0.5);
     }
     body { font-family: 'Inter', sans-serif; }
     .pitch { 
       background: linear-gradient(180deg, var(--pitch-light) 0%, var(--pitch-dark) 100%);
-      border-radius: 12px; position: relative; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+      border-radius: 16px; position: relative; overflow: hidden; 
+      box-shadow: 0 25px 50px rgba(0,0,0,0.7), inset 0 0 30px rgba(251,191,36,0.15);
+      border: 2px solid rgba(251,191,36,0.3);
     }
     .player-pill {
-      min-width: 56px; height: 36px; text-align: center; box-shadow: 0 6px 20px rgba(0,0,0,0.7);
-      transition: all .18s cubic-bezier(.4,0,.2,1); z-index: 30; cursor: grab; font-weight: 600;
+      min-width: 60px; height: 40px; text-align: center; 
+      box-shadow: 0 8px 24px rgba(0,0,0,0.8), 0 0 15px rgba(251,191,36,0.3);
+      transition: all .22s cubic-bezier(.4,0,.2,1); z-index: 30; cursor: grab; font-weight: 700;
       display: flex; align-items: center; justify-content: center; border-radius: 9999px;
-      backdrop-filter: blur(4px);
+      backdrop-filter: blur(6px); border: 2px solid;
+      font-size: 0.75rem; letter-spacing: 0.5px;
     }
-    .player-pill:active { cursor: grabbing; transform: scale(1.1); }
-    .player-pill.team-a { background: rgba(16,185,129,0.18); border: 1.5px solid rgba(16,185,129,0.3); color: #d1fae5; }
-    .player-pill.team-b { background: rgba(239,68,68,0.18); border: 1.5px solid rgba(239,68,68,0.3); color: #fecaca; }
+    .player-pill:active { cursor: grabbing; transform: scale(1.15); }
+    .player-pill.team-a { 
+      background: linear-gradient(135deg, rgba(16,185,129,0.25), rgba(5,150,105,0.15)); 
+      border-color: rgba(16,185,129,0.6); color: #d1fae5; 
+    }
+    .player-pill.team-b { 
+      background: linear-gradient(135deg, rgba(239,68,68,0.25), rgba(220,38,38,0.15)); 
+      border-color: rgba(239,68,68,0.6); color: #fecaca; 
+    }
+    .player-pill.danger {
+      animation: dangerPulse 1.4s infinite;
+      box-shadow: 0 0 30px rgba(251,191,36,0.9), 0 0 15px rgba(249,115,22,0.8) !important;
+      border-color: #fbbf24 !important;
+    }
+    .player-pill.safe {
+      animation: safePulse 1.8s infinite;
+      box-shadow: 0 0 20px rgba(34,197,94,0.7), 0 0 10px rgba(16,185,129,0.6) !important;
+      border-color: #10b981 !important;
+    }
+    @keyframes dangerPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.18); }
+    }
+    @keyframes safePulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.12); }
+    }
     .goal-flash { 
-      animation: goalPulse 0.6s ease-out forwards; position: absolute; top: 8px; left: 50%; transform: translateX(-50%);
-      background: rgba(34,197,94,0.2); color: #34d399; padding: 8px 20px; border-radius: 8px; font-weight: 700;
-      box-shadow: 0 0 30px rgba(34,197,94,0.5); backdrop-filter: blur(6px);
+      animation: goalPulse 0.7s ease-out forwards; position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
+      background: linear-gradient(90deg, rgba(251,191,36,0.3), rgba(34,197,94,0.3)); 
+      color: #fbbf24; padding: 12px 28px; border-radius: 12px; font-weight: 800; font-size: 1.1rem;
+      box-shadow: 0 0 40px rgba(251,191,36,0.6), 0 0 20px rgba(34,197,94,0.5); 
+      backdrop-filter: blur(8px); border: 1px solid rgba(251,191,36,0.4);
+      text-shadow: 0 2px 8px rgba(0,0,0,0.5);
     }
     @keyframes goalPulse {
-      0% { transform: translateX(-50%) scale(0.8); opacity: 0; }
-      50% { transform: translateX(-50%) scale(1.15); }
+      0% { transform: translateX(-50%) scale(0.7); opacity: 0; }
+      40% { transform: translateX(-50%) scale(1.3); }
       100% { transform: translateX(-50%) scale(1); opacity: 1; }
     }
     .ball { 
-      width: 16px; height: 16px; background: radial-gradient(circle at 30% 30%, #fff, #e5e7eb);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.5); z-index: 25; transition: all .3s ease;
+      width: 20px; height: 20px; background: radial-gradient(circle at 35% 35%, #fff, #e5e7eb);
+      box-shadow: 0 3px 10px rgba(0,0,0,0.6), 0 0 15px rgba(251,191,36,0.5); z-index: 25; 
+      transition: all .28s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid #fbbf24;
     }
-    .loading-overlay { backdrop-filter: blur(8px); background: rgba(0,0,0,0.85); }
-    .team-card { transition: all .2s; }
-    .team-card:hover { transform: translateY(-2px); }
-    .event-item { transition: opacity .3s; }
-    .event-item.new { animation: fadeIn .4s; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
-    .stat-badge { font-size: 11px; padding: 2px 6px; border-radius: 6px; font-weight: 700; }
-    .possession-bar { height: 6px; border-radius: 3px; overflow: hidden; background: #1f2937; }
-    .possession-fill { height: 100%; transition: width .6s ease; }
-    .possession-fill.a { background: var(--green-team); }
-    .possession-fill.b { background: var(--red-team); }
-    .btn-primary { background: linear-gradient(135deg, #10b981, #059669); color: white; font-weight: 600; }
-    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(16,185,129,0.3); }
+    .ball.danger { animation: ballDanger 0.8s infinite; }
+    @keyframes ballDanger { 0%,100% { box-shadow: 0 0 20px #f97316; } 50% { box-shadow: 0 0 35px #f97316; } }
+    .loading-overlay { backdrop-filter: blur(12px); background: rgba(0,0,0,0.92); }
+    .team-card { transition: all .25s; }
+    .team-card:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(251,191,36,0.15); }
+    .event-item { transition: opacity .35s; }
+    .event-item.new { animation: fadeIn .45s; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: none; } }
+    .possession-bar { height: 8px; border-radius: 4px; overflow: hidden; background: #1f2937; border: 1px solid #374151; }
+    .possession-fill { height: 100%; transition: width .7s ease; }
+    .possession-fill.a { background: linear-gradient(90deg, #10b981, #34d399); }
+    .possession-fill.b { background: linear-gradient(90deg, #ef4444, #fca5a5); }
+    .btn-primary { 
+      background: linear-gradient(135deg, #f59e0b, #f97316); color: white; font-weight: 700; 
+      box-shadow: 0 6px 15px rgba(249,115,22,0.4);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(249,115,22,0.5); }
     .btn-secondary { background: #374151; }
     .btn-secondary:hover { background: #4b5563; }
-    .commentary-line { font-size: 13px; line-height: 1.5; }
-    .commentary-line .time { color: #94a3b8; font-family: monospace; }
-    .pitch-line { position: absolute; border: 1px solid rgba(255,255,255,0.15); }
+    .commentary-line { font-size: 13.5px; line-height: 1.6; }
+    .commentary-line .time { color: #94a3b8; font-family: monospace; font-weight: 600; }
+    .pitch-line { position: absolute; border: 1.5px solid rgba(255,255,255,0.18); }
     .center-circle { 
-      position: absolute; width: 80px; height: 80px; border: 2px solid rgba(255,255,255,0.2); 
+      position: absolute; width: 90px; height: 90px; border: 2.5px solid rgba(251,191,36,0.3); 
       border-radius: 50%; left: 50%; top: 50%; transform: translate(-50%,-50%); 
     }
     .penalty-spot { 
-      position: absolute; width: 8px; height: 8px; background: white; border-radius: 50%; 
+      position: absolute; width: 10px; height: 10px; background: #fbbf24; border-radius: 50%; 
+      box-shadow: 0 0 15px rgba(251,191,36,0.8);
     }
     .penalty-spot.a { left: 12%; top: 12%; }
     .penalty-spot.b { right: 12%; top: 12%; }
     .substitution-popup {
-      position: absolute; background: rgba(0,0,0,0.9); color: white; padding: 8px 12px; 
-      border-radius: 8px; font-size: 12px; pointer-events: none; z-index: 100; opacity: 0;
-      transition: opacity .2s; backdrop-filter: blur(4px); border: 1px solid rgba(255,255,255,0.1);
+      position: absolute; background: rgba(0,0,0,0.95); color: white; padding: 10px 16px; 
+      border-radius: 12px; font-size: 13px; pointer-events: none; z-index: 100; opacity: 0;
+      transition: opacity .3s; backdrop-filter: blur(8px); border: 1.5px solid rgba(251,191,36,0.4);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
     }
     .substitution-popup.show { opacity: 1; }
     .tactical-badge {
-      position: absolute; top: -8px; right: -8px; font-size: 10px; padding: 2px 5px;
-      background: #1f2937; color: #e2e8f0; border-radius: 4px; font-weight: 600;
+      position: absolute; top: -10px; right: -10px; font-size: 11px; padding: 3px 7px;
+      background: linear-gradient(135deg, #1f2937, #111827); color: #fbbf24; border-radius: 6px; font-weight: 700;
+      border: 1px solid #fbbf24;
     }
     .score-line {
-      font-weight: 900; font-size: 2.5rem; letter-spacing: -2px;
-      background: linear-gradient(90deg, #10b981, #f59e0b, #ef4444);
+      font-weight: 900; font-size: 3.2rem; letter-spacing: -3px;
+      background: linear-gradient(90deg, #10b981, #fbbf24, #ef4444);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+      text-shadow: 0 3px 10px rgba(0,0,0,0.5);
+      transition: all .35s ease;
+    }
+    .score-line.goal { 
+      animation: scorePulse 0.7s ease-out;
+    }
+    @keyframes scorePulse {
+      0% { transform: scale(1); }
+      45% { transform: scale(1.35); }
+      100% { transform: scale(1); }
+    }
+    .commentary-line.live {
+      color: #fbbf24;
+      font-weight: 700;
+      animation: liveBlink 1.6s infinite;
+      text-shadow: 0 0 10px rgba(251,191,36,0.5);
+    }
+    @keyframes liveBlink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.75; }
+    }
+    .free-kick-zone {
+      position: absolute; width: 80px; height: 80px; border: 3px dashed #fbbf24; 
+      border-radius: 50%; opacity: 0; pointer-events: none; z-index: 20;
+      box-shadow: 0 0 20px rgba(251,191,36,0.6); animation: fkZonePulse 2s infinite;
+    }
+    .free-kick-zone.show { opacity: 0.7; }
+    @keyframes fkZonePulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+    .arrow-indicator {
+      position: absolute; font-size: 1.8rem; color: #fbbf24; z-index: 28; opacity: 0;
+      transition: opacity .3s; text-shadow: 0 0 15px rgba(251,191,36,0.8);
+      animation: arrowPulse 1.2s infinite;
+    }
+    .arrow-indicator.show { opacity: 1; }
+    @keyframes arrowPulse {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
     }
   </style>
 </head>
@@ -94,72 +176,80 @@
   <div class="container mx-auto p-4 md:p-6 max-w-7xl">
     <!-- Header -->
     <header class="mb-8 text-center">
-      <h1 class="text-4xl md:text-5xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-teal-500">
-        <i class="fas fa-futbol mr-3"></i> Match Simulator Pro
+      <h1 class="text-5xl md:text-6xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 via-amber-400 to-rose-500">
+        <i class="fas fa-futbol mr-3 animate-pulse"></i> GOLDEN FIRE MATCH PRO
       </h1>
-      <p class="text-slate-400 mt-2 text-sm md:text-base">Auto lineups • Realistic positions • Cards & penalties</p>
+      <p class="text-slate-300 mt-3 text-base md:text-lg font-medium">
+        <i class="fas fa-bolt mr-2 text-amber-400"></i> Free Kicks • Penalties • Danger Arrows • Ball Flow
+      </p>
     </header>
 
     <main class="grid lg:grid-cols-12 gap-6">
       <!-- Team A Panel -->
       <section class="lg:col-span-3">
-        <div class="bg-slate-900/80 backdrop-blur-xl p-5 rounded-2xl border border-slate-800 shadow-2xl team-card">
-          <div class="flex items-center justify-between mb-4">
-            <input id="teamAName" class="flex-1 bg-transparent border border-slate-700 rounded-lg px-3 py-2 text-sm focus:border-emerald-500 focus:outline-none transition" 
+        <div class="bg-slate-900/85 backdrop-blur-2xl p-6 rounded-2xl border border-amber-500/30 shadow-2xl team-card">
+          <div class="flex items-center justify-between mb-5">
+            <input id="teamAName" class="flex-1 bg-transparent border border-slate-700 rounded-lg px-4 py-2.5 text-sm focus:border-amber-500 focus:outline-none transition" 
                    placeholder="Team A name" value="Real Team A"/>
-            <button id="tickA" class="ml-3 px-4 py-2 rounded-lg bg-gradient-to-r from-emerald-600 to-emerald-700 text-white font-semibold text-sm hover:from-emerald-700 hover:to-emerald-800 transition shadow-md">
+            <button id="tickA" class="ml-3 px-5 py-2.5 rounded-lg bg-gradient-to-r from-amber-600 to-amber-700 text-white font-bold text-sm hover:from-amber-700 hover:to-amber-800 transition shadow-lg">
               <i class="fas fa-robot mr-1"></i> AI
             </button>
           </div>
-          <h3 id="teamATitle" class="text-xl font-bold text-emerald-400 mb-3">Real Team A</h3>
-          <div id="players-A" class="space-y-2 max-h-96 overflow-y-auto pr-1"></div>
+          <h3 id="teamATitle" class="text-2xl font-bold text-emerald-400 mb-4 flex items-center">
+            <i class="fas fa-shield-alt mr-2"></i> Real Team A
+          </h3>
+          <div id="players-A" class="space-y-2.5 max-h-96 overflow-y-auto pr-1"></div>
         </div>
       </section>
 
       <!-- Center: Pitch + Controls -->
       <section class="lg:col-span-6">
-        <div class="bg-slate-900/80 backdrop-blur-xl p-5 rounded-2xl border border-slate-800 shadow-2xl">
+        <div class="bg-slate-900/85 backdrop-blur-2xl p-6 rounded-2xl border border-amber-500/30 shadow-2xl">
           <!-- Controls -->
-          <div class="flex flex-wrap gap-3 mb-5">
-            <button id="startFlowBtn" class="flex-1 md:flex-initial px-6 py-3 rounded-xl btn-primary text-white font-bold text-lg disabled:opacity-50 disabled:cursor-not-allowed" disabled>
-              <i class="fas fa-play mr-2"></i> Start Match
+          <div class="flex flex-wrap gap-3 mb-6">
+            <button id="startFlowBtn" class="flex-1 md:flex-initial px-7 py-3.5 rounded-xl btn-primary text-white font-bold text-lg disabled:opacity-50 disabled:cursor-not-allowed shadow-lg">
+              <i class="fas fa-play mr-2"></i> IGNITE MATCH
             </button>
-            <button id="pauseBtn" class="px-5 py-3 rounded-xl btn-secondary text-white font-semibold">
+            <button id="pauseBtn" class="px-6 py-3.5 rounded-xl btn-secondary text-white font-bold shadow-md">
               <i class="fas fa-pause"></i> Pause
             </button>
-            <button id="ffBtn" class="px-5 py-3 rounded-xl btn-secondary text-white font-semibold">
+            <button id="ffBtn" class="px-6 py-3.5 rounded-xl btn-secondary text-white font-bold shadow-md">
               <i class="fas fa-forward"></i> +6'
             </button>
           </div>
 
           <!-- Score & Time -->
-          <div class="bg-slate-800/70 backdrop-blur p-4 rounded-xl mb-5 border border-slate-700">
+          <div class="bg-gradient-to-r from-slate-800/80 to-slate-900/80 backdrop-blur p-5 rounded-xl mb-6 border border-amber-500/20 shadow-xl">
             <div class="grid grid-cols-3 items-center text-center">
               <div>
-                <div id="modalTeamA" class="text-lg font-bold text-emerald-400">Real Team A</div>
-                <div id="modalTeamAName" class="text-xs text-slate-400">Real Team A</div>
+                <div id="modalTeamA" class="text-xl font-bold text-emerald-400 flex items-center justify-center">
+                  <i class="fas fa-flag mr-2"></i> Real Team A
+                </div>
+                <div id="modalTeamAName" class="text-xs text-slate-300 mt-1">Real Team A</div>
               </div>
               <div>
-                <div class="flex items-center justify-center gap-3">
+                <div class="flex items-center justify-center gap-4">
                   <div id="scoreA" class="score-line">0</div>
-                  <div class="text-3xl font-bold text-slate-400">—</div>
+                  <div class="text-4xl font-bold text-amber-400">—</div>
                   <div id="scoreB" class="score-line">0</div>
                 </div>
-                <div id="matchTime" class="text-xl font-mono text-amber-400 mt-1">0'</div>
-                <div class="possession-bar mt-2">
+                <div id="matchTime" class="text-2xl font-mono text-amber-400 mt-2 font-bold">0'</div>
+                <div class="possession-bar mt-3">
                   <div id="possessionFillA" class="possession-fill a" style="width:50%"></div>
                 </div>
-                <div id="possessionInfo" class="text-xs text-slate-400 mt-1">Possession — 50% · 50%</div>
+                <div id="possessionInfo" class="text-sm text-slate-300 mt-2 font-medium">Possession — 50% · 50%</div>
               </div>
               <div>
-                <div id="modalTeamB" class="text-lg font-bold text-rose-400">Real Team B</div>
-                <div id="modalTeamBName" class="text-xs text-slate-400">Real Team B</div>
+                <div id="modalTeamB" class="text-xl font-bold text-rose-400 flex items-center justify-center">
+                  <i class="fas fa-flag mr-2"></i> Real Team B
+                </div>
+                <div id="modalTeamBName" class="text-xs text-slate-300 mt-1">Real Team B</div>
               </div>
             </div>
           </div>
 
           <!-- Pitch -->
-          <div class="pitch h-80 md:h-96 rounded-xl relative" id="pitch">
+          <div class="pitch h-96 md:h-[480px] rounded-xl relative" id="pitch">
             <div class="pitch-line" style="left:0;right:0;top:50%;border-top-style:dashed;"></div>
             <div class="pitch-line" style="left:16.7%;right:16.7%;top:0;bottom:0;border-left-style:dashed;border-right-style:dashed;"></div>
             <div class="center-circle"></div>
@@ -167,21 +257,23 @@
             <div class="penalty-spot b"></div>
             <div id="ball" class="ball absolute rounded-full" style="left:50%;top:50%;transform:translate(-50%,-50%)"></div>
             <div id="goalFlashHolder" class="absolute top-4 left-1/2 -translate-x-1/2"></div>
+            <div id="fkZone" class="free-kick-zone"></div>
+            <div id="arrowIndicator" class="arrow-indicator">Down Arrow</div>
           </div>
 
           <!-- Stats Row -->
-          <div class="grid grid-cols-3 gap-3 mt-4 text-center">
-            <div class="bg-slate-800/60 p-3 rounded-lg border border-slate-700">
-              <div class="text-xs text-slate-400">Fouls</div>
-              <div class="text-xl font-bold"><span id="mA-fouls">0</span> · <span id="mB-fouls">0</span></div>
+          <div class="grid grid-cols-3 gap-4 mt-6 text-center">
+            <div class="bg-gradient-to-b from-slate-800/70 to-slate-900/70 p-4 rounded-lg border border-amber-500/20 backdrop-blur">
+              <div class="text-sm text-slate-300 font-medium">Fouls</div>
+              <div class="text-2xl font-bold text-amber-400"><span id="mA-fouls">0</span> · <span id="mB-fouls">0</span></div>
             </div>
-            <div class="bg-slate-800/60 p-3 rounded-lg border border-slate-700">
-              <div class="text-xs text-slate-400">Yellow</div>
-              <div class="text-xl font-bold"><span id="mA-y">0</span> · <span id="mB-y">0</span></div>
+            <div class="bg-gradient-to-b from-slate-800/70 to-slate-900/70 p-4 rounded-lg border border-amber-500/20 backdrop-blur">
+              <div class="text-sm text-slate-300 font-medium">Yellow</div>
+              <div class="text-2xl font-bold text-amber-400"><span id="mA-y">0</span> · <span id="mB-y">0</span></div>
             </div>
-            <div class="bg-slate-800/60 p-3 rounded-lg border border-slate-700">
-              <div class="text-xs text-slate-400">Red</div>
-              <div class="text-xl font-bold"><span id="mA-r">0</span> · <span id="mB-r">0</span></div>
+            <div class="bg-gradient-to-b from-slate-800/70 to-slate-900/70 p-4 rounded-lg border border-amber-500/20 backdrop-blur">
+              <div class="text-sm text-slate-300 font-medium">Red</div>
+              <div class="text-2xl font-bold text-amber-400"><span id="mA-r">0</span> · <span id="mB-r">0</span></div>
             </div>
           </div>
         </div>
@@ -189,50 +281,282 @@
 
       <!-- Team B + Events -->
       <section class="lg:col-span-3">
-        <div class="bg-slate-900/80 backdrop-blur-xl p-5 rounded-2xl border border-slate-800 shadow-2xl team-card">
-          <div class="flex items-center justify-between mb-4">
-            <input id="teamBName" class="flex-1 bg-transparent border border-slate-700 rounded-lg px-3 py-2 text-sm focus:border-rose-500 focus:outline-none transition" 
+        <div class="bg-slate-900/85 backdrop-blur-2xl p-6 rounded-2xl border border-amber-500/30 shadow-2xl team-card">
+          <div class="flex items-center justify-between mb-5">
+            <input id="teamBName" class="flex-1 bg-transparent border border-slate-700 rounded-lg px-4 py-2.5 text-sm focus:border-amber-500 focus:outline-none transition" 
                    placeholder="Team B name" value="Real Team B"/>
-            <button id="tickB" class="ml-3 px-4 py-2 rounded-lg bg-gradient-to-r from-rose-600 to-rose-700 text-white font-semibold text-sm hover:from-rose-700 hover:to-rose-800 transition shadow-md">
+            <button id="tickB" class="ml-3 px-5 py-2.5 rounded-lg bg-gradient-to-r from-amber-600 to-amber-700 text-white font-bold text-sm hover:from-amber-700 hover:to-amber-800 transition shadow-lg">
               <i class="fas fa-robot mr-1"></i> AI
             </button>
           </div>
-          <h3 id="teamBTitle" class="text-xl font-bold text-rose-400 mb-3">Real Team B</h3>
-          <div id="players-B" class="space-y-2 max-h-64 overflow-y-auto pr-1 mb-5"></div>
+          <h3 id="teamBTitle" class="text-2xl font-bold text-rose-400 mb-4 flex items-center">
+            <i class="fas fa-shield-alt mr-2"></i> Real Team B
+          </h3>
+          <div id="players-B" class="space-y-2.5 max-h-64 overflow-y-auto pr-1 mb-6"></div>
 
-          <div class="text-xs font-semibold text-slate-400 mb-2 flex items-center">
-            <i class="fas fa-list-ul mr-2"></i> Event log
+          <div class="text-sm font-bold text-amber-400 mb-3 flex items-center">
+            <i class="fas fa-list-ul mr-2"></i> LIVE EVENT LOG
           </div>
-          <div id="eventLog" class="bg-slate-800/50 p-3 rounded-lg h-56 overflow-y-auto text-xs font-mono border border-slate-700"></div>
+          <div id="eventLog" class="bg-slate-800/60 p-4 rounded-lg h-64 overflow-y-auto text-sm font-mono border border-amber-500/20 backdrop-blur"></div>
         </div>
       </section>
     </main>
 
     <!-- Commentary -->
-    <section class="mt-8 bg-slate-900/80 backdrop-blur-xl p-5 rounded-2xl border border-slate-800 shadow-2xl">
-      <div class="flex items-center justify-between mb-4">
-        <h4 class="text-xl font-bold flex items-center"><i class="fas fa-microphone mr-2 text-amber-400"></i> Live Commentary</h4>
-        <div class="text-xs text-slate-400">Real-time play-by-play</div>
+    <section class="mt-8 bg-gradient-to-r from-slate-900/90 to-slate-950/90 backdrop-blur-2xl p-6 rounded-2xl border border-amber-500/30 shadow-2xl">
+      <div class="flex items-center justify-between mb-5">
+        <h4 class="text-2xl font-bold flex items-center text-amber-400">
+          <i class="fas fa-microphone mr-3 animate-pulse"></i> LIVE GOLDEN COMMENTARY
+        </h4>
+        <div class="text-sm text-slate-300">Real-time fire play-by-play</div>
       </div>
-      <div id="modalCommentary" class="h-48 overflow-y-auto pr-2 space-y-1 commentary-line text-sm"></div>
+      <div id="modalCommentary" class="h-56 overflow-y-auto pr-3 space-y-1.5 commentary-line text-sm"></div>
     </section>
 
     <!-- Substitution Popup -->
     <div id="subPopup" class="substitution-popup fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-      <div id="subText"></div>
+      <div id="subText" class="text-lg font-bold"></div>
     </div>
 
     <!-- Loading Overlay -->
     <div id="loadingOverlay" class="hidden fixed inset-0 z-50 flex items-center justify-center loading-overlay">
-      <div class="bg-slate-900/95 p-8 rounded-2xl text-center border border-slate-700 shadow-2xl">
-        <div class="w-16 h-16 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-        <div id="loadingText" class="text-lg font-semibold text-emerald-400">Loading…</div>
-        <div id="countdown" class="text-4xl font-bold text-white mt-3">5</div>
+      <div class="bg-slate-900/98 p-10 rounded-3xl text-center border-2 border-amber-500/50 shadow-2xl">
+        <div class="w-20 h-20 border-5 border-amber-500 border-t-transparent rounded-full animate-spin mx-auto mb-5"></div>
+        <div id="loadingText" class="text-2xl font-bold text-amber-400">IGNITING THE PITCH…</div>
+        <div id="countdown" class="text-5xl font-bold text-white mt-4">5</div>
       </div>
     </div>
   </div>
 
 <script>
+// [ALL ORIGINAL CODE + NEW GOLDEN FEATURES BELOW]
+
+// === NEW ELEMENTS ===
+const fkZone = document.getElementById('fkZone');
+const arrowIndicator = document.getElementById('arrowIndicator');
+let currentDangerPlayer = null;
+let currentSafePlayer = null;
+let isSetPiece = false;
+
+// === ENHANCED pushCommentary with live glow ===
+function pushCommentary(msg){
+  const el = document.createElement('div');
+  el.className = 'mb-1.5 text-sm commentary-line live';
+  const now = new Date();
+  const mm = String(now.getMinutes()).padStart(2,'0');
+  const ss = String(now.getSeconds()).padStart(2,'0');
+  el.innerHTML = `<span class="time">[${mm}:${ss}]</span> <span>${msg}</span>`;
+  modalCommentary.prepend(el);
+  setTimeout(() => { if (el.parentNode) el.classList.remove('live'); }, 4000);
+}
+
+// === DANGER & SAFE INDICATORS ===
+function markDanger(playerEl) {
+  if (currentDangerPlayer) currentDangerPlayer.classList.remove('danger');
+  playerEl.classList.add('danger');
+  currentDangerPlayer = playerEl;
+  ballEl.classList.add('danger');
+  arrowIndicator.classList.add('show');
+  arrowIndicator.style.left = playerEl.style.left;
+  arrowIndicator.style.top = parseFloat(playerEl.style.top) - 15 + '%';
+}
+function markSafe(playerEl) {
+  if (currentSafePlayer) currentSafePlayer.classList.remove('safe');
+  playerEl.classList.add('safe');
+  currentSafePlayer = playerEl;
+  ballEl.classList.remove('danger');
+}
+function clearIndicators() {
+  if (currentDangerPlayer) currentDangerPlayer.classList.remove('danger');
+  if (currentSafePlayer) currentSafePlayer.classList.remove('safe');
+  currentDangerPlayer = currentSafePlayer = null;
+  ballEl.classList.remove('danger');
+  arrowIndicator.classList.remove('show');
+  fkZone.classList.remove('show');
+}
+
+// === FREE KICK SYSTEM ===
+async function handleFreeKick(team, minute) {
+  isSetPiece = true;
+  const taker = chooseSetPieceTaker(team);
+  const takerEl = [...pitchEl.querySelectorAll('.player-pill')].find(p => p.textContent.includes(taker.split(' ')[0]));
+  
+  pushCommentary(`${minute}' — FREE KICK to ${state[team].name}! ${taker} stands over it...`);
+  pushEvent(`Free kick — ${taker} (${state[team].name})`);
+
+  // Show zone
+  const x = team === 'A' ? 70 : 30;
+  fkZone.style.left = x + '%';
+  fkZone.style.top = '50%';
+  fkZone.classList.add('show');
+
+  // Mark taker
+  if (takerEl) markDanger(takerEl);
+
+  await wait(2500); // Tension build
+
+  const scored = Math.random() < 0.38;
+  if (scored) {
+    if (team === 'A') state.sim.scoreA++; else state.sim.scoreB++;
+    scoreAEl.textContent = state.sim.scoreA;
+    scoreBEl.textContent = state.sim.scoreB;
+    pushEvent(`GOAL FROM FREE KICK! ${taker} — ${state[team].name}`);
+    flashGoal(`${taker} (FK)`);
+    animateScore(team);
+  } else {
+    pushCommentary(`${minute}' — ${taker}'s free kick sails over! What a chance!`);
+  }
+
+  clearIndicators();
+  isSetPiece = false;
+  await wait(800);
+}
+
+function chooseSetPieceTaker(teamId) {
+  const pool = state[teamId].players.filter(p => !p.isSub && !p.sentOff);
+  const shooters = pool.filter(p => p.abilities.includes('Shooting') || p.abilities.includes('Passing'));
+  return shooters.length ? randPick(shooters).name : pickPlayerName(teamId);
+}
+
+// === PENALTY WITH TENSION ===
+async function handlePenalty(team, minute) {
+  isSetPiece = true;
+  const taker = choosePenaltyTaker(team);
+  const takerEl = [...pitchEl.querySelectorAll('.player-pill')].find(p => p.textContent.includes(taker.split(' ')[0]));
+
+  pushCommentary(`${minute}' — PENALTY to ${state[team].name}! ${taker} vs the keeper...`);
+  pushEvent(`Penalty — ${taker} (${state[team].name})`);
+
+  if (takerEl) markDanger(takerEl);
+  fkZone.style.left = team === 'A' ? '88%' : '12%';
+  fkZone.style.top = '12%';
+  fkZone.classList.add('show');
+
+  await wait(3000); // PRAYER MOMENT
+
+  const scored = Math.random() < 0.78;
+  if (scored) {
+    if (team === 'A') state.sim.scoreA++; else state.sim.scoreB++;
+    scoreAEl.textContent = state.sim.scoreA;
+    scoreBEl.textContent = state.sim.scoreB;
+    pushEvent(`PENALTY SCORED — ${taker}`);
+    flashGoal(`${taker} (PEN)`);
+    animateScore(team);
+  } else {
+    pushEvent(`PENALTY MISSED — ${taker}`);
+    pushCommentary(`${minute}' — SAVED! The keeper denies ${...`);
+  }
+
+  clearIndicators();
+  isSetPiece = false;
+  await wait(1000);
+}
+
+// === ENHANCED SIMULATION TICK ===
+async function simulationTick(minute){
+  const delta = Math.floor((Math.random()*5)-2);
+  state.sim.possessionA = Math.max(30, Math.min(70, state.sim.possessionA + delta));
+  const pA = state.sim.possessionA, pB = 100-pA;
+  possessionInfo.textContent = `Possession — ${pA}% · ${pB}%`;
+  possessionFillA.style.width = `${pA}%`;
+
+  const attackRoll = Math.random();
+  const attackThresholdA = 0.45 + (pA-50)/200;
+  const attackThresholdB = 0.45 + (pB-50)/200;
+
+  if (!isSetPiece) {
+    if (attackRoll < attackThresholdA){
+      await resolveAttack('A', minute);
+    } else if (attackRoll > (1 - attackThresholdB)){
+      await resolveAttack('B', minute);
+    } else {
+      if (Math.random() < 0.35) pushCommentary(`${minute}' — Both teams locked in a fierce midfield duel.`);
+    }
+  }
+
+  if (!isSetPiece && Math.random() < 0.065){
+    const team = Math.random()<0.5 ? 'A' : 'B';
+    const player = pickPlayerName(team);
+    state[team].counters.fouls++;
+    updateCountersUI();
+    pushEvent(`${player} (${state[team].name}) commits a foul — ${minute}'`);
+
+    if (Math.random() < 0.28){
+      state[team].counters.y++;
+      updateCountersUI();
+      pushEvent(`Yellow card → ${player} — ${state[team].name} (${minute}')`);
+      showTeamCard(team,'yellow');
+
+      if (Math.random()<0.05){
+        state[team].counters.r++; updateCountersUI();
+        pushEvent(`Red card! ${player} sent off — ${state[team].name} (${minute}')`);
+        showTeamCard(team,'red');
+        for (let p of state[team].players){
+          if (p.name === player){ p.sentOff = true; break; }
+        }
+        renderTeamList(team);
+        drawPitchPlayers();
+      }
+    }
+
+    // FREE KICK CHANCE
+    if (Math.random() < 0.42) {
+      await handleFreeKick(team === 'A' ? 'B' : 'A', minute);
+    }
+    // PENALTY CHANCE
+    else if (Math.random() < 0.18){
+      await handlePenalty(team === 'A' ? 'B' : 'A', minute);
+    }
+  }
+
+  if (!state.sim.minGoalGuaranteeApplied && minute > 60){
+    const totalGoals = state.sim.scoreA + state.sim.scoreB;
+    if (totalGoals < 2){
+      state.sim.minGoalGuaranteeApplied = true;
+      pushCommentary(`${minute}' — The stadium holds its breath...`);
+      setTimeout(()=> forceGoal(state.sim.possessionA >= 50 ? 'A' : 'B', minute + 1), state.sim.minuteMs * 2);
+    }
+  }
+}
+
+// === ENHANCED ATTACK WITH DANGER MARKING ===
+async function resolveAttack(team, minute){
+  const attacker = pickPlayerName(team);
+  const attackerEl = [...pitchEl.querySelectorAll('.player-pill')].find(p => p.textContent.includes(attacker.split(' ')[0]));
+  const defenderTeam = team === 'A' ? 'B' : 'A';
+  const defender = pickPlayerName(defenderTeam);
+  const shootQuality = Math.random() * 0.7 + 0.15;
+  const shotOnTarget = Math.random() < 0.64;
+  const goalConversion = 0.12 + (shootQuality * 0.18);
+
+  pushCommentary(`${minute}' — ${attacker} surges forward with intent!`);
+
+  if (attackerEl) markDanger(attackerEl);
+
+  await wait(state.sim.minuteMs * 0.6);
+
+  const roll = Math.random();
+  if (roll < goalConversion && shotOnTarget && Math.random()>0.24){
+    if (team==='A'){ state.sim.scoreA++; scoreAEl.textContent = state.sim.scoreA; }
+    else { state.sim.scoreB++; scoreBEl.textContent = state.sim.scoreB; }
+    pushEvent(`GOAL! ${attacker} — ${state[team].name} (${minute}')`);
+    flashGoal(`${attacker} — ${state[team].name}`);
+    animateBallToHalf(team==='A' ? 88 : 12, 12);
+    animateScore(team);
+  } else if (roll < (goalConversion + 0.36)){
+    pushCommentary(`${minute}' — Keeper denies ${attacker}! Outstanding stop.`);
+    if (attackerEl) markSafe(attackerEl);
+    animateBallToHalf(team==='A' ? 60 : 40, 50);
+  } else if (roll < (goalConversion + 0.36 + 0.24)){
+    pushCommentary(`${minute}' — ${defender} blocks heroically!`);
+    animateBallToHalf(team==='A' ? 55 : 45, 50);
+  } else {
+    pushCommentary(`${minute}' — ${attacker} blazes it wide. So close!`);
+    animateBallToHalf(team==='A' ? 80 : 20, 50);
+  }
+
+  setTimeout(clearIndicators, 1800);
+}
 // ------------------------------
 // Configuration & data pools
 // ------------------------------
