@@ -338,6 +338,36 @@
         </div>
 
         <!-- New Friendly Fixture -->
+          <div class="glass-card p-6 md:p-8 relative flex flex-col justify-between" data-match-id="match-4">
+            <div class="absolute top-4 left-4 text-sm text-gray-400 font-semibold flex items-center">
+                <i class="fas fa-handshake text-green-400 mr-2"></i> FRIENDLY FIXTURE
+            </div>
+            <div class="status absolute top-4 right-4 text-xs bg-gray-800 px-3 py-1 rounded-full flex items-center cursor-pointer hover:bg-gray-700 transition">
+                <span class="live-dot stopped"></span>
+                <span class="status-text font-semibold">Not started</span>
+            </div>
+            <div class="flex justify-between items-center mt-8 mb-6">
+                <div class="text-center flex-1">
+                    <div class="h-16 w-16 md:h-20 md:w-20 flex items-center justify-center bg-emerald-700 rounded-full mx-auto font-extrabold text-2xl shadow-xl border-4 border-emerald-400">CSC</div>
+                    <p class="mt-2 text-lg md:text-xl font-medium">Computer Science 200 Level</p>
+                </div>
+                <div class="text-center mx-4 flex-shrink-0">
+                    <div class="text-5xl md:text-6xl font-extrabold text-green-300 live-score">0 - 0</div>
+                    <div class="match-time-container text-xs mt-1">
+                        <div class="kickoff-info text-gray-300 font-semibold">Friendly Game</div>
+                        <div class="live-timer hidden mt-1 font-bold text-xl md:text-2xl text-red-400 live-glow"><span class="minute-text"></span></div>
+                    </div>
+                </div>
+                <div class="text-center flex-1">
+                    <div class="h-16 w-16 md:h-20 md:w-20 flex items-center justify-center bg-pink-700 rounded-full mx-auto font-extrabold text-2xl shadow-xl border-4 border-pink-400">NUR</div>
+                    <p class="mt-2 text-lg md:text-xl font-medium">MSS 300 Level</p>
+                </div>
+            </div>
+            <div class="tooltip-container">
+                <button class="view-match-btn w-full mt-4 bg-gray-600 cursor-not-allowed transition py-3 rounded-xl text-lg font-bold shadow-md" data-state="disabled">View Match Center</button>
+                <span class="tooltip-text">Match center will be available after the game.</span>
+            </div>
+        </div>
         <div class="glass-card p-6 md:p-8 relative flex flex-col justify-between" data-match-id="match-4">
             <div class="absolute top-4 left-4 text-sm text-gray-400 font-semibold flex items-center">
                 <i class="fas fa-handshake text-green-400 mr-2"></i> FRIENDLY FIXTURE
@@ -606,7 +636,7 @@
           <p class="text-gray-300 text-sm flex items-center gap-2">
             <i class="far fa-calendar-alt text-green-500"></i> Sat, 8th November 2025 – 11:00 Am
           </p>
-          <span class="text-xs bg-blue-800 text-blue-100 px-2 py-1 rounded-full">Postponed</span>
+         <span class="text-xs bg-green-800 text-green-100 px-2 py-1 rounded-full">Friendly Match</span>
         </div>
 
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -643,7 +673,7 @@
     </button>
 
     <h2 class="text-2xl font-bold mb-2">CSC 100 vs Law 100</h2>
-    <p class="text-sm text-gray-400 mb-4">Sat 8th 2025 — 11:00 AM · Venue: Campus Main Field · Status: Upcoming</p>
+    <p class="text-sm text-gray-400 mb-4">Sat 8th 2025 — 11:00 AM · Venue: Campus Main Field · Status: Full Time</p>
 
     <!-- Tabs -->
     <div class="flex gap-4 border-b border-gray-700 mb-4">
@@ -652,11 +682,43 @@
     </div>
 
     <!-- Summary -->
-    <div id="law100-summary" class="tab-content law-tab-content">
-      <h3 class="text-xl font-bold mb-3 flex items-center gap-2"><i class="fas fa-futbol text-green-500"></i> Match Notes</h3>
-      <p class="text-gray-400">This match is scheduled for <strong>Thu, 31 Oct 2025 at 4:00 PM</strong>. Match details (score, timeline and stats) will be added manually after the game.</p>
-      <p class="mt-4 text-gray-400">Use the Players tab to preview squads. After the match you can update the summary/timeline below.</p>
-    </div>
+<div id="law100-summary" class="tab-content law-tab-content">
+  <h3 class="text-xl font-bold mb-3 flex items-center gap-2">
+    <i class="fas fa-futbol text-green-500"></i> Match Notes
+  </h3>
+
+  <p class="text-gray-400 leading-relaxed">
+    <strong>CSC 100 ⚔️ vs LAW 100</strong> — a thrilling encounter that kept fans on the edge from start to finish!
+  </p>
+
+  <p class="mt-4 text-gray-400 leading-relaxed">
+    The match kicked off with intensity as <strong>CSC</strong> drew first blood early in the opening minutes, 
+    stunning the crowd with a quick strike to make it <strong>1–0</strong>.  
+    However, Law 100’s resilience soon showed — a brilliant finish from <strong>Collins</strong> in the 20th minute leveled the game.  
+    CSC responded fiercely, regaining the lead in the 30th minute to make it <strong>2–1</strong>.
+  </p>
+
+  <p class="mt-4 text-gray-400 leading-relaxed">
+    But the Law boys refused to back down — pressing high and combining beautifully to equalize again, 
+    bringing the first half to an electrifying <strong>2–2</strong>.
+  </p>
+
+  <p class="mt-4 text-gray-400 leading-relaxed">
+    The second half saw tactical adjustments from both sides, but a defensive lapse from CSC gifted 
+    Law 100 a crucial goal to move ahead <strong>3–2</strong>.  
+    And just when it seemed the game would end that way, drama unfolded — a last-minute penalty awarded to Law Department!  
+    Calmly converted, sealing the win at <strong>2–4</strong>.
+  </p>
+
+  <p class="mt-4 text-gray-400 italic">
+    What a comeback! Law Department 100 showed true determination and class to overturn the scoreline — 
+    a well-deserved victory that crowned them the day’s champions.
+  </p>
+
+  <p class="mt-6 text-gray-500 text-sm">
+    📅 <strong>Match Date:</strong> Sat, 8th Nov 2025 at 11:00 AM
+  </p>
+</div>
 
     <!-- Players (placeholder squads — update manually later) -->
     <div id="law100-players" class="tab-content law-tab-content hidden">
@@ -758,7 +820,7 @@
     <button onclick="closeMatchModal('csc-match')" class="absolute top-3 right-3 text-gray-400 hover:text-white">
       <i class="fas fa-times text-xl"></i>
     </button>
-    <h2 class="text-2xl font-bold mb-4">CSC 200 vs NUR 200</h2>
+    <h2 class="text-2xl font-bold mb-4">CSC 100 vs MSS 100</h2>
 
     <div class="flex gap-4 border-b border-gray-700 mb-4">
       <button data-tab-target="csc-summary" class="tab-btn csc-tab-btn text-green-400 border-b-2 border-green-500 pb-2">
@@ -772,18 +834,29 @@
         <i class="fas fa-futbol text-green-500"></i> Match Timeline
       </h3>
 <ul class="space-y-2 text-sm text-gray-300">
-  <li>🟢 <strong>Kickoff:</strong> Nursing 200 starts the match with strong possession, immediately putting pressure on CSC 200’s defense.</li>
-  <li>⚽ <strong>22’ – Onyema (Nursing):</strong> Takes advantage of a defensive lapse by CSC to slot the ball home. Nursing takes the lead, 1-0.</li>
-  <li>⚽ <strong>24’ – Emmanuel (Nursing):</strong> Nearly doubles the lead with a powerful strike, narrowly missing the target.</li>
-  <li>⚽ <strong>27’ – Kev o (CSC):</strong> Tests the Nursing defense with a well-placed shot. The rebound falls to Princewill (CSC), who calmly converts to equalize, 1-1.</li>
-  <li>💥 <strong>Near-Miss:</strong> Nursing almost regains the advantage, but Zubby (CSC) clears off the line.</li>
-  <li>💥 <strong>CSC Opportunity:</strong> Sammy attempts a chip over the keeper, narrowly missing the lead for CSC.</li>
-  <li>🟢 <strong>Half-Time:</strong> The teams head to the break level at 1-1 after a pulsating first half.</li>
-  <li>⚽ <strong>50’ – Onyema (Nursing):</strong> Nursing capitalizes on another defensive mistake to restore their lead, 2-1.</li>
-  <li>🟢 <strong>CSC Response:</strong> Marvin enters the box and attempts a close-range finish, but the Nursing goalkeeper makes a crucial interception to preserve the lead.</li>
-  <li>⚽ <strong>78’ – Penalty (CSC):</strong> Marvin steps up and expertly converts from the spot, leveling the score once again at 2-2.</li>
-  <li>💥 <strong>Late Chance:</strong> Paschal (CSC) controls a rebound in the dying minutes but fires over the bar, missing the opportunity to snatch victory.</li>
-  <li>🏁 <strong>Full-Time:</strong> The match ends in an exciting draw, Nursing 200 2 – 2 CSC 200, with both sides showing tremendous skill and determination.</li>
+  <li>🟢 <strong>Kickoff:</strong> The whistle goes and <strong>CSC 100</strong> wastes no time asserting dominance, moving the ball with confidence in the early minutes.</li>
+
+  <li>⚽ <strong>6’ – CSC:</strong> A beautifully curled corner kick finds its way through a crowded box — CSC converts with a sharp header! The scoreboard reads <strong>1–0</strong>.</li>
+
+  <li>⚽ <strong>10’ – CSC:</strong> Lightning strikes twice! A quick passing move through the center splits the MSS defense wide open. CSC doubles their lead — <strong>2–0</strong>.</li>
+
+  <li>⚽ <strong>23’ – MSS:</strong> MSS fights back with spirit! A swift counterattack and a fine finish into the bottom corner cut the deficit — <strong>2–1</strong>.</li>
+
+  <li>⚽ <strong>40’ – CSC:</strong> Just before halftime, CSC regains control. A composed strike from the edge of the box restores their two-goal cushion, <strong>3–1</strong>.</li>
+
+  <li>🟢 <strong>Half-Time:</strong> The first half ends with CSC in command, but MSS showing flashes of danger. <strong>CSC 3 – 1 MSS</strong>.</li>
+
+  <li>⚽ <strong>47’ – MSS:</strong> The second half begins with a bang! MSS scores early with a brilliant team move to make it <strong>3–2</strong>, setting up a tense battle.</li>
+
+  <li>💥 <strong>CSC Pressure:</strong> CSC dominates possession for nearly 10 minutes, creating multiple chances but failing to convert — frustration grows among their forwards.</li>
+
+  <li>⚽ <strong>68’ – CSC:</strong> Persistence pays off! A heavy deflection off an MSS defender wrong-foots the keeper, rolling into the net. CSC celebrates a vital fourth — <strong>4–2</strong>.</li>
+
+  <li>🧤 <strong>Goalkeeping Heroics:</strong> MSS refuses to fade — their keeper makes a spectacular save from a curling CSC free kick, keeping hope alive.</li>
+
+  <li>⚽ <strong>89’ – MSS:</strong> Late drama! A defensive mix-up at the back for CSC allows an MSS striker to steal in and score a solo goal, reducing the gap to <strong>4–3</strong>.</li>
+
+  <li>🏁 <strong>Full-Time:</strong> The referee’s whistle ends a thrilling contest. <strong>CSC 100</strong> edges out <strong>MSS 100</strong> with a hard-fought <strong>4–3 victory</strong>. A match full of goals, grit, and glorious football!</li>
 </ul>
 
    
@@ -1826,50 +1899,88 @@
                         </tr>
                     </thead>
                  <tbody class="text-sm">
-  <tr class="border-b border-gray-800 hover:bg-[#151515] bg-green-900/10">
-    <td class="py-3 px-4">1</td>
-    <td class="py-3 px-4 font-semibold text-green-400 flex items-center gap-2">
-      <i class="fas fa-crown text-yellow-400"></i> Nur-200
-    </td>
-    <td class="py-3 px-4 text-center">2</td>
-    <td class="py-3 px-4 text-center">1</td>
-    <td class="py-3 px-4 text-center">1</td>
-    <td class="py-3 px-4 text-center">0</td>
-    <td class="py-3 px-4 text-center">9</td>
-    <td class="py-3 px-4 text-center">6</td>
-    <td class="py-3 px-4 text-center text-green-400 font-semibold">+3</td>
-    <td class="py-3 px-4 text-right font-bold text-green-500">4</td>
-  </tr>
+<tr class="border-b border-gray-800 hover:bg-[#151515] bg-green-900/10">
+  <td class="py-3 px-4">1</td>
+  <td class="py-3 px-4 font-semibold text-green-400 flex items-center gap-2">
+    <i class="fas fa-crown text-yellow-400"></i> Nur-200
+  </td>
+  <td class="py-3 px-4 text-center">2</td>
+  <td class="py-3 px-4 text-center">1</td>
+  <td class="py-3 px-4 text-center">1</td>
+  <td class="py-3 px-4 text-center">0</td>
+  <td class="py-3 px-4 text-center">9</td>
+  <td class="py-3 px-4 text-center">6</td>
+  <td class="py-3 px-4 text-center text-green-400 font-semibold">+3</td>
+  <td class="py-3 px-4 text-right font-bold text-green-500">4</td>
+</tr>
 
-  <tr class="border-b border-gray-800 hover:bg-[#151515]">
-    <td class="py-3 px-4">2</td>
-    <td class="py-3 px-4 font-semibold text-white">CSC-200</td>
-    <td class="py-3 px-4 text-center">2</td>
-    <td class="py-3 px-4 text-center">1</td>
-    <td class="py-3 px-4 text-center">1</td>
-    <td class="py-3 px-4 text-center">0</td>
-    <td class="py-3 px-4 text-center">6</td>
-    <td class="py-3 px-4 text-center">4</td>
-    <td class="py-3 px-4 text-center text-green-400 font-semibold">+2</td>
-    <td class="py-3 px-4 text-right font-bold text-green-500">4</td>
-  </tr>
-
+<tr class="border-b border-gray-800 hover:bg-[#151515]">
+  <td class="py-3 px-4">2</td>
+  <td class="py-3 px-4 font-semibold text-white">CSC-200</td>
+  <td class="py-3 px-4 text-center">2</td>
+  <td class="py-3 px-4 text-center">1</td>
+  <td class="py-3 px-4 text-center">1</td>
+  <td class="py-3 px-4 text-center">0</td>
+  <td class="py-3 px-4 text-center">6</td>
+  <td class="py-3 px-4 text-center">4</td>
+  <td class="py-3 px-4 text-center text-green-400 font-semibold">+2</td>
+  <td class="py-3 px-4 text-right font-bold text-green-500">4</td>
+</tr>
 
 <tr class="border-b border-gray-800 hover:bg-[#151515]">
   <td class="py-3 px-4">3</td>
-  <td class="py-3 px-4 font-semibold text-white">CSC-100</td>
+  <td class="py-3 px-4 font-semibold text-white">Law-200</td>
+  <td class="py-3 px-4 text-center">1</td>
   <td class="py-3 px-4 text-center">1</td>
   <td class="py-3 px-4 text-center">0</td>
   <td class="py-3 px-4 text-center">0</td>
-  <td class="py-3 px-4 text-center">1</td>
-  <td class="py-3 px-4 text-center">2</td>
-  <td class="py-3 px-4 text-center">4</td>
-  <td class="py-3 px-4 text-center text-red-400 font-semibold">-2</td>
-  <td class="py-3 px-4 text-right font-bold text-red-500">0</td>
+  <td class="py-3 px-4 text-center">8</td>
+  <td class="py-3 px-4 text-center">7</td>
+  <td class="py-3 px-4 text-center text-green-400 font-semibold">+1</td>
+  <td class="py-3 px-4 text-right font-bold text-green-500">3</td>
 </tr>
 
 <tr class="border-b border-gray-800 hover:bg-[#151515]">
   <td class="py-3 px-4">4</td>
+  <td class="py-3 px-4 font-semibold text-white">Law-100</td>
+  <td class="py-3 px-4 text-center">2</td>
+  <td class="py-3 px-4 text-center">1</td>
+  <td class="py-3 px-4 text-center">0</td>
+  <td class="py-3 px-4 text-center">1</td>
+  <td class="py-3 px-4 text-center">11</td>
+  <td class="py-3 px-4 text-center">10</td>
+  <td class="py-3 px-4 text-center text-green-400 font-semibold">+1</td>
+  <td class="py-3 px-4 text-right font-bold text-green-500">3</td>
+</tr>
+
+<tr class="border-b border-gray-800 hover:bg-[#151515]">
+  <td class="py-3 px-4">5</td>
+  <td class="py-3 px-4 font-semibold text-white">CSC-100</td>
+  <td class="py-3 px-4 text-center">2</td>
+  <td class="py-3 px-4 text-center">1</td>
+  <td class="py-3 px-4 text-center">0</td>
+  <td class="py-3 px-4 text-center">1</td>
+  <td class="py-3 px-4 text-center">6</td>
+  <td class="py-3 px-4 text-center">7</td>
+  <td class="py-3 px-4 text-center text-red-400 font-semibold">-1</td>
+  <td class="py-3 px-4 text-right font-bold text-green-500">3</td>
+</tr>
+
+<tr class="border-b border-gray-800 hover:bg-[#151515]">
+  <td class="py-3 px-4">6</td>
+  <td class="py-3 px-4 font-semibold text-white">MSS-100</td>
+  <td class="py-3 px-4 text-center">1</td>
+  <td class="py-3 px-4 text-center">0</td>
+  <td class="py-3 px-4 text-center">0</td>
+  <td class="py-3 px-4 text-center">1</td>
+  <td class="py-3 px-4 text-center">3</td>
+  <td class="py-3 px-4 text-center">4</td>
+  <td class="py-3 px-4 text-center text-red-400 font-semibold">-1</td>
+  <td class="py-3 px-4 text-right font-bold text-red-500">0</td>
+</tr>
+
+<tr class="border-b border-gray-800 hover:bg-[#151515]">
+  <td class="py-3 px-4">7</td>
   <td class="py-3 px-4 font-semibold text-white">Med-200</td>
   <td class="py-3 px-4 text-center">1</td>
   <td class="py-3 px-4 text-center">0</td>
@@ -1877,51 +1988,11 @@
   <td class="py-3 px-4 text-center">1</td>
   <td class="py-3 px-4 text-center">4</td>
   <td class="py-3 px-4 text-center">7</td>
-  <td class="py-3 px-4 text-center text-red-400 font-semibold">-4</td>
+  <td class="py-3 px-4 text-center text-red-400 font-semibold">-3</td>
   <td class="py-3 px-4 text-right font-bold text-red-500">0</td>
 </tr>
-
-
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">5</td>
-                            <td class="py-3 px-4 font-semibold text-white">Nur-100</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                      
-                     
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">9</td>
-                            <td class="py-3 px-4 font-semibold text-white">Med-100</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">10</td>
-                            <td class="py-3 px-4 font-semibold text-white">Med-300</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">11</td>
+<tr class="border-b border-gray-800 hover:bg-[#151515]">
+                            <td class="py-3 px-4">8</td>
                             <td class="py-3 px-4 font-semibold text-white">Med-400</td>
                             <td class="py-3 px-4 text-center">0</td>
                             <td class="py-3 px-4 text-center">0</td>
@@ -1933,7 +2004,7 @@
                             <td class="py-3 px-4 text-right">0</td>
                         </tr>
                         <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">12</td>
+                            <td class="py-3 px-4">9</td>
                             <td class="py-3 px-4 font-semibold text-white">Med-500</td>
                             <td class="py-3 px-4 text-center">0</td>
                             <td class="py-3 px-4 text-center">0</td>
@@ -1945,7 +2016,7 @@
                             <td class="py-3 px-4 text-right">0</td>
                         </tr>
                         <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">13</td>
+                            <td class="py-3 px-4">10</td>
                             <td class="py-3 px-4 font-semibold text-white">CSC-300</td>
                             <td class="py-3 px-4 text-center">0</td>
                             <td class="py-3 px-4 text-center">0</td>
@@ -1957,7 +2028,7 @@
                             <td class="py-3 px-4 text-right">0</td>
                         </tr>
                          <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">13</td>
+                            <td class="py-3 px-4">11</td>
                             <td class="py-3 px-4 font-semibold text-white">CSC-400</td>
                             <td class="py-3 px-4 text-center">0</td>
                             <td class="py-3 px-4 text-center">0</td>
@@ -1969,7 +2040,7 @@
                             <td class="py-3 px-4 text-right">0</td>
                         </tr>
                          <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">13</td>
+                            <td class="py-3 px-4">12</td>
                             <td class="py-3 px-4 font-semibold text-white">Law-500</td>
                             <td class="py-3 px-4 text-center">0</td>
                             <td class="py-3 px-4 text-center">0</td>
@@ -1993,7 +2064,7 @@
                             <td class="py-3 px-4 text-right">0</td>
                         </tr>
                          <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">13</td>
+                            <td class="py-3 px-4">14</td>
                             <td class="py-3 px-4 font-semibold text-white">LAW-300</td>
                             <td class="py-3 px-4 text-center">0</td>
                             <td class="py-3 px-4 text-center">0</td>
@@ -2005,8 +2076,8 @@
                             <td class="py-3 px-4 text-right">0</td>
                         </tr>
                          <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">13</td>
-                            <td class="py-3 px-4 font-semibold text-white">LAW-200</td>
+                            <td class="py-3 px-4">15</td>
+                            <td class="py-3 px-4 font-semibold text-white">MED-300</td>
                             <td class="py-3 px-4 text-center">0</td>
                             <td class="py-3 px-4 text-center">0</td>
                             <td class="py-3 px-4 text-center">0</td>
@@ -2017,8 +2088,8 @@
                             <td class="py-3 px-4 text-right">0</td>
                         </tr>
                          <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">13</td>
-                            <td class="py-3 px-4 font-semibold text-white">LAW-100</td>
+                            <td class="py-3 px-4">16</td>
+                            <td class="py-3 px-4 font-semibold text-white">MED-100</td>
                             <td class="py-3 px-4 text-center">0</td>
                             <td class="py-3 px-4 text-center">0</td>
                             <td class="py-3 px-4 text-center">0</td>
@@ -2029,8 +2100,8 @@
                             <td class="py-3 px-4 text-right">0</td>
                         </tr>
                          <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">13</td>
-                            <td class="py-3 px-4 font-semibold text-white">MSS-100</td>
+                            <td class="py-3 px-4">17</td>
+                            <td class="py-3 px-4 font-semibold text-white">NUR-100</td>
                             <td class="py-3 px-4 text-center">0</td>
                             <td class="py-3 px-4 text-center">0</td>
                             <td class="py-3 px-4 text-center">0</td>
@@ -2041,7 +2112,7 @@
                             <td class="py-3 px-4 text-right">0</td>
                         </tr>
                          <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">13</td>
+                            <td class="py-3 px-4">18</td>
                             <td class="py-3 px-4 font-semibold text-white">MSS-200</td>
                             <td class="py-3 px-4 text-center">0</td>
                             <td class="py-3 px-4 text-center">0</td>
@@ -2053,7 +2124,7 @@
                             <td class="py-3 px-4 text-right">0</td>
                         </tr>
                          <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">13</td>
+                            <td class="py-3 px-4">19</td>
                             <td class="py-3 px-4 font-semibold text-white">MSS-300</td>
                             <td class="py-3 px-4 text-center">0</td>
                             <td class="py-3 px-4 text-center">0</td>
@@ -2065,7 +2136,7 @@
                             <td class="py-3 px-4 text-right">0</td>
                         </tr>
                          <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">13</td>
+                            <td class="py-3 px-4">20</td>
                             <td class="py-3 px-4 font-semibold text-white">MSS-400</td>
                             <td class="py-3 px-4 text-center">0</td>
                             <td class="py-3 px-4 text-center">0</td>
@@ -2077,7 +2148,7 @@
                             <td class="py-3 px-4 text-right">0</td>
                         </tr>
                          <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">13</td>
+                            <td class="py-3 px-4">21</td>
                             <td class="py-3 px-4 font-semibold text-white">ARTS-300</td>
                             <td class="py-3 px-4 text-center">0</td>
                             <td class="py-3 px-4 text-center">0</td>
@@ -2089,7 +2160,7 @@
                             <td class="py-3 px-4 text-right">0</td>
                         </tr>
                          <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">13</td>
+                            <td class="py-3 px-4">22</td>
                             <td class="py-3 px-4 font-semibold text-white">ARTS-400</td>
                             <td class="py-3 px-4 text-center">0</td>
                             <td class="py-3 px-4 text-center">0</td>
@@ -2101,7 +2172,7 @@
                             <td class="py-3 px-4 text-right">0</td>
                         </tr>
                          <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">13</td>
+                            <td class="py-3 px-4">23</td>
                             <td class="py-3 px-4 font-semibold text-white">ARTS-200</td>
                             <td class="py-3 px-4 text-center">0</td>
                             <td class="py-3 px-4 text-center">0</td>
@@ -2113,7 +2184,7 @@
                             <td class="py-3 px-4 text-right">0</td>
                         </tr>
                          <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">13</td>
+                            <td class="py-3 px-4">24</td>
                             <td class="py-3 px-4 font-semibold text-white">ARTS-100</td>
                             <td class="py-3 px-4 text-center">0</td>
                             <td class="py-3 px-4 text-center">0</td>
@@ -2125,7 +2196,7 @@
                             <td class="py-3 px-4 text-right">0</td>
                         </tr>
                          <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">13</td>
+                            <td class="py-3 px-4">25</td>
                             <td class="py-3 px-4 font-semibold text-white">EDU-100</td>
                             <td class="py-3 px-4 text-center">0</td>
                             <td class="py-3 px-4 text-center">0</td>
@@ -2137,7 +2208,7 @@
                             <td class="py-3 px-4 text-right">0</td>
                         </tr>
                          <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">13</td>
+                            <td class="py-3 px-4">26</td>
                             <td class="py-3 px-4 font-semibold text-white">EDU-300</td>
                             <td class="py-3 px-4 text-center">0</td>
                             <td class="py-3 px-4 text-center">0</td>
@@ -2149,7 +2220,7 @@
                             <td class="py-3 px-4 text-right">0</td>
                         </tr>
                          <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">13</td>
+                            <td class="py-3 px-4">27</td>
                             <td class="py-3 px-4 font-semibold text-white">EDU-200</td>
                             <td class="py-3 px-4 text-center">0</td>
                             <td class="py-3 px-4 text-center">0</td>
@@ -2162,7 +2233,7 @@
                         </tr>
                         
                         <tr class="hover:bg-[#151515]">
-                            <td class="py-3 px-4">14</td>
+                            <td class="py-3 px-4">28</td>
                             <td class="py-3 px-4 font-semibold text-white">EDU-400</td>
                             <td class="py-3 px-4 text-center">0</td>
                             <td class="py-3 px-4 text-center">0</td>
@@ -2529,11 +2600,11 @@
           <span class="text-xl font-extrabold text-pink-400 mr-4 w-6 text-center">5.</span>
           <span class="h-10 w-10 bg-pink-600 rounded-full flex items-center justify-center font-bold text-sm text-white">P5</span>
           <div class="ml-3">
-            <p class="font-semibold">Marvins</p>
+            <p class="font-semibold">Chukwu</p>
             <p class="text-xs text-gray-400">-</p>
           </div>
         </div>
-        <span class="font-extrabold text-2xl text-pink-300">1</span>
+        <span class="font-extrabold text-2xl text-pink-300">2</span>
       </li>
     </ul>
   </div>
@@ -2656,22 +2727,22 @@
         <span class="text-xl font-extrabold text-blue-400 mr-4 w-6 text-center">2.</span>
         <span class="h-10 w-10 bg-green-700 rounded-full flex items-center justify-center font-bold text-sm text-white">P2</span>
         <div class="ml-3">
-          <p class="font-semibold">cush</p>
+          <p class="font-semibold">Chukwuemeka</p>
           <p class="text-xs text-gray-400">-</p>
         </div>
       </div>
-      <span class="font-extrabold text-2xl text-blue-300">2</span>
+      <span class="font-extrabold text-2xl text-blue-300">3</span>
     </li>
        <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
       <div class="flex items-center">
         <span class="text-xl font-extrabold text-blue-400 mr-4 w-6 text-center">3.</span>
         <span class="h-10 w-10 bg-green-700 rounded-full flex items-center justify-center font-bold text-sm text-white">P3</span>
         <div class="ml-3">
-          <p class="font-semibold">Kev o</p>
+          <p class="font-semibold">Cush</p>
           <p class="text-xs text-gray-400">-</p>
         </div>
       </div>
-      <span class="font-extrabold text-2xl text-blue-300">1</span>
+      <span class="font-extrabold text-2xl text-blue-300">2</span>
     </li>
   </ul>
 </div>
@@ -2775,11 +2846,11 @@
               <span class="text-xl font-extrabold text-gray-300 mr-4 w-6 text-center">2.</span>
               <span class="h-10 w-10 bg-red-800 rounded-full flex items-center justify-center font-bold text-sm text-white">P2</span>
               <div class="ml-3">
-                <p class="font-semibold">cush</p>
+                <p class="font-semibold">Chukwuemeka</p>
                 <p class="text-xs text-gray-400">-</p>
               </div>
             </div>
-            <span class="font-extrabold text-2xl">2</span>
+            <span class="font-extrabold text-2xl">3</span>
           </li>
 
           <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
@@ -2787,11 +2858,11 @@
               <span class="text-xl font-extrabold text-yellow-500 mr-4 w-6 text-center">3.</span>
               <span class="h-10 w-10 bg-lime-600 rounded-full flex items-center justify-center font-bold text-sm text-white">P8</span>
               <div class="ml-3">
-                <p class="font-semibold">Kev o</p>
+                <p class="font-semibold">Cush</p>
                 <p class="text-xs text-gray-400">NIL</p>
               </div>
             </div>
-            <span class="font-extrabold text-2xl">1</span>
+            <span class="font-extrabold text-2xl">2</span>
           </li>
         </ul>
       </div>
