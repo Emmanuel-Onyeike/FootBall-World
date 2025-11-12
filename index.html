@@ -3,115 +3,334 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Football World</title>
+  <title>Football World 2.0 - Live Scores, Highlights & Stats</title>
+  <meta name="description" content="Real-time football scores, video highlights, player stats, news, fantasy tools & community. The ultimate football hub." />
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Poppins', 'sans-serif'],
+          },
+          colors: {
+            neon: '#39ff14',
+            dark: '#0c0c0c',
+            card: '#111111',
+          },
+          animation: {
+            'float': 'float 6s ease-in-out infinite',
+            'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+          }
+        }
+      }
+    }
+  </script>
   <style>
-    .btn-gradient {
-      background-image: linear-gradient(45deg, #1f2937 0%, #0c0a09 100%);
-      transition: all 0.3s ease;
+    .glass {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
-    .btn-gradient:hover {
-      background-image: linear-gradient(45deg, #0c0a09 0%, #1f2937 100%);
-      transform: scale(1.05);
+    .gradient-text {
+      background: linear-gradient(90deg, #39ff14, #00ff88);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
-    .feature-card {
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    .hero-glow {
+      box-shadow: 0 0 80px rgba(57, 255, 20, 0.4);
     }
-    .feature-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-    }
-    #hero-bg {
-      background-attachment: fixed;
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
     }
   </style>
 </head>
-<body class="bg-gray-900 text-white font-sans">
+<body class="bg-dark text-white overflow-x-hidden">
 
-  <section id="hero" class="relative h-screen flex flex-col justify-center items-center text-center overflow-hidden">
-    <div id="hero-bg" class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=2000&q=80');"></div>
-    <div class="absolute inset-0 bg-black/80"></div>
-    <div class="relative z-10 p-6 max-w-4xl mx-auto">
-      <h1 class="text-5xl md:text-7xl font-extrabold mb-6 animate-pulse">Football World</h1>
-      <p class="text-lg md:text-2xl mb-8 font-light text-gray-300">Your ultimate destination for live scores, match highlights, and in-depth player stats. The beautiful game, elevated.</p>
-      <a href="#explore" class="px-8 py-4 bg-green-600 text-white font-semibold rounded-full shadow-lg hover:bg-green-700 transition duration-300 ease-in-out transform hover:scale-105">
-        Explore Now
+  <!-- Floating Navigation -->
+  <nav class="fixed top-0 w-full z-50 glass border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center space-x-8">
+        <h1 class="text-2xl font-bold gradient-text font-display">Football World 2.0</h1>
+        <div class="hidden md:flex space-x-6">
+          <a href="#home" class="hover:text-neon transition">Home</a>
+          <a href="#live" class="hover:text-neon transition">Live Scores</a>
+          <a href="#highlights" class="hover:text-neon transition">Highlights</a>
+          <a href="#stats" class="hover:text-neon transition">Stats</a>
+          <a href="#fantasy" class="hover:text-neon transition">Fantasy</a>
+        </div>
+      </div>
+      <a href="dashboard.html" class="px-6 py-2 bg-neon text-black font-bold rounded-full hover:bg-white transition transform hover:scale-105">
+        Launch App
+      </a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="home" class="relative h-screen flex items-center justify-center">
+    <div class="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black"></div>
+    <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover opacity-40">
+      <source src="https://assets.mixkit.co/videos/preview/mixkit-soccer-ball-in-the-stadium-31804-small.mp4" type="video/mp4">
+    </video>
+    <div class="relative z-10 text-center px-6 max-w-5xl mx-auto">
+      <h1 class="text-6xl md:text-8xl font-extrabold font-display mb-6 leading-tight">
+        <span class="gradient-text">FOOTBALL</span><br>
+        <span class="text-white">REDEFINED</span>
+      </h1>
+      <p class="text-xl md:text-2xl text-gray-300 mb-10 max-w-3xl mx-auto">
+        Live scores • 4K Highlights • AI Stats • Fantasy Hub • Community • News • 200+ Leagues
+      </p>
+      <div class="flex flex-col sm:flex-row gap-6 justify-center">
+        <a href="#live" class="px-10 py-5 bg-neon text-black font-bold rounded-full text-lg hover:bg-white transition hero-glow animate-pulse-slow">
+          Watch Live Now <i class="ml-2 fas fa-broadcast-tower"></i>
+        </a>
+        <a href="dashboard.html" class="px-10 py-5 glass font-bold rounded-full text-lg border border-neon hover:bg-neon/20 transition">
+          Open Dashboard <i class="ml-2 fas fa-rocket"></i>
+        </a>
+      </div>
+      <div class="mt-16 flex justify-center space-x-12 text-gray-400">
+        <div class="text-center">
+          <div class="text-4xl font-bold text-neon">50K+</div>
+          <div>Active Users</div>
+        </div>
+        <div class="text-center">
+          <div class="text-4xl font-bold text-neon">200+</div>
+          <div>Leagues Covered</div>
+        </div>
+        <div class="text-center">
+          <div class="text-4xl font-bold text-neon">99.9%</div>
+          <div>Uptime</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Live Matches Ticker -->
+  <section id="live" class="py-20 bg-card/50 border-y border-white/10">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="text-5xl font-bold text-center mb-12 gradient-text font-display">Live Matches Right Now</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Sample Live Match Cards -->
+        <div class="glass p-6 rounded-2xl border border-neon/50 hover:border-neon transition animate-float">
+          <div class="flex justify-between items-center mb-4">
+            <span class="text-sm text-neon">LIVE • 78'</span>
+            <span class="px-3 py-1 bg-red-600/20 text-red-400 rounded-full text-xs">2nd Half</span>
+          </div>
+          <div class="flex justify-between items-center">
+            <div class="text-center">
+              <img src="https://flagcdn.com/w80/gb.png" alt="Man Utd" class="w-16 h-16 mx-auto mb-2 rounded-full">
+              <div class="font-bold">Man Utd</div>
+            </div>
+            <div class="text-4xl font-bold text-neon">2 - 1</div>
+            <div class="text-center">
+              <img src="https://flagcdn.com/w80/es.png" alt="Real Madrid" class="w-16 h-16 mx-auto mb-2 rounded-full">
+              <div class="font-bold">Real Madrid</div>
+            </div>
+          </div>
+          <div class="mt-4 text-sm text-gray-400">Old Trafford • 2.1M watching</div>
+        </div>
+        <!-- Repeat similar cards -->
+      </div>
+    </div>
+  </section>
+
+  <!-- New Features Grid -->
+  <section class="py-24 bg-black">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="text-5xl font-bold text-center mb-16 gradient-text font-display">Next-Level Features</h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="glass p-8 rounded-3xl hover:border-neon border border-white/10 transition text-center">
+          <i class="fas fa-bolt text-5xl text-neon mb-4"></i>
+          <h3 class="text-2xl font-bold mb-3">Lightning Fast</h3>
+          <p class="text-gray-400">Scores update in <0.8s</p>
+        </div>
+        <div class="glass p-8 rounded-3xl hover:border-neon border border-white/10 transition text-center">
+          <i class="fas fa-video text-5xl text-neon mb-4"></i>
+          <h3 class="text-2xl font-bold mb-3">4K Highlights</h3>
+          <p class="text-gray-400">Auto-clipped goals in 4K</p>
+        </div>
+        <div class="glass p-8 rounded-3xl hover:border-neon border border-white/10 transition text-center">
+          <i class="fas fa-brain text-5xl text-neon mb-4"></i>
+          <h3 class="text-2xl font-bold mb-3">AI Insights</h3>
+          <p class="text-gray-400">Predictive analytics & xG</p>
+        </div>
+        <div class="glass p-8 rounded-3xl hover:border-neon border border-white/10 transition text-center">
+          <i class="fas fa-trophy text-5xl text-neon mb-4"></i>
+          <h3 class="text-2xl font-bold mb-3">Fantasy 2.0</h3>
+          <p class="text-gray-400">Live drafting, trades, prizes</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Video Highlights Carousel -->
+  <section id="highlights" class="py-24 bg-gradient-to-b from-black to-card">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="text-5xl font-bold text-center mb-12 gradient-text font-display">Latest Highlights</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="group relative rounded-2xl overflow-hidden glass">
+          <img src="https://i.imgur.com/9jYZ0mQ.jpeg" alt="Goal" class="w-full h-64 object-cover group-hover:scale-110 transition duration-500">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent"></div>
+          <div class="absolute bottom-0 p-6">
+            <h3 class="text-2xl font-bold">Mbappé Hat-trick vs Barcelona</h3>
+            <p class="text-neon">PSG 4-2 Barça • UCL Quarterfinal</p>
+          </div>
+          <div class="absolute top-4 right-4 bg-neon text-black px-3 py-1 rounded-full text-sm font-bold">NEW</div>
+        </div>
+        <!-- More highlight cards -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Player Stats Leaderboard -->
+  <section id="stats" class="py-24 bg-black">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="text-5xl font-bold text-center mb-12 gradient-text font-display">Top Performers This Week</h2>
+      <div class="glass rounded-3xl p-8 border border-neon/30">
+        <table class="w-full text-left">
+          <thead>
+            <tr class="text-neon border-b border-white/20">
+              <th class="pb-4">#</th>
+              <th class="pb-4">Player</th>
+              <th class="pb-4">Team</th>
+              <th class="pb-4">Goals</th>
+              <th class="pb-4">Assists</th>
+              <th class="pb-4">Rating</th>
+            </tr>
+          </thead>
+          <tbody class="text-gray-300">
+            <tr class="hover:bg-white/5 transition">
+              <td class="py-4">1</td>
+              <td class="py-4 font-bold">Erling Haaland</td>
+              <td>Man City</td>
+              <td class="text-neon font-bold">5</td>
+              <td>2</td>
+              <td class="text-yellow-400">9.8</td>
+            </tr>
+            <!-- More rows -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fantasy Hub -->
+  <section id="fantasy" class="py-24 bg-gradient-to-r from-purple-900/20 to-blue-900/20">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+      <h2 class="text-5xl font-bold mb-8 gradient-text font-display">Fantasy Football 2.0</h2>
+      <p class="text-xl text-gray-300 mb-12 max-w-3xl mx-auto">
+        Draft live • Real-time scoring • Weekly cash prizes • AI team optimizer • Global leagues
+      </p>
+      <div class="flex justify-center gap-8 mb-12">
+        <div class="glass p-8 rounded-2xl">
+          <div class="text-6xl font-bold text-neon">$50,000</div>
+          <div>Season Prize Pool</div>
+        </div>
+        <div class="glass p-8 rounded-2xl">
+          <div class="text-6xl font-bold text-neon">1.2M</div>
+          <div>Players Worldwide</div>
+        </div>
+      </div>
+      <a href="#" class="px-12 py-6 bg-neon text-black font-bold text-xl rounded-full hover:bg-white transition transform hover:scale-105">
+        Create Your Team Now
       </a>
     </div>
   </section>
 
-  <section id="explore" class="py-24 bg-[#0A0A0A]">
-    <div class="max-w-7xl mx-auto px-6 text-center">
-      <h2 class="text-4xl md:text-5xl font-bold mb-16">Why Choose Us?</h2>
-      <div class="grid md:grid-cols-3 gap-12">
-        <div class="feature-card bg-gray-800 p-8 rounded-2xl shadow-xl border border-gray-700 hover:border-green-600 transition">
-          <h3 class="text-2xl font-semibold mb-4 text-green-500">Live Scores</h3>
-          <p class="text-gray-400">Stay updated with instant live match scores and results from leagues worldwide. Never miss a goal.</p>
-        </div>
-        <div class="feature-card bg-gray-800 p-8 rounded-2xl shadow-xl border border-gray-700 hover:border-green-600 transition">
-          <h3 class="text-2xl font-semibold mb-4 text-green-500">Match Highlights</h3>
-          <p class="text-gray-400">Catch up on thrilling match highlights and unforgettable football moments, available moments after the final whistle.</p>
-        </div>
-        <div class="feature-card bg-gray-800 p-8 rounded-2xl shadow-xl border border-gray-700 hover:border-green-600 transition">
-          <h3 class="text-2xl font-semibold mb-4 text-green-500">Player Stats</h3>
-          <p class="text-gray-400">Dive into detailed player statistics, performance history, and insightful analysis to become a true fan.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="py-24 bg-gray-900 text-center">
+  <!-- CTA Final -->
+  <section class="py-32 bg-black text-center relative overflow-hidden">
     <div class="max-w-4xl mx-auto px-6">
-      <h2 class="text-4xl md:text-5xl font-bold mb-6">Join the Football Community</h2>
-      <p class="mb-8 text-lg md:text-xl text-gray-300">Be part of the passion. Follow your favorite teams, players, and leagues like never before. It's time to elevate your fandom.</p>
-      <a href="dashboard.html" class="px-10 py-5 font-semibold rounded-full btn-gradient border-2 border-green-600 text-white shadow-xl">Get Started Today</a>
+      <h2 class="text-6xl md:text-8xl font-extrabold mb-8 gradient-text font-display">Ready to Dominate?</h2>
+      <p class="text-2xl text-gray-400 mb-12">Join 50,000+ fans who never miss a moment.</p>
+      <a href="dashboard.html" class="inline-block px-16 py-8 bg-neon text-black font-bold text-2xl rounded-full hover:bg-white transition transform hover:scale-110 hero-glow">
+        LAUNCH FOOTBALL WORLD 2.0
+      </a>
     </div>
   </section>
 
-  <footer class="bg-gray-800 py-10 text-center border-t border-gray-700">
-    <div class="max-w-7xl mx-auto px-6">
-      <p class="text-gray-500 text-sm md:text-base">&copy; 2025 Football World. All Rights Reserved. Designed by Tech Nxxt.</p>
-      <div class="mt-4 space-x-4">
-        <a href="#" class="text-gray-500 hover:text-white transition">Privacy Policy</a>
-        <span class="text-gray-600">|</span>
-        <a href="#" class="text-gray-500 hover:text-white transition">Terms of Service</a>
+  <!-- Footer -->
+  <footer class="bg-card py-16 border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-8">
+      <div>
+        <h1 class="text-3xl font-bold gradient-text font-display mb-4">Football World 2.0</h1>
+        <p class="text-gray-500">The future of football is here.</p>
       </div>
+      <div>
+        <h3 class="font-bold text-neon mb-4">Features</h3>
+        <ul class="space-y-2 text-gray-400">
+          <li>Live Scores</li>
+          <li>4K Highlights</li>
+          <li>AI Stats</li>
+          <li>Fantasy League</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-bold text-neon mb-4">Company</h3>
+        <ul class="space-y-2 text-gray-400">
+          <li>About</li>
+          <li>Careers</li>
+          <li>Press</li>
+          <li>Contact</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-bold text-neon mb-4">Legal</h3>
+        <ul class="space-y-2 text-gray-400">
+          <li>Privacy</li>
+          <li>Terms</li>
+          <li>Cookies</li>
+        </ul>
+      </div>
+    </div>
+    <div class="text-center mt-12 text-gray-600">
+      © 2025 Football World 2.0. Made with <i class="fas fa-heart text-red-500"></i> by Tech Nxxt.
     </div>
   </footer>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/ScrollTrigger.min.js"></script>
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
   <script>
     gsap.registerPlugin(ScrollTrigger);
 
-    // Fade-in animation for feature cards
-    gsap.utils.toArray(".feature-card").forEach((card, i) => {
-      gsap.fromTo(card, {
+    // Parallax hero video
+    gsap.to("video", {
+      yPercent: -30,
+      ease: "none",
+      scrollTrigger: {
+        trigger: "#home",
+        scrub: true
+      }
+    });
+
+    // Animate sections
+    gsap.utils.toArray("section").forEach(section => {
+      gsap.from(section.children, {
+        y: 100,
         opacity: 0,
-        y: 50
-      }, {
-        opacity: 1,
-        y: 0,
         duration: 1,
-        ease: "power3.out",
+        stagger: 0.2,
         scrollTrigger: {
-          trigger: card,
-          start: "top 85%",
-          toggleActions: "play none none none"
+          trigger: section,
+          start: "top 80%",
         }
       });
     });
 
-    // Parallax effect on hero background
-    gsap.to("#hero-bg", {
-      y: () => window.innerHeight * 0.3,
-      ease: "none",
-      scrollTrigger: {
-        trigger: "#hero",
-        start: "top top",
-        end: "bottom top",
-        scrub: true,
-      }
+    // Live match pulse
+    gsap.to(".animate-float", {
+      y: -10,
+      duration: 2,
+      repeat: -1,
+      yoyo: true,
+      ease: "power1.inOut",
+      stagger: 0.3
     });
   </script>
 </body>
