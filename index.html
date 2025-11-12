@@ -138,7 +138,6 @@
     </div>
   </section>
 
-  <!-- Top Performers -->
 <section class="py-20 px-4 sm:px-6 bg-gradient-to-b from-black to-card relative overflow-hidden">
   <div class="max-w-7xl mx-auto text-center">
     <h2 class="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-10 gradient-text font-display leading-tight">
@@ -148,7 +147,7 @@
       The heroes of <strong>Mikoko League</strong>, <strong>CIT League</strong>, <strong>Glory Champion Cup</strong> & <strong>Fredlies League</strong> — grinding, scoring, and making history every weekend.
     </p>
 
-    <!-- Trigger Button -->
+    <!-- WORKING BUTTON -->
     <button id="openPackBtn" class="inline-block px-16 py-8 bg-neon text-black font-bold text-2xl sm:text-3xl rounded-full hover:bg-white transition transform hover:scale-110 hero-glow shadow-2xl animate-pulse">
       <i class="fas fa-gift mr-4"></i>
       OPEN PLAYER PACK
@@ -164,90 +163,87 @@
     </div>
   </div>
 
-  <!-- FULL BLACK SCREEN OVERLAY -->
-  <div id="blackScreen" class="fixed inset-0 bg-black z-[9998] hidden"></div>
+  <!-- BLACK SCREEN -->
+  <div id="blackScreen" class="fixed inset-0 bg-black z-[9998] hidden flex items-center justify-center">
+    <div class="text-6xl font-bold text-neon animate-pulse">Loading Pack...</div>
+  </div>
 
-  <!-- MODAL + FIREWORKS -->
+  <!-- MODAL -->
   <div id="playerModal" class="fixed inset-0 z-[9999] hidden items-center justify-center p-4">
-    <div class="absolute inset-0 bg-black/90 backdrop-blur-2xl"></div>
+    <div class="absolute inset-0 bg-black/95 backdrop-blur-3xl"></div>
     
-    <!-- Fireworks Container -->
-    <div id="fireworks" class="absolute inset-0 pointer-events-none overflow-hidden">
-      <div class="firework"></div>
-      <div class="firework"></div>
-      <div class="firework"></div>
-      <div class="firework"></div>
+    <!-- Fireworks -->
+    <div id="fireworks" class="absolute inset-0 pointer-events-none overflow-hidden"></div>
+
+    <!-- Congrats -->
+    <div class="absolute top-10 left-1/2 -translate-x-1/2 text-5xl sm:text-7xl font-extrabold gradient-text animate-bounce text-center">
+      CONGRATULATIONS! <span class="block text-6xl mt-4">Fireworks Fireworks Fireworks</span>
     </div>
 
-    <!-- Congratulations Text -->
-    <div class="absolute top-10 left-1/2 -translate-x-1/2 text-6xl sm:text-8xl font-extrabold gradient-text animate-bounce">
-      CONGRATULATIONS! <span class="text-6xl">Fireworks Fireworks Fireworks</span>
-    </div>
-
-    <!-- Player Cards -->
-    <div class="relative grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl w-full scale-0" id="cardsContainer">
+    <!-- Player Cards Container -->
+    <div class="relative grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl w-full scale-0 opacity-0" id="cardsContainer">
       
-      <!-- Player 1 -->
-      <div class="relative group overflow-hidden rounded-3xl shadow-2xl transform hover:scale-105 transition-all duration-500"
-           style="background: url('https://i.imgur.com/PLAYER1.jpg') center/cover no-repeat;">
-        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
-        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/80"></div>
+      <!-- CARD 1 -->
+      <div class="relative overflow-hidden rounded-3xl shadow-2xl group hover:scale-105 transition-all duration-500"
+           style="background: url('https://i.imgur.com/REPLACE_WITH_REAL_PLAYER.jpg') center/cover no-repeat; height: 500px;">
+        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/90"></div>
         
-        <div class="absolute top-4 left-4 glass px-4 py-2 rounded-full border border-neon">
-          <span class="text-3xl font-bold text-neon">9.7</span>
+        <div class="absolute top-4 left-4 glass px-5 py-3 rounded-full border-2 border-neon">
+          <span class="text-4xl font-bold text-neon">9.7</span>
         </div>
-        <div class="absolute bottom-4 right-4 glass px-5 py-3 rounded-full border-2 border-yellow-400 shadow-xl">
-          <span class="text-4xl font-bold text-yellow-400">9.7</span>
+        <div class="absolute bottom-4 right-4 glass px-6 py-4 rounded-full border-4 border-yellow-400 shadow-2xl">
+          <span class="text-5xl font-bold text-yellow-400">9.7</span>
         </div>
 
-        <div class="absolute bottom-8 left-6 text-left">
-          <h3 class="text-3xl font-bold text-white drop-shadow-2xl">Joshua K.</h3>
-          <p class="text-xl text-neon font-semibold">Striker • Mikoko Lions</p>
-          <span class="inline-block mt-2 px-4 py-1 bg-neon/30 text-neon text-sm rounded-full border border-neon">
+        <div class="absolute bottom-10 left-6 text-left">
+          <h3 class="text-4xl font-bold text-white drop-shadow-2xl">Joshua K.</h3>
+          <p class="text-2xl text-neon font-bold">Mikoko Lions • Striker</p>
+          <span class="mt-3 px-5 py-2 bg-neon/40 text-neon rounded-full text-sm font-bold border border-neon">
             Mikoko League
           </span>
         </div>
       </div>
 
-      <!-- Player 2 -->
-      <div class="relative group overflow-hidden rounded-3xl shadow-2xl transform hover:scale-105 transition-all duration-500"
-           style="background: url('https://i.imgur.com/PLAYER2.jpg') center/cover no-repeat;">
-        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
-        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/80"></div>
+      <!-- CARD 2 -->
+      <div class="relative overflow-hidden rounded-3xl shadow-2xl group hover:scale-105 transition-all duration-500"
+           style="background: url('https://i.imgur.com/REPLACE2.jpg') center/cover no-repeat; height: 500px;">
+        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/90"></div>
         
-        <div class="absolute top-4 left-4 glass px-4 py-2 rounded-full border border-cyan-400">
-          <span class="text-3xl font-bold text-cyan-400">9.5</span>
-        </div>
-        <div class="absolute bottom-4 right-4 glass px-5 py-3 rounded-full border-2 border-cyan-400 shadow-xl">
+        <div class="absolute top-4 left-4 glass px-5 py-3 rounded-full border-2 border-cyan-400">
           <span class="text-4xl font-bold text-cyan-400">9.5</span>
         </div>
+        <div class="absolute bottom-4 right-4 glass px-6 py-4 rounded-full border-4 border-cyan-400 shadow-2xl">
+          <span class="text-5xl font-bold text-cyan-400">9.5</span>
+        </div>
 
-        <div class="absolute bottom-8 left-6 text-left">
-          <h3 class="text-3xl font-bold text-white drop-shadow-2xl">Aisha M.</h3>
-          <p class="text-xl text-cyan-400 font-semibold">Midfielder • CIT Warriors</p>
-          <span class="inline-block mt-2 px-4 py-1 bg-cyan-500/30 text-cyan-400 text-sm rounded-full border border-cyan-400">
+        <div class="absolute bottom-10 left-6 text-left">
+          <h3 class="text-4xl font-bold text-white drop-shadow-2xl">Aisha M.</h3>
+          <p class="text-2xl text-cyan-400 font-bold">CIT Warriors • Midfielder</p>
+          <span class="mt-3 px-5 py-2 bg-cyan-500/40 text-cyan-400 rounded-full text-sm font-bold border border-cyan-400">
             CIT League
           </span>
         </div>
       </div>
 
-      <!-- Player 3 -->
-      <div class="relative group overflow-hidden rounded-3xl shadow-2xl transform hover:scale-105 transition-all duration-500"
-           style="background: url('https://i.imgur.com/PLAYER3.jpg') center/cover no-repeat;">
-        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
-        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/80"></div>
+      <!-- CARD 3 -->
+      <div class="relative overflow-hidden rounded-3xl shadow-2xl group hover:scale-105 transition-all duration-500"
+           style="background: url('https://i.imgur.com/REPLACE3.jpg') center/cover no-repeat; height: 500px;">
+        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/90"></div>
         
-        <div class="absolute top-4 left-4 glass px-4 py-2 rounded-full border border-purple-400">
-          <span class="text-3xl font-bold text-purple-400">9.9</span>
-        </div>
-        <div class="absolute bottom-4 right-4 glass px-5 py-3 rounded-full border-2 border-purple-400 shadow-xl">
+        <div class="absolute top-4 left-4 glass px-5 py-3 rounded-full border-2 border-purple-400">
           <span class="text-4xl font-bold text-purple-400">9.9</span>
         </div>
+        <div class="absolute bottom-4 right-4 glass px-6 py-4 rounded-full border-4 border-purple-400 shadow-2xl">
+          <span class="text-5xl font-bold text-purple-400">9.9</span>
+        </div>
 
-        <div class="absolute bottom-8 left-6 text-left">
-          <h3 class="text-3xl font-bold text-white drop-shadow-2xl">David O.</h3>
-          <p class="text-xl text-purple-400 font-semibold">Goalkeeper • Glory Champions</p>
-          <span class="inline-block mt-2 px-4 py-1 bg-purple-500/30 text-purple-400 text-sm rounded-full border border-purple-400">
+        <div class="absolute bottom-10 left-6 text-left">
+          <h3 class="text-4xl font-bold text-white drop-shadow-2xl">David O.</h3>
+          <p class="text-2xl text-purple-400 font-bold">Glory Champions • GK</p>
+          <span class="mt-3 px-5 py-2 bg-purple-500/40 text-purple-400 rounded-full text-sm font-bold border border-purple-400">
             Glory Champion Cup
           </span>
         </div>
@@ -255,66 +251,70 @@
     </div>
 
     <!-- Close Button -->
-    <button onclick="closeModal()" class="absolute top-8 right-8 text-white text-4xl hover:text-neon transition">
-      <i class="fas fa-times"></i>
+    <button onclick="closeModal()" class="absolute top-8 right-8 text-white text-5xl hover:text-neon transition z-50">
+      <i class="fas fa-times-circle"></i>
     </button>
   </div>
 </section>
 
-<!-- FIREWORKS CSS + JS -->
+<!-- FIREWORKS CSS -->
 <style>
   .firework {
     position: absolute;
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
     background: #39ff14;
-    box-shadow: 0 0 20px #39ff14;
-    animation: firework 1.5s ease-out infinite;
+    box-shadow: 0 0 30px 10px #39ff14;
+    animation: explode 1.8s ease-out forwards;
   }
-  @keyframes firework {
+  @keyframes explode {
     0% { transform: translateY(100vh) scale(0); opacity: 1; }
-    50% { opacity: 1; }
-    100% { transform: translateY(-100px) scale(1); opacity: 0; }
+    60% { opacity: 1; }
+    100% { transform: translateY(-200px) scale(2); opacity: 0; }
   }
-  .firework:nth-child(1) { left: 20%; animation-delay: 0.2s; background: #00ff88; }
-  .firework:nth-child(2) { left: 50%; animation-delay: 0.5s; background: #ff00ff; }
-  .firework:nth-child(3) { left: 70%; animation-delay: 0.8s; background: #ffff00; }
-  .firework:nth-child(4) { left: 35%; animation-delay: 1.1s; background: #ff3900; }
+  .firework:nth-child(odd) { background: #ff00ff; box-shadow: 0 0 30px 10px #ff00ff; }
+  .firework:nth-child(3n) { background: #00ffff; box-shadow: 0 0 30px 10px #00ffff; }
 </style>
 
+<!-- WORKING JS -->
 <script>
-  function openModal() {
+  // Open Pack
+  document.getElementById('openPackBtn').addEventListener('click', () => {
     const black = document.getElementById('blackScreen');
     const modal = document.getElementById('playerModal');
     const cards = document.getElementById('cardsContainer');
     const fireworks = document.getElementById('fireworks');
 
-    // 1. Full black screen
+    // Show black screen
     black.classList.remove('hidden');
-    modal.classList.add('hidden');
-
-    // 2. After 3 seconds → reveal magic
+    
+    // After 3 seconds → BOOM
     setTimeout(() => {
       black.classList.add('hidden');
       modal.classList.remove('hidden');
       modal.classList.add('flex');
-      
-      // Trigger fireworks
-      fireworks.innerHTML = `
-        <div class="firework"></div><div class="firework"></div>
-        <div class="firework"></div><div class="firework"></div>
-        <div class="firework"></div><div class="firework"></div>
-      `;
 
-      // Animate cards in
+      // Fireworks explosion
+      fireworks.innerHTML = '';
+      for(let i = 0; i < 25; i++) {
+        const fw = document.createElement('div');
+        fw.className = 'firework';
+        fw.style.left = Math.random() * 100 + '%';
+        fw.style.animationDelay = Math.random() * 0.5 + 's';
+        fireworks.appendChild(fw);
+      }
+
+      // Reveal cards with epic animation
       setTimeout(() => {
-        cards.classList.add('scale-100');
-        cards.style.transition = 'transform 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-      }, 300);
+        cards.classList.remove('scale-0', 'opacity-0');
+        cards.classList.add('scale-100', 'opacity-100');
+        cards.style.transition = 'all 1.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+      }, 600);
     }, 3000);
-  }
+  });
 
+  // Close modal
   function closeModal() {
     document.getElementById('playerModal').classList.add('hidden');
     document.getElementById('fireworks').innerHTML = '';
@@ -322,7 +322,7 @@
 
   // Close on outside click
   document.getElementById('playerModal').addEventListener('click', (e) => {
-    if (e.target === document.getElementById('playerModal')) closeModal();
+    if (e.target.id === 'playerModal') closeModal();
   });
 </script>
   <!-- Fantasy Football 2.0 -->
