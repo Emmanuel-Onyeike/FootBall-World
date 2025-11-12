@@ -883,999 +883,208 @@
     }
   });
 </script>
-        <div class="flex items-center justify-center h-screen bg-gray-900">
-  <a 
-    href="match.html" 
-    class="bg-green-600 hover:bg-green-500 text-white font-semibold px-8 py-4 rounded-xl text-lg shadow-lg transition-all duration-300 hover:scale-105"
+<!-- Enhanced Start Match Simulation Button (All-in-One) -->
+<div class="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 p-6">
+  <a
+    href="match.html"
+    class="group relative inline-flex items-center gap-3 bg-gradient-to-r from-green-500 via-emerald-600 to-teal-700 
+           text-white font-bold text-xl md:text-2xl px-10 py-5 rounded-2xl 
+           shadow-2xl overflow-hidden transition-all duration-500 
+           hover:scale-105 hover:shadow-[0_0_40px_rgba(34,197,94,0.6)] 
+           focus:outline-none focus:ring-4 focus:ring-green-500/50"
   >
-    ⚽ Start Match Simulation
+    <!-- Background Glow Effect -->
+    <span class="absolute inset-0 bg-gradient-to-r from-green-400/20 to-teal-600/20 blur-xl 
+                 scale-0 group-hover:scale-150 transition-transform duration-700"></span>
+
+    <!-- Pulsing Football Icon -->
+    <span class="relative z-10 flex items-center justify-center">
+      <span class="inline-block animate-pulse">Football</span>
+    </span>
+
+    <!-- Text -->
+    <span class="relative z-10 tracking-wide">Start Match Simulation</span>
+
+    <!-- Right Arrow with Slide-in -->
+    <span class="relative z-10 ml-2 opacity-0 group-hover:opacity-100 transform translate-x-[-20px] 
+                 group-hover:translate-x-0 transition-all duration-300">
+      Right Arrow
+    </span>
   </a>
 </div>
 
-<!-- Recent Match Section -->
+<!-- Embedded Styles (All-in-One) -->
 <style>
-  /* Base styles for the player badge, centralized here for clean HTML */
-  .player-badge {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 5rem; /* w-20 */
-    height: 5rem; /* h-20 */
-    background-color: #1f2937; /* bg-gray-800 */
-    border-radius: 9999px; /* rounded-full */
-    border: 4px solid #10b981; /* border-4 border-green-600 */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* shadow-md */
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
   }
-  .player-badge .rating {
-    position: absolute;
-    top: 0;
-    right: 0;
-    background-color: #f59e0b; /* bg-yellow-500 */
-    color: black;
-    font-size: 0.75rem; /* text-xs */
-    font-weight: 700; /* font-bold */
-    padding: 0.25rem 0.5rem; /* px-2 py-1 */
-    border-radius: 9999px; /* rounded-full */
-  }
-  /* Style for player/sub divs for better structuring */
-  .player, .sub-player {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-  }
-  .sub-player .player-badge {
-    width: 4rem; /* w-16 */
-    height: 4rem; /* h-16 */
-  }
-  .sub-player p {
-    font-size: 0.75rem; /* text-xs */
-    margin-top: 0.25rem; /* mt-1 */
-  }
-  .match-list-container {
-    max-height: 500px; /* Adjust as needed */
-    overflow-y: auto;
-  }
-  .match-card {
-    border: 1px solid rgba(17, 24, 39, 0.4); /* border-gray-700/40 */
-    border-radius: 0.5rem; /* rounded-lg */
-    padding: 1rem; /* p-4 */
-    background-color: rgba(0, 0, 0, 0.4); /* bg-black/40 */
+  .animate-pulse {
+    animation: pulse 1.8s ease-in-out infinite;
   }
 </style>
 
-<!-- Recent Matches (updated: adds CSC100 vs LAW100 at the end + scroll behavior) -->
+<!-- Recent Match Section -->
+<style>
+  .player-badge { @apply relative flex items-center justify-center w-20 h-20 bg-gray-800 rounded-full border-4 border-green-600 shadow-md; }
+  .player-badge .rating { @apply absolute top-0 right-0 bg-yellow-500 text-black text-xs font-bold px-2 py-1 rounded-full; }
+  .player, .sub-player { @apply flex flex-col items-center relative; }
+  .sub-player .player-badge { @apply w-16 h-16; }
+  .sub-player p { @apply text-xs mt-1; }
+  .match-card { @apply border border-gray-700/40 rounded-lg p-4 bg-black/40 transition-all duration-300 hover:shadow-lg hover:shadow-green-500/20 hover:-translate-y-1; }
+  .match-scroll { @apply flex flex-col md:flex-row gap-6 overflow-y-auto md:overflow-x-auto py-2; }
+  .match-scroll::-webkit-scrollbar { @apply h-2 w-2; }
+  .match-scroll::-webkit-scrollbar-thumb { @apply bg-white/10 rounded-full; }
+  @media (min-width: 768px) { .match-card { @apply min-w-[420px]; } }
+  @media (max-width: 767px) { .match-card { @apply w-full; } }
+  .tab-btn { @apply px-1 transition-colors; }
+  .tab-btn.active { @apply text-green-400 border-b-2 border-green-500; }
+</style>
+
 <section id="recent" class="mb-20">
   <h2 class="text-3xl md:text-4xl font-bold mb-8 text-green-500 border-b-2 border-green-700 pb-2 flex items-center">
-    <i class="fas fa-history mr-3"></i> Recent Matches
+    Recent Matches
   </h2>
 
-  <!-- glass-card wrapper -->
-  <div class="glass-card p-4 md:p-6 shadow-xl match-list-container">
-
-    <!-- Scroll container:
-         - on md+ it becomes horizontal scroll (flex-row + overflow-x-auto)
-         - on mobile it's vertical (flex-col + overflow-y-auto)
-         - hides native scrollbar visually but keeps drag/scroll ability -->
-    <div class="match-scroll flex flex-col md:flex-row gap-6 md:gap-8 overflow-y-auto md:overflow-x-auto md:overflow-y-hidden py-2">
-      
-      <!-- CSC 200 vs CSC 100 (existing) -->
-      <div class="match-card flex-shrink-0 w-full md:w-[48%] border border-gray-700/40 rounded-lg p-4 bg-black/40" data-date="25-10-2025">
+  <div class="glass-card p-4 md:p-6 shadow-xl">
+    <div class="match-scroll">
+      <!-- CSC 100 vs MSS 100 -->
+      <div class="match-card" data-date="2025-11-08">
         <div class="flex items-center justify-between border-b border-gray-700/50 pb-2 mb-3">
           <p class="text-gray-300 text-sm flex items-center gap-2">
-            <i class="far fa-calendar-alt text-green-500"></i> Sat, 8th Nov 2025 – 11:00 AM
+            Sat, 8th Nov 2025 – 11:00 AM
           </p>
-          <span class="text-xs bg-green-800 text-green-100 px-2 py-1 rounded-full">Friendly Match</span>
+          <span class="text-xs bg-green-800 text-green-100 px-2 py-1 rounded-full">Friendly</span>
         </div>
-
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
             <p class="text-lg font-semibold text-white">
-              Computer Science 100 Level <span class="text-gray-500 font-normal">vs</span> MSS 100 level
+              CSC 100 Level <span class="text-gray-500">vs</span> MSS 100 Level
             </p>
-            <p class="text-sm text-gray-400 mt-1">Venue: Campus Main Field 2</p>
+            <p class="text-sm text-gray-400 mt-1">Campus Main Field 2</p>
           </div>
-
-          <div class="text-2xl font-bold text-green-400 text-center sm:text-right">4<span class="text-gray-400">–</span>3</div>
+          <div class="text-2xl font-bold text-green-400">4–3</div>
         </div>
-
         <div class="mt-4 flex justify-end">
-          <button onclick="openMatchModal('csc-match')" class="bg-green-700 hover:bg-green-600 text-white text-sm px-4 py-2 rounded-md flex items-center gap-2">
-            <i class="fas fa-eye"></i> View Details
+          <button onclick="openMatchModal('csc100-mss100')" class="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white text-sm px-4 py-2 rounded-md flex items-center gap-2 transition">
+            View Details
           </button>
         </div>
       </div>
 
-      <!-- Nursing 200 vs Medicine 200 (existing) 
-      <div class="match-card flex-shrink-0 w-full md:w-[48%] border border-gray-700/40 rounded-lg p-4 bg-black/40" data-date="25-10-2025">
+      <!-- CSC 100 vs LAW 100 -->
+      <div class="match-card" data-date="2025-11-08">
         <div class="flex items-center justify-between border-b border-gray-700/50 pb-2 mb-3">
           <p class="text-gray-300 text-sm flex items-center gap-2">
-            <i class="far fa-calendar-alt text-green-500"></i> Sat, 25th Oct 2025 – 9:00 PM
+            Sat, 8th Nov 2025 – 11:00 AM
           </p>
-          <span class="text-xs bg-green-800 text-green-100 px-2 py-1 rounded-full">Friendly Match</span>
+          <span class="text-xs bg-green-800 text-green-100 px-2 py-1 rounded-full">Friendly</span>
         </div>
-
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
             <p class="text-lg font-semibold text-white">
-              Nursing 200 Level <span class="text-gray-500 font-normal">vs</span> Medicine 200 Level
+              CSC 100 Level <span class="text-gray-500">vs</span> Law 100 Level
             </p>
-            <p class="text-sm text-gray-400 mt-1">Venue: Campus 2</p>
+            <p class="text-sm text-gray-400 mt-1">Campus Main Field</p>
           </div>
-
-          <div class="text-2xl font-bold text-green-400 text-center sm:text-right">7<span class="text-gray-400">–</span>4</div>
+          <div class="text-2xl font-bold text-green-400">2–4</div>
         </div>
-
         <div class="mt-4 flex justify-end">
-          <button onclick="openMatchModal('nursing-match')" class="bg-green-700 hover:bg-green-600 text-white text-sm px-4 py-2 rounded-md flex items-center gap-2">
-            <i class="fas fa-eye"></i> View Details
+          <button onclick="openMatchModal('csc100-law100')" class="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white text-sm px-4 py-2 rounded-md flex items-center gap-2 transition">
+            View Details
           </button>
         </div>
       </div>
-
-       -->
-      <div class="match-card flex-shrink-0 w-full md:w-[48%] border border-gray-700/40 rounded-lg p-4 bg-black/40" data-date="31-10-2025">
-        <div class="flex items-center justify-between border-b border-gray-700/50 pb-2 mb-3">
-          <p class="text-gray-300 text-sm flex items-center gap-2">
-            <i class="far fa-calendar-alt text-green-500"></i> Sat, 8th November 2025 – 11:00 Am
-          </p>
-         <span class="text-xs bg-green-800 text-green-100 px-2 py-1 rounded-full">Friendly Match</span>
-        </div>
-
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          <div>
-            <p class="text-lg font-semibold text-white">
-              Computer Science 100 Level <span class="text-gray-500 font-normal">vs</span> Law 100 Level
-            </p>
-            <p class="text-sm text-gray-400 mt-1">Venue: Campus Main Field</p>
-          </div>
-
-          <div class="text-sm text-gray-400 text-center sm:text-right">
-          
-          </div>
-             <div class="text-2xl font-bold text-green-400 text-center sm:text-right">2<span class="text-gray-400">–</span>4</div>
-        </div>
-
-        <div class="mt-4 flex justify-end">
-          <button onclick="openMatchModal('law100-match')" class="bg-green-700 hover:bg-green-600 text-white text-sm px-4 py-2 rounded-md flex items-center gap-2">
-            <i class="fas fa-eye"></i> View Details
-          </button>
-        </div>
-      </div>
- 
-
-    </div> <!-- /.match-scroll -->
-  </div> <!-- /.glass-card -->
+    </div>
+  </div>
 </section>
 
-<!-- NEW: CSC100 vs LAW100 Modal -->
-<div id="law100-match-modal" class="fixed inset-0 bg-black/80 flex items-center justify-center p-4 hidden z-50">
-  <div class="bg-[#111] text-white rounded-xl shadow-2xl w-full max-w-sm md:max-w-3xl p-6 relative border border-green-700/40 max-h-[95vh] overflow-y-auto">
-    <button onclick="closeMatchModal('law100-match')" class="absolute top-3 right-3 text-gray-400 hover:text-white">
-      <i class="fas fa-times text-xl"></i>
-    </button>
-
-    <h2 class="text-2xl font-bold mb-2">CSC 100 vs Law 100</h2>
-    <p class="text-sm text-gray-400 mb-4">Sat 8th 2025 — 11:00 AM · Venue: Campus Main Field · Status: Full Time</p>
+<!-- Modals -->
+<div id="csc100-mss100-modal" class="fixed inset-0 bg-black/80 flex items-center justify-center p-4 hidden z-50">
+  <div class="bg-[#111] text-white rounded-xl shadow-2xl w-full max-w-3xl p-6 border border-green-700/40 max-h-[95vh] overflow-y-auto relative">
+    <button onclick="closeMatchModal('csc100-mss100')" class="absolute top-3 right-3 text-gray-400 hover:text-red-500 transition">Close</button>
+    <h2 class="text-2xl font-bold mb-2 text-green-400">CSC 100 vs MSS 100</h2>
+    <p class="text-sm text-gray-400 mb-4">Saturday, 8th November 2025 — 11:00 AM · Full Time</p>
 
     <!-- Tabs -->
-    <div class="flex gap-4 border-b border-gray-700 mb-4">
-      <button data-tab-target="law100-summary" class="tab-btn law-tab-btn text-green-400 border-b-2 border-green-500 pb-2">Match Summary</button>
-      <button data-tab-target="law100-players" class="tab-btn law-tab-btn text-gray-400 pb-2">Players</button>
+    <div class="flex gap-6 border-b border-gray-700 mb-5">
+      <button data-tab="summary1" class="tab-btn active">Summary</button>
+      <button data-tab="players1" class="tab-btn">Players</button>
     </div>
 
     <!-- Summary -->
-<div id="law100-summary" class="tab-content law-tab-content">
-  <h3 class="text-xl font-bold mb-3 flex items-center gap-2">
-    <i class="fas fa-futbol text-green-500"></i> Match Notes
-  </h3>
+    <div id="summary1" class="tab-content space-y-3 text-sm text-gray-300">
+      <p><strong>6'</strong> — CSC strikes first! A pinpoint corner met with a powerful header. <strong>1–0</strong></p>
+      <p><strong>10'</strong> — Lightning counter! CSC doubles the lead with clinical finishing. <strong>2–0</strong></p>
+      <p><strong>23'</strong> — MSS responds! A slick move cuts through, sharp finish. <strong>2–1</strong></p>
+      <p><strong>40'</strong> — CSC restores cushion before the break — composed strike from range. <strong>3–1</strong></p>
+      <p><strong>47'</strong> — MSS roars back! Early second-half goal reignites hope. <strong>3–2</strong></p>
+      <p><strong>68'</strong> — Lucky bounce! Deflection wrong-foots the keeper. <strong>4–2</strong></p>
+      <p><strong>89'</strong> — Late drama! MSS pulls one back with a solo stunner. <strong>4–3</strong></p>
+      <p class="font-semibold text-green-400 mt-3">Final Whistle: CSC edges a seven-goal thriller!</p>
+    </div>
 
-  <p class="text-gray-400 leading-relaxed">
-    <strong>CSC 100 ⚔️ vs LAW 100</strong> — a thrilling encounter that kept fans on the edge from start to finish!
-  </p>
-
-  <p class="mt-4 text-gray-400 leading-relaxed">
-    The match kicked off with intensity as <strong>CSC</strong> drew first blood early in the opening minutes, 
-    stunning the crowd with a quick strike to make it <strong>1–0</strong>.  
-    However, Law 100’s resilience soon showed — a brilliant finish from <strong>Collins</strong> in the 20th minute leveled the game.  
-    CSC responded fiercely, regaining the lead in the 30th minute to make it <strong>2–1</strong>.
-  </p>
-
-  <p class="mt-4 text-gray-400 leading-relaxed">
-    But the Law boys refused to back down — pressing high and combining beautifully to equalize again, 
-    bringing the first half to an electrifying <strong>2–2</strong>.
-  </p>
-
-  <p class="mt-4 text-gray-400 leading-relaxed">
-    The second half saw tactical adjustments from both sides, but a defensive lapse from CSC gifted 
-    Law 100 a crucial goal to move ahead <strong>3–2</strong>.  
-    And just when it seemed the game would end that way, drama unfolded — a last-minute penalty awarded to Law Department!  
-    Calmly converted, sealing the win at <strong>2–4</strong>.
-  </p>
-
-  <p class="mt-4 text-gray-400 italic">
-    What a comeback! Law Department 100 showed true determination and class to overturn the scoreline — 
-    a well-deserved victory that crowned them the day’s champions.
-  </p>
-
-  <p class="mt-6 text-gray-500 text-sm">
-    📅 <strong>Match Date:</strong> Sat, 8th Nov 2025 at 11:00 AM
-  </p>
-</div>
-
-    <!-- Players (placeholder squads — update manually later) -->
-    <div id="law100-players" class="tab-content law-tab-content hidden">
-      <div class="flex justify-between items-center mb-4">
-        <h3 class="text-xl font-bold flex items-center gap-2"><i class="fas fa-users text-green-500"></i> CSC 100 Squad</h3>
-        <button onclick="alert('Edit squads in admin panel — match not played yet')" class="text-sm bg-green-700 hover:bg-green-600 px-3 py-1 rounded-md">Edit</button>
-      </div>
-
-      <div class="grid grid-cols-3 gap-y-8 md:gap-y-12 gap-x-4 justify-items-center text-center">
-        <!-- placeholders — change initials/names/ratings after match -->
-        <div class="col-span-3 flex flex-col items-center mb-4">
-          <div class="player-badge w-20 h-20 rounded-full bg-gray-800 flex items-center justify-center border-4 border-green-600">
-            <i class="fas fa-hand-paper text-3xl text-green-400"></i>
-          </div>
-          <p class="mt-2 text-sm font-semibold text-white">Goalkeeper</p>
-        </div>
-
-        <div class="player">
-          <div class="player-badge"><span class="text-2xl font-bold text-gray-300">C</span></div>
-          <p class="mt-2 text-sm font-semibold">Player A</p>
-        </div>
-        <div class="player">
-          <div class="player-badge"><span class="text-2xl font-bold text-gray-300">B</span></div>
-          <p class="mt-2 text-sm font-semibold">Player B</p>
-        </div>
-        <div class="player">
-          <div class="player-badge"><span class="text-2xl font-bold text-gray-300">D</span></div>
-          <p class="mt-2 text-sm font-semibold">Player C</p>
-        </div>
-
-        <div class="col-span-3 border-t border-gray-700 mt-6 pt-4 w-full text-center">
-          <h4 class="text-green-400 font-semibold mb-3"><i class="fas fa-exchange-alt"></i> Substitutes</h4>
-          <p class="text-gray-400">Subs will be added after the match.</p>
-        </div>
-      </div>
+    <div id="players1" class="tab-content hidden text-gray-400">
+      Player ratings and stats to be updated post-match.
     </div>
   </div>
 </div>
 
-<!-- Styles: make scroll look nice and keep glass theme consistent -->
-<style>
-  /* hide scrollbar but keep scrolling usable */
-  .match-scroll::-webkit-scrollbar { height: 10px; width: 10px; }
-  .match-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.06); border-radius: 999px; }
-  /* On md and up we want horizontal scroll - ensure children don't shrink too small */
-  @media (min-width: 768px) {
-    .match-scroll { -webkit-overflow-scrolling: touch; overflow-x: auto; overflow-y: hidden; display: flex; align-items: stretch; }
-    .match-card { min-width: 420px; } /* prevents cards from getting too narrow */
-  }
-  /* On small screens make vertical scroll */
-  @media (max-width: 767px) {
-    .match-scroll { display: flex; flex-direction: column; gap: 1rem; max-height: 60vh; overflow-y: auto; }
-    .match-card { width: 100%; }
-  }
-  /* Glass look quick tweak */
-  .glass-card { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius: 12px; }
-  .player-badge .rating { display:none; } /* hide rating in placeholders — use when you have numeric ratings */
-</style>
+<div id="csc100-law100-modal" class="fixed inset-0 bg-black/80 flex items-center justify-center p-4 hidden z-50">
+  <div class="bg-[#111] text-white rounded-xl shadow-2xl w-full max-w-3xl p-6 border border-green-700/40 max-h-[95vh] overflow-y-auto relative">
+    <button onclick="closeMatchModal('csc100-law100')" class="absolute top-3 right-3 text-gray-400 hover:text-red-500 transition">Close</button>
+    <h2 class="text-2xl font-bold mb-2 text-green-400">CSC 100 vs Law 100</h2>
+    <p class="text-sm text-gray-400 mb-4">Saturday, 8th November 2025 — 11:00 AM · Full Time</p>
 
-<!-- Minimal JS helpers — reuse your existing functions if present -->
+    <!-- Tabs -->
+    <div class="flex gap-6 border-b border-gray-700 mb-5">
+      <button data-tab="summary2" class="tab-btn active">Summary</button>
+      <button data-tab="players2" class="tab-btn">Players</button>
+    </div>
+
+    <!-- Summary -->
+    <div id="summary2" class="tab-content space-y-3 text-sm text-gray-300">
+      <p><strong>12'</strong> — CSC takes the lead! Early dominance pays off with a well-worked goal. <strong>1–0</strong></p>
+      <p><strong>20'</strong> — Law equalizes! Collins with a sublime finish past the keeper. <strong>1–1</strong></p>
+      <p><strong>30'</strong> — CSC ahead again! Clinical strike restores advantage. <strong>2–1</strong></p>
+      <p><strong>45'</strong> — Law fights back! High press forces error, cool finish. <strong>2–2</strong> at halftime.</p>
+      <p><strong>60'</strong> — Law takes lead! Defensive lapse punished ruthlessly. <strong>2–3</strong></p>
+      <p><strong>90+3'</strong> — Penalty drama! Law converts under pressure. <strong>2–4</strong></p>
+      <p class="font-semibold text-green-400 mt-3">Full Time: Law completes stunning comeback!</p>
+    </div>
+
+    <div id="players2" class="tab-content hidden text-gray-400">
+      Player ratings and stats to be updated post-match.
+    </div>
+  </div>
+</div>
+
 <script>
-  // generic open/close to match naming used in page
   function openMatchModal(id) {
-    const modal = document.getElementById(id + '-modal');
-    if (modal) modal.classList.remove('hidden');
+    document.getElementById(id + '-modal').classList.remove('hidden');
   }
   function closeMatchModal(id) {
-    const modal = document.getElementById(id + '-modal');
-    if (modal) modal.classList.add('hidden');
+    document.getElementById(id + '-modal').classList.add('hidden');
   }
 
-  // Tab setup for the new law100 modal (and similar pattern can be reused)
-  (function setupLawTabs(){
-    const modal = document.getElementById('law100-match-modal');
-    if (!modal) return;
-    const buttons = modal.querySelectorAll('.tab-btn');
-    buttons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        // reset
-        buttons.forEach(b => { b.classList.remove('text-green-400', 'border-b-2', 'border-green-500'); b.classList.add('text-gray-400'); });
-        modal.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
-        // activate
-        btn.classList.add('text-green-400', 'border-b-2', 'border-green-500');
-        btn.classList.remove('text-gray-400');
-        const target = btn.getAttribute('data-tab-target');
-        if (target) document.getElementById(target).classList.remove('hidden');
+  // Tab functionality
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const modal = btn.closest('[id$="-modal"]');
+      const target = btn.dataset.tab;
+
+      modal.querySelectorAll('.tab-btn').forEach(b => {
+        b.classList.remove('active', 'text-green-400', 'border-b-2', 'border-green-500');
+        b.classList.add('text-gray-400');
       });
+      modal.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+
+      btn.classList.add('active', 'text-green-400', 'border-b-2', 'border-green-500');
+      btn.classList.remove('text-gray-400');
+      document.getElementById(target).classList.remove('hidden');
     });
-  })();
-</script>
-
-<div
-  id="csc-match-modal"
-  class="fixed inset-0 bg-black/80 flex items-center justify-center p-4 hidden z-50"
->
-  <div
-    class="bg-[#111] text-white rounded-xl shadow-2xl w-full max-w-sm md:max-w-3xl p-6 relative border border-green-700/40 max-h-[95vh] overflow-y-auto"
-  >
-    <button onclick="closeMatchModal('csc-match')" class="absolute top-3 right-3 text-gray-400 hover:text-white">
-      <i class="fas fa-times text-xl"></i>
-    </button>
-    <h2 class="text-2xl font-bold mb-4">CSC 100 vs MSS 100</h2>
-
-    <div class="flex gap-4 border-b border-gray-700 mb-4">
-      <button data-tab-target="csc-summary" class="tab-btn csc-tab-btn text-green-400 border-b-2 border-green-500 pb-2">
-        Match Summary
-      </button>
-      <button data-tab-target="csc-players" class="tab-btn csc-tab-btn text-gray-400 pb-2">Players</button>
-    </div>
-
-    <div id="csc-summary" class="tab-content csc-tab-content">
-      <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
-        <i class="fas fa-futbol text-green-500"></i> Match Timeline
-      </h3>
-<ul class="space-y-2 text-sm text-gray-300">
-  <li>🟢 <strong>Kickoff:</strong> The whistle goes and <strong>CSC 100</strong> wastes no time asserting dominance, moving the ball with confidence in the early minutes.</li>
-
-  <li>⚽ <strong>6’ – CSC:</strong> A beautifully curled corner kick finds its way through a crowded box — CSC converts with a sharp header! The scoreboard reads <strong>1–0</strong>.</li>
-
-  <li>⚽ <strong>10’ – CSC:</strong> Lightning strikes twice! A quick passing move through the center splits the MSS defense wide open. CSC doubles their lead — <strong>2–0</strong>.</li>
-
-  <li>⚽ <strong>23’ – MSS:</strong> MSS fights back with spirit! A swift counterattack and a fine finish into the bottom corner cut the deficit — <strong>2–1</strong>.</li>
-
-  <li>⚽ <strong>40’ – CSC:</strong> Just before halftime, CSC regains control. A composed strike from the edge of the box restores their two-goal cushion, <strong>3–1</strong>.</li>
-
-  <li>🟢 <strong>Half-Time:</strong> The first half ends with CSC in command, but MSS showing flashes of danger. <strong>CSC 3 – 1 MSS</strong>.</li>
-
-  <li>⚽ <strong>47’ – MSS:</strong> The second half begins with a bang! MSS scores early with a brilliant team move to make it <strong>3–2</strong>, setting up a tense battle.</li>
-
-  <li>💥 <strong>CSC Pressure:</strong> CSC dominates possession for nearly 10 minutes, creating multiple chances but failing to convert — frustration grows among their forwards.</li>
-
-  <li>⚽ <strong>68’ – CSC:</strong> Persistence pays off! A heavy deflection off an MSS defender wrong-foots the keeper, rolling into the net. CSC celebrates a vital fourth — <strong>4–2</strong>.</li>
-
-  <li>🧤 <strong>Goalkeeping Heroics:</strong> MSS refuses to fade — their keeper makes a spectacular save from a curling CSC free kick, keeping hope alive.</li>
-
-  <li>⚽ <strong>89’ – MSS:</strong> Late drama! A defensive mix-up at the back for CSC allows an MSS striker to steal in and score a solo goal, reducing the gap to <strong>4–3</strong>.</li>
-
-  <li>🏁 <strong>Full-Time:</strong> The referee’s whistle ends a thrilling contest. <strong>CSC 100</strong> edges out <strong>MSS 100</strong> with a hard-fought <strong>4–3 victory</strong>. A match full of goals, grit, and glorious football!</li>
-</ul>
-
-   
-  
-    </div>
-  </div>
-</div>
-
-<!-- Nursing vs Medicine Modal --
-<div
-  id="nursing-match-modal"
-  class="fixed inset-0 bg-black/80 flex items-center justify-center p-4 hidden z-50"
->
-  <div
-    class="bg-[#111] text-white rounded-xl shadow-2xl w-full max-w-sm md:max-w-3xl p-6 relative border border-green-700/40 max-h-[95vh] overflow-y-auto"
-  >
-    <button onclick="closeModal('nursing-match-modal')" class="absolute top-3 right-3 text-gray-400 hover:text-white">
-      <i class="fas fa-times text-xl"></i>
-    </button>
-
-    <h2 class="text-2xl font-bold mb-4">Nursing 200 vs Medicine 200</h2>
-
-  Tabs --
-    <div class="flex gap-4 border-b border-gray-700 mb-4">
-      <button data-tab-target="nursing-summary" class="tab-btn nursing-tab-btn text-green-400 border-b-2 border-green-500 pb-2" onclick="switchTab('nursing-summary','nursing-players')">
-        Match Summary
-      </button>
-      <button data-tab-target="nursing-players" class="tab-btn nursing-tab-btn text-gray-400 pb-2" onclick="switchTab('nursing-players','nursing-summary')">
-        Players
-      </button>
-    </div>
-
-
-   Summary Tab --
-    <div id="nursing-summary" class="tab-content nursing-tab-content">
-      <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
-        <i class="fas fa-futbol text-green-500"></i> Match Highlights
-      </h3>
-      <p class="text-gray-400 mb-4">
-        Yesterday, October 26th, Nursing dominated the pitch and destroyed the Medicine students football team with a thrilling <span class="text-green-400 font-bold">7-4</span> victory!
-      </p>
-      <ul class="space-y-2 text-sm text-gray-300">
-        <li>⚽ <strong>Austin:</strong> THE GOAL MACHINE – Scored FOUR incredible goals, stunning the Medicine team!</li>
-        <li>⚽ <strong>Emmanuel:</strong> THE GAME-CHANGER – Added one jaw-dropping goal with unmatched speed and ball control.</li>
-        <li>⚽ <strong>Ikenna:</strong> THE DRIBBLING WIZARD – Scored one highlight-reel goal, weaving past defenders with ease.</li>
-        <li>⚽ <strong>Reynald De Bar:</strong> THE FINISHER – Sealed the win with a clinical and impeccable goal.</li>
-      </ul>
-      <p class="mt-4 text-gray-400">
-        The entire Nursing team played with energy, teamwork, and passion! Congratulations to the team on an unforgettable match!
-      </p>
-    </div>
-
-    Players Tab --
-    <div id="nursing-players" class="tab-content nursing-tab-content hidden">
-      <div class="flex justify-between items-center mb-4">
-        <h3 id="nursingPlayerTeamTitle" class="text-xl font-bold flex items-center gap-2">
-          <i class="fas fa-users text-green-500"></i> Nursing 200 Players
-        </h3>
-        <button
-          id="nursingSwitchTeamBtn"
-          class="text-sm bg-green-700 hover:bg-green-600 px-3 py-1 rounded-md"
-          onclick="switchNursingTeam()"
-        >
-          Switch to Medicine 200
-        </button>
-      </div>
-
-       Nursing Team --
-      <div id="nursing-team200" class="nursing-team-content grid grid-cols-3 gap-y-8 md:gap-y-12 gap-x-4 justify-items-center text-center">
-        <p class="col-span-3 text-gray-500">Player details for Nursing 200 to be added here.</p>
-      </div>
-
-      Medicine Team --
-      <div id="nursing-team100" class="nursing-team-content hidden grid grid-cols-3 gap-y-8 md:gap-y-12 gap-x-4 justify-items-center text-center">
-        <p class="col-span-3 text-gray-500">Player details for Medicine 200 to be added here.</p>
-      </div>
-    </div>
-  </div>
-</div>
---->
-<script>
-  // Open modal
-  function openModal(id) {
-    document.getElementById(id).classList.remove('hidden');
-  }
-
-  // Close modal
-  function closeModal(id) {
-    document.getElementById(id).classList.add('hidden');
-  }
-
-  // Tab switching: show one tab, hide the other
-  function switchTab(showId, hideId) {
-    document.getElementById(showId).classList.remove('hidden');
-    document.getElementById(hideId).classList.add('hidden');
-
-    // Update tab button styles
-    const allTabBtns = document.querySelectorAll('.tab-btn');
-    allTabBtns.forEach(btn => {
-      if (btn.dataset.tabTarget === showId) {
-        btn.classList.add('text-green-400', 'border-b-2', 'border-green-500');
-        btn.classList.remove('text-gray-400');
-      } else if (btn.dataset.tabTarget === hideId) {
-        btn.classList.remove('text-green-400', 'border-b-2', 'border-green-500');
-        btn.classList.add('text-gray-400');
-      }
-    });
-  }
-
-  // Switch between Nursing 200 and CSC 200 team players
-  let currentCscNursingTeam = 'nursing';
-  function switchCscNursingTeam() {
-    const nursingTeam = document.getElementById('csc-nursing-team200');
-    const cscTeam = document.getElementById('csc-nursing-team100');
-    const title = document.getElementById('cscNursingPlayerTeamTitle');
-    const btn = document.getElementById('cscNursingSwitchTeamBtn');
-
-    if (currentCscNursingTeam === 'nursing') {
-      nursingTeam.classList.add('hidden');
-      cscTeam.classList.remove('hidden');
-      title.innerHTML = '<i class="fas fa-users text-green-500"></i> CSC 200 Players';
-      btn.textContent = 'Switch to Nursing 200';
-      currentCscNursingTeam = 'csc';
-    } else {
-      cscTeam.classList.add('hidden');
-      nursingTeam.classList.remove('hidden');
-      title.innerHTML = '<i class="fas fa-users text-green-500"></i> Nursing 200 Players';
-      btn.textContent = 'Switch to CSC 200';
-      currentCscNursingTeam = 'nursing';
-    }
-  }
-
-  // Optional: Close modal when clicking outside the modal content
-  window.addEventListener('click', function(e) {
-    const modal = document.getElementById('csc-nursing-match-modal-1');
-    if (!modal.contains(e.target) && !modal.classList.contains('hidden')) {
-      closeModal('csc-nursing-match-modal-1');
-    }
   });
 </script>
-
-<script>
-  // Modal open/close
-  function openModal(id) {
-    document.getElementById(id).classList.remove('hidden');
-  }
-  function closeModal(id) {
-    document.getElementById(id).classList.add('hidden');
-  }
-
-  // Tab switching
-  function switchTab(showId, hideId) {
-    document.getElementById(showId).classList.remove('hidden');
-    document.getElementById(hideId).classList.add('hidden');
-  }
-
-  // Nursing / Medicine team switching
-  let currentNursingTeam = 'nursing';
-  function switchNursingTeam() {
-    const nursingTeam = document.getElementById('nursing-team200');
-    const medicineTeam = document.getElementById('nursing-team100');
-    const title = document.getElementById('nursingPlayerTeamTitle');
-    const btn = document.getElementById('nursingSwitchTeamBtn');
-
-    if (currentNursingTeam === 'nursing') {
-      nursingTeam.classList.add('hidden');
-      medicineTeam.classList.remove('hidden');
-      title.innerHTML = '<i class="fas fa-users text-green-500"></i> Medicine 200 Players';
-      btn.textContent = 'Switch to Nursing 200';
-      currentNursingTeam = 'medicine';
-    } else {
-      medicineTeam.classList.add('hidden');
-      nursingTeam.classList.remove('hidden');
-      title.innerHTML = '<i class="fas fa-users text-green-500"></i> Nursing 200 Players';
-      btn.textContent = 'Switch to Medicine 200';
-      currentNursingTeam = 'nursing';
-    }
-  }
-</script>
-
-<script>
-  // Utility function to handle tab switching logic generically
-  function setupTabs(modalId) {
-    const modal = document.getElementById(modalId);
-    if (!modal) return;
-
-    const tabButtons = modal.querySelectorAll('.tab-btn');
-    const tabContents = modal.querySelectorAll('.tab-content');
-
-    tabButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        const targetId = button.getAttribute('data-tab-target');
-        
-        // Deactivate all tabs and hide all content in this modal
-        tabButtons.forEach(btn => {
-          btn.classList.remove('text-green-400', 'border-b-2', 'border-green-500');
-          btn.classList.add('text-gray-400');
-        });
-        tabContents.forEach(content => {
-          content.classList.add('hidden');
-        });
-
-        // Activate the clicked tab and show its content
-        button.classList.add('text-green-400', 'border-b-2', 'border-green-500');
-        button.classList.remove('text-gray-400');
-        document.getElementById(targetId).classList.remove('hidden');
-      });
-    });
-  }
-
-  // Generic function to open a specific modal
-  function openMatchModal(matchId) {
-    const modal = document.getElementById(matchId + '-modal');
-    if (modal) {
-      modal.classList.remove('hidden');
-    }
-  }
-
-  // Generic function to close a specific modal
-  function closeMatchModal(matchId) {
-    const modal = document.getElementById(matchId + '-modal');
-    if (modal) {
-      modal.classList.add('hidden');
-    }
-  }
-
-  // CSC Team Switcher
-  let cscCurrentTeam = 200;
-  const cscSwitchTeamBtn = document.getElementById('cscSwitchTeamBtn');
-  const cscTeam200 = document.getElementById('csc-team200');
-  const cscTeam100 = document.getElementById('csc-team100');
-  const cscPlayerTeamTitle = document.getElementById('cscPlayerTeamTitle');
-
-  if (cscSwitchTeamBtn) {
-    cscSwitchTeamBtn.addEventListener('click', () => {
-      if (cscCurrentTeam === 200) {
-        cscTeam200.classList.add('hidden');
-        cscTeam100.classList.remove('hidden');
-        cscPlayerTeamTitle.innerHTML = `<i class="fas fa-users text-green-500"></i> CSC 100 Players`;
-        cscSwitchTeamBtn.textContent = "Switch to CSC 200";
-        cscCurrentTeam = 100;
-      } else {
-        cscTeam100.classList.add('hidden');
-        cscTeam200.classList.remove('hidden');
-        cscPlayerTeamTitle.innerHTML = `<i class="fas fa-users text-green-500"></i> CSC 200 Players`;
-        cscSwitchTeamBtn.textContent = "Switch to CSC 100";
-        cscCurrentTeam = 200;
-      }
-    });
-  }
-
-  // --- NEW NURSING/MEDICINE Team Switcher ---
-  let nursingCurrentTeam = 'Nursing';
-  const nursingSwitchTeamBtn = document.getElementById('nursingSwitchTeamBtn');
-  const nursingTeam200 = document.getElementById('nursing-team200'); // Nursing 200 (Home team)
-  const medicineTeam200 = document.getElementById('nursing-team100'); // Medicine 200 (Away team, re-using a naming convention)
-  const nursingPlayerTeamTitle = document.getElementById('nursingPlayerTeamTitle');
-
-  if (nursingSwitchTeamBtn) {
-    nursingSwitchTeamBtn.addEventListener('click', () => {
-      if (nursingCurrentTeam === 'Nursing') {
-        nursingTeam200.classList.add('hidden');
-        medicineTeam200.classList.remove('hidden');
-        nursingPlayerTeamTitle.innerHTML = `<i class="fas fa-users text-green-500"></i> Medicine 200 Players`;
-        nursingSwitchTeamBtn.textContent = "Switch to Nursing 200";
-        nursingCurrentTeam = 'Medicine';
-      } else {
-        medicineTeam200.classList.add('hidden');
-        nursingTeam200.classList.remove('hidden');
-        nursingPlayerTeamTitle.innerHTML = `<i class="fas fa-users text-green-500"></i> Nursing 200 Players`;
-        nursingSwitchTeamBtn.textContent = "Switch to Medicine 200";
-        nursingCurrentTeam = 'Nursing';
-      }
-    });
-  }
-
-  // Initialize tabs for both modals
-  setupTabs('csc-match-modal');
-  setupTabs('nursing-match-modal');
-
-</script>
-    <!-- Match Center Modal -->
-    <div id="match-modal" class="modal-overlay hidden">
-        <div class="glass-card match-details-card w-full md:max-w-xl p-6 md:p-8 relative">
-            <button id="close-modal-btn" class="absolute top-4 right-4 text-gray-400 hover:text-white transition">
-                <i class="fas fa-times fa-2x"></i>
-            </button>
-            <h2 id="modal-title" class="text-3xl font-bold mb-4 text-green-500">Match Details</h2>
-            <div id="modal-content" class="text-gray-300">
-                <!-- Content will be injected here by JavaScript -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Upcoming Match Details Modal -->
-    <div id="upcoming-details-modal" class="modal-overlay hidden">
-        <div class="glass-card match-details-card w-full md:max-w-xl p-6 md:p-8 relative">
-            <button id="close-upcoming-modal-btn" class="absolute top-4 right-4 text-gray-400 hover:text-white transition">
-                <i class="fas fa-times fa-2x"></i>
-            </button>
-            <h2 id="upcoming-modal-title" class="text-3xl font-bold mb-4 text-green-500">Upcoming Match Details</h2>
-            <div id="upcoming-modal-content" class="text-gray-300">
-                <!-- Content will be injected by JavaScript -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Success/Reminder Notification Container -->
-    <div id="notification-container" class="notification-container glass-card w-64 md:w-80">
-        <div id="notification-icon"></div>
-        <p id="notification-message" class="text-lg font-semibold mt-4"></p>
-    </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const matchData = {
-                'match-1': {
-                    league: 'MIKOKO LEAGUE',
-                    homeTeam: 'NIL',
-                    awayTeam: 'NIL',
-                    homeStats: {
-                        shots: 12,
-                        onTarget: 5,
-                        possession: '65%',
-                        fouls: 8
-                    },
-                    awayStats: {
-                        shots: 7,
-                        onTarget: 3,
-                        possession: '35%',
-                        fouls: 15
-                    },
-                    highlights: `
-                        <p class="text-lg font-semibold mb-2">Match Highlights</p>
-                        <ul class="list-disc list-inside space-y-2 text-gray-300">
-                            <li>45' - NIL Goal! A stunning strike from outside the box.</li>
-                            <li>68' - Yellow Card for NIL player.</li>
-                            <li>75' - Penalty awarded to the home team.</li>
-                            <li>82' - NIL saves the penalty! What a stop!</li>
-                        </ul>
-                    `
-                },
-                'match-2': {
-                    league: 'GLORY CHAMPIONS CUP',
-                    homeTeam: 'NIL',
-                    awayTeam: 'NIL',
-                    homeStats: {
-                        shots: 10,
-                        onTarget: 4,
-                        possession: '55%',
-                        fouls: 10
-                    },
-                    awayStats: {
-                        shots: 9,
-                        onTarget: 5,
-                        possession: '45%',
-                        fouls: 12
-                    },
-                    highlights: `
-                        <p class="text-lg font-semibold mb-2">Match Highlights</p>
-                        <ul class="list-disc list-inside space-y-2 text-gray-300">
-                            <li>12' - NIL opens the scoring with a brilliant header.</li>
-                            <li>34' - NIL hits the post! So close to a second goal.</li>
-                            <li>55' - Substitution for NIL.</li>
-                            <li>88' - A late push from both sides, but the defense holds strong.</li>
-                        </ul>
-                    `
-                },
-                'match-3': {
-                    league: 'CIT LEAGUE',
-                    homeTeam: 'SIY',
-                    awayTeam: 'VUTD',
-                    homeStats: {
-                        shots: 15,
-                        onTarget: 7,
-                        possession: '70%',
-                        fouls: 5
-                    },
-                    awayStats: {
-                        shots: 8,
-                        onTarget: 4,
-                        possession: '30%',
-                        fouls: 18
-                    },
-                    highlights: `
-                        <p class="text-lg font-semibold mb-2">Match Highlights</p>
-                        <ul class="list-disc list-inside space-y-2 text-gray-300">
-                            <li>5' - VUTD goal! A fantastic start to the game.</li>
-                            <li>23' - SIY equalizes with a powerful shot.</li>
-                            <li>45'+2 - Free kick for VUTD just outside the box.</li>
-                            <li>70' - SIY takes the lead with a breakaway goal.</li>
-                        </ul>
-                    `
-                },
-            };
-
-            const upcomingMatchData = {
-                'upcoming-1': {
-                    teams: 'NIL vs NIL',
-                    league: 'Mikoko League',
-                    date: 'Saturday, July 27, 2025',
-                    time: '18:00 WAT',
-                    venue: 'National Stadium'
-                },
-                'upcoming-2': {
-                    teams: 'NIL vs NIL',
-                    league: 'Glory Champions Cup',
-                    date: 'Sunday, July 28, 2025',
-                    time: '20:30 WAT',
-                    venue: 'City Arena'
-                },
-                'upcoming-3': {
-                    teams: 'Spartans United vs Neons',
-                    league: 'CIT League',
-                    date: 'Tuesday, July 30, 2025',
-                    time: '21:00 WAT',
-                    venue: 'Grand Park'
-                }
-            };
-
-            const viewMatchBtns = document.querySelectorAll('.view-match-btn');
-            const matchModal = document.getElementById('match-modal');
-            const closeModalBtn = document.getElementById('close-modal-btn');
-            const modalTitle = document.getElementById('modal-title');
-            const modalContent = document.getElementById('modal-content');
-            
-            const reminderBtns = document.querySelectorAll('.reminder-btn');
-            const detailsBtns = document.querySelectorAll('.details-btn');
-            const notificationContainer = document.getElementById('notification-container');
-            const notificationMessage = document.getElementById('notification-message');
-            const notificationIcon = document.getElementById('notification-icon');
-            
-            const upcomingDetailsModal = document.getElementById('upcoming-details-modal');
-            const closeUpcomingModalBtn = document.getElementById('close-upcoming-modal-btn');
-            const upcomingModalTitle = document.getElementById('upcoming-modal-title');
-            const upcomingModalContent = document.getElementById('upcoming-modal-content');
-
-            // --- Match Center Button Logic ---
-            viewMatchBtns.forEach(button => {
-                button.addEventListener('click', () => {
-                    if (button.dataset.state === 'disabled') {
-                        return;
-                    }
-                    const matchCard = button.closest('.glass-card');
-                    const matchId = matchCard.dataset.matchId;
-                    const data = matchData[matchId];
-                    if (data) {
-                        showMatchDetails(data);
-                    }
-                });
-            });
-
-            closeModalBtn.addEventListener('click', () => {
-                matchModal.classList.add('hidden');
-            });
-
-            matchModal.addEventListener('click', (e) => {
-                if (e.target === matchModal) {
-                    matchModal.classList.add('hidden');
-                }
-            });
-
-            function showMatchDetails(data) {
-                matchModal.classList.remove('hidden');
-                modalTitle.textContent = 'Analyzing Match...';
-                modalContent.innerHTML = `<div class="flex justify-center items-center py-10"><div class="loader"></div></div>`;
-                setTimeout(() => {
-                    modalContent.innerHTML = `
-                        <p class="text-center text-lg font-bold animate-pulse text-green-400">Analyzing scores...</p>
-                        <div class="flex justify-center items-center py-10"><div class="loader"></div></div>
-                    `;
-                }, 5000);
-                setTimeout(() => {
-                    modalContent.innerHTML = `
-                        <p class="text-center text-lg font-bold animate-pulse text-green-400">Checking stats...</p>
-                        <div class="flex justify-center items-center py-10"><div class="loader"></div></div>
-                    `;
-                }, 8000);
-                setTimeout(() => {
-                    modalContent.innerHTML = `
-                        <p class="text-center text-lg font-bold animate-pulse text-green-400">Finalizing match report...</p>
-                        <div class="flex justify-center items-center py-10"><div class="loader"></div></div>
-                    `;
-                }, 11000);
-                setTimeout(() => {
-                    modalTitle.textContent = `${data.homeTeam} vs ${data.awayTeam} Match Center`;
-                    const statsContent = `
-                        <div class="flex justify-between items-start mb-6">
-                            <!-- Home Team Stats -->
-                            <div class="flex-1 text-center">
-                                <h3 class="text-xl font-bold text-green-400 mb-2">Home Stats</h3>
-                                <ul class="text-left space-y-1 inline-block">
-                                    <li><i class="fas fa-bullseye text-red-500 mr-2"></i> Shots: ${data.homeStats.shots}</li>
-                                    <li><i class="fas fa-crosshairs text-orange-500 mr-2"></i> On Target: ${data.homeStats.onTarget}</li>
-                                    <li><i class="fas fa-futbol text-blue-500 mr-2"></i> Possession: ${data.homeStats.possession}</li>
-                                    <li><i class="fas fa-hand-rock text-yellow-500 mr-2"></i> Fouls: ${data.homeStats.fouls}</li>
-                                </ul>
-                            </div>
-                            <!-- Away Team Stats -->
-                            <div class="flex-1 text-center">
-                                <h3 class="text-xl font-bold text-green-400 mb-2">Away Stats</h3>
-                                <ul class="text-left space-y-1 inline-block">
-                                    <li><i class="fas fa-bullseye text-red-500 mr-2"></i> Shots: ${data.awayStats.shots}</li>
-                                    <li><i class="fas fa-crosshairs text-orange-500 mr-2"></i> On Target: ${data.awayStats.onTarget}</li>
-                                    <li><i class="fas fa-futbol text-blue-500 mr-2"></i> Possession: ${data.awayStats.possession}</li>
-                                    <li><i class="fas fa-hand-rock text-yellow-500 mr-2"></i> Fouls: ${data.awayStats.fouls}</li>
-                                </ul>
-                            </div>
-                        </div>
-                    `;
-                    modalContent.innerHTML = statsContent + data.highlights;
-                }, 14000);
-            }
-
-            // --- Upcoming Fixtures Reminder & Details Logic ---
-            reminderBtns.forEach(button => {
-                button.addEventListener('click', () => {
-                    const parentDiv = button.closest('[data-upcoming-id]');
-                    const upcomingId = parentDiv.dataset.upcomingId;
-                    const isReminderSet = button.dataset.reminderSet === 'true';
-
-                    if (isReminderSet) {
-                        // Turn reminder off
-                        button.dataset.reminderSet = 'false';
-                        button.textContent = 'Reminder';
-                        button.classList.remove('bg-red-700', 'hover:bg-red-600');
-                        button.classList.add('bg-green-700', 'hover:bg-green-600');
-                        showNotification('Reminder off.', 'fas fa-bell-slash text-red-500');
-                    } else {
-                        // Set reminder
-                        button.dataset.reminderSet = 'true';
-                        button.textContent = 'Reminder Off';
-                        button.classList.remove('bg-green-700', 'hover:bg-green-600');
-                        button.classList.add('bg-red-700', 'hover:bg-red-600');
-                        showNotification('Reminder for game set. Turn on your notification sound.', 'fas fa-bell text-green-500');
-                    }
-                });
-            });
-
-            detailsBtns.forEach(button => {
-                button.addEventListener('click', () => {
-                    const parentDiv = button.closest('[data-upcoming-id]');
-                    const upcomingId = parentDiv.dataset.upcomingId;
-                    const data = upcomingMatchData[upcomingId];
-                    if (data) {
-                        showUpcomingDetails(data);
-                    }
-                });
-            });
-
-            closeUpcomingModalBtn.addEventListener('click', () => {
-                upcomingDetailsModal.classList.add('hidden');
-            });
-
-            upcomingDetailsModal.addEventListener('click', (e) => {
-                if (e.target === upcomingDetailsModal) {
-                    upcomingDetailsModal.classList.add('hidden');
-                }
-            });
-
-            function showNotification(message, iconClass) {
-                notificationMessage.textContent = message;
-                notificationIcon.innerHTML = `<i class="${iconClass} fa-3x mb-4"></i>`;
-                notificationContainer.classList.add('show');
-                
-                setTimeout(() => {
-                    notificationContainer.classList.remove('show');
-                }, 5000);
-            }
-
-            function showUpcomingDetails(data) {
-                upcomingModalTitle.textContent = `${data.teams} - Details`;
-                upcomingModalContent.innerHTML = `
-                    <ul class="text-left space-y-4">
-                        <li><span class="font-bold text-green-400">League:</span> ${data.league}</li>
-                        <li><span class="font-bold text-green-400">Date:</span> ${data.date}</li>
-                        <li><span class="font-bold text-green-400">Time:</span> ${data.time}</li>
-                        <li><span class="font-bold text-green-400">Venue:</span> ${data.venue}</li>
-                    </ul>
-                `;
-                upcomingDetailsModal.classList.remove('hidden');
-            }
-
-            // Timer and status logic for live matches
-            const statusBtns = document.querySelectorAll('.status');
-            const timers = {};
-            const intervals = {};
-
-            statusBtns.forEach(btn => {
-                const matchCard = btn.closest('.glass-card');
-                const matchId = matchCard.dataset.matchId;
-                const statusDot = btn.querySelector('.live-dot');
-                const statusText = btn.querySelector('.status-text');
-                const liveTimer = matchCard.querySelector('.live-timer');
-                const minuteText = matchCard.querySelector('.minute-text');
-                const kickoffInfo = matchCard.querySelector('.kickoff-info');
-
-                let isLive = false;
-                timers[matchId] = 0;
-
-                btn.addEventListener('click', () => {
-                    isLive = !isLive;
-                    if (isLive) {
-                        statusDot.classList.remove('stopped');
-                        statusDot.classList.add('breathing');
-                        statusText.textContent = 'Live';
-                        liveTimer.classList.remove('hidden');
-                        kickoffInfo.classList.add('hidden');
-                        const viewMatchBtn = matchCard.querySelector('.view-match-btn');
-                        const tooltipText = matchCard.querySelector('.tooltip-text');
-                        
-                        // Change button state and style
-                        viewMatchBtn.dataset.state = 'enabled';
-                        viewMatchBtn.classList.remove('bg-gray-600', 'cursor-not-allowed');
-                        viewMatchBtn.classList.add('bg-green-600', 'hover:bg-green-500');
-                        tooltipText.style.visibility = 'hidden';
-
-                        intervals[matchId] = setInterval(() => {
-                            timers[matchId]++;
-                            minuteText.textContent = `${timers[matchId]}'`;
-                        }, 1000);
-                    } else {
-                        statusDot.classList.add('stopped');
-                        statusDot.classList.remove('breathing');
-                        statusText.textContent = 'Full Time';
-                        liveTimer.classList.add('hidden');
-                        kickoffInfo.classList.remove('hidden');
-                        kickoffInfo.textContent = 'Match Finished';
-
-                        clearInterval(intervals[matchId]);
-                    }
-                });
-            });
-        });
-    </script>
         <!-- Standings Section (Updated with a Table) -->
  <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 md:space-x-4 mb-8">
   <button id="mikoko-btn" class="w-full md:w-auto flex-1 border-2 border-green-500 text-green-500 font-bold py-3 px-6 rounded-xl hover:bg-green-500 hover:text-white transition shadow-md">
