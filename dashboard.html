@@ -925,48 +925,86 @@
 </style>
 
 <!-- Recent Match Section -->
+<!-- Recent Match Section -->
 <style>
   .player-badge { @apply relative flex items-center justify-center w-20 h-20 bg-gray-800 rounded-full border-4 border-green-600 shadow-md; }
   .player-badge .rating { @apply absolute top-0 right-0 bg-yellow-500 text-black text-xs font-bold px-2 py-1 rounded-full; }
   .player, .sub-player { @apply flex flex-col items-center relative; }
   .sub-player .player-badge { @apply w-16 h-16; }
   .sub-player p { @apply text-xs mt-1; }
-  .match-card { @apply border border-gray-700/40 rounded-lg p-4 bg-black/40 transition-all duration-300 hover:shadow-lg hover:shadow-green-500/20 hover:-translate-y-1; }
-  .match-scroll { @apply flex flex-col md:flex-row gap-6 overflow-y-auto md:overflow-x-auto py-2; }
+  .match-card {
+    @apply border border-gray-700/40 rounded-xl p-5 bg-gradient-to-br from-black/50 to-black/30 backdrop-blur-sm 
+           transition-all duration-400 hover:shadow-2xl hover:shadow-green-500/20 hover:-translate-y-2 
+           hover:border-green-600/60;
+  }
+  .match-scroll { @apply flex flex-col md:flex-row gap-8 overflow-y-auto md:overflow-x-auto py-4; }
   .match-scroll::-webkit-scrollbar { @apply h-2 w-2; }
-  .match-scroll::-webkit-scrollbar-thumb { @apply bg-white/10 rounded-full; }
-  @media (min-width: 768px) { .match-card { @apply min-w-[420px]; } }
+  .match-scroll::-webkit-scrollbar-thumb { @apply bg-green-600/30 rounded-full hover:bg-green-600/50; }
+  @media (min-width: 768px) { .match-card { @apply min-w-[440px]; } }
   @media (max-width: 767px) { .match-card { @apply w-full; } }
-  .tab-btn { @apply px-1 transition-colors; }
-  .tab-btn.active { @apply text-green-400 border-b-2 border-green-500; }
+  .tab-btn {
+    @apply px-6 py-3 text-sm font-semibold transition-all duration-300 flex items-center gap-2;
+  }
+  .tab-btn.active {
+    @apply text-green-400 border-b-3 border-green-500 bg-green-900/20 rounded-t-lg;
+  }
+  .tab-btn:not(.active) {
+    @apply text-gray-400 hover:text-green-300;
+  }
+  .modal-close {
+    @apply absolute top-5 right-5 w-10 h-10 bg-red-600/20 hover:bg-red-600/40 rounded-full 
+           flex items-center justify-center transition-all duration-300 hover:scale-110;
+  }
+  .timeline-item {
+    @apply flex items-start gap-3 text-sm text-gray-300 leading-relaxed py-2;
+  }
+  .timeline-icon {
+    @apply w-7 h-7 bg-green-600/20 rounded-full flex items-center justify-center text-green-400 text-xs font-bold;
+  }
 </style>
 
-<section id="recent" class="mb-20">
-  <h2 class="text-3xl md:text-4xl font-bold mb-8 text-green-500 border-b-2 border-green-700 pb-2 flex items-center">
+<section id="recent" class="mb-24">
+  <h2 class="text-4xl md:text-5xl font-extrabold mb-10 text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-500 
+             border-b-4 border-green-700 pb-3 flex items-center gap-4">
     Recent Matches
   </h2>
 
-  <div class="glass-card p-4 md:p-6 shadow-xl">
+  <div class="glass-card p-6 md:p-8 shadow-2xl rounded-2xl border border-green-700/30">
     <div class="match-scroll">
+      
       <!-- CSC 100 vs MSS 100 -->
       <div class="match-card" data-date="2025-11-08">
-        <div class="flex items-center justify-between border-b border-gray-700/50 pb-2 mb-3">
-          <p class="text-gray-300 text-sm flex items-center gap-2">
-            Sat, 8th Nov 2025 – 11:00 AM
+        <div class="flex items-center justify-between mb-4 pb-3 border-b border-green-800/40">
+          <p class="text-gray-300 text-sm flex items-center gap-2 font-medium">
+            Saturday, 8th Nov 2025 — 11:00 AM
           </p>
-          <span class="text-xs bg-green-800 text-green-100 px-2 py-1 rounded-full">Friendly</span>
+          <span class="text-xs bg-gradient-to-r from-green-700 to-emerald-700 text-green-100 px-3 py-1.5 rounded-full font-semibold shadow-md">
+            Friendly Match
+          </span>
         </div>
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5 mb-5">
           <div>
-            <p class="text-lg font-semibold text-white">
-              CSC 100 Level <span class="text-gray-500">vs</span> MSS 100 Level
+            <p class="text-xl font-bold text-white flex items-center gap-3">
+              <span class="text-green-400">CSC 100</span>
+              <span class="text-gray-500 text-lg">vs</span>
+              <span class="text-emerald-400">MSS 100</span>
             </p>
-            <p class="text-sm text-gray-400 mt-1">Campus Main Field 2</p>
+            <p class="text-sm text-gray-400 mt-1 flex items-center gap-2">
+              Campus Main Field 2
+            </p>
           </div>
-          <div class="text-2xl font-bold text-green-400">4–3</div>
+          <div class="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-500">
+            4–3
+          </div>
         </div>
-        <div class="mt-4 flex justify-end">
-          <button onclick="openMatchModal('csc100-mss100')" class="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white text-sm px-4 py-2 rounded-md flex items-center gap-2 transition">
+
+        <div class="flex justify-end">
+          <button onclick="openMatchModal('csc100-mss100')" 
+                  class="group bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 
+                         text-white font-semibold px-6 py-3 rounded-xl flex items-center gap-3 
+                         shadow-lg hover:shadow-green-500/30 transition-all duration-300 
+                         hover:scale-105">
             View Details
           </button>
         </div>
@@ -974,23 +1012,37 @@
 
       <!-- CSC 100 vs LAW 100 -->
       <div class="match-card" data-date="2025-11-08">
-        <div class="flex items-center justify-between border-b border-gray-700/50 pb-2 mb-3">
-          <p class="text-gray-300 text-sm flex items-center gap-2">
-            Sat, 8th Nov 2025 – 11:00 AM
+        <div class="flex items-center justify-between mb-4 pb-3 border-b border-green-800/40">
+          <p class="text-gray-300 text-sm flex items-center gap-2 font-medium">
+            Saturday, 8th Nov 2025 — 11:00 AM
           </p>
-          <span class="text-xs bg-green-800 text-green-100 px-2 py-1 rounded-full">Friendly</span>
+          <span class="text-xs bg-gradient-to-r from-green-700 to-emerald-700 text-green-100 px-3 py-1.5 rounded-full font-semibold shadow-md">
+            Friendly Match
+          </span>
         </div>
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5 mb-5">
           <div>
-            <p class="text-lg font-semibold text-white">
-              CSC 100 Level <span class="text-gray-500">vs</span> Law 100 Level
+            <p class="text-xl font-bold text-white flex items-center gap-3">
+              <span class="text-green-400">CSC 100</span>
+              <span class="text-gray-500 text-lg">vs</span>
+              <span class="text-emerald-400">Law 100</span>
             </p>
-            <p class="text-sm text-gray-400 mt-1">Campus Main Field</p>
+            <p class="text-sm text-gray-400 mt-1 flex items-center gap-2">
+              Campus Main Field
+            </p>
           </div>
-          <div class="text-2xl font-bold text-green-400">2–4</div>
+          <div class="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-orange-500">
+            2–4
+          </div>
         </div>
-        <div class="mt-4 flex justify-end">
-          <button onclick="openMatchModal('csc100-law100')" class="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white text-sm px-4 py-2 rounded-md flex items-center gap-2 transition">
+
+        <div class="flex justify-end">
+          <button onclick="openMatchModal('csc100-law100')" 
+                  class="group bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 
+                         text-white font-semibold px-6 py-3 rounded-xl flex items-center gap-3 
+                         shadow-lg hover:shadow-green-500/30 transition-all duration-300 
+                         hover:scale-105">
             View Details
           </button>
         </div>
@@ -999,62 +1051,147 @@
   </div>
 </section>
 
-<!-- Modals -->
-<div id="csc100-mss100-modal" class="fixed inset-0 bg-black/80 flex items-center justify-center p-4 hidden z-50">
-  <div class="bg-[#111] text-white rounded-xl shadow-2xl w-full max-w-3xl p-6 border border-green-700/40 max-h-[95vh] overflow-y-auto relative">
-    <button onclick="closeMatchModal('csc100-mss100')" class="absolute top-3 right-3 text-gray-400 hover:text-red-500 transition">Close</button>
-    <h2 class="text-2xl font-bold mb-2 text-green-400">CSC 100 vs MSS 100</h2>
-    <p class="text-sm text-gray-400 mb-4">Saturday, 8th November 2025 — 11:00 AM · Full Time</p>
+<!-- MODALS -->
+<div id="csc100-mss100-modal" class="fixed inset-0 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 hidden z-50">
+  <div class="bg-gradient-to-br from-[#0a0a0a] to-[#111] text-white rounded-2xl shadow-2xl w-full max-w-4xl p-8 
+              border border-green-700/50 max-h-[95vh] overflow-y-auto relative glass-card">
+    
+    <button onclick="closeMatchModal('csc100-mss100')" class="modal-close">
+      Close
+    </button>
+
+    <div class="flex items-center justify-between mb-6">
+      <h2 class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-500">
+        CSC 100 vs MSS 100
+      </h2>
+      <span class="text-sm bg-green-800/60 text-green-200 px-4 py-1.5 rounded-full font-semibold">
+        Full Time
+      </span>
+    </div>
+
+    <p class="text-gray-400 mb-8 flex items-center gap-2">
+      Saturday, 8th November 2025 — 11:00 AM · Campus Main Field 2
+    </p>
 
     <!-- Tabs -->
-    <div class="flex gap-6 border-b border-gray-700 mb-5">
-      <button data-tab="summary1" class="tab-btn active">Summary</button>
-      <button data-tab="players1" class="tab-btn">Players</button>
+    <div class="flex gap-1 mb-8 bg-black/40 p-1 rounded-xl w-fit">
+      <button data-tab="summary1" class="tab-btn active">
+        Match Summary
+      </button>
+      <button data-tab="players1" class="tab-btn">
+        Players
+      </button>
     </div>
 
     <!-- Summary -->
-    <div id="summary1" class="tab-content space-y-3 text-sm text-gray-300">
-      <p><strong>6'</strong> — CSC strikes first! A pinpoint corner met with a powerful header. <strong>1–0</strong></p>
-      <p><strong>10'</strong> — Lightning counter! CSC doubles the lead with clinical finishing. <strong>2–0</strong></p>
-      <p><strong>23'</strong> — MSS responds! A slick move cuts through, sharp finish. <strong>2–1</strong></p>
-      <p><strong>40'</strong> — CSC restores cushion before the break — composed strike from range. <strong>3–1</strong></p>
-      <p><strong>47'</strong> — MSS roars back! Early second-half goal reignites hope. <strong>3–2</strong></p>
-      <p><strong>68'</strong> — Lucky bounce! Deflection wrong-foots the keeper. <strong>4–2</strong></p>
-      <p><strong>89'</strong> — Late drama! MSS pulls one back with a solo stunner. <strong>4–3</strong></p>
-      <p class="font-semibold text-green-400 mt-3">Final Whistle: CSC edges a seven-goal thriller!</p>
+    <div id="summary1" class="tab-content space-y-5">
+      <div class="timeline-item">
+        <div class="timeline-icon">6'</div>
+        <p><strong>CSC strikes first!</strong> Pinpoint corner met with a thundering header. <strong class="text-green-400">1–0</strong></p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-icon">10'</div>
+        <p><strong>Lightning counter!</strong> CSC doubles lead with ruthless efficiency. <strong class="text-green-400">2–0</strong></p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-icon">23'</div>
+        <p><strong>MSS fights back!</strong> Slick one-touch play, clinical finish. <strong class="text-yellow-400">2–1</strong></p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-icon">40'</div>
+        <p><strong>CSC restores control!</strong> Composed strike from 20 yards. <strong class="text-green-400">3–1</strong></p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-icon">47'</div>
+        <p><strong>Second-half spark!</strong> MSS roars back early. <strong class="text-yellow-400">3–2</strong></p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-icon">68'</div>
+        <p><strong>Fortunate bounce!</strong> Deflection loops over keeper. <strong class="text-green-400">4–2</strong></p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-icon">89'</div>
+        <p><strong>Late drama!</strong> MSS pulls one back with a solo stunner. <strong class="text-yellow-400">4–3</strong></p>
+      </div>
+      <div class="mt-6 p-4 bg-green-900/30 rounded-xl border border-green-700/50">
+        <p class="font-bold text-green-400 text-lg text-center">
+          Final Whistle: CSC survives a 7-goal thriller!
+        </p>
+      </div>
     </div>
 
-    <div id="players1" class="tab-content hidden text-gray-400">
-      Player ratings and stats to be updated post-match.
+    <div id="players1" class="tab-content hidden text-center py-12">
+      <p class="text-gray-400 text-lg">Player ratings & stats will be updated post-match.</p>
     </div>
   </div>
 </div>
 
-<div id="csc100-law100-modal" class="fixed inset-0 bg-black/80 flex items-center justify-center p-4 hidden z-50">
-  <div class="bg-[#111] text-white rounded-xl shadow-2xl w-full max-w-3xl p-6 border border-green-700/40 max-h-[95vh] overflow-y-auto relative">
-    <button onclick="closeMatchModal('csc100-law100')" class="absolute top-3 right-3 text-gray-400 hover:text-red-500 transition">Close</button>
-    <h2 class="text-2xl font-bold mb-2 text-green-400">CSC 100 vs Law 100</h2>
-    <p class="text-sm text-gray-400 mb-4">Saturday, 8th November 2025 — 11:00 AM · Full Time</p>
+<div id="csc100-law100-modal" class="fixed inset-0 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 hidden z-50">
+  <div class="bg-gradient-to-br from-[#0a0a0a] to-[#111] text-white rounded-2xl shadow-2xl w-full max-w-4xl p-8 
+              border border-green-700/50 max-h-[95vh] overflow-y-auto relative glass-card">
+    
+    <button onclick="closeMatchModal('csc100-law100')" class="modal-close">
+      Close
+    </button>
+
+    <div class="flex items-center justify-between mb-6">
+      <h2 class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-500">
+        CSC 100 vs Law 100
+      </h2>
+      <span class="text-sm bg-red-800/60 text-red-200 px-4 py-1.5 rounded-full font-semibold">
+        Full Time
+      </span>
+    </div>
+
+    <p class="text-gray-400 mb-8 flex items-center gap-2">
+      Saturday, 8th November 2025 — 11:00 AM · Campus Main Field
+    </p>
 
     <!-- Tabs -->
-    <div class="flex gap-6 border-b border-gray-700 mb-5">
-      <button data-tab="summary2" class="tab-btn active">Summary</button>
-      <button data-tab="players2" class="tab-btn">Players</button>
+    <div class="flex gap-1 mb-8 bg-black/40 p-1 rounded-xl w-fit">
+      <button data-tab="summary2" class="tab-btn active">
+        Match Summary
+      </button>
+      <button data-tab="players2" class="tab-btn">
+        Players
+      </button>
     </div>
 
     <!-- Summary -->
-    <div id="summary2" class="tab-content space-y-3 text-sm text-gray-300">
-      <p><strong>12'</strong> — CSC takes the lead! Early dominance pays off with a well-worked goal. <strong>1–0</strong></p>
-      <p><strong>20'</strong> — Law equalizes! Collins with a sublime finish past the keeper. <strong>1–1</strong></p>
-      <p><strong>30'</strong> — CSC ahead again! Clinical strike restores advantage. <strong>2–1</strong></p>
-      <p><strong>45'</strong> — Law fights back! High press forces error, cool finish. <strong>2–2</strong> at halftime.</p>
-      <p><strong>60'</strong> — Law takes lead! Defensive lapse punished ruthlessly. <strong>2–3</strong></p>
-      <p><strong>90+3'</strong> — Penalty drama! Law converts under pressure. <strong>2–4</strong></p>
-      <p class="font-semibold text-green-400 mt-3">Full Time: Law completes stunning comeback!</p>
+    <div id="summary2" class="tab-content space-y-5">
+      <div class="timeline-item">
+        <div class="timeline-icon">12'</div>
+        <p><strong>CSC opens strong!</strong> Early pressure pays off. <strong class="text-green-400">1–0</strong></p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-icon">20'</div>
+        <p><strong>Law levels it!</strong> Collins with a world-class finish. <strong class="text-yellow-400">1–1</strong></p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-icon">30'</div>
+        <p><strong>CSC retakes lead!</strong> Clinical edge-of-box strike. <strong class="text-green-400">2–1</strong></p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-icon">45'</div>
+        <p><strong>Law equalizes!</strong> High press forces error. <strong class="text-yellow-400">2–2</strong></p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-icon">60'</div>
+        <p><strong>Law ahead!</strong> Defensive lapse punished. <strong class="text-red-400">2–3</strong></p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-icon">90+3'</div>
+        <p><strong>Penalty drama!</strong> Law converts under pressure. <strong class="text-red-400">2–4</strong></p>
+      </div>
+      <div class="mt-6 p-4 bg-red-900/30 rounded-xl border border-red-700/50">
+        <p class="font-bold text-red-400 text-lg text-center">
+          Full Time: Law completes stunning comeback!
+        </p>
+      </div>
     </div>
 
-    <div id="players2" class="tab-content hidden text-gray-400">
-      Player ratings and stats to be updated post-match.
+    <div id="players2" class="tab-content hidden text-center py-12">
+      <p class="text-gray-400 text-lg">Player ratings & stats will be updated post-match.</p>
     </div>
   </div>
 </div>
@@ -1067,19 +1204,18 @@
     document.getElementById(id + '-modal').classList.add('hidden');
   }
 
-  // Tab functionality
   document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const modal = btn.closest('[id$="-modal"]');
       const target = btn.dataset.tab;
 
       modal.querySelectorAll('.tab-btn').forEach(b => {
-        b.classList.remove('active', 'text-green-400', 'border-b-2', 'border-green-500');
+        b.classList.remove('active', 'text-green-400', 'border-b-3', 'border-green-500', 'bg-green-900/20');
         b.classList.add('text-gray-400');
       });
       modal.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
 
-      btn.classList.add('active', 'text-green-400', 'border-b-2', 'border-green-500');
+      btn.classList.add('active', 'text-green-400', 'border-b-3', 'border-green-500', 'bg-green-900/20');
       btn.classList.remove('text-gray-400');
       document.getElementById(target).classList.remove('hidden');
     });
