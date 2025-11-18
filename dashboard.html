@@ -2437,51 +2437,115 @@ document.querySelectorAll('.tab-link, .assist-tab').forEach(tab => {
     </main>
 
     <!-- Footer -->
-   <footer class="bg-gray-950 text-gray-400 py-12 border-t border-green-600/40 relative overflow-hidden">
-  <!-- Glow Effect -->
-  <div class="absolute inset-0 bg-gradient-to-t from-green-600/10 via-transparent to-transparent"></div>
+  <footer style="
+    background: #000000; /* Pure black base */
+    color: #b0b0b0; /* Light gray text for readability */
+    padding: 3rem 0; /* py-12 */
+    border-top: 3px solid rgba(16, 185, 129, 0.5); /* Stronger green border */
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.8); /* Shadow from the top */
+">
+    <div style="
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at top, rgba(16, 185, 129, 0.08) 0%, transparent 60%);
+        opacity: 0.8;
+        pointer-events: none;
+    "></div>
 
-  <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
-    <!-- Top Row -->
-    <div class="flex flex-col md:flex-row items-center md:justify-between space-y-6 md:space-y-0">
-      <h3 class="text-2xl font-extrabold text-green-500 flex items-center gap-2">
-        ⚽ Football World
-      </h3>
-      <div class="flex space-x-6 text-sm font-medium">
-        <a href="#" class="hover:text-green-400 transition">Privacy Policy</a>
-        <a href="#" class="hover:text-green-400 transition">Terms of Use</a>
-        <a href="#" class="hover:text-green-400 transition">Contact</a>
-      </div>
+    <div style="max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; position: relative; z-index: 10;">
+        <div style="
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+            border-bottom: 1px solid #333333; /* Darker, cleaner divider */
+            padding-bottom: 1.5rem;
+        ">
+            <h3 style="
+                font-size: 2.25rem; /* text-3xl */
+                font-weight: 900;
+                color: #34d399; /* Green-400 */
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                letter-spacing: 1px;
+                text-shadow: 0 0 10px rgba(52, 211, 153, 0.4);
+            ">
+                ⚽ Football World
+            </h3>
+            <div style="display: flex; gap: 2rem; font-size: 0.95rem; font-weight: 500;">
+                <a href="#" style="color: #b0b0b0; text-decoration: none; transition: color 0.3s ease-in-out;" onmouseover="this.style.color='#6ee7b7'" onmouseout="this.style.color='#b0b0b0'">Privacy Policy</a>
+                <a href="#" style="color: #b0b0b0; text-decoration: none; transition: color 0.3s ease-in-out;" onmouseover="this.style.color='#6ee7b7'" onmouseout="this.style.color='#b0b0b0'">Terms of Use</a>
+                <a href="#" style="color: #b0b0b0; text-decoration: none; transition: color 0.3s ease-in-out;" onmouseover="this.style.color='#6ee7b7'" onmouseout="this.style.color='#b0b0b0'">Contact</a>
+            </div>
+        </div>
+
+        <div style="
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+            padding-top: 1.5rem;
+        ">
+            <p style="font-size: 0.9rem; text-align: center; line-height: 1.6;">
+                &copy; 2025 <span style="color: #6ee7b7; font-weight: 700;">Football World</span>. 
+                All Rights Reserved. 
+                <br style="display: block;">
+                Designed & Powered by <span style="color: #34d399; font-weight: 800; letter-spacing: 0.5px;">Tech Nxxt</span> 🚀
+            </p>
+
+            <div style="display: flex; gap: 1rem; font-size: 1.25rem;">
+                <a href="#" style="
+                    display: inline-flex;
+                    padding: 0.75rem;
+                    border-radius: 50%;
+                    background-color: #1f2937; /* Darker button background */
+                    color: #b0b0b0;
+                    transition: all 0.3s ease-in-out;
+                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+                " onmouseover="this.style.backgroundColor='#10b981'; this.style.color='#fff'; this.style.boxShadow='0 4px 15px rgba(16, 185, 129, 0.5)'" onmouseout="this.style.backgroundColor='#1f2937'; this.style.color='#b0b0b0'; this.style.boxShadow='0 2px 8px rgba(0, 0, 0, 0.6)'">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" style="
+                    display: inline-flex;
+                    padding: 0.75rem;
+                    border-radius: 50%;
+                    background-color: #1f2937;
+                    color: #b0b0b0;
+                    transition: all 0.3s ease-in-out;
+                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+                " onmouseover="this.style.backgroundColor='#10b981'; this.style.color='#fff'; this.style.boxShadow='0 4px 15px rgba(16, 185, 129, 0.5)'" onmouseout="this.style.backgroundColor='#1f2937'; this.style.color='#b0b0b0'; this.style.boxShadow='0 2px 8px rgba(0, 0, 0, 0.6)'">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#" style="
+                    display: inline-flex;
+                    padding: 0.75rem;
+                    border-radius: 50%;
+                    background-color: #1f2937;
+                    color: #b0b0b0;
+                    transition: all 0.3s ease-in-out;
+                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+                " onmouseover="this.style.backgroundColor='#10b981'; this.style.color='#fff'; this.style.boxShadow='0 4px 15px rgba(16, 185, 129, 0.5)'" onmouseout="this.style.backgroundColor='#1f2937'; this.style.color='#b0b0b0'; this.style.boxShadow='0 2px 8px rgba(0, 0, 0, 0.6)'">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" style="
+                    display: inline-flex;
+                    padding: 0.75rem;
+                    border-radius: 50%;
+                    background-color: #1f2937;
+                    color: #b0b0b0;
+                    transition: all 0.3s ease-in-out;
+                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+                " onmouseover="this.style.backgroundColor='#10b981'; this.style.color='#fff'; this.style.boxShadow='0 4px 15px rgba(16, 185, 129, 0.5)'" onmouseout="this.style.backgroundColor='#1f2937'; this.style.color='#b0b0b0'; this.style.boxShadow='0 2px 8px rgba(0, 0, 0, 0.6)'">
+                    <i class="fab fa-youtube"></i>
+                </a>
+            </div>
+        </div>
     </div>
-
-    <!-- Divider -->
-    <div class="my-6 border-t border-gray-800"></div>
-
-    <!-- Bottom Row -->
-    <div class="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
-      <p class="text-sm text-center md:text-left leading-relaxed">
-        &copy; 2025 <span class="text-green-400 font-semibold">Football World</span>.  
-        All Rights Reserved. <br class="sm:hidden"> 
-        Designed & Powered by <span class="text-green-500 font-bold">Tech Nxxt</span> 🚀
-      </p>
-
-      <!-- Socials -->
-      <div class="flex space-x-5 text-xl">
-        <a href="#" class="p-2 rounded-full bg-gray-800 hover:bg-green-600 hover:text-white transition shadow-md">
-          <i class="fab fa-facebook-f"></i>
-        </a>
-        <a href="#" class="p-2 rounded-full bg-gray-800 hover:bg-green-600 hover:text-white transition shadow-md">
-          <i class="fab fa-twitter"></i>
-        </a>
-        <a href="#" class="p-2 rounded-full bg-gray-800 hover:bg-green-600 hover:text-white transition shadow-md">
-          <i class="fab fa-instagram"></i>
-        </a>
-        <a href="#" class="p-2 rounded-full bg-gray-800 hover:bg-green-600 hover:text-white transition shadow-md">
-          <i class="fab fa-youtube"></i>
-        </a>
-      </div>
-    </div>
-  </div>
 </footer>
 
     <script>
