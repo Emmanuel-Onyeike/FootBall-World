@@ -1393,157 +1393,7 @@ a:focus, button:focus, .btn:focus{
     }
 </style>
 <!-- MODALS -->
-<section id="recent" class="mb-24 px-4 md:px-6 bg-gray-900 text-gray-100">
-        <h2 class="text-4xl md:text-5xl font-extrabold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-500 border-b-4 border-green-700/50 pb-3 flex items-center gap-4">
-            <i class="fas fa-history text-green-400"></i> Recent Matches
-        </h2>
 
-        <div class="glass-card p-6 md:p-8 shadow-2xl rounded-2xl border border-green-700/30">
-            
-            <div class="match-scroll flex overflow-x-auto space-x-6 pb-4 custom-scrollbar">
-                
-                <div class="match-card flex-shrink-0 w-80 md:w-96 p-5 border border-red-700/50 rounded-xl bg-gray-800/60 transition-all duration-300 hover:scale-[1.02] hover:shadow-red-500/10" data-date="2025-11-10" data-winner="away">
-                    
-                    <div class="flex items-center justify-between mb-4 pb-3 border-b border-gray-700">
-                        <p class="text-gray-400 text-sm flex items-center gap-2 font-medium">
-                            <i class="fas fa-calendar-day"></i> Monday, 10th Nov 2025 — 11:00 AM
-                        </p>
-                        <span class="text-xs bg-red-700/70 text-red-100 px-3 py-1.5 rounded-full font-semibold shadow-md border border-red-600">
-                            LOSS
-                        </span>
-                    </div>
-
-                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5 mb-5">
-                        <div>
-                            <p class="text-xl font-bold text-white flex items-center gap-3">
-                                <span class="text-red-400">CSC 100</span>
-                                <span class="text-gray-500 text-lg">vs</span>
-                                <span class="text-green-400">MSS 200</span>
-                            </p>
-                            <p class="text-sm text-gray-400 mt-1 flex items-center gap-2">
-                                <i class="fas fa-map-marker-alt"></i> Campus Main Field 2
-                            </p>
-                        </div>
-                        <div class="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-orange-500">
-                            6–8
-                        </div>
-                    </div>
-
-                    <div class="flex justify-end">
-                        <button onclick="openMatchModal('csc100-mss100')" 
-                                class="group btn-details">
-                            <i class="fas fa-chart-line"></i> View Details
-                        </button>
-                    </div>
-                </div>
-
-                <div class="match-card flex-shrink-0 w-80 md:w-96 p-5 border border-red-700/50 rounded-xl bg-gray-800/60 transition-all duration-300 hover:scale-[1.02] hover:shadow-red-500/10" data-date="2025-11-08" data-winner="away">
-                    
-                    <div class="flex items-center justify-between mb-4 pb-3 border-b border-gray-700">
-                        <p class="text-gray-400 text-sm flex items-center gap-2 font-medium">
-                            <i class="fas fa-calendar-day"></i> Saturday, 8th Nov 2025 — 11:00 AM
-                        </p>
-                        <span class="text-xs bg-red-700/70 text-red-100 px-3 py-1.5 rounded-full font-semibold shadow-md border border-red-600">
-                            LOSS
-                        </span>
-                    </div>
-
-                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5 mb-5">
-                        <div>
-                            <p class="text-xl font-bold text-white flex items-center gap-3">
-                                <span class="text-red-400">CSC 100</span>
-                                <span class="text-gray-500 text-lg">vs</span>
-                                <span class="text-green-400">Law 100</span>
-                            </p>
-                            <p class="text-sm text-gray-400 mt-1 flex items-center gap-2">
-                                <i class="fas fa-map-marker-alt"></i> Campus Main Field
-                            </p>
-                        </div>
-                        <div class="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-orange-500">
-                            2–4
-                        </div>
-                    </div>
-
-                    <div class="flex justify-end">
-                        <button onclick="openMatchModal('csc100-law100')" 
-                                class="group btn-details">
-                            <i class="fas fa-chart-line"></i> View Details
-                        </button>
-                    </div>
-                </div>
-
-                <div class="match-card flex-shrink-0 w-80 md:w-96 p-5 border border-green-700/50 rounded-xl bg-gray-800/60 transition-all duration-300 hover:scale-[1.02] hover:shadow-green-500/10" data-date="2025-11-01" data-winner="home">
-                    
-                    <div class="flex items-center justify-between mb-4 pb-3 border-b border-gray-700">
-                        <p class="text-gray-400 text-sm flex items-center gap-2 font-medium">
-                            <i class="fas fa-calendar-day"></i> Saturday, 22nd Nov 2025 — 4:00 PM
-                        </p>
-                        <span class="text-xs bg-green-700/70 text-green-100 px-3 py-1.5 rounded-full font-semibold shadow-md border border-green-600">
-                            UPCOMING
-                        </span>
-                    </div>
-
-                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5 mb-5">
-                        <div>
-                            <p class="text-xl font-bold text-white flex items-center gap-3">
-                                <span class="text-green-400">CSC 200L</span>
-                                <span class="text-gray-500 text-lg">vs</span>
-                                <span class="text-red-400">MSS 200L</span>
-                            </p>
-                            <p class="text-sm text-gray-400 mt-1 flex items-center gap-2">
-                                <i class="fas fa-map-marker-alt"></i> University Stadium
-                            </p>
-                        </div>
-                        <div class="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-500">
-                            0–0
-                        </div>
-                    </div>
-
-                    <div class="flex justify-end">
-                        <button onclick="openMatchModal('alpha-beta-cit')" 
-                                class="group btn-details">
-                            <i class="fas fa-chart-line"></i> View Details
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="match-card flex-shrink-0 w-80 md:w-96 p-5 border border-blue-700/50 rounded-xl bg-gray-800/60 transition-all duration-300 hover:scale-[1.02] hover:shadow-blue-500/10" data-date="2025-10-25" data-winner="draw">
-                    
-                    <div class="flex items-center justify-between mb-4 pb-3 border-b border-gray-700">
-                        <p class="text-gray-400 text-sm flex items-center gap-2 font-medium">
-                            <i class="fas fa-calendar-day"></i> NO DATE YET
-                        </p>
-                        <span class="text-xs bg-blue-700/70 text-blue-100 px-3 py-1.5 rounded-full font-semibold shadow-md border border-blue-600">
-                         NO FIXTURE YET
-                        </span>
-                    </div>
-
-                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5 mb-5">
-                        <div>
-                            <p class="text-xl font-bold text-white flex items-center gap-3">
-                                <span class="text-blue-400">NIL</span>
-                                <span class="text-gray-500 text-lg">vs</span>
-                                <span class="text-blue-400">NIL</span>
-                            </p>
-                            <p class="text-sm text-gray-400 mt-1 flex items-center gap-2">
-                                <i class="fas fa-map-marker-alt"></i> South Campus Pitch
-                            </p>
-                        </div>
-                        <div class="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-500">
-                            0–0
-                        </div>
-                    </div>
-
-                    <div class="flex justify-end">
-                        <button onclick="openMatchModal('teamx-teamy')" 
-                                class="group btn-details">
-                            <i class="fas fa-chart-line"></i> View Details
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
 <div id="csc100-mss100-modal" class="fixed inset-0 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 hidden z-50">
     <div class="bg-gradient-to-br from-[#0a0a0a] to-[#111] text-white rounded-2xl shadow-2xl w-full max-w-4xl p-8
@@ -1972,26 +1822,30 @@ a:focus, button:focus, .btn:focus{
 <section id="standings">
     <div class="relative min-h-[500px]">
 
-        <div id="mikoko-table" class="league-table p-4 md:p-6 shadow-xl" style="background: rgba(255, 255, 255, 0.05); border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1);">
-            <h2 class="text-3xl font-bold mb-4 text-green-400">Mikoko League Standings</h2>
-            <div class="overflow-x-auto rounded-xl" style="max-height: 400px; overflow-y: auto;">
-                <table class="min-w-full bg-[#121212] rounded-xl border-collapse">
+        <div id="mikoko-table" class="league-table p-6 lg:p-8 shadow-2xl rounded-2xl
+                                    bg-gradient-to-br from-gray-900/80 to-black/80
+                                    border border-emerald-700/50 backdrop-blur-sm">
+            <h2 class="text-4xl font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-green-600">
+                Mikoko League Standings
+            </h2>
+            <div class="overflow-x-auto custom-scrollbar rounded-xl border border-gray-700/60" style="max-height: 400px; overflow-y: auto;">
+                <table class="min-w-full bg-gray-800/60 rounded-xl border-collapse">
                     <thead>
-                        <tr class="bg-[#1a1a1a] text-left text-sm" style="position: sticky; top: 0; z-index: 1;">
-                            <th class="py-3 px-4 font-semibold text-gray-400 rounded-tl-xl">Rank</th>
-                            <th class="py-3 px-4 font-semibold text-gray-400">Team</th>
-                            <th class="py-3 px-4 text-center font-semibold text-gray-400">MP</th>
-                            <th class="py-3 px-4 text-center font-semibold text-gray-400">W</th>
-                            <th class="py-3 px-4 text-center font-semibold text-gray-400">D</th>
-                            <th class="py-3 px-4 text-center font-semibold text-gray-400">L</th>
-                            <th class="py-3 px-4 text-center font-semibold text-gray-400">GF</th>
-                            <th class="py-3 px-4 text-center font-semibold text-gray-400">GA</th>
-                            <th class="py-3 px-4 text-center font-semibold text-gray-400">GD</th>
-                            <th class="py-3 px-4 text-right font-semibold text-gray-400 rounded-tr-xl">Pts</th>
+                        <tr class="bg-gray-700/70 text-left text-sm uppercase tracking-wider sticky top-0 z-10 shadow-md">
+                            <th class="py-3 px-4 font-bold text-emerald-300 rounded-tl-xl">Rank</th>
+                            <th class="py-3 px-4 font-bold text-emerald-300">Team</th>
+                            <th class="py-3 px-4 text-center font-bold text-emerald-300">MP</th>
+                            <th class="py-3 px-4 text-center font-bold text-emerald-300">W</th>
+                            <th class="py-3 px-4 text-center font-bold text-emerald-300">D</th>
+                            <th class="py-3 px-4 text-center font-bold text-emerald-300">L</th>
+                            <th class="py-3 px-4 text-center font-bold text-emerald-300">GF</th>
+                            <th class="py-3 px-4 text-center font-bold text-emerald-300">GA</th>
+                            <th class="py-3 px-4 text-center font-bold text-emerald-300">GD</th>
+                            <th class="py-3 px-4 text-right font-bold text-emerald-300 rounded-tr-xl">Pts</th>
                         </tr>
                     </thead>
-                    <tbody class="text-sm">
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
+                    <tbody class="text-sm text-gray-200 divide-y divide-gray-700">
+                        <tr class="hover:bg-gray-700/40 transition-colors duration-200">
                             <td class="py-3 px-4">1</td>
                             <td class="py-3 px-4 font-semibold text-white">NIL</td>
                             <td class="py-3 px-4 text-center">0</td>
@@ -2001,9 +1855,9 @@ a:focus, button:focus, .btn:focus{
                             <td class="py-3 px-4 text-center">0</td>
                             <td class="py-3 px-4 text-center">0</td>
                             <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
+                            <td class="py-3 px-4 text-right font-bold text-emerald-400">0</td>
                         </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
+                        <tr class="hover:bg-gray-700/40 transition-colors duration-200">
                             <td class="py-3 px-4">2</td>
                             <td class="py-3 px-4 font-semibold text-white">NIL</td>
                             <td class="py-3 px-4 text-center">0</td>
@@ -2013,9 +1867,9 @@ a:focus, button:focus, .btn:focus{
                             <td class="py-3 px-4 text-center">0</td>
                             <td class="py-3 px-4 text-center">0</td>
                             <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
+                            <td class="py-3 px-4 text-right font-bold text-emerald-400">0</td>
                         </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
+                        <tr class="hover:bg-gray-700/40 transition-colors duration-200">
                             <td class="py-3 px-4">3</td>
                             <td class="py-3 px-4 font-semibold text-white">NIL</td>
                             <td class="py-3 px-4 text-center">0</td>
@@ -2025,9 +1879,9 @@ a:focus, button:focus, .btn:focus{
                             <td class="py-3 px-4 text-center">0</td>
                             <td class="py-3 px-4 text-center">0</td>
                             <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
+                            <td class="py-3 px-4 text-right font-bold text-emerald-400">0</td>
                         </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
+                        <tr class="hover:bg-gray-700/40 transition-colors duration-200">
                             <td class="py-3 px-4">4</td>
                             <td class="py-3 px-4 font-semibold text-white">NIL</td>
                             <td class="py-3 px-4 text-center">0</td>
@@ -2037,9 +1891,9 @@ a:focus, button:focus, .btn:focus{
                             <td class="py-3 px-4 text-center">0</td>
                             <td class="py-3 px-4 text-center">0</td>
                             <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
+                            <td class="py-3 px-4 text-right font-bold text-emerald-400">0</td>
                         </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
+                        <tr class="hover:bg-gray-700/40 transition-colors duration-200">
                             <td class="py-3 px-4">5</td>
                             <td class="py-3 px-4 font-semibold text-white">NIL</td>
                             <td class="py-3 px-4 text-center">0</td>
@@ -2049,9 +1903,9 @@ a:focus, button:focus, .btn:focus{
                             <td class="py-3 px-4 text-center">0</td>
                             <td class="py-3 px-4 text-center">0</td>
                             <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
+                            <td class="py-3 px-4 text-right font-bold text-emerald-400">0</td>
                         </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
+                        <tr class="hover:bg-gray-700/40 transition-colors duration-200">
                             <td class="py-3 px-4">6</td>
                             <td class="py-3 px-4 font-semibold text-white">NIL</td>
                             <td class="py-3 px-4 text-center">0</td>
@@ -2061,9 +1915,9 @@ a:focus, button:focus, .btn:focus{
                             <td class="py-3 px-4 text-center">0</td>
                             <td class="py-3 px-4 text-center">0</td>
                             <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
+                            <td class="py-3 px-4 text-right font-bold text-emerald-400">0</td>
                         </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
+                        <tr class="hover:bg-gray-700/40 transition-colors duration-200">
                             <td class="py-3 px-4">7</td>
                             <td class="py-3 px-4 font-semibold text-white">NIL</td>
                             <td class="py-3 px-4 text-center">0</td>
@@ -2073,9 +1927,9 @@ a:focus, button:focus, .btn:focus{
                             <td class="py-3 px-4 text-center">0</td>
                             <td class="py-3 px-4 text-center">0</td>
                             <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
+                            <td class="py-3 px-4 text-right font-bold text-emerald-400">0</td>
                         </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
+                        <tr class="hover:bg-gray-700/40 transition-colors duration-200">
                             <td class="py-3 px-4">8</td>
                             <td class="py-3 px-4 font-semibold text-white">NIL</td>
                             <td class="py-3 px-4 text-center">0</td>
@@ -2085,9 +1939,9 @@ a:focus, button:focus, .btn:focus{
                             <td class="py-3 px-4 text-center">0</td>
                             <td class="py-3 px-4 text-center">0</td>
                             <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
+                            <td class="py-3 px-4 text-right font-bold text-emerald-400">0</td>
                         </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
+                        <tr class="hover:bg-gray-700/40 transition-colors duration-200">
                             <td class="py-3 px-4">9</td>
                             <td class="py-3 px-4 font-semibold text-white">NIL</td>
                             <td class="py-3 px-4 text-center">0</td>
@@ -2097,9 +1951,9 @@ a:focus, button:focus, .btn:focus{
                             <td class="py-3 px-4 text-center">0</td>
                             <td class="py-3 px-4 text-center">0</td>
                             <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
+                            <td class="py-3 px-4 text-right font-bold text-emerald-400">0</td>
                         </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
+                        <tr class="hover:bg-gray-700/40 transition-colors duration-200">
                             <td class="py-3 px-4">10</td>
                             <td class="py-3 px-4 font-semibold text-white">NIL</td>
                             <td class="py-3 px-4 text-center">0</td>
@@ -2109,9 +1963,9 @@ a:focus, button:focus, .btn:focus{
                             <td class="py-3 px-4 text-center">0</td>
                             <td class="py-3 px-4 text-center">0</td>
                             <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
+                            <td class="py-3 px-4 text-right font-bold text-emerald-400">0</td>
                         </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
+                        <tr class="hover:bg-gray-700/40 transition-colors duration-200">
                             <td class="py-3 px-4">11</td>
                             <td class="py-3 px-4 font-semibold text-white">NIL</td>
                             <td class="py-3 px-4 text-center">0</td>
@@ -2121,9 +1975,9 @@ a:focus, button:focus, .btn:focus{
                             <td class="py-3 px-4 text-center">0</td>
                             <td class="py-3 px-4 text-center">0</td>
                             <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
+                            <td class="py-3 px-4 text-right font-bold text-emerald-400">0</td>
                         </tr>
-                        <tr class="hover:bg-[#151515]">
+                        <tr class="hover:bg-gray-700/40 transition-colors duration-200">
                             <td class="py-3 px-4">12</td>
                             <td class="py-3 px-4 font-semibold text-white">NIL</td>
                             <td class="py-3 px-4 text-center">0</td>
@@ -2133,774 +1987,793 @@ a:focus, button:focus, .btn:focus{
                             <td class="py-3 px-4 text-center">0</td>
                             <td class="py-3 px-4 text-center">0</td>
                             <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
+                            <td class="py-3 px-4 text-right font-bold text-emerald-400">0</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <div class="mt-4 text-center flex items-center justify-center">
-                <i class="fas fa-info-circle text-red-500 mr-2"></i>
-                <p class="text-sm text-red-400">The Mikoko League is currently in its final stretch, with a tight race for the top spot.</p>
+            <div class="mt-6 p-4 bg-red-900/20 rounded-lg border border-red-700/40 text-center flex items-center justify-center">
+                <i class="fas fa-info-circle text-red-400 mr-3 text-lg"></i>
+                <p class="text-sm text-red-300 font-medium">The Mikoko League is currently in its final stretch, with a tight race for the top spot.</p>
             </div>
         </div>
-
-
-        <div id="glory-table" class="league-table hidden p-4 md:p-6 shadow-xl absolute w-full top-0" style="background: rgba(255, 255, 255, 0.05); border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1);">
-            <h2 class="text-3xl font-bold mb-4 text-blue-400">Glory Champions Cup Standings</h2>
-            <div class="overflow-x-auto rounded-xl" style="max-height: 400px; overflow-y: auto;">
-                <table class="min-w-full bg-[#121212] rounded-xl border-collapse">
-                    <thead>
-                        <tr class="bg-[#1a1a1a] text-left text-sm" style="position: sticky; top: 0; z-index: 1;">
-                            <th class="py-3 px-4 font-semibold text-gray-400 rounded-tl-xl">Rank</th>
-                            <th class="py-3 px-4 font-semibold text-gray-400">Team</th>
-                            <th class="py-3 px-4 text-center font-semibold text-gray-400">MP</th>
-                            <th class="py-3 px-4 text-center font-semibold text-gray-400">W</th>
-                            <th class="py-3 px-4 text-center font-semibold text-gray-400">D</th>
-                            <th class="py-3 px-4 text-center font-semibold text-gray-400">L</th>
-                            <th class="py-3 px-4 text-center font-semibold text-gray-400">GF</th>
-                            <th class="py-3 px-4 text-center font-semibold text-gray-400">GA</th>
-                            <th class="py-3 px-4 text-center font-semibold text-gray-400">GD</th>
-                            <th class="py-3 px-4 text-right font-semibold text-gray-400 rounded-tr-xl">Pts</th>
-                        </tr>
-                    </thead>
-                    <tbody class="text-sm">
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">1</td>
-                            <td class="py-3 px-4 font-semibold text-white">NIL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">2</td>
-                            <td class="py-3 px-4 font-semibold text-white">NIL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">3</td>
-                            <td class="py-3 px-4 font-semibold text-white">NIL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">4</td>
-                            <td class="py-3 px-4 font-semibold text-white">NIL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">5</td>
-                            <td class="py-3 px-4 font-semibold text-white">NIL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">6</td>
-                            <td class="py-3 px-4 font-semibold text-white">NIL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">7</td>
-                            <td class="py-3 px-4 font-semibold text-white">NIL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">8</td>
-                            <td class="py-3 px-4 font-semibold text-white">NIL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">9</td>
-                            <td class="py-3 px-4 font-semibold text-white">NIL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">10</td>
-                            <td class="py-3 px-4 font-semibold text-white">NIL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">11</td>
-                            <td class="py-3 px-4 font-semibold text-white">NIL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">12</td>
-                            <td class="py-3 px-4 font-semibold text-white">NIL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">13</td>
-                            <td class="py-3 px-4 font-semibold text-white">NIL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                        <tr class="hover:bg-[#151515]">
-                            <td class="py-3 px-4">14</td>
-                            <td class="py-3 px-4 font-semibold text-white">NIL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="mt-4 text-center flex items-center justify-center">
-                <i class="fas fa-info-circle text-red-500 mr-2"></i>
-                <p class="text-sm text-red-400">The Mikoko League is currently in its final stretch, with a tight race for the top spot.</p>
-            </div>
+        
         </div>
 
-  <div id="friend-table" class="league-table hidden p-4 md:p-6 shadow-xl absolute w-full top-0" style="background: rgba(255, 255, 255, 0.05); border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1);">
-            <h2 class="text-3xl font-bold mb-4 text-pink-400">Friendlies</h2>
-            <div class="overflow-x-auto rounded-xl" style="max-height: 400px; overflow-y: auto;">
-                <table class="min-w-full bg-[#121212] rounded-xl border-collapse">
-                    <thead>
-                        <tr class="bg-[#1a1a1a] text-left text-sm" style="position: sticky; top: 0; z-index: 1;">
-                            <th class="py-3 px-4 font-semibold text-gray-400 rounded-tl-xl">Rank</th>
-                            <th class="py-3 px-4 font-semibold text-gray-400">Team</th>
-                            <th class="py-3 px-4 text-center font-semibold text-gray-400">MP</th>
-                            <th class="py-3 px-4 text-center font-semibold text-gray-400">W</th>
-                            <th class="py-3 px-4 text-center font-semibold text-gray-400">D</th>
-                            <th class="py-3 px-4 text-center font-semibold text-gray-400">L</th>
-                            <th class="py-3 px-4 text-center font-semibold text-gray-400">GF</th>
-                            <th class="py-3 px-4 text-center font-semibold text-gray-400">GA</th>
-                            <th class="py-3 px-4 text-center font-semibold text-gray-400">GD</th>
-                            <th class="py-3 px-4 text-right font-semibold text-gray-400 rounded-tr-xl">Pts</th>
-                        </tr>
-                    </thead>
- <tbody class="text-sm">
-  <!-- 1st: Nur-200 -->
-  <tr class="border-b border-gray-800 hover:bg-[#151515] bg-green-900/10">
-    <td class="py-3 px-4">1</td>
-    <td class="py-3 px-4 font-semibold text-green-400 flex items-center gap-2">
-      <i class="fas fa-crown text-yellow-400"></i> Nur-200
-    </td>
-    <td class="py-3 px-4 text-center">2</td>
-    <td class="py-3 px-4 text-center">1</td>
-    <td class="py-3 px-4 text-center">1</td>
-    <td class="py-3 px-4 text-center">0</td>
-    <td class="py-3 px-4 text-center">9</td>
-    <td class="py-3 px-4 text-center">6</td>
-    <td class="py-3 px-4 text-center text-green-400 font-semibold">+3</td>
-    <td class="py-3 px-4 text-right font-bold text-green-500">4</td>
-  </tr>
+    <style>
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
 
-  <!-- 2nd: CSC-200 -->
-  <tr class="border-b border-gray-800 hover:bg-[#151515]">
-    <td class="py-3 px-4">2</td>
-    <td class="py-3 px-4 font-semibold text-white">CSC-200</td>
-    <td class="py-3 px-4 text-center">2</td>
-    <td class="py-3 px-4 text-center">1</td>
-    <td class="py-3 px-4 text-center">1</td>
-    <td class="py-3 px-4 text-center">0</td>
-    <td class="py-3 px-4 text-center">6</td>
-    <td class="py-3 px-4 text-center">4</td>
-    <td class="py-3 px-4 text-center text-green-400 font-semibold">+2</td>
-    <td class="py-3 px-4 text-right font-bold text-green-500">4</td>
-  </tr>
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05); /* Darker track for contrast */
+            border-radius: 10px;
+        }
 
-  <!-- 3rd: Law-200 -->
-  <tr class="border-b border-gray-800 hover:bg-[#151515]">
-    <td class="py-3 px-4">3</td>
-    <td class="py-3 px-4 font-semibold text-white">Law-200</td>
-    <td class="py-3 px-4 text-center">1</td>
-    <td class="py-3 px-4 text-center">1</td>
-    <td class="py-3 px-4 text-center">0</td>
-    <td class="py-3 px-4 text-center">0</td>
-    <td class="py-3 px-4 text-center">8</td>
-    <td class="py-3 px-4 text-center">7</td>
-    <td class="py-3 px-4 text-center text-green-400 font-semibold">+1</td>
-    <td class="py-3 px-4 text-right font-bold text-green-500">3</td>
-  </tr>
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #059669; /* Emerald-600 */
+            border-radius: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.05); /* Adds a subtle border to the thumb */
+        }
 
-  <!-- 4th: MSS-200 now above Law-100 -->
-  <tr class="border-b border-gray-800 hover:bg-[#151515] bg-green-900/10">
-    <td class="py-3 px-4">4</td>
-    <td class="py-3 px-4 font-semibold text-green-400">MSS-200</td>
-    <td class="py-3 px-4 text-center">1</td>
-    <td class="py-3 px-4 text-center">1</td>
-    <td class="py-3 px-4 text-center">0</td>
-    <td class="py-3 px-4 text-center">0</td>
-    <td class="py-3 px-4 text-center">8</td>
-    <td class="py-3 px-4 text-center">6</td>
-    <td class="py-3 px-4 text-center text-green-400 font-semibold">+2</td>
-    <td class="py-3 px-4 text-right font-bold text-green-500">3</td>
-  </tr>
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #047857; /* Darker emerald on hover */
+        }
+    </style>
 
-  <!-- 5th: Law-100 -->
-  <tr class="border-b border-gray-800 hover:bg-[#151515]">
-    <td class="py-3 px-4">5</td>
-    <td class="py-3 px-4 font-semibold text-white">Law-100</td>
-    <td class="py-3 px-4 text-center">2</td>
-    <td class="py-3 px-4 text-center">1</td>
-    <td class="py-3 px-4 text-center">0</td>
-    <td class="py-3 px-4 text-center">1</td>
-    <td class="py-3 px-4 text-center">11</td>
-    <td class="py-3 px-4 text-center">10</td>
-    <td class="py-3 px-4 text-center text-green-400 font-semibold">+1</td>
-    <td class="py-3 px-4 text-right font-bold text-green-500">3</td>
-  </tr>
+       <div id="glory-table" class="league-table hidden p-6 lg:p-8 shadow-2xl absolute w-full top-0 rounded-2xl
+                            bg-gradient-to-br from-gray-900/80 to-black/80
+                            border border-blue-700/50 backdrop-blur-sm">
 
-  <!-- 6th: CSC-100 -->
-  <tr class="border-b border-gray-800 hover:bg-[#151515]">
-    <td class="py-3 px-4">6</td>
-    <td class="py-3 px-4 font-semibold text-white">CSC-100</td>
-    <td class="py-3 px-4 text-center">3</td>
-    <td class="py-3 px-4 text-center">1</td>
-    <td class="py-3 px-4 text-center">1</td>
-    <td class="py-3 px-4 text-center">1</td>
-    <td class="py-3 px-4 text-center">12</td>
-    <td class="py-3 px-4 text-center">15</td>
-    <td class="py-3 px-4 text-center text-red-400 font-semibold">-3</td>
-    <td class="py-3 px-4 text-right font-bold text-red-500">3</td>
-  </tr>
-
-  <!-- 7th: MSS-100 -->
-  <tr class="border-b border-gray-800 hover:bg-[#151515]">
-    <td class="py-3 px-4">7</td>
-    <td class="py-3 px-4 font-semibold text-white">MSS-100</td>
-    <td class="py-3 px-4 text-center">1</td>
-    <td class="py-3 px-4 text-center">0</td>
-    <td class="py-3 px-4 text-center">0</td>
-    <td class="py-3 px-4 text-center">1</td>
-    <td class="py-3 px-4 text-center">3</td>
-    <td class="py-3 px-4 text-center">4</td>
-    <td class="py-3 px-4 text-center text-red-400 font-semibold">-1</td>
-    <td class="py-3 px-4 text-right font-bold text-red-500">0</td>
-  </tr>
-
-  <!-- 8th: Med-200 -->
-  <tr class="border-b border-gray-800 hover:bg-[#151515]">
-    <td class="py-3 px-4">8</td>
-    <td class="py-3 px-4 font-semibold text-white">Med-200</td>
-    <td class="py-3 px-4 text-center">1</td>
-    <td class="py-3 px-4 text-center">0</td>
-    <td class="py-3 px-4 text-center">0</td>
-    <td class="py-3 px-4 text-center">1</td>
-    <td class="py-3 px-4 text-center">4</td>
-    <td class="py-3 px-4 text-center">7</td>
-    <td class="py-3 px-4 text-center text-red-400 font-semibold">-3</td>
-    <td class="py-3 px-4 text-right font-bold text-red-500">0</td>
-  </tr>
-
-
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">9</td>
-                            <td class="py-3 px-4 font-semibold text-white">Med-500</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">10</td>
-                            <td class="py-3 px-4 font-semibold text-white">CSC-300</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                         <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">11</td>
-                            <td class="py-3 px-4 font-semibold text-white">CSC-400</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                         <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">12</td>
-                            <td class="py-3 px-4 font-semibold text-white">Law-500</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                         <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">13</td>
-                            <td class="py-3 px-4 font-semibold text-white">LAW-400</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                         <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">14</td>
-                            <td class="py-3 px-4 font-semibold text-white">LAW-300</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                         <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">15</td>
-                            <td class="py-3 px-4 font-semibold text-white">MED-300</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                         <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">16</td>
-                            <td class="py-3 px-4 font-semibold text-white">MED-100</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                         <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">17</td>
-                            <td class="py-3 px-4 font-semibold text-white">NUR-100</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                         <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">18</td>
-                            <td class="py-3 px-4 font-semibold text-white">MED-400</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                         <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">19</td>
-                            <td class="py-3 px-4 font-semibold text-white">MSS-300</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                         <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">20</td>
-                            <td class="py-3 px-4 font-semibold text-white">MSS-400</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                         <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">21</td>
-                            <td class="py-3 px-4 font-semibold text-white">ARTS-300</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                         <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">22</td>
-                            <td class="py-3 px-4 font-semibold text-white">ARTS-400</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                         <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">23</td>
-                            <td class="py-3 px-4 font-semibold text-white">ARTS-200</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                         <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">24</td>
-                            <td class="py-3 px-4 font-semibold text-white">ARTS-100</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                         <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">25</td>
-                            <td class="py-3 px-4 font-semibold text-white">EDU-100</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                         <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">26</td>
-                            <td class="py-3 px-4 font-semibold text-white">EDU-300</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                         <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">27</td>
-                            <td class="py-3 px-4 font-semibold text-white">EDU-200</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                        
-                        <tr class="hover:bg-[#151515]">
-                            <td class="py-3 px-4">28</td>
-                            <td class="py-3 px-4 font-semibold text-white">EDU-400</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="mt-4 text-center flex items-center justify-center">
-                <i class="fas fa-info-circle text-red-500 mr-2"></i>
-<p class="text-sm text-green-400 flex items-center gap-2">
-  🤝 Friendly matches help teams build spirit and test form. 🔄 Check back in 24hrs for updated tables!
-</p>
-
-            </div>
-        </div>
-        <div id="cit-table" class="league-table hidden p-4 md:p-6 shadow-xl absolute w-full top-0" style="background: rgba(255, 255, 255, 0.05); border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1);">
-            <h2 class="text-3xl font-bold mb-4 text-red-400">Provost Cup Standing</h2>
-            <div class="overflow-x-auto rounded-xl" style="max-height: 400px; overflow-y: auto;">
-                <table class="min-w-full bg-[#121212] rounded-xl border-collapse">
-                    <thead>
-                        <tr class="bg-[#1a1a1a] text-left text-sm" style="position: sticky; top: 0; z-index: 1;">
-                            <th class="py-3 px-4 font-semibold text-gray-400 rounded-tl-xl">Rank</th>
-                            <th class="py-3 px-4 font-semibold text-gray-400">Team</th>
-                            <th class="py-3 px-4 text-center font-semibold text-gray-400">MP</th>
-                            <th class="py-3 px-4 text-center font-semibold text-gray-400">W</th>
-                            <th class="py-3 px-4 text-center font-semibold text-gray-400">D</th>
-                            <th class="py-3 px-4 text-center font-semibold text-gray-400">L</th>
-                            <th class="py-3 px-4 text-center font-semibold text-gray-400">GF</th>
-                            <th class="py-3 px-4 text-center font-semibold text-gray-400">GA</th>
-                            <th class="py-3 px-4 text-center font-semibold text-gray-400">GD</th>
-                            <th class="py-3 px-4 text-right font-semibold text-gray-400 rounded-tr-xl">Pts</th>
-                        </tr>
-                    </thead>
-                    <tbody class="text-sm">
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">1</td>
-                            <td class="py-3 px-4 font-semibold text-white">Nul</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">2</td>
-                            <td class="py-3 px-4 font-semibold text-white">NUL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">3</td>
-                            <td class="py-3 px-4 font-semibold text-white">NUL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">4</td>
-                            <td class="py-3 px-4 font-semibold text-white">NUL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">5</td>
-                            <td class="py-3 px-4 font-semibold text-white">NUL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">6</td>
-                            <td class="py-3 px-4 font-semibold text-white">NUL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">7</td>
-                            <td class="py-3 px-4 font-semibold text-white">NUL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">8</td>
-                            <td class="py-3 px-4 font-semibold text-white">NUL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">9</td>
-                            <td class="py-3 px-4 font-semibold text-white">NUL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">10</td>
-                            <td class="py-3 px-4 font-semibold text-white">NUL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">11</td>
-                            <td class="py-3 px-4 font-semibold text-white">NUL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                        <tr class="hover:bg-[#151515]">
-                            <td class="py-3 px-4">12</td>
-                            <td class="py-3 px-4 font-semibold text-white">NUL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="mt-4 text-center flex items-center justify-center">
-                <i class="fas fa-info-circle text-red-500 mr-2"></i>
-                <p class="text-sm text-red-400">The CIT League is highly competitive, rewarding consistency over the season.</p>
-            </div>
-        </div>
-
+    <h2 class="text-4xl font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-sky-600">
+        Glory Champions Cup Standings 🏆
+    </h2>
+    <div class="overflow-x-auto custom-scrollbar rounded-xl border border-gray-700/60" style="max-height: 400px; overflow-y: auto;">
+        <table class="min-w-full bg-gray-800/60 rounded-xl border-collapse">
+            <thead>
+                <tr class="bg-gray-700/70 text-left text-sm uppercase tracking-wider sticky top-0 z-10 shadow-md">
+                    <th class="py-3 px-4 font-bold text-blue-300 rounded-tl-xl">Rank</th>
+                    <th class="py-3 px-4 font-bold text-blue-300">Team</th>
+                    <th class="py-3 px-4 text-center font-bold text-blue-300">MP</th>
+                    <th class="py-3 px-4 text-center font-bold text-blue-300">W</th>
+                    <th class="py-3 px-4 text-center font-bold text-blue-300">D</th>
+                    <th class="py-3 px-4 text-center font-bold text-blue-300">L</th>
+                    <th class="py-3 px-4 text-center font-bold text-blue-300">GF</th>
+                    <th class="py-3 px-4 text-center font-bold text-blue-300">GA</th>
+                    <th class="py-3 px-4 text-center font-bold text-blue-300">GD</th>
+                    <th class="py-3 px-4 text-right font-bold text-blue-300 rounded-tr-xl">Pts</th>
+                </tr>
+            </thead>
+            <tbody class="text-sm text-gray-200 divide-y divide-gray-700">
+                <tr class="hover:bg-gray-700/40 transition-colors duration-200">
+                    <td class="py-3 px-4">1</td>
+                    <td class="py-3 px-4 font-semibold text-white">NIL</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">+0</td>
+                    <td class="py-3 px-4 text-right font-bold text-blue-400">0</td>
+                </tr>
+                <tr class="hover:bg-gray-700/40 transition-colors duration-200">
+                    <td class="py-3 px-4">2</td>
+                    <td class="py-3 px-4 font-semibold text-white">NIL</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">+0</td>
+                    <td class="py-3 px-4 text-right font-bold text-blue-400">0</td>
+                </tr>
+                <tr class="hover:bg-gray-700/40 transition-colors duration-200">
+                    <td class="py-3 px-4">3</td>
+                    <td class="py-3 px-4 font-semibold text-white">NIL</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">+0</td>
+                    <td class="py-3 px-4 text-right font-bold text-blue-400">0</td>
+                </tr>
+                <tr class="hover:bg-gray-700/40 transition-colors duration-200">
+                    <td class="py-3 px-4">4</td>
+                    <td class="py-3 px-4 font-semibold text-white">NIL</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">+0</td>
+                    <td class="py-3 px-4 text-right font-bold text-blue-400">0</td>
+                </tr>
+                <tr class="hover:bg-gray-700/40 transition-colors duration-200">
+                    <td class="py-3 px-4">5</td>
+                    <td class="py-3 px-4 font-semibold text-white">NIL</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">+0</td>
+                    <td class="py-3 px-4 text-right font-bold text-blue-400">0</td>
+                </tr>
+                <tr class="hover:bg-gray-700/40 transition-colors duration-200">
+                    <td class="py-3 px-4">6</td>
+                    <td class="py-3 px-4 font-semibold text-white">NIL</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">+0</td>
+                    <td class="py-3 px-4 text-right font-bold text-blue-400">0</td>
+                </tr>
+                <tr class="hover:bg-gray-700/40 transition-colors duration-200">
+                    <td class="py-3 px-4">7</td>
+                    <td class="py-3 px-4 font-semibold text-white">NIL</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">+0</td>
+                    <td class="py-3 px-4 text-right font-bold text-blue-400">0</td>
+                </tr>
+                <tr class="hover:bg-gray-700/40 transition-colors duration-200">
+                    <td class="py-3 px-4">8</td>
+                    <td class="py-3 px-4 font-semibold text-white">NIL</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">+0</td>
+                    <td class="py-3 px-4 text-right font-bold text-blue-400">0</td>
+                </tr>
+                <tr class="hover:bg-gray-700/40 transition-colors duration-200">
+                    <td class="py-3 px-4">9</td>
+                    <td class="py-3 px-4 font-semibold text-white">NIL</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">+0</td>
+                    <td class="py-3 px-4 text-right font-bold text-blue-400">0</td>
+                </tr>
+                <tr class="hover:bg-gray-700/40 transition-colors duration-200">
+                    <td class="py-3 px-4">10</td>
+                    <td class="py-3 px-4 font-semibold text-white">NIL</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">+0</td>
+                    <td class="py-3 px-4 text-right font-bold text-blue-400">0</td>
+                </tr>
+                <tr class="hover:bg-gray-700/40 transition-colors duration-200">
+                    <td class="py-3 px-4">11</td>
+                    <td class="py-3 px-4 font-semibold text-white">NIL</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">+0</td>
+                    <td class="py-3 px-4 text-right font-bold text-blue-400">0</td>
+                </tr>
+                <tr class="hover:bg-gray-700/40 transition-colors duration-200">
+                    <td class="py-3 px-4">12</td>
+                    <td class="py-3 px-4 font-semibold text-white">NIL</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">+0</td>
+                    <td class="py-3 px-4 text-right font-bold text-blue-400">0</td>
+                </tr>
+                <tr class="hover:bg-gray-700/40 transition-colors duration-200">
+                    <td class="py-3 px-4">13</td>
+                    <td class="py-3 px-4 font-semibold text-white">NIL</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">+0</td>
+                    <td class="py-3 px-4 text-right font-bold text-blue-400">0</td>
+                </tr>
+                <tr class="hover:bg-gray-700/40 transition-colors duration-200">
+                    <td class="py-3 px-4">14</td>
+                    <td class="py-3 px-4 font-semibold text-white">NIL</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">+0</td>
+                    <td class="py-3 px-4 text-right font-bold text-blue-400">0</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-   
+    <div class="mt-6 p-4 bg-red-900/20 rounded-lg border border-red-700/40 text-center flex items-center justify-center">
+        <i class="fas fa-info-circle text-red-400 mr-3 text-lg"></i>
+        <p class="text-sm text-red-300 font-medium">The Mikoko League is currently in its final stretch, with a tight race for the top spot.</p>
+    </div>
+</div>
+
+  <div id="friend-table" class="league-table p-4 md:p-6 shadow-2xl absolute w-full top-0 bg-[#0c0c1c] border border-slate-700/50 rounded-xl">
+    <h2 class="text-4xl font-extrabold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400 border-b border-pink-400/30 pb-2">
+        🤝 Friendly Fixture League
+    </h2>
+    <div class="overflow-x-auto rounded-lg shadow-lg" style="max-height: 400px; overflow-y: auto;">
+        <table class="min-w-full bg-[#1e293b] rounded-lg border-collapse text-slate-200">
+            <thead>
+                <tr class="bg-[#334155] text-left text-xs uppercase tracking-wider" style="position: sticky; top: 0; z-index: 1;">
+                    <th class="py-3 px-4 font-bold text-slate-300 rounded-tl-lg">Rank</th>
+                    <th class="py-3 px-4 font-bold text-slate-300">Team</th>
+                    <th class="py-3 px-4 text-center font-bold text-slate-300">MP</th>
+                    <th class="py-3 px-4 text-center font-bold text-slate-300">W</th>
+                    <th class="py-3 px-4 text-center font-bold text-slate-300">D</th>
+                    <th class="py-3 px-4 text-center font-bold text-slate-300">L</th>
+                    <th class="py-3 px-4 text-center font-bold text-slate-300">GF</th>
+                    <th class="py-3 px-4 text-center font-bold text-slate-300">GA</th>
+                    <th class="py-3 px-4 text-center font-bold text-slate-300">GD</th>
+                    <th class="py-3 px-4 text-right font-bold text-slate-300 rounded-tr-lg">Pts</th>
+                </tr>
+            </thead>
+            <tbody class="text-sm">
+                <tr class="border-b border-slate-700 hover:bg-[#2b3a4d] transition duration-150 bg-indigo-900/10">
+                    <td class="py-3 px-4 font-bold text-pink-300">1</td>
+                    <td class="py-3 px-4 font-semibold text-pink-400 flex items-center gap-2">
+                        <i class="fas fa-crown text-yellow-300"></i> Nur-200
+                    </td>
+                    <td class="py-3 px-4 text-center">2</td>
+                    <td class="py-3 px-4 text-center">1</td>
+                    <td class="py-3 px-4 text-center">1</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">9</td>
+                    <td class="py-3 px-4 text-center">6</td>
+                    <td class="py-3 px-4 text-center text-green-400 font-bold">+3</td>
+                    <td class="py-3 px-4 text-right font-extrabold text-green-500 text-lg">4</td>
+                </tr>
+
+                <tr class="border-b border-slate-700 hover:bg-[#2b3a4d] transition duration-150">
+                    <td class="py-3 px-4">2</td>
+                    <td class="py-3 px-4 font-medium text-slate-100">CSC-200</td>
+                    <td class="py-3 px-4 text-center">2</td>
+                    <td class="py-3 px-4 text-center">1</td>
+                    <td class="py-3 px-4 text-center">1</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">6</td>
+                    <td class="py-3 px-4 text-center">4</td>
+                    <td class="py-3 px-4 text-center text-green-400 font-semibold">+2</td>
+                    <td class="py-3 px-4 text-right font-bold text-green-500">4</td>
+                </tr>
+
+                <tr class="border-b border-slate-700 hover:bg-[#2b3a4d] transition duration-150 bg-indigo-900/10">
+                    <td class="py-3 px-4">3</td>
+                    <td class="py-3 px-4 font-medium text-slate-100">Law-200</td>
+                    <td class="py-3 px-4 text-center">1</td>
+                    <td class="py-3 px-4 text-center">1</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">8</td>
+                    <td class="py-3 px-4 text-center">7</td>
+                    <td class="py-3 px-4 text-center text-green-400 font-semibold">+1</td>
+                    <td class="py-3 px-4 text-right font-bold text-green-500">3</td>
+                </tr>
+
+                <tr class="border-b border-slate-700 hover:bg-[#2b3a4d] transition duration-150">
+                    <td class="py-3 px-4">4</td>
+                    <td class="py-3 px-4 font-medium text-slate-100">MSS-200</td>
+                    <td class="py-3 px-4 text-center">1</td>
+                    <td class="py-3 px-4 text-center">1</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">8</td>
+                    <td class="py-3 px-4 text-center">6</td>
+                    <td class="py-3 px-4 text-center text-green-400 font-semibold">+2</td>
+                    <td class="py-3 px-4 text-right font-bold text-green-500">3</td>
+                </tr>
+
+                <tr class="border-b border-slate-700 hover:bg-[#2b3a4d] transition duration-150 bg-indigo-900/10">
+                    <td class="py-3 px-4">5</td>
+                    <td class="py-3 px-4 font-medium text-slate-100">Law-100</td>
+                    <td class="py-3 px-4 text-center">2</td>
+                    <td class="py-3 px-4 text-center">1</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">1</td>
+                    <td class="py-3 px-4 text-center">11</td>
+                    <td class="py-3 px-4 text-center">10</td>
+                    <td class="py-3 px-4 text-center text-green-400 font-semibold">+1</td>
+                    <td class="py-3 px-4 text-right font-bold text-green-500">3</td>
+                </tr>
+
+                <tr class="border-b border-slate-700 hover:bg-[#2b3a4d] transition duration-150">
+                    <td class="py-3 px-4">6</td>
+                    <td class="py-3 px-4 font-medium text-slate-100">CSC-100</td>
+                    <td class="py-3 px-4 text-center">3</td>
+                    <td class="py-3 px-4 text-center">1</td>
+                    <td class="py-3 px-4 text-center">1</td>
+                    <td class="py-3 px-4 text-center">1</td>
+                    <td class="py-3 px-4 text-center">12</td>
+                    <td class="py-3 px-4 text-center">15</td>
+                    <td class="py-3 px-4 text-center text-red-400 font-semibold">-3</td>
+                    <td class="py-3 px-4 text-right font-bold text-red-500">3</td>
+                </tr>
+
+                <tr class="border-b border-slate-700 hover:bg-[#2b3a4d] transition duration-150 bg-indigo-900/10">
+                    <td class="py-3 px-4">7</td>
+                    <td class="py-3 px-4 font-medium text-slate-100">MSS-100</td>
+                    <td class="py-3 px-4 text-center">1</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">1</td>
+                    <td class="py-3 px-4 text-center">3</td>
+                    <td class="py-3 px-4 text-center">4</td>
+                    <td class="py-3 px-4 text-center text-red-400 font-semibold">-1</td>
+                    <td class="py-3 px-4 text-right font-bold text-red-500">0</td>
+                </tr>
+
+                <tr class="border-b border-slate-700 hover:bg-[#2b3a4d] transition duration-150">
+                    <td class="py-3 px-4">8</td>
+                    <td class="py-3 px-4 font-medium text-slate-100">Med-200</td>
+                    <td class="py-3 px-4 text-center">1</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">1</td>
+                    <td class="py-3 px-4 text-center">4</td>
+                    <td class="py-3 px-4 text-center">7</td>
+                    <td class="py-3 px-4 text-center text-red-400 font-semibold">-3</td>
+                    <td class="py-3 px-4 text-right font-bold text-red-500">0</td>
+                </tr>
+
+                <tr class="border-b border-slate-700 hover:bg-[#2b3a4d] transition duration-150 bg-indigo-900/10">
+                    <td class="py-3 px-4">9</td>
+                    <td class="py-3 px-4 font-medium text-slate-100">Med-500</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center text-slate-500">+0</td>
+                    <td class="py-3 px-4 text-right text-slate-500">0</td>
+                </tr>
+                <tr class="border-b border-slate-700 hover:bg-[#2b3a4d] transition duration-150">
+                    <td class="py-3 px-4">10</td>
+                    <td class="py-3 px-4 font-medium text-slate-100">CSC-300</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center text-slate-500">+0</td>
+                    <td class="py-3 px-4 text-right text-slate-500">0</td>
+                </tr>
+                <tr class="border-b border-slate-700 hover:bg-[#2b3a4d] transition duration-150 bg-indigo-900/10">
+                    <td class="py-3 px-4">11</td>
+                    <td class="py-3 px-4 font-medium text-slate-100">CSC-400</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center text-slate-500">+0</td>
+                    <td class="py-3 px-4 text-right text-slate-500">0</td>
+                </tr>
+                <tr class="border-b border-slate-700 hover:bg-[#2b3a4d] transition duration-150">
+                    <td class="py-3 px-4">12</td>
+                    <td class="py-3 px-4 font-medium text-slate-100">Law-500</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center text-slate-500">+0</td>
+                    <td class="py-3 px-4 text-right text-slate-500">0</td>
+                </tr>
+                <tr class="border-b border-slate-700 hover:bg-[#2b3a4d] transition duration-150 bg-indigo-900/10">
+                    <td class="py-3 px-4">13</td>
+                    <td class="py-3 px-4 font-medium text-slate-100">LAW-400</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center text-slate-500">+0</td>
+                    <td class="py-3 px-4 text-right text-slate-500">0</td>
+                </tr>
+                <tr class="border-b border-slate-700 hover:bg-[#2b3a4d] transition duration-150">
+                    <td class="py-3 px-4">14</td>
+                    <td class="py-3 px-4 font-medium text-slate-100">LAW-300</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center text-slate-500">+0</td>
+                    <td class="py-3 px-4 text-right text-slate-500">0</td>
+                </tr>
+                <tr class="border-b border-slate-700 hover:bg-[#2b3a4d] transition duration-150 bg-indigo-900/10">
+                    <td class="py-3 px-4">15</td>
+                    <td class="py-3 px-4 font-medium text-slate-100">MED-300</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center text-slate-500">+0</td>
+                    <td class="py-3 px-4 text-right text-slate-500">0</td>
+                </tr>
+                <tr class="border-b border-slate-700 hover:bg-[#2b3a4d] transition duration-150">
+                    <td class="py-3 px-4">16</td>
+                    <td class="py-3 px-4 font-medium text-slate-100">MED-100</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center text-slate-500">+0</td>
+                    <td class="py-3 px-4 text-right text-slate-500">0</td>
+                </tr>
+                <tr class="border-b border-slate-700 hover:bg-[#2b3a4d] transition duration-150 bg-indigo-900/10">
+                    <td class="py-3 px-4">17</td>
+                    <td class="py-3 px-4 font-medium text-slate-100">NUR-100</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center text-slate-500">+0</td>
+                    <td class="py-3 px-4 text-right text-slate-500">0</td>
+                </tr>
+                <tr class="border-b border-slate-700 hover:bg-[#2b3a4d] transition duration-150">
+                    <td class="py-3 px-4">18</td>
+                    <td class="py-3 px-4 font-medium text-slate-100">MED-400</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center text-slate-500">+0</td>
+                    <td class="py-3 px-4 text-right text-slate-500">0</td>
+                </tr>
+                <tr class="border-b border-slate-700 hover:bg-[#2b3a4d] transition duration-150 bg-indigo-900/10">
+                    <td class="py-3 px-4">19</td>
+                    <td class="py-3 px-4 font-medium text-slate-100">MSS-300</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center text-slate-500">+0</td>
+                    <td class="py-3 px-4 text-right text-slate-500">0</td>
+                </tr>
+                <tr class="border-b border-slate-700 hover:bg-[#2b3a4d] transition duration-150">
+                    <td class="py-3 px-4">20</td>
+                    <td class="py-3 px-4 font-medium text-slate-100">MSS-400</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center text-slate-500">+0</td>
+                    <td class="py-3 px-4 text-right text-slate-500">0</td>
+                </tr>
+                <tr class="border-b border-slate-700 hover:bg-[#2b3a4d] transition duration-150 bg-indigo-900/10">
+                    <td class="py-3 px-4">21</td>
+                    <td class="py-3 px-4 font-medium text-slate-100">ARTS-300</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center text-slate-500">+0</td>
+                    <td class="py-3 px-4 text-right text-slate-500">0</td>
+                </tr>
+                <tr class="border-b border-slate-700 hover:bg-[#2b3a4d] transition duration-150">
+                    <td class="py-3 px-4">22</td>
+                    <td class="py-3 px-4 font-medium text-slate-100">ARTS-400</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center text-slate-500">+0</td>
+                    <td class="py-3 px-4 text-right text-slate-500">0</td>
+                </tr>
+                <tr class="border-b border-slate-700 hover:bg-[#2b3a4d] transition duration-150 bg-indigo-900/10">
+                    <td class="py-3 px-4">23</td>
+                    <td class="py-3 px-4 font-medium text-slate-100">ARTS-200</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center text-slate-500">+0</td>
+                    <td class="py-3 px-4 text-right text-slate-500">0</td>
+                </tr>
+                <tr class="border-b border-slate-700 hover:bg-[#2b3a4d] transition duration-150">
+                    <td class="py-3 px-4">24</td>
+                    <td class="py-3 px-4 font-medium text-slate-100">ARTS-100</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center text-slate-500">+0</td>
+                    <td class="py-3 px-4 text-right text-slate-500">0</td>
+                </tr>
+                <tr class="border-b border-slate-700 hover:bg-[#2b3a4d] transition duration-150 bg-indigo-900/10">
+                    <td class="py-3 px-4">25</td>
+                    <td class="py-3 px-4 font-medium text-slate-100">EDU-100</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center text-slate-500">+0</td>
+                    <td class="py-3 px-4 text-right text-slate-500">0</td>
+                </tr>
+                <tr class="border-b border-slate-700 hover:bg-[#2b3a4d] transition duration-150">
+                    <td class="py-3 px-4">26</td>
+                    <td class="py-3 px-4 font-medium text-slate-100">EDU-300</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center text-slate-500">+0</td>
+                    <td class="py-3 px-4 text-right text-slate-500">0</td>
+                </tr>
+                <tr class="border-b border-slate-700 hover:bg-[#2b3a4d] transition duration-150 bg-indigo-900/10">
+                    <td class="py-3 px-4">27</td>
+                    <td class="py-3 px-4 font-medium text-slate-100">EDU-200</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center text-slate-500">+0</td>
+                    <td class="py-3 px-4 text-right text-slate-500">0</td>
+                </tr>
+
+                <tr class="hover:bg-[#2b3a4d] transition duration-150">
+                    <td class="py-3 px-4 rounded-bl-lg">28</td>
+                    <td class="py-3 px-4 font-medium text-slate-100">EDU-400</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center">0</td>
+                    <td class="py-3 px-4 text-center text-slate-500">+0</td>
+                    <td class="py-3 px-4 text-right rounded-br-lg text-slate-500">0</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="mt-4 text-center flex flex-col sm:flex-row items-center justify-between p-3 bg-[#1e293b] rounded-lg border border-slate-700">
+        <p class="text-sm text-pink-400 font-semibold mb-2 sm:mb-0">
+            <i class="fas fa-trophy text-yellow-400 mr-2"></i> Friendly matches help teams build spirit and test form.
+        </p>
+        <p class="text-xs text-slate-400 flex items-center gap-2">
+            <i class="fas fa-sync-alt text-cyan-400 animate-spin-slow"></i> Check back in 24hrs for updated tables!
+        </p>
+    </div>
+</div>
+      <div id="cit-table" style="background: linear-gradient(135deg, #1e1e1e 0%, #0a0a0a 100%); border-radius: 16px; border: 2px solid #333; padding: 24px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 10px rgba(255, 69, 0, 0.2);">
+    <h2 style="font-size: 2.25rem; font-weight: 800; margin-bottom: 20px; color: #ff6347; text-align: center; text-shadow: 0 0 5px rgba(255, 99, 71, 0.5);">PROVOST CUP STANDING</h2>
+    <div style="max-height: 450px; overflow-y: auto; border-radius: 12px; border: 1px solid #2a2a2a;">
+        <table style="min-width: 100%; border-collapse: collapse; background-color: #121212;">
+            <thead>
+                <tr style="background-color: #282828; color: #e0e0e0; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; position: sticky; top: 0; z-index: 1;">
+                    <th style="padding: 12px 16px; text-align: left; font-weight: 700; border-radius: 10px 0 0 0;">Rank</th>
+                    <th style="padding: 12px 16px; text-align: left; font-weight: 700;">Team</th>
+                    <th style="padding: 12px 16px; text-align: center; font-weight: 700;">MP</th>
+                    <th style="padding: 12px 16px; text-align: center; font-weight: 700;">W</th>
+                    <th style="padding: 12px 16px; text-align: center; font-weight: 700;">D</th>
+                    <th style="padding: 12px 16px; text-align: center; font-weight: 700;">L</th>
+                    <th style="padding: 12px 16px; text-align: center; font-weight: 700;">GF</th>
+                    <th style="padding: 12px 16px; text-align: center; font-weight: 700;">GA</th>
+                    <th style="padding: 12px 16px; text-align: center; font-weight: 700;">GD</th>
+                    <th style="padding: 12px 16px; text-align: right; font-weight: 800; color: #ff6347; border-radius: 0 10px 0 0;">Pts</th>
+                </tr>
+            </thead>
+            <tbody style="color: #c0c0c0;">
+                <tr style="border-bottom: 1px solid #2a2a2a; transition: background-color 0.3s ease-in-out;" onmouseover="this.style.backgroundColor='#1a1a1a'" onmouseout="this.style.backgroundColor='transparent'">
+                    <td style="padding: 12px 16px;">1</td>
+                    <td style="padding: 12px 16px; font-weight: 600; color: #fff;">Nul</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">+0</td>
+                    <td style="padding: 12px 16px; text-align: right; font-weight: 700; color: #ff6347;">0</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #2a2a2a; transition: background-color 0.3s ease-in-out;" onmouseover="this.style.backgroundColor='#1a1a1a'" onmouseout="this.style.backgroundColor='transparent'">
+                    <td style="padding: 12px 16px;">2</td>
+                    <td style="padding: 12px 16px; font-weight: 600; color: #fff;">NUL</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">+0</td>
+                    <td style="padding: 12px 16px; text-align: right; font-weight: 700; color: #ff6347;">0</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #2a2a2a; transition: background-color 0.3s ease-in-out;" onmouseover="this.style.backgroundColor='#1a1a1a'" onmouseout="this.style.backgroundColor='transparent'">
+                    <td style="padding: 12px 16px;">3</td>
+                    <td style="padding: 12px 16px; font-weight: 600; color: #fff;">NUL</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">+0</td>
+                    <td style="padding: 12px 16px; text-align: right; font-weight: 700; color: #ff6347;">0</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #2a2a2a; transition: background-color 0.3s ease-in-out;" onmouseover="this.style.backgroundColor='#1a1a1a'" onmouseout="this.style.backgroundColor='transparent'">
+                    <td style="padding: 12px 16px;">4</td>
+                    <td style="padding: 12px 16px; font-weight: 600; color: #fff;">NUL</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">+0</td>
+                    <td style="padding: 12px 16px; text-align: right; font-weight: 700; color: #ff6347;">0</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #2a2a2a; transition: background-color 0.3s ease-in-out;" onmouseover="this.style.backgroundColor='#1a1a1a'" onmouseout="this.style.backgroundColor='transparent'">
+                    <td style="padding: 12px 16px;">5</td>
+                    <td style="padding: 12px 16px; font-weight: 600; color: #fff;">NUL</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">+0</td>
+                    <td style="padding: 12px 16px; text-align: right; font-weight: 700; color: #ff6347;">0</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #2a2a2a; transition: background-color 0.3s ease-in-out;" onmouseover="this.style.backgroundColor='#1a1a1a'" onmouseout="this.style.backgroundColor='transparent'">
+                    <td style="padding: 12px 16px;">6</td>
+                    <td style="padding: 12px 16px; font-weight: 600; color: #fff;">NUL</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">+0</td>
+                    <td style="padding: 12px 16px; text-align: right; font-weight: 700; color: #ff6347;">0</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #2a2a2a; transition: background-color 0.3s ease-in-out;" onmouseover="this.style.backgroundColor='#1a1a1a'" onmouseout="this.style.backgroundColor='transparent'">
+                    <td style="padding: 12px 16px;">7</td>
+                    <td style="padding: 12px 16px; font-weight: 600; color: #fff;">NUL</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">+0</td>
+                    <td style="padding: 12px 16px; text-align: right; font-weight: 700; color: #ff6347;">0</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #2a2a2a; transition: background-color 0.3s ease-in-out;" onmouseover="this.style.backgroundColor='#1a1a1a'" onmouseout="this.style.backgroundColor='transparent'">
+                    <td style="padding: 12px 16px;">8</td>
+                    <td style="padding: 12px 16px; font-weight: 600; color: #fff;">NUL</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">+0</td>
+                    <td style="padding: 12px 16px; text-align: right; font-weight: 700; color: #ff6347;">0</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #2a2a2a; transition: background-color 0.3s ease-in-out;" onmouseover="this.style.backgroundColor='#1a1a1a'" onmouseout="this.style.backgroundColor='transparent'">
+                    <td style="padding: 12px 16px;">9</td>
+                    <td style="padding: 12px 16px; font-weight: 600; color: #fff;">NUL</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">+0</td>
+                    <td style="padding: 12px 16px; text-align: right; font-weight: 700; color: #ff6347;">0</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #2a2a2a; transition: background-color 0.3s ease-in-out;" onmouseover="this.style.backgroundColor='#1a1a1a'" onmouseout="this.style.backgroundColor='transparent'">
+                    <td style="padding: 12px 16px;">10</td>
+                    <td style="padding: 12px 16px; font-weight: 600; color: #fff;">NUL</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">+0</td>
+                    <td style="padding: 12px 16px; text-align: right; font-weight: 700; color: #ff6347;">0</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #2a2a2a; transition: background-color 0.3s ease-in-out;" onmouseover="this.style.backgroundColor='#1a1a1a'" onmouseout="this.style.backgroundColor='transparent'">
+                    <td style="padding: 12px 16px;">11</td>
+                    <td style="padding: 12px 16px; font-weight: 600; color: #fff;">NUL</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">+0</td>
+                    <td style="padding: 12px 16px; text-align: right; font-weight: 700; color: #ff6347;">0</td>
+                </tr>
+                <tr style="transition: background-color 0.3s ease-in-out;" onmouseover="this.style.backgroundColor='#1a1a1a'" onmouseout="this.style.backgroundColor='transparent'">
+                    <td style="padding: 12px 16px; border-radius: 0 0 0 10px;">12</td>
+                    <td style="padding: 12px 16px; font-weight: 600; color: #fff;">NUL</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">0</td>
+                    <td style="padding: 12px 16px; text-align: center;">+0</td>
+                    <td style="padding: 12px 16px; text-align: right; font-weight: 700; color: #ff6347; border-radius: 0 0 10px 0;">0</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div style="margin-top: 20px; text-align: center; display: flex; align-items: center; justify-content: center; background-color: #1a1a1a; padding: 12px; border-radius: 8px; border: 1px solid #333;">
+        <span style="color: #ff6347; margin-right: 8px; font-size: 1.25rem;">✨</span>
+        <p style="font-size: 0.875rem; color: #ff6347; font-weight: 500;">The PROVOST CUP is highly **competitive**, rewarding **consistency** over the season.</p>
+    </div>
+</div>
 </section>
 <script>
 document.addEventListener('DOMContentLoaded', () => {
@@ -2945,144 +2818,182 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 </script>
-     <div class="mb-20">
-  <!-- Player Stats Section -->
- <!-- Top Scorers (Left on desktop) -->
-<div class="glass-card p-6 md:p-8 space-y-6 mt-6">
-  <h3 class="text-2xl font-bold text-green-400 mb-4 flex items-center gap-2">
-    ⚽ Top Scorers
-  </h3>
+<div class="mb-20">
+    <div class="glass-card p-6 md:p-8 space-y-6 mt-6" style="background: rgba(18, 18, 18, 0.9); border-radius: 12px; border: 1px solid #383838; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);">
+        <h3 style="font-size: 1.75rem; font-weight: 700; color: #34d399; margin-bottom: 1rem; display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 1.5rem;">⚽</span> Top Scorers
+        </h3>
 
-  <!-- Nav Tabs -->
-  <div class="flex space-x-4 border-b border-green-400/40 pb-2">
-    <button class="tab-link font-semibold text-green-400 border-b-2 border-green-400" data-tab="mikoko">
-      Mikoko League
-    </button>
-    <button class="tab-link font-semibold text-gray-400 hover:text-green-300" data-tab="glory">
-      Glory Cup
-    </button>
-    <button class="tab-link font-semibold text-gray-400 hover:text-green-300" data-tab="cit">
-    Provost Cup
-    </button>
-    <button class="tab-link font-semibold text-gray-400 hover:text-green-300" data-tab="friendlies">
-      Friendlies
-    </button>
-  </div>
+        <div style="display: flex; gap: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid rgba(52, 211, 153, 0.3);">
 
-  <!-- Mikoko League -->
-  <div id="mikoko" class="tab-content space-y-4">
-    <ul class="space-y-4">
-      <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
-        <div class="flex items-center">
-          <span class="text-xl font-extrabold text-green-400 mr-4 w-6 text-center">1.</span>
-          <span class="h-10 w-10 bg-red-600 rounded-full flex items-center justify-center font-bold text-sm text-white">P9</span>
-          <div class="ml-3">
-            <p class="font-semibold">Unknown</p>
-            <p class="text-xs text-gray-400">NIL</p>
-          </div>
-        </div>
-        <span class="font-extrabold text-2xl text-green-300">0</span>
-      </li>
-      <!-- More players -->
-    </ul>
-  </div>
+            <button class="tab-link" data-tab="mikoko" style="
+                font-weight: 600;
+                color: #34d399; /* Green-400 */
+                border-bottom: 3px solid #34d399;
+                padding: 8px 12px;
+                background-color: rgba(52, 211, 153, 0.1); /* Light green background for active state */
+                border-radius: 6px 6px 0 0;
+                cursor: default;
+                transition: all 0.2s ease;
+                outline: none;
+            ">
+                Mikoko League
+            </button>
 
-  <!-- Glory Cup -->
-  <div id="glory" class="tab-content hidden space-y-4">
-    <ul class="space-y-4">
-      <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
-        <div class="flex items-center">
-          <span class="text-xl font-extrabold text-yellow-400 mr-4 w-6 text-center">1.</span>
-          <span class="h-10 w-10 bg-blue-600 rounded-full flex items-center justify-center font-bold text-sm text-white">P7</span>
-          <div class="ml-3">
-            <p class="font-semibold">Unknown</p>
-            <p class="text-xs text-gray-400">NIL</p>
-          </div>
-        </div>
-        <span class="font-extrabold text-2xl text-yellow-300">0</span>
-      </li>
-    </ul>
-  </div>
+            <button class="tab-link" data-tab="glory" style="
+                font-weight: 500;
+                color: #a0a0a0; /* Gray-400 */
+                border-bottom: 3px solid transparent;
+                padding: 8px 12px;
+                background-color: transparent;
+                border-radius: 6px 6px 0 0;
+                cursor: pointer;
+                transition: all 0.2s ease;
+                outline: none;
+            " onmouseover="this.style.color='#6ee7b7'; this.style.borderBottom='3px solid rgba(110, 231, 183, 0.5)'" onmouseout="this.style.color='#a0a0a0'; this.style.borderBottom='3px solid transparent'">
+                Glory Cup
+            </button>
 
-  <!-- Cit League -->
-  <div id="cit" class="tab-content hidden space-y-4">
-    <ul class="space-y-4">
-      <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
-        <div class="flex items-center">
-          <span class="text-xl font-extrabold text-purple-400 mr-4 w-6 text-center">1.</span>
-          <span class="h-10 w-10 bg-purple-600 rounded-full flex items-center justify-center font-bold text-sm text-white">P10</span>
-          <div class="ml-3">
-            <p class="font-semibold">Unknown</p>
-            <p class="text-xs text-gray-400">NIL</p>
-          </div>
-        </div>
-        <span class="font-extrabold text-2xl text-purple-300">0</span>
-      </li>
-    </ul>
-  </div>
+            <button class="tab-link" data-tab="cit" style="
+                font-weight: 500;
+                color: #a0a0a0;
+                border-bottom: 3px solid transparent;
+                padding: 8px 12px;
+                background-color: transparent;
+                border-radius: 6px 6px 0 0;
+                cursor: pointer;
+                transition: all 0.2s ease;
+                outline: none;
+            " onmouseover="this.style.color='#6ee7b7'; this.style.borderBottom='3px solid rgba(110, 231, 183, 0.5)'" onmouseout="this.style.color='#a0a0a0'; this.style.borderBottom='3px solid transparent'">
+                Provost Cup
+            </button>
 
-  <!-- Friendlies -->
-  <div id="friendlies" class="tab-content hidden space-y-4">
-    <ul class="space-y-4">
-      <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
-        <div class="flex items-center">
-          <span class="text-xl font-extrabold text-pink-400 mr-4 w-6 text-center">1.</span>
-          <span class="h-10 w-10 bg-pink-600 rounded-full flex items-center justify-center font-bold text-sm text-white">P1</span>
-          <div class="ml-3">
-            <p class="font-semibold">Austin</p>
-            <p class="text-xs text-gray-400">-</p>
-          </div>
+            <button class="tab-link" data-tab="friendlies" style="
+                font-weight: 500;
+                color: #a0a0a0;
+                border-bottom: 3px solid transparent;
+                padding: 8px 12px;
+                background-color: transparent;
+                border-radius: 6px 6px 0 0;
+                cursor: pointer;
+                transition: all 0.2s ease;
+                outline: none;
+            " onmouseover="this.style.color='#6ee7b7'; this.style.borderBottom='3px solid rgba(110, 231, 183, 0.5)'" onmouseout="this.style.color='#a0a0a0'; this.style.borderBottom='3px solid transparent'">
+                Friendlies
+            </button>
         </div>
-        <span class="font-extrabold text-2xl text-pink-300">4</span>
-      </li> 
-        <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
-        <div class="flex items-center">
-          <span class="text-xl font-extrabold text-pink-400 mr-4 w-6 text-center">2.</span>
-          <span class="h-10 w-10 bg-pink-600 rounded-full flex items-center justify-center font-bold text-sm text-white">P2</span>
-          <div class="ml-3">
-            <p class="font-semibold">Ebuka</p>
-            <p class="text-xs text-gray-400">-</p>
-          </div>
-        </div>
-        <span class="font-extrabold text-2xl text-pink-300">3</span>
-      </li>
-      <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
-        <div class="flex items-center">
-          <span class="text-xl font-extrabold text-pink-400 mr-4 w-6 text-center">3.</span>
-          <span class="h-10 w-10 bg-pink-600 rounded-full flex items-center justify-center font-bold text-sm text-white">P3</span>
-          <div class="ml-3">
-            <p class="font-semibold">chukwuemaka</p>
-            <p class="text-xs text-gray-400">-</p>
-          </div>
-        </div>
-        <span class="font-extrabold text-2xl text-pink-300">3</span>
-      </li>
-         <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
-        <div class="flex items-center">
-          <span class="text-xl font-extrabold text-pink-400 mr-4 w-6 text-center">4.</span>
-          <span class="h-10 w-10 bg-pink-600 rounded-full flex items-center justify-center font-bold text-sm text-white">P4</span>
-          <div class="ml-3">
-            <p class="font-semibold">Daniel</p>
-            <p class="text-xs text-gray-400">-</p>
-          </div>
-        </div>
-        <span class="font-extrabold text-2xl text-pink-300">2</span>
-      </li>
-         <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
-        <div class="flex items-center">
-          <span class="text-xl font-extrabold text-pink-400 mr-4 w-6 text-center">5.</span>
-          <span class="h-10 w-10 bg-pink-600 rounded-full flex items-center justify-center font-bold text-sm text-white">P5</span>
-          <div class="ml-3">
-            <p class="font-semibold">Enyinna</p>
-            <p class="text-xs text-gray-400">-</p>
-          </div>
-        </div>
-        <span class="font-extrabold text-2xl text-pink-300">2</span>
-      </li>
-    </ul>
-  </div>
+    </div>
 </div>
+  <!-- Mikoko League -->
+ <div class="top-scorers-lists" style="padding: 10px; border-radius: 12px; background-color: #0d0d0d; box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);">
+    <div id="mikoko" class="tab-content space-y-4" style="border-left: 4px solid #34d399; padding-left: 10px;">
+        <ul class="space-y-4">
+            <li style="display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; border-radius: 8px; background-color: rgba(52, 211, 153, 0.05); border: 1px solid #2a2a2a; transition: background-color 0.3s ease-in-out;" onmouseover="this.style.backgroundColor='rgba(52, 211, 153, 0.15)'" onmouseout="this.style.backgroundColor='rgba(52, 211, 153, 0.05)'">
+                <div style="display: flex; align-items: center;">
+                    <span style="font-size: 1.5rem; font-weight: 800; color: #34d399; margin-right: 15px; width: 30px; text-align: right;">1.</span>
+                    <span style="height: 44px; width: 44px; background-color: #dc2626; border: 2px solid #34d399; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.875rem; color: #fff;">P9</span>
+                    <div style="margin-left: 15px;">
+                        <p style="font-weight: 600; color: #ffffff;">Unknown</p>
+                        <p style="font-size: 0.75rem; color: #9ca3af;">NIL</p>
+                    </div>
+                </div>
+                <span style="font-weight: 900; font-size: 2.25rem; color: #6ee7b7; text-shadow: 0 0 5px rgba(110, 231, 183, 0.5);">0</span>
+            </li>
+            </ul>
+    </div>
 
+    <div id="glory" class="tab-content hidden space-y-4" style="display: none; border-left: 4px solid #facc15; padding-left: 10px;">
+        <ul class="space-y-4">
+            <li style="display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; border-radius: 8px; background-color: rgba(250, 204, 21, 0.05); border: 1px solid #2a2a2a; transition: background-color 0.3s ease-in-out;" onmouseover="this.style.backgroundColor='rgba(250, 204, 21, 0.15)'" onmouseout="this.style.backgroundColor='rgba(250, 204, 21, 0.05)'">
+                <div style="display: flex; align-items: center;">
+                    <span style="font-size: 1.5rem; font-weight: 800; color: #facc15; margin-right: 15px; width: 30px; text-align: right;">1.</span>
+                    <span style="height: 44px; width: 44px; background-color: #2563eb; border: 2px solid #facc15; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.875rem; color: #fff;">P7</span>
+                    <div style="margin-left: 15px;">
+                        <p style="font-weight: 600; color: #ffffff;">Unknown</p>
+                        <p style="font-size: 0.75rem; color: #9ca3af;">NIL</p>
+                    </div>
+                </div>
+                <span style="font-weight: 900; font-size: 2.25rem; color: #fde047; text-shadow: 0 0 5px rgba(253, 224, 71, 0.5);">0</span>
+            </li>
+        </ul>
+    </div>
+
+    <div id="cit" class="tab-content hidden space-y-4" style="display: none; border-left: 4px solid #a855f7; padding-left: 10px;">
+        <ul class="space-y-4">
+            <li style="display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; border-radius: 8px; background-color: rgba(168, 85, 247, 0.05); border: 1px solid #2a2a2a; transition: background-color 0.3s ease-in-out;" onmouseover="this.style.backgroundColor='rgba(168, 85, 247, 0.15)'" onmouseout="this.style.backgroundColor='rgba(168, 85, 247, 0.05)'">
+                <div style="display: flex; align-items: center;">
+                    <span style="font-size: 1.5rem; font-weight: 800; color: #a855f7; margin-right: 15px; width: 30px; text-align: right;">1.</span>
+                    <span style="height: 44px; width: 44px; background-color: #9333ea; border: 2px solid #a855f7; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.875rem; color: #fff;">P10</span>
+                    <div style="margin-left: 15px;">
+                        <p style="font-weight: 600; color: #ffffff;">Unknown</p>
+                        <p style="font-size: 0.75rem; color: #9ca3af;">NIL</p>
+                    </div>
+                </div>
+                <span style="font-weight: 900; font-size: 2.25rem; color: #c084fc; text-shadow: 0 0 5px rgba(192, 132, 252, 0.5);">0</span>
+            </li>
+        </ul>
+    </div>
+
+    <div id="friendlies" class="tab-content hidden space-y-4" style="display: none; border-left: 4px solid #ec4899; padding-left: 10px;">
+        <ul class="space-y-4">
+            <li style="display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; border-radius: 8px; background-color: rgba(236, 72, 153, 0.05); border: 1px solid #2a2a2a; transition: background-color 0.3s ease-in-out;" onmouseover="this.style.backgroundColor='rgba(236, 72, 153, 0.15)'" onmouseout="this.style.backgroundColor='rgba(236, 72, 153, 0.05)'">
+                <div style="display: flex; align-items: center;">
+                    <span style="font-size: 1.5rem; font-weight: 800; color: #ec4899; margin-right: 15px; width: 30px; text-align: right;">1.</span>
+                    <span style="height: 44px; width: 44px; background-color: #db2777; border: 2px solid #ec4899; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.875rem; color: #fff;">P1</span>
+                    <div style="margin-left: 15px;">
+                        <p style="font-weight: 600; color: #ffffff;">Austin</p>
+                        <p style="font-size: 0.75rem; color: #9ca3af;">-</p>
+                    </div>
+                </div>
+                <span style="font-weight: 900; font-size: 2.25rem; color: #f472b6; text-shadow: 0 0 5px rgba(244, 114, 182, 0.5);">4</span>
+            </li>
+            <li style="display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; border-radius: 8px; background-color: rgba(236, 72, 153, 0.05); border: 1px solid #2a2a2a; transition: background-color 0.3s ease-in-out;" onmouseover="this.style.backgroundColor='rgba(236, 72, 153, 0.15)'" onmouseout="this.style.backgroundColor='rgba(236, 72, 153, 0.05)'">
+                <div style="display: flex; align-items: center;">
+                    <span style="font-size: 1.5rem; font-weight: 800; color: #ec4899; margin-right: 15px; width: 30px; text-align: right;">2.</span>
+                    <span style="height: 44px; width: 44px; background-color: #db2777; border: 2px solid #ec4899; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.875rem; color: #fff;">P2</span>
+                    <div style="margin-left: 15px;">
+                        <p style="font-weight: 600; color: #ffffff;">Ebuka</p>
+                        <p style="font-size: 0.75rem; color: #9ca3af;">-</p>
+                    </div>
+                </div>
+                <span style="font-weight: 900; font-size: 2.25rem; color: #f472b6; text-shadow: 0 0 5px rgba(244, 114, 182, 0.5);">3</span>
+            </li>
+            <li style="display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; border-radius: 8px; background-color: rgba(236, 72, 153, 0.05); border: 1px solid #2a2a2a; transition: background-color 0.3s ease-in-out;" onmouseover="this.style.backgroundColor='rgba(236, 72, 153, 0.15)'" onmouseout="this.style.backgroundColor='rgba(236, 72, 153, 0.05)'">
+                <div style="display: flex; align-items: center;">
+                    <span style="font-size: 1.5rem; font-weight: 800; color: #ec4899; margin-right: 15px; width: 30px; text-align: right;">3.</span>
+                    <span style="height: 44px; width: 44px; background-color: #db2777; border: 2px solid #ec4899; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.875rem; color: #fff;">P3</span>
+                    <div style="margin-left: 15px;">
+                        <p style="font-weight: 600; color: #ffffff;">chukwuemaka</p>
+                        <p style="font-size: 0.75rem; color: #9ca3af;">-</p>
+                    </div>
+                </div>
+                <span style="font-weight: 900; font-size: 2.25rem; color: #f472b6; text-shadow: 0 0 5px rgba(244, 114, 182, 0.5);">3</span>
+            </li>
+            <li style="display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; border-radius: 8px; background-color: rgba(236, 72, 153, 0.05); border: 1px solid #2a2a2a; transition: background-color 0.3s ease-in-out;" onmouseover="this.style.backgroundColor='rgba(236, 72, 153, 0.15)'" onmouseout="this.style.backgroundColor='rgba(236, 72, 153, 0.05)'">
+                <div style="display: flex; align-items: center;">
+                    <span style="font-size: 1.5rem; font-weight: 800; color: #ec4899; margin-right: 15px; width: 30px; text-align: right;">4.</span>
+                    <span style="height: 44px; width: 44px; background-color: #db2777; border: 2px solid #ec4899; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.875rem; color: #fff;">P4</span>
+                    <div style="margin-left: 15px;">
+                        <p style="font-weight: 600; color: #ffffff;">Daniel</p>
+                        <p style="font-size: 0.75rem; color: #9ca3af;">-</p>
+                    </div>
+                </div>
+                <span style="font-weight: 900; font-size: 2.25rem; color: #f472b6; text-shadow: 0 0 5px rgba(244, 114, 182, 0.5);">2</span>
+            </li>
+            <li style="display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; border-radius: 8px; background-color: rgba(236, 72, 153, 0.05); border: 1px solid #2a2a2a; transition: background-color 0.3s ease-in-out;" onmouseover="this.style.backgroundColor='rgba(236, 72, 153, 0.15)'" onmouseout="this.style.backgroundColor='rgba(236, 72, 153, 0.05)'">
+                <div style="display: flex; align-items: center;">
+                    <span style="font-size: 1.5rem; font-weight: 800; color: #ec4899; margin-right: 15px; width: 30px; text-align: right;">5.</span>
+                    <span style="height: 44px; width: 44px; background-color: #db2777; border: 2px solid #ec4899; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.875rem; color: #fff;">P5</span>
+                    <div style="margin-left: 15px;">
+                        <p style="font-weight: 600; color: #ffffff;">Enyinna</p>
+                        <p style="font-size: 0.75rem; color: #9ca3af;">-</p>
+                    </div>
+                </div>
+                <span style="font-weight: 900; font-size: 2.25rem; color: #f472b6; text-shadow: 0 0 5px rgba(244, 114, 182, 0.5);">2</span>
+            </li>
+        </ul>
+    </div>
+</div>
 <script>
   const tabs = document.querySelectorAll(".tab-link");
   const contents = document.querySelectorAll(".tab-content");
@@ -3105,121 +3016,157 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 
       <!-- Top Assists (Right on desktop) -->
-<div class="glass-card p-6 md:p-8 space-y-6">
-  <h3 class="text-2xl font-bold text-green-400 mb-4 flex items-center gap-2">
-    🎯 Top Assists
-  </h3>
+<div class="glass-card p-6 md:p-8 space-y-6" style="background: rgba(18, 18, 18, 0.9); border-radius: 12px; border: 1px solid #383838; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);">
+    <h3 style="font-size: 1.75rem; font-weight: 700; color: #34d399; margin-bottom: 1rem; display: flex; align-items: center; gap: 8px;">
+        <span style="font-size: 1.5rem;">🎯</span> Top Assists
+    </h3>
 
-  <!-- Nav Tabs -->
- <div class="flex space-x-4 border-b border-green-400/40 pb-2">
-  <button class="assist-tab font-semibold text-green-400 border-b-2 border-green-400" data-tab="assist-mikoko">
-    Mikoko League
-  </button>
-  <button class="assist-tab font-semibold text-gray-400 hover:text-green-300" data-tab="assist-glory">
-    Glory Cup
-  </button>
-  <button class="assist-tab font-semibold text-gray-400 hover:text-green-300" data-tab="assist-cit">
-  Provost Cup
-  </button>
-  <button class="assist-tab font-semibold text-gray-400 hover:text-green-300" data-tab="assist-friendlies">
-    Friendlies
-  </button>
+    <div style="display: flex; gap: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid rgba(52, 211, 153, 0.3);">
+        <button class="assist-tab" data-tab="assist-mikoko" style="
+            font-weight: 600;
+            color: #34d399; /* Green-400 */
+            border-bottom: 3px solid #34d399;
+            padding: 8px 12px;
+            background-color: rgba(52, 211, 153, 0.1);
+            border-radius: 6px 6px 0 0;
+            cursor: default;
+            transition: all 0.2s ease;
+            outline: none;
+        ">
+            Mikoko League
+        </button>
+
+        <button class="assist-tab" data-tab="assist-glory" style="
+            font-weight: 500;
+            color: #a0a0a0; /* Gray-400 */
+            border-bottom: 3px solid transparent;
+            padding: 8px 12px;
+            background-color: transparent;
+            border-radius: 6px 6px 0 0;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            outline: none;
+        " onmouseover="this.style.color='#6ee7b7'; this.style.borderBottom='3px solid rgba(110, 231, 183, 0.5)'" onmouseout="this.style.color='#a0a0a0'; this.style.borderBottom='3px solid transparent'">
+            Glory Cup
+        </button>
+
+        <button class="assist-tab" data-tab="assist-cit" style="
+            font-weight: 500;
+            color: #a0a0a0;
+            border-bottom: 3px solid transparent;
+            padding: 8px 12px;
+            background-color: transparent;
+            border-radius: 6px 6px 0 0;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            outline: none;
+        " onmouseover="this.style.color='#6ee7b7'; this.style.borderBottom='3px solid rgba(110, 231, 183, 0.5)'" onmouseout="this.style.color='#a0a0a0'; this.style.borderBottom='3px solid transparent'">
+            Provost Cup
+        </button>
+
+        <button class="assist-tab" data-tab="assist-friendlies" style="
+            font-weight: 500;
+            color: #a0a0a0;
+            border-bottom: 3px solid transparent;
+            padding: 8px 12px;
+            background-color: transparent;
+            border-radius: 6px 6px 0 0;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            outline: none;
+        " onmouseover="this.style.color='#6ee7b7'; this.style.borderBottom='3px solid rgba(110, 231, 183, 0.5)'" onmouseout="this.style.color='#a0a0a0'; this.style.borderBottom='3px solid transparent'">
+            Friendlies
+        </button>
+    </div>
+
+    <div class="top-assists-lists" style="padding: 10px; border-radius: 0 0 12px 12px; background-color: #0d0d0d; box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);">
+        <div id="assist-mikoko" class="assist-content space-y-4" style="border-left: 4px solid #34d399; padding-left: 10px;">
+            <ul class="space-y-4">
+                <li style="display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; border-radius: 8px; background-color: rgba(52, 211, 153, 0.05); border: 1px solid #2a2a2a; transition: background-color 0.3s ease-in-out;" onmouseover="this.style.backgroundColor='rgba(52, 211, 153, 0.15)'" onmouseout="this.style.backgroundColor='rgba(52, 211, 153, 0.05)'">
+                    <div style="display: flex; align-items: center;">
+                        <span style="font-size: 1.5rem; font-weight: 800; color: #34d399; margin-right: 15px; width: 30px; text-align: right;">1.</span>
+                        <span style="height: 44px; width: 44px; background-color: #ca8a04; border: 2px solid #34d399; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.875rem; color: #fff;">P17</span>
+                        <div style="margin-left: 15px;">
+                            <p style="font-weight: 600; color: #ffffff;">Unknown</p>
+                            <p style="font-size: 0.75rem; color: #9ca3af;">NIL</p>
+                        </div>
+                    </div>
+                    <span style="font-weight: 900; font-size: 2.25rem; color: #6ee7b7; text-shadow: 0 0 5px rgba(110, 231, 183, 0.5);">0</span>
+                </li>
+            </ul>
+        </div>
+
+        <div id="assist-glory" class="assist-content hidden space-y-4" style="display: none; border-left: 4px solid #facc15; padding-left: 10px;">
+            <ul class="space-y-4">
+                <li style="display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; border-radius: 8px; background-color: rgba(250, 204, 21, 0.05); border: 1px solid #2a2a2a; transition: background-color 0.3s ease-in-out;" onmouseover="this.style.backgroundColor='rgba(250, 204, 21, 0.15)'" onmouseout="this.style.backgroundColor='rgba(250, 204, 21, 0.05)'">
+                    <div style="display: flex; align-items: center;">
+                        <span style="font-size: 1.5rem; font-weight: 800; color: #facc15; margin-right: 15px; width: 30px; text-align: right;">1.</span>
+                        <span style="height: 44px; width: 44px; background-color: #991b1b; border: 2px solid #facc15; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.875rem; color: #fff;">P11</span>
+                        <div style="margin-left: 15px;">
+                            <p style="font-weight: 600; color: #ffffff;">Unknown</p>
+                            <p style="font-size: 0.75rem; color: #9ca3af;">NIL</p>
+                        </div>
+                    </div>
+                    <span style="font-weight: 900; font-size: 2.25rem; color: #fde047; text-shadow: 0 0 5px rgba(253, 224, 71, 0.5);">0</span>
+                </li>
+            </ul>
+        </div>
+
+        <div id="assist-cit" class="assist-content hidden space-y-4" style="display: none; border-left: 4px solid #a855f7; padding-left: 10px;">
+            <ul class="space-y-4">
+                <li style="display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; border-radius: 8px; background-color: rgba(168, 85, 247, 0.05); border: 1px solid #2a2a2a; transition: background-color 0.3s ease-in-out;" onmouseover="this.style.backgroundColor='rgba(168, 85, 247, 0.15)'" onmouseout="this.style.backgroundColor='rgba(168, 85, 247, 0.05)'">
+                    <div style="display: flex; align-items: center;">
+                        <span style="font-size: 1.5rem; font-weight: 800; color: #a855f7; margin-right: 15px; width: 30px; text-align: right;">1.</span>
+                        <span style="height: 44px; width: 44px; background-color: #84cc16; border: 2px solid #a855f7; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.875rem; color: #fff;">P8</span>
+                        <div style="margin-left: 15px;">
+                            <p style="font-weight: 600; color: #ffffff;">Unknown</p>
+                            <p style="font-size: 0.75rem; color: #9ca3af;">NIL</p>
+                        </div>
+                    </div>
+                    <span style="font-weight: 900; font-size: 2.25rem; color: #c084fc; text-shadow: 0 0 5px rgba(192, 132, 252, 0.5);">0</span>
+                </li>
+            </ul>
+        </div>
+
+        <div id="assist-friendlies" class="assist-content hidden space-y-4" style="display: none; border-left: 4px solid #60a5fa; padding-left: 10px;">
+            <ul class="space-y-4">
+                <li style="display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; border-radius: 8px; background-color: rgba(96, 165, 250, 0.05); border: 1px solid #2a2a2a; transition: background-color 0.3s ease-in-out;" onmouseover="this.style.backgroundColor='rgba(96, 165, 250, 0.15)'" onmouseout="this.style.backgroundColor='rgba(96, 165, 250, 0.05)'">
+                    <div style="display: flex; align-items: center;">
+                        <span style="font-size: 1.5rem; font-weight: 800; color: #60a5fa; margin-right: 15px; width: 30px; text-align: right;">1.</span>
+                        <span style="height: 44px; width: 44px; background-color: #15803d; border: 2px solid #60a5fa; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.875rem; color: #fff;">P1</span>
+                        <div style="margin-left: 15px;">
+                            <p style="font-weight: 600; color: #ffffff;">Chukwuemeka</p>
+                            <p style="font-size: 0.75rem; color: #9ca3af;">-</p>
+                        </div>
+                    </div>
+                    <span style="font-weight: 900; font-size: 2.25rem; color: #93c5fd; text-shadow: 0 0 5px rgba(147, 197, 253, 0.5);">6</span>
+                </li>
+                <li style="display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; border-radius: 8px; background-color: rgba(96, 165, 250, 0.05); border: 1px solid #2a2a2a; transition: background-color 0.3s ease-in-out;" onmouseover="this.style.backgroundColor='rgba(96, 165, 250, 0.15)'" onmouseout="this.style.backgroundColor='rgba(96, 165, 250, 0.05)'">
+                    <div style="display: flex; align-items: center;">
+                        <span style="font-size: 1.5rem; font-weight: 800; color: #60a5fa; margin-right: 15px; width: 30px; text-align: right;">2.</span>
+                        <span style="height: 44px; width: 44px; background-color: #15803d; border: 2px solid #60a5fa; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.875rem; color: #fff;">P2</span>
+                        <div style="margin-left: 15px;">
+                            <p style="font-weight: 600; color: #ffffff;">Emmanuel</p>
+                            <p style="font-size: 0.75rem; color: #9ca3af;">-</p>
+                        </div>
+                    </div>
+                    <span style="font-weight: 900; font-size: 2.25rem; color: #93c5fd; text-shadow: 0 0 5px rgba(147, 197, 253, 0.5);">4</span>
+                </li>
+                <li style="display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; border-radius: 8px; background-color: rgba(96, 165, 250, 0.05); border: 1px solid #2a2a2a; transition: background-color 0.3s ease-in-out;" onmouseover="this.style.backgroundColor='rgba(96, 165, 250, 0.15)'" onmouseout="this.style.backgroundColor='rgba(96, 165, 250, 0.05)'">
+                    <div style="display: flex; align-items: center;">
+                        <span style="font-size: 1.5rem; font-weight: 800; color: #60a5fa; margin-right: 15px; width: 30px; text-align: right;">3.</span>
+                        <span style="height: 44px; width: 44px; background-color: #15803d; border: 2px solid #60a5fa; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.875rem; color: #fff;">P3</span>
+                        <div style="margin-left: 15px;">
+                            <p style="font-weight: 600; color: #ffffff;">Cush</p>
+                            <p style="font-size: 0.75rem; color: #9ca3af;">-</p>
+                        </div>
+                    </div>
+                    <span style="font-weight: 900; font-size: 2.25rem; color: #93c5fd; text-shadow: 0 0 5px rgba(147, 197, 253, 0.5);">2</span>
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>
-
-<!-- Mikoko League Assists -->
-<div id="assist-mikoko" class="assist-content space-y-4">
-  <ul class="space-y-4">
-    <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
-      <div class="flex items-center">
-        <span class="text-xl font-extrabold text-green-400 mr-4 w-6 text-center">1.</span>
-        <span class="h-10 w-10 bg-yellow-600 rounded-full flex items-center justify-center font-bold text-sm text-white">P17</span>
-        <div class="ml-3">
-          <p class="font-semibold">Unknown</p>
-          <p class="text-xs text-gray-400">NIL</p>
-        </div>
-      </div>
-      <span class="font-extrabold text-2xl text-green-300">0</span>
-    </li>
-    <!-- More players -->
-  </ul>
-</div>
-
-<!-- Glory Cup Assists -->
-<div id="assist-glory" class="assist-content hidden space-y-4">
-  <ul class="space-y-4">
-    <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
-      <div class="flex items-center">
-        <span class="text-xl font-extrabold text-yellow-400 mr-4 w-6 text-center">1.</span>
-        <span class="h-10 w-10 bg-red-800 rounded-full flex items-center justify-center font-bold text-sm text-white">P11</span>
-        <div class="ml-3">
-          <p class="font-semibold">Unknown</p>
-          <p class="text-xs text-gray-400">NIL</p>
-        </div>
-      </div>
-      <span class="font-extrabold text-2xl text-yellow-300">0</span>
-    </li>
-    <!-- More players -->
-  </ul>
-</div>
-
-<!-- Cit League Assists -->
-<div id="assist-cit" class="assist-content hidden space-y-4">
-  <ul class="space-y-4">
-    <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
-      <div class="flex items-center">
-        <span class="text-xl font-extrabold text-purple-400 mr-4 w-6 text-center">1.</span>
-        <span class="h-10 w-10 bg-lime-600 rounded-full flex items-center justify-center font-bold text-sm text-white">P8</span>
-        <div class="ml-3">
-          <p class="font-semibold">Unknown</p>
-          <p class="text-xs text-gray-400">NIL</p>
-        </div>
-      </div>
-      <span class="font-extrabold text-2xl text-purple-300">0</span>
-    </li>
-    <!-- More players -->
-  </ul>
-</div>
-
-<!-- Friendlies Assists -->
-<div id="assist-friendlies" class="assist-content hidden space-y-4">
-  <ul class="space-y-4">
-    <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
-      <div class="flex items-center">
-        <span class="text-xl font-extrabold text-blue-400 mr-4 w-6 text-center">1.</span>
-        <span class="h-10 w-10 bg-green-700 rounded-full flex items-center justify-center font-bold text-sm text-white">P1</span>
-        <div class="ml-3">
-          <p class="font-semibold">Chukwuemeka </p>
-          <p class="text-xs text-gray-400">-</p>
-        </div>
-      </div>
-      <span class="font-extrabold text-2xl text-blue-300">6</span>
-    </li>
-
-    <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
-      <div class="flex items-center">
-        <span class="text-xl font-extrabold text-blue-400 mr-4 w-6 text-center">2.</span>
-        <span class="h-10 w-10 bg-green-700 rounded-full flex items-center justify-center font-bold text-sm text-white">P2</span>
-        <div class="ml-3">
-          <p class="font-semibold">Emmanuel</p>
-          <p class="text-xs text-gray-400">-</p>
-        </div>
-      </div>
-      <span class="font-extrabold text-2xl text-blue-300">4</span>
-    </li>
-       <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
-      <div class="flex items-center">
-        <span class="text-xl font-extrabold text-blue-400 mr-4 w-6 text-center">3.</span>
-        <span class="h-10 w-10 bg-green-700 rounded-full flex items-center justify-center font-bold text-sm text-white">P3</span>
-        <div class="ml-3">
-          <p class="font-semibold">Cush</p>
-          <p class="text-xs text-gray-400">-</p>
-        </div>
-      </div>
-      <span class="font-extrabold text-2xl text-blue-300">2</span>
-    </li>
-  </ul>
-</div>
-
 <script>
   const assistTabs = document.querySelectorAll(".assist-tab");
   const assistContents = document.querySelectorAll(".assist-content");
@@ -3240,122 +3187,251 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 
 <div class="mb-20">
-  <!-- Player Stats Section -->
-  <section id="stats">
-    <h2
-      class="text-3xl md:text-4xl font-bold mb-8 text-green-500 border-b-2 border-green-700 pb-2 flex items-center"
-    >
-      <i class="fas fa-chart-line mr-3"></i> Player Leaderboards
-    </h2>
+    <section id="stats" style="padding-top: 1.5rem;">
+        <h2 style="
+            font-size: 2.25rem; /* text-4xl on md */
+            font-weight: 800;
+            margin-bottom: 2rem;
+            color: #10b981; /* Green-500 */
+            border-bottom: 3px solid #059669; /* Green-700 */
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            letter-spacing: 0.5px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+        ">
+            <i class="fas fa-chart-line mr-4"></i> Player Leaderboards
+        </h2>
 
-    <!-- Grid layout -->
-    <div
-      class="grid grid-cols-1 lg:grid-cols-2 gap-10 mt-10"
-    >
-      <!-- Top Scorers (Left on desktop) -->
-      <div class="glass-card p-6 md:p-8 space-y-8">
-        <h3 class="text-2xl font-bold text-green-400 mb-6 flex items-center gap-2">
-          ⚽ Top Scorers
-        </h3>
-        <ul class="space-y-4">
-          <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
-            <div class="flex items-center">
-              <span class="text-xl font-extrabold text-green-400 mr-4 w-6 text-center">1.</span>
-              <span class="h-10 w-10 bg-red-600 rounded-full flex items-center justify-center font-bold text-sm text-white">P1</span>
-              <div class="ml-3">
-                <p class="font-semibold">Austin</p>
-                <p class="text-xs text-gray-400">-</p>
-              </div>
-            </div>
-            <span class="font-extrabold text-2xl text-green-300">4</span>
-          </li>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 mt-10">
+            <div class="glass-card p-8 space-y-8" style="
+                background: linear-gradient(145deg, #1f2937 0%, #111827 100%); /* Dark gradient for depth */
+                border-radius: 16px;
+                border: 1px solid #374151; /* Subtle border */
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            ">
+                <h3 style="
+                    font-size: 1.875rem; /* text-3xl */
+                    font-weight: 700;
+                    color: #34d399; /* Green-400 */
+                    margin-bottom: 1.5rem;
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    text-shadow: 0 0 5px rgba(52, 211, 153, 0.5);
+                ">
+                    ⚽ Top Scorers
+                </h3>
+                <ul class="space-y-4">
+                    <li style="
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        padding: 1rem 1.25rem;
+                        border-radius: 12px;
+                        background: linear-gradient(90deg, #374151 0%, #1f2937 100%);
+                        border: 2px solid #fcd34d; /* Gold border */
+                        box-shadow: 0 4px 15px rgba(252, 211, 77, 0.3);
+                        transition: all 0.3s ease-in-out;
+                    " onmouseover="this.style.transform='scale(1.02)'; this.style.boxShadow='0 8px 20px rgba(252, 211, 77, 0.5)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 15px rgba(252, 211, 77, 0.3)'">
+                        <div style="display: flex; align-items: center;">
+                            <span style="font-size: 1.75rem; font-weight: 900; color: #fcd34d; margin-right: 1rem; width: 30px; text-align: right; text-shadow: 0 0 5px #fcd34d;">1.</span>
+                            <span style="height: 48px; width: 48px; background-color: #dc2626; border: 3px solid #fcd34d; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1rem; color: #fff;">P1</span>
+                            <div style="margin-left: 0.75rem;">
+                                <p style="font-weight: 600; color: #ffffff; font-size: 1.1rem;">Austin</p>
+                                <p style="font-size: 0.75rem; color: #a0a0a0;">-</p>
+                            </div>
+                        </div>
+                        <span style="font-weight: 900; font-size: 2.5rem; color: #fcd34d; text-shadow: 0 0 10px rgba(252, 211, 77, 0.8);">4</span>
+                    </li>
 
-          <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
-            <div class="flex items-center">
-              <span class="text-xl font-extrabold text-gray-300 mr-4 w-6 text-center">2.</span>
-              <span class="h-10 w-10 bg-blue-600 rounded-full flex items-center justify-center font-bold text-sm text-white">P2</span>
-              <div class="ml-3">
-                <p class="font-semibold">Ebuka</p>
-                <p class="text-xs text-gray-400">-</p>
-              </div>
-            </div>
-            <span class="font-extrabold text-2xl">3</span>
-          </li>
+                    <li style="
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        padding: 1rem 1.25rem;
+                        border-radius: 12px;
+                        background: linear-gradient(90deg, #374151 0%, #1f2937 100%);
+                        border: 2px solid #9ca3af; /* Silver border */
+                        box-shadow: 0 4px 10px rgba(156, 163, 175, 0.2);
+                        transition: all 0.3s ease-in-out;
+                    " onmouseover="this.style.transform='scale(1.02)'; this.style.boxShadow='0 8px 20px rgba(156, 163, 175, 0.4)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 10px rgba(156, 163, 175, 0.2)'">
+                        <div style="display: flex; align-items: center;">
+                            <span style="font-size: 1.75rem; font-weight: 900; color: #9ca3af; margin-right: 1rem; width: 30px; text-align: right; text-shadow: 0 0 5px #9ca3af;">2.</span>
+                            <span style="height: 48px; width: 48px; background-color: #2563eb; border: 3px solid #9ca3af; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1rem; color: #fff;">P2</span>
+                            <div style="margin-left: 0.75rem;">
+                                <p style="font-weight: 600; color: #ffffff; font-size: 1.1rem;">Ebuka</p>
+                                <p style="font-size: 0.75rem; color: #a0a0a0;">-</p>
+                            </div>
+                        </div>
+                        <span style="font-weight: 900; font-size: 2.5rem; color: #9ca3af; text-shadow: 0 0 10px rgba(156, 163, 175, 0.8);">3</span>
+                    </li>
 
-          <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
-            <div class="flex items-center">
-              <span class="text-xl font-extrabold text-yellow-500 mr-4 w-6 text-center">3.</span>
-              <span class="h-10 w-10 bg-amber-600 rounded-full flex items-center justify-center font-bold text-sm text-white">P3</span>
-              <div class="ml-3">
-                <p class="font-semibold">Chukwuemeka</p>
-                <p class="text-xs text-gray-400">-</p>
-              </div>
+                    <li style="
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        padding: 1rem 1.25rem;
+                        border-radius: 12px;
+                        background: linear-gradient(90deg, #374151 0%, #1f2937 100%);
+                        border: 2px solid #b45309; /* Bronze/Amber border */
+                        box-shadow: 0 4px 10px rgba(180, 83, 9, 0.2);
+                        transition: all 0.3s ease-in-out;
+                    " onmouseover="this.style.transform='scale(1.02)'; this.style.boxShadow='0 8px 20px rgba(180, 83, 9, 0.4)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 10px rgba(180, 83, 9, 0.2)'">
+                        <div style="display: flex; align-items: center;">
+                            <span style="font-size: 1.75rem; font-weight: 900; color: #b45309; margin-right: 1rem; width: 30px; text-align: right; text-shadow: 0 0 5px #b45309;">3.</span>
+                            <span style="height: 48px; width: 48px; background-color: #d97706; border: 3px solid #b45309; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1rem; color: #fff;">P3</span>
+                            <div style="margin-left: 0.75rem;">
+                                <p style="font-weight: 600; color: #ffffff; font-size: 1.1rem;">Chukwuemeka</p>
+                                <p style="font-size: 0.75rem; color: #a0a0a0;">-</p>
+                            </div>
+                        </div>
+                        <span style="font-weight: 900; font-size: 2.5rem; color: #b45309; text-shadow: 0 0 10px rgba(180, 83, 9, 0.8);">3</span>
+                    </li>
+                </ul>
             </div>
-            <span class="font-extrabold text-2xl">3</span>
-          </li>
-        </ul>
-      </div>
+            
+           
+        </div>
+    </section>
+</div>
+  <div class="glass-card p-8 space-y-8" style="
+    background: linear-gradient(145deg, #1f2937 0%, #111827 100%); /* Dark gradient for depth */
+    border-radius: 16px;
+    border: 1px solid #374151; /* Subtle border */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+">
+    <h3 style="
+        font-size: 1.875rem; /* text-3xl */
+        font-weight: 700;
+        color: #34d399; /* Green-400 */
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-shadow: 0 0 5px rgba(52, 211, 153, 0.5);
+    ">
+        🎯 Top Assists
+    </h3>
+    <ul class="space-y-4">
+        <li style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.25rem;
+            border-radius: 12px;
+            background: linear-gradient(90deg, #374151 0%, #1f2937 100%);
+            border: 2px solid #fcd34d; /* Gold border */
+            box-shadow: 0 4px 15px rgba(252, 211, 77, 0.3);
+            transition: all 0.3s ease-in-out;
+        " onmouseover="this.style.transform='scale(1.02)'; this.style.boxShadow='0 8px 20px rgba(252, 211, 77, 0.5)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 15px rgba(252, 211, 77, 0.3)'">
+            <div style="display: flex; align-items: center;">
+                <span style="font-size: 1.75rem; font-weight: 900; color: #fcd34d; margin-right: 1rem; width: 30px; text-align: right; text-shadow: 0 0 5px #fcd34d;">1.</span>
+                <span style="height: 48px; width: 48px; background-color: #ca8a04; border: 3px solid #fcd34d; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1rem; color: #fff;">P1</span>
+                <div style="margin-left: 0.75rem;">
+                    <p style="font-weight: 600; color: #ffffff; font-size: 1.1rem;">Chukwuemeka</p>
+                    <p style="font-size: 0.75rem; color: #a0a0a0;">-</p>
+                </div>
+            </div>
+            <span style="font-weight: 900; font-size: 2.5rem; color: #fcd34d; text-shadow: 0 0 10px rgba(252, 211, 77, 0.8);">6</span>
+        </li>
 
-      <!-- Top Assists (Right on desktop) -->
-      <div class="glass-card p-6 md:p-8 space-y-8">
-        <h3 class="text-2xl font-bold text-green-400 mb-6 flex items-center gap-2">
-          🎯 Top Assists
-        </h3>
-        <ul class="space-y-4">
-          <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
-            <div class="flex items-center">
-              <span class="text-xl font-extrabold text-green-400 mr-4 w-6 text-center">1.</span>
-              <span class="h-10 w-10 bg-yellow-600 rounded-full flex items-center justify-center font-bold text-sm text-white">P1</span>
-              <div class="ml-3">
-                <p class="font-semibold">Chukwuemeka</p>
-                <p class="text-xs text-gray-400">-</p>
-              </div>
+        <li style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.25rem;
+            border-radius: 12px;
+            background: linear-gradient(90deg, #374151 0%, #1f2937 100%);
+            border: 2px solid #9ca3af; /* Silver border */
+            box-shadow: 0 4px 10px rgba(156, 163, 175, 0.2);
+            transition: all 0.3s ease-in-out;
+        " onmouseover="this.style.transform='scale(1.02)'; this.style.boxShadow='0 8px 20px rgba(156, 163, 175, 0.4)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 10px rgba(156, 163, 175, 0.2)'">
+            <div style="display: flex; align-items: center;">
+                <span style="font-size: 1.75rem; font-weight: 900; color: #9ca3af; margin-right: 1rem; width: 30px; text-align: right; text-shadow: 0 0 5px #9ca3af;">2.</span>
+                <span style="height: 48px; width: 48px; background-color: #991b1b; border: 3px solid #9ca3af; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1rem; color: #fff;">P2</span>
+                <div style="margin-left: 0.75rem;">
+                    <p style="font-weight: 600; color: #ffffff; font-size: 1.1rem;">Emmanuel</p>
+                    <p style="font-size: 0.75rem; color: #a0a0a0;">-</p>
+                </div>
             </div>
-            <span class="font-extrabold text-2xl text-green-300">6</span>
-          </li>
+            <span style="font-weight: 900; font-size: 2.5rem; color: #9ca3af; text-shadow: 0 0 10px rgba(156, 163, 175, 0.8);">4</span>
+        </li>
 
-          <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
-            <div class="flex items-center">
-              <span class="text-xl font-extrabold text-gray-300 mr-4 w-6 text-center">2.</span>
-              <span class="h-10 w-10 bg-red-800 rounded-full flex items-center justify-center font-bold text-sm text-white">P2</span>
-              <div class="ml-3">
-                <p class="font-semibold">Emmanuel</p>
-                <p class="text-xs text-gray-400">-</p>
-              </div>
+        <li style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.25rem;
+            border-radius: 12px;
+            background: linear-gradient(90deg, #374151 0%, #1f2937 100%);
+            border: 2px solid #b45309; /* Bronze/Amber border */
+            box-shadow: 0 4px 10px rgba(180, 83, 9, 0.2);
+            transition: all 0.3s ease-in-out;
+        " onmouseover="this.style.transform='scale(1.02)'; this.style.boxShadow='0 8px 20px rgba(180, 83, 9, 0.4)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 10px rgba(180, 83, 9, 0.2)'">
+            <div style="display: flex; align-items: center;">
+                <span style="font-size: 1.75rem; font-weight: 900; color: #b45309; margin-right: 1rem; width: 30px; text-align: right; text-shadow: 0 0 5px #b45309;">3.</span>
+                <span style="height: 48px; width: 48px; background-color: #84cc16; border: 3px solid #b45309; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1rem; color: #fff;">P8</span>
+                <div style="margin-left: 0.75rem;">
+                    <p style="font-weight: 600; color: #ffffff; font-size: 1.1rem;">Cush</p>
+                    <p style="font-size: 0.75rem; color: #a0a0a0;">NIL</p>
+                </div>
             </div>
-            <span class="font-extrabold text-2xl">4</span>
-          </li>
-
-          <li class="flex justify-between items-center p-3 rounded-lg bg-black/20 hover:bg-black/40 transition">
-            <div class="flex items-center">
-              <span class="text-xl font-extrabold text-yellow-500 mr-4 w-6 text-center">3.</span>
-              <span class="h-10 w-10 bg-lime-600 rounded-full flex items-center justify-center font-bold text-sm text-white">P8</span>
-              <div class="ml-3">
-                <p class="font-semibold">Cush</p>
-                <p class="text-xs text-gray-400">NIL</p>
-              </div>
-            </div>
-            <span class="font-extrabold text-2xl">2</span>
-          </li>
-        </ul>
-      </div>
+            <span style="font-weight: 900; font-size: 2.5rem; color: #b45309; text-shadow: 0 0 10px rgba(180, 83, 9, 0.8);">2</span>
+        </li>
+    </ul>
+</div>
     </div>
   </section>
 </div>
 
 
-            <!-- Highlights and News Section -->
-          <section id="highlights">
-  <h2 class="text-3xl md:text-4xl font-bold mb-8 text-green-500 border-b-2 border-green-700 pb-2 flex items-center">
-    <i class="fas fa-video mr-3"></i> Latest Highlights
-  </h2>
+      <section id="highlights" style="padding-top: 2rem;">
+    <h2 style="
+        font-size: 2.25rem; /* text-4xl on md */
+        font-weight: 800;
+        margin-bottom: 2rem;
+        color: #10b981; /* Green-500 */
+        border-bottom: 3px solid #059669; /* Green-700 */
+        padding-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        letter-spacing: 0.5px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    ">
+        <i class="fas fa-video mr-4"></i> Latest Highlights
+    </h2>
 
-  <div class="glass-card p-6 md:p-8 flex items-center justify-center">
-    <!-- Spinner -->
-    <div id="highlights-spinner" class="flex items-center justify-center py-12">
-      <div class="w-12 h-12 border-4 border-green-500 border-t-transparent rounded-full animate-spin"></div>
+    <div class="glass-card p-10 flex items-center justify-center" style="
+        background: linear-gradient(145deg, #1f2937 0%, #111827 100%);
+        border-radius: 16px;
+        border: 1px solid #374151;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+        min-height: 200px; /* Ensure visual presence */
+    ">
+        <div id="highlights-spinner" style="display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 3rem;">
+            <div style="
+                width: 60px; 
+                height: 60px; 
+                border: 6px solid #10b981; /* Green-500 */
+                border-top-color: transparent; 
+                border-radius: 50%; 
+                animation: spin 1s linear infinite;
+                box-shadow: 0 0 15px rgba(16, 185, 129, 0.7); /* Green glow */
+            "></div>
+
+            <p style="margin-top: 1rem; font-size: 1rem; color: #a0a0a0; font-weight: 500;">
+                Loading video highlights...
+            </p>
+        </div>
+        
+        <style>
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+        </style>
     </div>
-  </div>
 </section>
 
 <script>
