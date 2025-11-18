@@ -524,537 +524,297 @@ a:focus, button:focus, .btn:focus{
         <!-- Live Match Section -->
 <!-- Live Match Section -->
 <section id="live" class="py-12 px-4 md:px-8 bg-gray-900 min-h-screen text-gray-100 relative overflow-hidden">
-    <div class="absolute inset-0 z-0 opacity-20">
-        <div class="w-1/3 h-full bg-cyan-900/50 blur-[150px] absolute top-0 left-0"></div>
-        <div class="w-1/3 h-full bg-green-900/50 blur-[150px] absolute bottom-0 right-0"></div>
+    <div class="absolute inset-0 z-0 opacity-30">
+        <div class="w-1/2 h-full bg-cyan-900/60 blur-[150px] absolute top-0 left-0"></div>
+        <div class="w-1/2 h-full bg-green-900/60 blur-[150px] absolute bottom-0 right-0"></div>
     </div>
-    
+
     <div class="relative z-10 max-w-7xl mx-auto">
-        <h2 class="text-4xl md:text-5xl font-extrabold mb-10 text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-cyan-400 border-b-4 border-green-700/50 pb-4 flex items-center tracking-wider">
-            <i class="fas fa-broadcast-tower mr-4 text-red-500 live-glow text-3xl"></i> LIVE Fixtures
+        <!-- LIVE FIXTURES -->
+        <h2 class="text-4xl md:text-5xl font-extrabold mb-12 text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-cyan-400 border-b-4 border-green-700/50 pb-4 flex items-center tracking-wider">
+            <i class="fas fa-broadcast-tower mr-4 text-red-500 animate-pulse text-4xl"></i> LIVE Fixtures
         </h2>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-            <div class="glass-card p-6 md:p-8 relative flex flex-col justify-between hover:scale-[1.02] transition-all duration-300 neon-border-glow" data-match-id="m1">
-                <div class="absolute top-4 left-4 text-sm text-gray-400 font-semibold flex items-center">
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+            <!-- Match 1 -->
+            <div class="glass-card p-6 md:p-8 neon-border-glow hover:scale-[1.02] transition-all duration-300" data-match-id="m1">
+                <div class="absolute top-4 left-4 text-sm text-gray-400 font-bold flex items-center">
                     <i class="fas fa-trophy text-yellow-500 mr-2"></i> MIKOKO LEAGUE
                 </div>
-                <div class="status absolute top-4 right-4 text-xs bg-gray-800/70 px-3 py-1 rounded-full flex items-center font-semibold border border-gray-700">
-                    <span class="live-dot stopped bg-gray-500"></span>
+                <div class="status absolute top-4 right-4 text-xs bg-gray-800/80 px-4 py-1.5 rounded-full flex items-center font-bold border border-gray-700">
+                    <span class="live-dot bg-gray-500"></span>
                     <span class="status-text ml-2">Not Started</span>
                 </div>
 
-                <div class="flex justify-between items-center mt-12 mb-8">
+                <div class="flex justify-between items-center mt-14 mb-8">
                     <div class="text-center flex-1">
-                        <div class="team-badge h-20 w-20 flex items-center justify-center bg-green-700 rounded-full mx-auto font-extrabold text-3xl shadow-xl border-4 border-green-400/50">NIL</div>
-                        <p class="mt-3 text-lg md:text-xl font-bold text-green-300">Team A</p>
+                        <div class="team-badge">NIL</div>
+                        <p class="mt-3 text-xl font-bold text-green-300">Team A</p>
                     </div>
-                    <div class="text-center mx-4 flex-shrink-0">
-                        <div class="text-6xl font-extrabold text-cyan-400 live-score live-glow-text">0 - 0</div>
-                        <div class="match-time-container text-xs mt-2">
-                            <div class="kickoff-info text-gray-400 font-semibold">Kickoff Pending</div>
-                        </div>
+                    <div class="text-center mx-6">
+                        <div class="text-6xl font-extrabold text-cyan-400 live-score">0 - 0</div>
+                        <div class="text-sm text-gray-400 mt-2 font-semibold">Kickoff Pending</div>
                     </div>
                     <div class="text-center flex-1">
-                        <div class="team-badge h-20 w-20 flex items-center justify-center bg-sky-700 rounded-full mx-auto font-extrabold text-3xl shadow-xl border-4 border-sky-400/50">NIL</div>
-                        <p class="mt-3 text-lg md:text-xl font-bold text-sky-300">Team B</p>
+                        <div class="team-badge bg-sky-700 border-sky-400/50">NIL</div>
+                        <p class="mt-3 text-xl font-bold text-sky-300">Team B</p>
                     </div>
                 </div>
 
-                <div class="tooltip-container">
-                    <button class="view-match-btn w-full mt-4 py-3 rounded-xl text-lg font-bold shadow-lg transition-all duration-300 transform hover:-translate-y-1 bg-gray-700/50 text-gray-400 cursor-not-allowed border-t border-green-400/30" data-state="disabled" disabled>
-                        View Match Center
-                    </button>
-                    <span class="tooltip-text">Match center will be available after kickoff.</span>
-                </div>
+                <button class="view-match-btn btn-disabled" disabled>View Match Center</button>
+                <span class="tooltip-text">Match center will be available after kickoff.</span>
             </div>
 
-            <div class="glass-card p-6 md:p-8 relative flex flex-col justify-between hover:scale-[1.02] transition-all duration-300 neon-border-glow neon-border-live" data-match-id="m2">
-                <div class="absolute top-4 left-4 text-sm text-gray-400 font-semibold flex items-center">
+            <!-- Match 2 - LIVE -->
+            <div class="glass-card p-6 md:p-8 neon-border-live hover:scale-[1.02] transition-all duration-300" data-match-id="m2">
+                <div class="absolute top-4 left-4 text-sm text-gray-400 font-bold flex items-center">
                     <i class="fas fa-trophy text-yellow-500 mr-2"></i> GLORY CHAMPIONS CUP
                 </div>
-                <div class="status absolute top-4 right-4 text-xs bg-red-800/90 px-3 py-1 rounded-full flex items-center font-bold animate-pulse border border-red-500">
-                    <span class="live-dot running bg-red-400"></span>
-                    <span class="status-text ml-2">LIVE</span>
-                </div>
-
-                <div class="flex justify-between items-center mt-12 mb-8">
-                    <div class="text-center flex-1">
-                        <div class="team-badge h-20 w-20 flex items-center justify-center bg-red-700 rounded-full mx-auto font-extrabold text-3xl shadow-xl border-4 border-red-400/50">NIL</div>
-                        <p class="mt-3 text-lg md:text-xl font-bold text-red-300">Red Devils</p>
-                    </div>
-                    <div class="text-center mx-4 flex-shrink-0">
-                        <div class="text-6xl font-extrabold text-green-400 live-score live-glow-text">1 - 0</div> <div class="match-time-container text-xs mt-2">
-                            <div class="live-timer font-bold text-2xl text-red-400 live-glow-text">35'</div>
-                        </div>
-                    </div>
-                    <div class="text-center flex-1">
-                        <div class="team-badge h-20 w-20 flex items-center justify-center bg-blue-700 rounded-full mx-auto font-extrabold text-3xl shadow-xl border-4 border-blue-400/50">NIL</div>
-                        <p class="mt-3 text-lg md:text-xl font-bold text-blue-300">Blue Lions</p>
-                    </div>
-                </div>
-
-                <div class="tooltip-container">
-                    <button class="view-match-btn w-full mt-4 bg-gradient-to-r from-green-500 to-cyan-600 hover:from-green-600 hover:to-cyan-700 text-white py-3 rounded-xl text-lg font-bold shadow-2xl shadow-green-600/30 transition-all duration-300 transform hover:-translate-y-1" data-state="live">
-                        View Match Center
-                    </button>
-                </div>
-            </div>
-
-            <div class="glass-card p-6 md:p-8 relative flex flex-col justify-between hover:scale-[1.02] transition-all duration-300 neon-border-glow" data-match-id="m3">
-                <div class="absolute top-4 left-4 text-sm text-gray-400 font-semibold flex items-center">
-                    <i class="fas fa-trophy text-yellow-500 mr-2"></i> CIT LEAGUE
-                </div>
-                <div class="status absolute top-4 right-4 text-xs bg-gray-800/70 px-3 py-1 rounded-full flex items-center font-semibold border border-gray-700">
-                    <span class="live-dot stopped bg-gray-500"></span>
+                <div class="status absolute top-4 right-4 text-xs bg-red-900/90 px-4 py-1.5 rounded-full flex items-center font-bold border border-red-600 animate-pulse">
+                <span class="live-dot bg-gray-500"></span>
                     <span class="status-text ml-2">Not Started</span>
                 </div>
 
-                <div class="flex justify-between items-center mt-12 mb-8">
+                <div class="flex justify-between items-center mt-14 mb-8">
                     <div class="text-center flex-1">
-                        <div class="team-badge h-20 w-20 flex items-center justify-center bg-slate-700 rounded-full mx-auto font-extrabold text-3xl shadow-xl border-4 border-slate-400/50">SIY</div>
-                        <p class="mt-3 text-lg md:text-xl font-bold text-slate-300">SILVER CITY</p>
+                        <div class="team-badge bg-red-700 border-red-400/50">RED</div>
+                        <p class="mt-3 text-xl font-bold text-red-300">Red Devils</p>
                     </div>
-                    <div class="text-center mx-4 flex-shrink-0">
-                        <div class="text-6xl font-extrabold text-cyan-400 live-score live-glow-text">0 - 0</div>
-                        <div class="match-time-container text-xs mt-2">
-                            <div class="kickoff-info text-gray-400 font-semibold">Kickoff Pending</div>
-                        </div>
+                    <div class="text-center mx-6">
+                        <div class="text-6xl font-extrabold text-green-400 live-score animate-pulse">0 - 0</div>
+                        <div class="text-2xl font-bold text-red-400 mt-2">Kickoff Pending'</div>
                     </div>
                     <div class="text-center flex-1">
-                        <div class="team-badge h-20 w-20 flex items-center justify-center bg-lime-700 rounded-full mx-auto font-extrabold text-3xl shadow-xl border-4 border-lime-400/50">VUTD</div>
-                        <p class="mt-3 text-lg md:text-xl font-bold text-lime-300">VALOR UNITED</p>
+                        <div class="team-badge bg-blue-700 border-blue-400/50">BUL</div>
+                        <p class="mt-3 text-xl font-bold text-blue-300">Blue Lions</p>
                     </div>
                 </div>
 
-                <div class="tooltip-container">
-                    <button class="view-match-btn w-full mt-4 py-3 rounded-xl text-lg font-bold shadow-lg transition-all duration-300 transform hover:-translate-y-1 bg-gray-700/50 text-gray-400 cursor-not-allowed border-t border-green-400/30" data-state="disabled" disabled>
-                        View Match Center
-                    </button>
-                    <span class="tooltip-text">Match center will be available after kickoff.</span>
-                </div>
+                <button class="view-match-btn btn-live">View Match Center →</button>
             </div>
 
-            <div class="glass-card p-6 md:p-8 relative flex flex-col justify-between hover:scale-[1.02] transition-all duration-300 neon-border-glow" data-match-id="m4">
-                <div class="absolute top-4 left-4 text-sm text-gray-400 font-semibold flex items-center">
-                    <i class="fas fa-handshake text-green-400 mr-2"></i> FRIENDLY FIXTURE
+            <!-- Match 3 -->
+            <div class="glass-card p-6 md:p-8 neon-border-glow hover:scale-[1.02] transition-all duration-300" data-match-id="m3">
+                <div class="absolute top-4 left-4 text-sm text-gray-400 font-bold flex items-center">
+                    <i class="fas fa-trophy text-yellow-500 mr-2"></i> CIT LEAGUE
                 </div>
-                <div class="status absolute top-4 right-4 text-xs bg-gray-800/70 px-3 py-1 rounded-full flex items-center font-semibold border border-gray-700">
-                    <span class="live-dot stopped bg-gray-500"></span>
+                <div class="status absolute top-4 right-4 text-xs bg-gray-800/80 px-4 py-1.5 rounded-full flex items-center font-bold border border-gray-700">
+                    <span class="live-dot bg-gray-500"></span>
+                    <span class="status-text ml-2">Not Started</span>
+                </div>
+
+                <div class="flex justify-between items-center mt-14 mb-8">
+                    <div class="text-center flex-1">
+                        <div class="team-badge bg-slate-700 border-slate-400/50">SIY</div>
+                        <p class="mt-3 text-xl font-bold text-slate-300">SILVER CITY</p>
+                    </div>
+                    <div class="text-center mx-6">
+                        <div class="text-6xl font-extrabold text-cyan-400 live-score">0 - 0</div>
+                        <div class="text-sm text-gray-400 mt-2 font-semibold">Kickoff Pending</div>
+                    </div>
+                    <div class="text-center flex-1">
+                        <div class="team-badge bg-lime-700 border-lime-400/50">VUTD</div>
+                        <p class="mt-3 text-xl font-bold text-lime-300">VALOR UNITED</p>
+                    </div>
+                </div>
+
+                <button class="view-match-btn btn-disabled" disabled>View Match Center</button>
+                <span class="tooltip-text">Match center will be available after kickoff.</span>
+            </div>
+
+            <!-- Friendly Matches + Full Time Example -->
+            <div class="glass-card p-6 md:p-8 neon-border-glow hover:scale-[1.02] transition-all duration-300" data-match-id="m4">
+                <div class="absolute top-4 left-4 text-sm text-green-400 font-bold flex items-center">
+                    <i class="fas fa-handshake mr-2"></i> FRIENDLY FIXTURE
+                </div>
+                <div class="status absolute top-4 right-4 text-xs bg-gray-800/80 px-4 py-1.5 rounded-full flex items-center font-bold border border-gray-700">
+                    <span class="live-dot bg-gray-500"></span>
                     <span class="status-text ml-2">Upcoming</span>
                 </div>
-
-                <div class="flex justify-between items-center mt-12 mb-8">
+                <div class="flex justify-between items-center mt-14 mb-8">
                     <div class="text-center flex-1">
-                        <div class="team-badge h-20 w-20 flex items-center justify-center bg-emerald-700 rounded-full mx-auto font-extrabold text-3xl shadow-xl border-4 border-emerald-400/50">CSC</div>
-                        <p class="mt-3 text-lg md:text-xl font-bold text-emerald-300">Comp Sci 200L</p>
+                        <div class="team-badge bg-emerald-700 border-emerald-400/50">CSC</div>
+                        <p class="mt-3 text-xl font-bold text-emerald-300">Comp Sci 200L</p>
                     </div>
-                    <div class="text-center mx-4 flex-shrink-0">
-                        <div class="text-6xl font-extrabold text-cyan-400 live-score live-glow-text">0 - 0</div>
-                        <div class="match-time-container text-xs mt-2">
-                            <div class="kickoff-info text-gray-400 font-semibold">Friendly Match</div>
-                        </div>
+                    <div class="text-center mx-6">
+                        <div class="text-6xl font-extrabold text-cyan-400">0 - 0</div>
+                        <div class="text-sm text-gray-400 mt-2 font-semibold">Friendly Match</div>
                     </div>
                     <div class="text-center flex-1">
-                        <div class="team-badge h-20 w-20 flex items-center justify-center bg-pink-700 rounded-full mx-auto font-extrabold text-3xl shadow-xl border-4 border-pink-400/50">LAW</div>
-                        <p class="mt-3 text-lg md:text-xl font-bold text-pink-300">Law 100</p>
+                        <div class="team-badge bg-pink-700 border-pink-400/50">LAW</div>
+                        <p class="mt-3 text-xl font-bold text-pink-300">Law 100</p>
                     </div>
                 </div>
-
-                <div class="tooltip-container">
-                    <button class="view-match-btn w-full mt-4 py-3 rounded-xl text-lg font-bold shadow-md bg-gray-700/50 text-gray-500 cursor-not-allowed border-t border-gray-700" disabled>
-                        No Match Center
-                    </button>
-                    <span class="tooltip-text">Match center not available for friendly fixtures.</span>
-                </div>
+                <button class="view-match-btn bg-gray-800/60 text-gray-500 cursor-not-allowed" disabled>No Match Center</button>
+                <span class="tooltip-text">Match center not available for friendly fixtures.</span>
             </div>
 
-            <div class="glass-card p-6 md:p-8 relative flex flex-col justify-between hover:scale-[1.02] transition-all duration-300 neon-border-glow" data-match-id="m5">
-                <div class="absolute top-4 left-4 text-sm text-gray-400 font-semibold flex items-center">
-                    <i class="fas fa-handshake text-green-400 mr-2"></i> FRIENDLY FIXTURE
+            <!-- Full Time Friendly -->
+            <div class="glass-card p-6 md:p-8 neon-border-ft hover:scale-[1.02] transition-all duration-300" data-match-id="m6">
+                <div class="absolute top-4 left-4 text-sm text-green-400 font-bold flex items-center">
+                    <i class="fas fa-handshake mr-2"></i> FRIENDLY FIXTURE
                 </div>
-                <div class="status absolute top-4 right-4 text-xs bg-gray-800/70 px-3 py-1 rounded-full flex items-center font-semibold border border-gray-700">
-                    <span class="live-dot stopped bg-gray-500"></span>
-                    <span class="status-text ml-2">Upcoming</span>
-                </div>
-
-                <div class="flex justify-between items-center mt-12 mb-8">
-                    <div class="text-center flex-1">
-                        <div class="team-badge h-20 w-20 flex items-center justify-center bg-emerald-700 rounded-full mx-auto font-extrabold text-3xl shadow-xl border-4 border-emerald-400/50">CSC</div>
-                        <p class="mt-3 text-lg md:text-xl font-bold text-emerald-300">Comp Sci 300L</p>
-                    </div>
-                    <div class="text-center mx-4 flex-shrink-0">
-                        <div class="text-6xl font-extrabold text-cyan-400 live-score live-glow-text">0 - 0</div>
-                        <div class="match-time-container text-xs mt-2">
-                            <div class="kickoff-info text-gray-400 font-semibold">Friendly Match</div>
-                        </div>
-                    </div>
-                    <div class="text-center flex-1">
-                        <div class="team-badge h-20 w-20 flex items-center justify-center bg-pink-700 rounded-full mx-auto font-extrabold text-3xl shadow-xl border-4 border-pink-400/50">MSS</div>
-                        <p class="mt-3 text-lg md:text-xl font-bold text-pink-300">Law 200L</p>
-                    </div>
-                </div>
-
-                <div class="tooltip-container">
-                    <button class="view-match-btn w-full mt-4 py-3 rounded-xl text-lg font-bold shadow-md bg-gray-700/50 text-gray-500 cursor-not-allowed border-t border-gray-700" disabled>
-                        No Match Center
-                    </button>
-                    <span class="tooltip-text">Match center not available for friendly fixtures.</span>
-                </div>
-            </div>
-            
-            <div class="glass-card p-6 md:p-8 relative flex flex-col justify-between hover:scale-[1.02] transition-all duration-300 neon-border-glow neon-border-ft" data-match-id="m6">
-                <div class="absolute top-4 left-4 text-sm text-gray-400 font-semibold flex items-center">
-                    <i class="fas fa-handshake text-green-400 mr-2"></i> FRIENDLY FIXTURE
-                </div>
-                <div class="status absolute top-4 right-4 text-xs bg-green-900/90 px-3 py-1 rounded-full flex items-center font-bold border border-green-500 text-green-400">
-                    <span class="live-dot stopped bg-green-500"></span>
+                <div class="status absolute top-4 right-4 text-xs bg-green-900/90 px-4 py-1.5 rounded-full flex items-center font-bold border border-green-500 text-green-400">
+                    <span class="live-dot bg-green-500"></span>
                     <span class="status-text ml-2">Full Time</span>
                 </div>
-
-                <div class="flex justify-between items-center mt-12 mb-8">
+                <div class="flex justify-between items-center mt-14 mb-8">
                     <div class="text-center flex-1">
-                        <div class="team-badge h-20 w-20 flex items-center justify-center bg-emerald-700 rounded-full mx-auto font-extrabold text-3xl shadow-xl border-4 border-emerald-400/50">CSC</div>
-                        <p class="mt-3 text-lg md:text-xl font-bold text-emerald-300">Comp Sci 100L</p>
+                        <div class="team-badge bg-emerald-700 border-emerald-400/50">CSC</div>
+                        <p class="mt-3 text-xl font-bold text-emerald-300">Comp Sci 100L</p>
                     </div>
-                    <div class="text-center mx-4 flex-shrink-0">
-                        <div class="text-6xl font-extrabold text-green-400 live-score live-glow-text">6 - 8</div>
-                        <div class="match-time-container text-xs mt-2">
-                            <div class="kickoff-info text-gray-400 font-semibold">Final Score</div>
-                        </div>
+                    <div class="text-center mx-6">
+                        <div class="text-6xl font-extrabold text-green-400">6 - 8</div>
+                        <div class="text-sm text-gray-400 mt-2 font-semibold">Final Score</div>
                     </div>
                     <div class="text-center flex-1">
-                        <div class="team-badge h-20 w-20 flex items-center justify-center bg-pink-700 rounded-full mx-auto font-extrabold text-3xl shadow-xl border-4 border-pink-400/50">LAW</div>
-                        <p class="mt-3 text-lg md:text-xl font-bold text-pink-300">Mss 200L</p>
+                        <div class="team-badge bg-pink-700 border-pink-400/50">LAW</div>
+                        <p class="mt-3 text-xl font-bold text-pink-300">Mss 200L</p>
                     </div>
                 </div>
-
-                <div class="tooltip-container">
-                    <button class="view-match-btn w-full mt-4 py-3 rounded-xl text-lg font-bold shadow-md bg-gray-700/50 text-gray-500 cursor-not-allowed border-t border-gray-700" disabled>
-                        No Match Center
-                    </button>
-                    <span class="tooltip-text">Match center not available for friendly fixtures.</span>
-                </div>
+                <button class="view-match-btn bg-gray-800/60 text-gray-500 cursor-not-allowed" disabled>No Match Center</button>
             </div>
         </div>
     </div>
 </section>
 
-<style>
-/* Base Glassmorphism Card Style */
-.glass-card {
-    background-color: rgba(17, 24, 39, 0.4); /* Tailwind gray-900 with 40% opacity */
-    backdrop-filter: blur(15px);
-    border: 1px solid rgba(75, 85, 99, 0.3); /* Subtle gray-600 border */
-    border-radius: 1.5rem; /* More rounded corners */
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3); /* Deeper shadow for depth */
-}
+<!-- PROVOST CUP SECTION -->
+<section class="py-16 px-4 md:px-8 bg-gray-900 text-gray-100">
+    <div class="max-w-7xl mx-auto">
+        <h2 class="text-4xl md:text-5xl font-extrabold mb-12 text-center text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-amber-600 border-b-4 border-yellow-700/50 pb-4 inline-block">
+            <i class="fas fa-crown mr-3 text-yellow-500"></i> Provost Cup Fixtures
+        </h2>
 
-/* Neo-Tech Glowing Border */
-.neon-border-glow {
-    position: relative;
-    overflow: hidden;
-}
-
-.neon-border-glow::before {
-    content: '';
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    z-index: -1;
-    border-radius: 1.5rem;
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-    background: linear-gradient(60deg, #10b981, #06b6d4, #10b981); /* Green to Cyan gradient */
-    background-size: 300% 300%;
-}
-
-.neon-border-glow:hover::before {
-    opacity: 1;
-    animation: neon-gradient 3s ease-in-out infinite;
-}
-
-/* Specific Glow for Live Match */
-.neon-border-live::before {
-    opacity: 1; /* Always on for live match */
-    animation: neon-gradient-live 1.5s ease-in-out infinite;
-    box-shadow: 0 0 15px rgba(252, 165, 165, 0.6), 0 0 5px rgba(239, 68, 68, 0.4); /* Soft red inner glow */
-}
-
-/* Specific Glow for Full Time Match */
-.neon-border-ft::before {
-    background: linear-gradient(60deg, #10b981, #16a34a, #10b981); /* Solid green gradient */
-    opacity: 1; 
-    animation: none; /* No pulsating */
-    box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
-}
-
-/* Neon Text Glow */
-.live-glow-text {
-    text-shadow: 0 0 5px rgba(6, 182, 212, 0.5), 0 0 10px rgba(6, 182, 212, 0.3); /* Cyan Glow */
-}
-.live-glow {
-    animation: pulse-red 1.5s infinite alternate;
-}
-
-/* Keyframe Animations */
-@keyframes neon-gradient {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-@keyframes neon-gradient-live {
-    0% { background-position: 0% 50%; box-shadow: 0 0 10px rgba(252, 165, 165, 0.8); }
-    50% { background-position: 100% 50%; box-shadow: 0 0 20px rgba(239, 68, 68, 0.6); }
-    100% { background-position: 0% 50%; box-shadow: 0 0 10px rgba(252, 165, 165, 0.8); }
-}
-
-@keyframes pulse-red {
-    from { color: #f87171; text-shadow: 0 0 5px #f87171; }
-    to { color: #ef4444; text-shadow: 0 0 10px #ef4444, 0 0 20px #ef4444; }
-}
-
-/* Tooltip Styling */
-.tooltip-container {
-    position: relative;
-    display: inline-block;
-}
-
-.tooltip-text {
-    visibility: hidden;
-    width: 200px;
-    background-color: rgba(20, 20, 30, 0.9);
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 10px;
-    position: absolute;
-    z-index: 10;
-    bottom: 120%; /* Position the tooltip above the button */
-    left: 50%;
-    transform: translateX(-50%);
-    opacity: 0;
-    transition: opacity 0.3s;
-    font-size: 0.8rem;
-    border: 1px solid #10b981;
-    pointer-events: none; /* Allows clicks on elements below */
-}
-
-/* Show the tooltip when the button is disabled */
-.view-match-btn[disabled]:hover + .tooltip-text {
-    visibility: visible;
-    opacity: 1;
-}
-
-/* Hide the tooltip container for live match buttons */
-.view-match-btn[data-state="live"] + .tooltip-text {
-    display: none;
-}
-</style>
-      <section class="py-12 px-4 md:px-8 bg-gray-900 text-gray-100 relative z-10 max-w-7xl mx-auto">
-    <h2 class="text-3xl md:text-4xl font-extrabold mb-10 text-center text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-amber-500 border-b-4 border-yellow-700/50 pb-4 tracking-wider">
-        <i class="fas fa-crown mr-3 text-yellow-500 live-glow text-2xl"></i> Provost Cup Fixtures
-    </h2>
-
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-
-        <div class="glass-card p-6 md:p-8 relative flex flex-col justify-between hover:scale-[1.02] transition-all duration-300 neon-border-glow" data-match-id="m4">
-            <div class="absolute top-4 left-4 text-sm text-gray-400 font-semibold flex items-center">
-                <i class="fas fa-trophy text-amber-500 mr-2"></i> PROVOST CUP
-            </div>
-            <div class="status absolute top-4 right-4 text-xs bg-gray-800/70 px-3 py-1 rounded-full flex items-center font-semibold border border-gray-700">
-                <span class="live-dot stopped bg-gray-500"></span>
-                <span class="status-text ml-2">Not Started</span>
-            </div>
-
-            <div class="flex justify-between items-center mt-12 mb-8">
-                <div class="text-center flex-1">
-                    <div class="team-badge h-20 w-20 flex items-center justify-center bg-emerald-700 rounded-full mx-auto font-extrabold text-3xl shadow-xl border-4 border-emerald-400/50">T1</div>
-                    <p class="mt-3 text-lg md:text-xl font-bold text-emerald-300">Team Alpha</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Provost Matches (example 3) -->
+            <div class="glass-card p-6 md:p-8 neon-border-glow hover:scale-[1.02] transition-all duration-300">
+                <div class="absolute top-4 left-4 text-sm text-amber-400 font-bold flex items-center">
+                    <i class="fas fa-trophy mr-2"></i> PROVOST CUP
                 </div>
-                <div class="text-center mx-4 flex-shrink-0">
-                    <div class="text-6xl font-extrabold text-yellow-400 live-score live-glow-text">0 - 0</div>
-                    <div class="match-time-container text-xs mt-2">
-                        <div class="kickoff-info text-gray-400 font-semibold">Scheduled Match</div>
+                <div class="status absolute top-4 right-4 text-xs bg-gray-800/80 px-4 py-1.5 rounded-full flex items-center font-bold border border-gray-700">
+                    <span class="live-dot bg-gray-500"></span>
+                    <span class="status-text ml-2">Not Started</span>
+                </div>
+                <div class="flex justify-between items-center mt-14 mb-8">
+                    <div class="text-center flex-1">
+                        <div class="team-badge bg-emerald-700 border-emerald-400/50">T1</div>
+                        <p class="mt-3 text-xl font-bold text-emerald-300">Team Alpha</p>
+                    </div>
+                    <div class="text-center mx-6">
+                        <div class="text-6xl font-extrabold text-yellow-400">0 - 0</div>
+                        <div class="text-sm text-gray-400 mt-2 font-semibold">Scheduled</div>
+                    </div>
+                    <div class="text-center flex-1">
+                        <div class="team-badge bg-pink-700 border-pink-400/50">T2</div>
+                        <p class="mt-3 text-xl font-bold text-pink-300">Team Beta</p>
                     </div>
                 </div>
-                <div class="text-center flex-1">
-                    <div class="team-badge h-20 w-20 flex items-center justify-center bg-pink-700 rounded-full mx-auto font-extrabold text-3xl shadow-xl border-4 border-pink-400/50">T2</div>
-                    <p class="mt-3 text-lg md:text-xl font-bold text-pink-300">Team Beta</p>
-                </div>
-            </div>
-
-            <div class="tooltip-container">
-                <button class="view-match-btn w-full mt-4 py-3 rounded-xl text-lg font-bold shadow-lg transition-all duration-300 transform hover:-translate-y-1 bg-gray-700/50 text-gray-400 cursor-not-allowed border-t border-yellow-400/30" disabled>
-                    View Match Center
-                </button>
+                <button class="view-match-btn btn-disabled" disabled>View Match Center</button>
                 <span class="tooltip-text">Match center will be available after kickoff.</span>
             </div>
-        </div>
 
-        <div class="glass-card p-6 md:p-8 relative flex flex-col justify-between hover:scale-[1.02] transition-all duration-300 neon-border-glow" data-match-id="m5">
-            <div class="absolute top-4 left-4 text-sm text-gray-400 font-semibold flex items-center">
-                <i class="fas fa-trophy text-amber-500 mr-2"></i> PROVOST CUP
-            </div>
-            <div class="status absolute top-4 right-4 text-xs bg-gray-800/70 px-3 py-1 rounded-full flex items-center font-semibold border border-gray-700">
-                <span class="live-dot stopped bg-gray-500"></span>
-                <span class="status-text ml-2">Not Started</span>
-            </div>
-
-            <div class="flex justify-between items-center mt-12 mb-8">
-                <div class="text-center flex-1">
-                    <div class="team-badge h-20 w-20 flex items-center justify-center bg-purple-700 rounded-full mx-auto font-extrabold text-3xl shadow-xl border-4 border-purple-400/50">T3</div>
-                    <p class="mt-3 text-lg md:text-xl font-bold text-purple-300">Team Gamma</p>
+            <!-- Full Time Provost Match -->
+            <div class="glass-card p-6 md:p-8 neon-border-ft-yellow hover:scale-[1.02] transition-all duration-300">
+                <div class="absolute top-4 left-4 text-sm text-amber-400 font-bold flex items-center">
+                    <i class="fas fa-trophy mr-2"></i> PROVOST CUP
                 </div>
-                <div class="text-center mx-4 flex-shrink-0">
-                    <div class="text-6xl font-extrabold text-yellow-400 live-score live-glow-text">0 - 0</div>
-                    <div class="match-time-container text-xs mt-2">
-                        <div class="kickoff-info text-gray-400 font-semibold">Scheduled Match</div>
+                <div class="status absolute top-4 right-4 text-xs bg-yellow-900/90 px-4 py-1.5 rounded-full flex items-center font-bold border border-yellow-500 text-yellow-400">
+                    <span class="live-dot bg-yellow-500"></span>
+                    <span class="status-text ml-2">Full Time</span>
+                </div>
+                <div class="flex justify-between items-center mt-14 mb-8">
+                    <div class="text-center flex-1">
+                        <div class="team-badge bg-red-700 border-red-400/50">T5</div>
+                        <p class="mt-3 text-xl font-bold text-red-300">Team Epsilon</p>
+                    </div>
+                    <div class="text-center mx-6">
+                        <div class="text-6xl font-extrabold text-yellow-400">5 - 3</div>
+                        <div class="text-sm text-gray-400 mt-2 font-semibold">Final Score</div>
+                    </div>
+                    <div class="text-center flex-1">
+                        <div class="team-badge bg-blue-700 border-blue-400/50">T6</div>
+                        <p class="mt-3 text-xl font-bold text-blue-300">Team Zeta</p>
                     </div>
                 </div>
-                <div class="text-center flex-1">
-                    <div class="team-badge h-20 w-20 flex items-center justify-center bg-indigo-700 rounded-full mx-auto font-extrabold text-3xl shadow-xl border-4 border-indigo-400/50">T4</div>
-                    <p class="mt-3 text-lg md:text-xl font-bold text-indigo-300">Team Delta</p>
-                </div>
-            </div>
-
-            <div class="tooltip-container">
-                <button class="view-match-btn w-full mt-4 py-3 rounded-xl text-lg font-bold shadow-lg transition-all duration-300 transform hover:-translate-y-1 bg-gray-700/50 text-gray-400 cursor-not-allowed border-t border-yellow-400/30" disabled>
-                    View Match Center
-                </button>
-                <span class="tooltip-text">Match center will be available after kickoff.</span>
-            </div>
-        </div>
-
-        <div class="glass-card p-6 md:p-8 relative flex flex-col justify-between hover:scale-[1.02] transition-all duration-300 neon-border-glow neon-border-ft-yellow" data-match-id="m6">
-            <div class="absolute top-4 left-4 text-sm text-gray-400 font-semibold flex items-center">
-                <i class="fas fa-trophy text-amber-500 mr-2"></i> PROVOST CUP
-            </div>
-
-            <div class="status absolute top-4 right-4 text-xs bg-yellow-900/90 px-3 py-1 rounded-full flex items-center font-bold border border-yellow-500 text-yellow-400">
-                <span class="live-dot stopped bg-yellow-500"></span>
-                <span class="status-text ml-2">Full Time</span>
-            </div>
-
-            <div class="flex justify-between items-center mt-12 mb-8">
-                <div class="text-center flex-1">
-                    <div class="team-badge h-20 w-20 flex items-center justify-center bg-red-700 rounded-full mx-auto font-extrabold text-3xl shadow-xl border-4 border-red-400/50">T5</div>
-                    <p class="mt-3 text-lg md:text-xl font-bold text-red-300">Team Epsilon</p>
-                </div>
-                <div class="text-center mx-4 flex-shrink-0">
-                    <div class="text-6xl font-extrabold text-yellow-400 live-score live-glow-text">5 - 3</div>
-                    <div class="match-time-container text-xs mt-2">
-                        <div class="kickoff-info text-gray-400 font-semibold">Final Score</div>
-                    </div>
-                </div>
-                <div class="text-center flex-1">
-                    <div class="team-badge h-20 w-20 flex items-center justify-center bg-blue-700 rounded-full mx-auto font-extrabold text-3xl shadow-xl border-4 border-blue-400/50">T6</div>
-                    <p class="mt-3 text-lg md:text-xl font-bold text-blue-300">Team Zeta</p>
-                </div>
-            </div>
-
-            <div class="tooltip-container">
-                <button class="view-match-btn w-full mt-4 py-3 rounded-xl text-lg font-bold shadow-md bg-gray-700/50 text-gray-500 cursor-not-allowed border-t border-gray-700" disabled>
-                    Match Concluded
-                </button>
-                <span class="tooltip-text">Match center is no longer active for concluded fixtures.</span>
+                <button class="view-match-btn bg-gray-800/60 text-gray-500 cursor-not-allowed" disabled>Match Concluded</button>
             </div>
         </div>
     </div>
 </section>
 
+<!-- Single Clean CSS Block -->
 <style>
-/* Replicating key styles from previous section for consistency */
-.glass-card {
-    background-color: rgba(17, 24, 39, 0.4); 
-    backdrop-filter: blur(15px);
-    border: 1px solid rgba(75, 85, 99, 0.3);
-    border-radius: 1.5rem;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-}
+    .glass-card {
+        background: rgba(17, 24, 39, 0.55);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(75, 85, 99, 0.4);
+        border-radius: 1.5rem;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        position: relative;
+        overflow: hidden;
+    }
 
-.neon-border-glow {
-    position: relative;
-    overflow: hidden;
-}
+    .team-badge {
+        @apply h-20 w-20 mx-auto rounded-full flex items-center justify-center text-3xl font-extrabold shadow-2xl border-4 bg-green-700 text-white border-green-400/50;
+    }
 
-.neon-border-glow::before {
-    content: '';
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    z-index: -1;
-    border-radius: 1.5rem;
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-    /* Changed gradient to reflect yellow/cup theme */
-    background: linear-gradient(60deg, #f59e0b, #d97706, #f59e0b); 
-    background-size: 300% 300%;
-}
+    .live-dot {
+        @apply inline-block w-2.5 h-2.5 rounded-full;
+    }
 
-.neon-border-glow:hover::before {
-    opacity: 1;
-    animation: neon-gradient-yellow 3s ease-in-out infinite;
-}
+    .neon-border-glow::before {
+        content: '';
+        position: absolute;
+        inset: -2px;
+        border-radius: 1.5rem;
+        background: linear-gradient(60deg, #10b981, #06b6d4, #10b981);
+        background-size: 300%;
+        z-index: -1;
+        opacity: 0;
+        transition: opacity 0.4s;
+        animation: neon-flow 4s ease-in-out infinite;
+    }
+    .neon-border-glow:hover::before { opacity: 0.8; }
 
-/* Specific Glow for Full Time Match (Yellow/Cup Theme) */
-.neon-border-ft-yellow::before {
-    background: linear-gradient(60deg, #f59e0b, #b45309, #f59e0b); 
-    opacity: 1; 
-    animation: none; 
-    box-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
-}
+    .neon-border-live::before {
+        background: linear-gradient(60deg, #ef4444, #f87171, #ef4444);
+        opacity: 1;
+        animation: neon-live 1.8s ease-in-out infinite;
+        box-shadow: 0 0 20px rgba(239, 68, 68, 0.6);
+    }
 
-.live-glow-text {
-    /* Yellow Glow */
-    text-shadow: 0 0 5px rgba(252, 211, 77, 0.5), 0 0 10px rgba(252, 211, 77, 0.3); 
-}
+    .neon-border-ft::before {
+        background: linear-gradient(60deg, #10b981, #16a34a);
+        opacity: 1;
+        box-shadow: 0 0 15px rgba(16, 185, 129, 0.6);
+    }
 
-/* Keyframe Animations */
-@keyframes neon-gradient-yellow {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
+    .neon-border-ft-yellow::before {
+        background: linear-gradient(60deg, #f59e0b, #d97706);
+        opacity: 1;
+        box-shadow: 0 0 15px rgba(245, 158, 11, 0.6);
+    }
 
-/* Tooltip Styling */
-.tooltip-container {
-    position: relative;
-    display: inline-block;
-}
+    @keyframes neon-flow { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+    @keyframes neon-live { 0%,100% { background-position: 0% 50%; box-shadow: 0 0 20px #ef4444; } 50% { background-position: 100% 50%; box-shadow: 0 0 30px #f87171; } }
 
-.tooltip-text {
-    visibility: hidden;
-    width: 200px;
-    background-color: rgba(20, 20, 30, 0.9);
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 10px;
-    position: absolute;
-    z-index: 10;
-    bottom: 120%;
-    left: 50%;
-    transform: translateX(-50%);
-    opacity: 0;
-    transition: opacity 0.3s;
-    font-size: 0.8rem;
-    border: 1px solid #f59e0b; /* Yellow border */
-    pointer-events: none;
-}
+    .btn-live {
+        @apply w-full py-4 rounded-xl text-lg font-bold text-white bg-gradient-to-r from-green-500 to-cyan-600 hover:from-green-600 hover:to-cyan-700 shadow-xl transform hover:-translate-y-1 transition-all duration-300;
+    }
+    .btn-disabled {
+        @apply w-full py-4 rounded-xl text-gray-400 bg-gray-800/50 border-t border-gray-600 cursor-not-allowed;
+    }
 
-.view-match-btn[disabled]:hover + .tooltip-text {
-    visibility: visible;
-    opacity: 1;
-}
+    .tooltip-text {
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 0.3s;
+        @apply absolute -top-16 left-1/2 -translate-x-1/2 bg-gray-900/95 text-white text-xs px-4 py-2 rounded border whitespace-nowrap z-10;
+        border-color: #10b981;
+    }
+    .glass-card:hover .tooltip-text { visibility: visible; opacity: 1; }
 </style>
-
         <!-- Upcoming Fixtures Section -->
 <section id="upcoming" class="mb-20 px-4 md:px-6">
   <h2 class="text-3xl md:text-4xl font-bold mb-8 text-green-500 border-b-2 border-green-700 pb-2 flex items-center">
