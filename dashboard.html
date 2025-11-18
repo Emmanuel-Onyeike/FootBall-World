@@ -531,7 +531,7 @@ a:focus, button:focus, .btn:focus{
 
     <div class="relative z-10 max-w-7xl mx-auto">
         <h2 class="text-4xl md:text-5xl font-extrabold mb-12 text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-cyan-400 border-b-4 border-green-700/50 pb-4 flex items-center tracking-wider">
-            <i class="fas fa-broadcast-tower mr-4 text-red-500 animate-pulse text-4xl"></i> LIVE Fixtures
+            <i class="fas fa-calendar-alt mr-4 text-cyan-500 text-4xl"></i> UPCOMING Fixtures
         </h2>
 
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
@@ -544,50 +544,53 @@ a:focus, button:focus, .btn:focus{
                     <span class="status-text ml-2">Not Started</span>
                 </div>
 
-                <div class="flex justify-between items-center mt-14 mb-8">
+                <div class="flex justify-between items-center mt-14 mb-4 space-x-4">
                     <div class="text-center flex-1">
-                        <div class="h-20 w-20 mx-auto rounded-full flex items-center justify-center text-3xl font-extrabold shadow-2xl border-4 bg-green-700 text-white border-green-400/50">NIL</div>
-                        <p class="mt-3 text-xl font-bold text-green-300">Team A</p>
+                        <div class="h-16 w-16 md:h-20 md:w-20 mx-auto rounded-full flex items-center justify-center text-2xl md:text-3xl font-extrabold shadow-2xl border-4 bg-green-700 text-white border-green-400/50">NIL</div>
+                        <p class="mt-3 text-lg md:text-xl font-bold text-green-300">Team A</p>
                     </div>
-                    <div class="text-center mx-6">
-                        <div class="text-6xl font-extrabold text-cyan-400 live-score">0 - 0</div>
-                        <div class="text-sm text-gray-400 mt-2 font-semibold">Kickoff Pending</div>
-                    </div>
+                    <div class="text-center text-4xl font-extrabold text-cyan-400">vs</div>
                     <div class="text-center flex-1">
-                        <div class="h-20 w-20 mx-auto rounded-full flex items-center justify-center text-3xl font-extrabold shadow-2xl border-4 bg-sky-700 text-white border-sky-400/50">NIL</div>
-                        <p class="mt-3 text-xl font-bold text-sky-300">Team B</p>
+                        <div class="h-16 w-16 md:h-20 md:w-20 mx-auto rounded-full flex items-center justify-center text-2xl md:text-3xl font-extrabold shadow-2xl border-4 bg-sky-700 text-white border-sky-400/50">NIL</div>
+                        <p class="mt-3 text-lg md:text-xl font-bold text-sky-300">Team B</p>
                     </div>
                 </div>
 
-                <button class="w-full py-4 rounded-xl text-gray-400 bg-gray-800/50 border-t border-gray-600 cursor-not-allowed" disabled>View Match Center</button>
+                <div class="w-full text-center text-base font-semibold text-gray-400 py-2 border-t border-gray-700/50">
+                    Kickoff Pending
+                </div>
+
+                <button class="w-full py-4 rounded-xl text-gray-400 bg-gray-800/50 border-t border-gray-600 cursor-not-allowed mt-4" disabled>View Match Center</button>
                 <span class="tooltip-text">Match center will be available after kickoff.</span>
             </div>
 
-            <div class="glass-card p-6 md:p-8 neon-border-live hover:scale-[1.02] transition-all duration-300 relative" data-match-id="m2">
+            <div class="glass-card p-6 md:p-8 neon-border-glow hover:scale-[1.02] transition-all duration-300 relative" data-match-id="m2">
                 <div class="absolute top-4 left-4 text-sm text-gray-400 font-bold flex items-center">
                     <i class="fas fa-trophy text-yellow-500 mr-2"></i> GLORY CHAMPIONS CUP
                 </div>
-                <div class="status absolute top-4 right-4 text-xs bg-red-900/90 px-4 py-1.5 rounded-full flex items-center font-bold border border-red-600 animate-pulse">
-                    <span class="live-dot bg-red-500 animate-ping w-2.5 h-2.5 rounded-full inline-block"></span>
-                    <span class="status-text ml-2 text-red-300">LIVE</span>
+                <div class="status absolute top-4 right-4 text-xs bg-gray-800/80 px-4 py-1.5 rounded-full flex items-center font-bold border border-gray-700">
+                    <span class="live-dot bg-gray-500 w-2.5 h-2.5 rounded-full inline-block"></span>
+                    <span class="status-text ml-2">Not Started</span>
                 </div>
 
-                <div class="flex justify-between items-center mt-14 mb-8">
+                <div class="flex justify-between items-center mt-14 mb-4 space-x-4">
                     <div class="text-center flex-1">
-                        <div class="h-20 w-20 mx-auto rounded-full flex items-center justify-center text-3xl font-extrabold shadow-2xl border-4 bg-red-700 text-white border-red-400/50">NIL</div>
-                        <p class="mt-3 text-xl font-bold text-red-300">Red Devils</p>
+                        <div class="h-16 w-16 md:h-20 md:w-20 mx-auto rounded-full flex items-center justify-center text-2xl md:text-3xl font-extrabold shadow-2xl border-4 bg-red-700 text-white border-red-400/50">NIL</div>
+                        <p class="mt-3 text-lg md:text-xl font-bold text-red-300">Red Devils</p>
                     </div>
-                    <div class="text-center mx-6">
-                        <div class="text-6xl font-extrabold text-green-400 live-score animate-pulse">0 - 0</div>
-                        <div class="text-2xl font-bold text-red-400 mt-2">12'</div>
-                    </div>
+                    <div class="text-center text-4xl font-extrabold text-cyan-400">vs</div>
                     <div class="text-center flex-1">
-                        <div class="h-20 w-20 mx-auto rounded-full flex items-center justify-center text-3xl font-extrabold shadow-2xl border-4 bg-blue-700 text-white border-blue-400/50">NIL</div>
-                        <p class="mt-3 text-xl font-bold text-blue-300">Blue Lions</p>
+                        <div class="h-16 w-16 md:h-20 md:w-20 mx-auto rounded-full flex items-center justify-center text-2xl md:text-3xl font-extrabold shadow-2xl border-4 bg-blue-700 text-white border-blue-400/50">NIL</div>
+                        <p class="mt-3 text-lg md:text-xl font-bold text-blue-300">Blue Lions</p>
                     </div>
                 </div>
 
-                <button class="w-full py-4 rounded-xl text-lg font-bold text-white bg-gradient-to-r from-green-500 to-cyan-600 hover:from-green-600 hover:to-cyan-700 shadow-xl transform hover:-translate-y-1 transition-all duration-300">View Match Center →</button>
+                <div class="w-full text-center text-base font-semibold text-gray-400 py-2 border-t border-gray-700/50">
+                    Scheduled for 7:00 PM
+                </div>
+
+                <button class="w-full py-4 rounded-xl text-gray-400 bg-gray-800/50 border-t border-gray-600 cursor-not-allowed mt-4" disabled>View Match Center</button>
+                <span class="tooltip-text">Match center will be available after kickoff.</span>
             </div>
 
             <div class="glass-card p-6 md:p-8 neon-border-glow hover:scale-[1.02] transition-all duration-300 relative" data-match-id="m3">
@@ -599,22 +602,23 @@ a:focus, button:focus, .btn:focus{
                     <span class="status-text ml-2">Not Started</span>
                 </div>
 
-                <div class="flex justify-between items-center mt-14 mb-8">
+                <div class="flex justify-between items-center mt-14 mb-4 space-x-4">
                     <div class="text-center flex-1">
-                        <div class="h-20 w-20 mx-auto rounded-full flex items-center justify-center text-3xl font-extrabold shadow-2xl border-4 bg-slate-700 text-white border-slate-400/50">SIY</div>
-                        <p class="mt-3 text-xl font-bold text-slate-300">SILVER CITY</p>
+                        <div class="h-16 w-16 md:h-20 md:w-20 mx-auto rounded-full flex items-center justify-center text-2xl md:text-3xl font-extrabold shadow-2xl border-4 bg-slate-700 text-white border-slate-400/50">SIY</div>
+                        <p class="mt-3 text-lg md:text-xl font-bold text-slate-300">SILVER CITY</p>
                     </div>
-                    <div class="text-center mx-6">
-                        <div class="text-6xl font-extrabold text-cyan-400 live-score">0 - 0</div>
-                        <div class="text-sm text-gray-400 mt-2 font-semibold">Kickoff Pending</div>
-                    </div>
+                    <div class="text-center text-4xl font-extrabold text-cyan-400">vs</div>
                     <div class="text-center flex-1">
-                        <div class="h-20 w-20 mx-auto rounded-full flex items-center justify-center text-3xl font-extrabold shadow-2xl border-4 bg-lime-700 text-white border-lime-400/50">VUTD</div>
-                        <p class="mt-3 text-xl font-bold text-lime-300">VALOR UNITED</p>
+                        <div class="h-16 w-16 md:h-20 md:w-20 mx-auto rounded-full flex items-center justify-center text-2xl md:text-3xl font-extrabold shadow-2xl border-4 bg-lime-700 text-white border-lime-400/50">VUTD</div>
+                        <p class="mt-3 text-lg md:text-xl font-bold text-lime-300">VALOR UNITED</p>
                     </div>
                 </div>
 
-                <button class="w-full py-4 rounded-xl text-gray-400 bg-gray-800/50 border-t border-gray-600 cursor-not-allowed" disabled>View Match Center</button>
+                <div class="w-full text-center text-base font-semibold text-gray-400 py-2 border-t border-gray-700/50">
+                    Kickoff Pending
+                </div>
+
+                <button class="w-full py-4 rounded-xl text-gray-400 bg-gray-800/50 border-t border-gray-600 cursor-not-allowed mt-4" disabled>View Match Center</button>
                 <span class="tooltip-text">Match center will be available after kickoff.</span>
             </div>
 
@@ -626,21 +630,24 @@ a:focus, button:focus, .btn:focus{
                     <span class="live-dot bg-gray-500 w-2.5 h-2.5 rounded-full inline-block"></span>
                     <span class="status-text ml-2">Upcoming</span>
                 </div>
-                <div class="flex justify-between items-center mt-14 mb-8">
+                
+                <div class="flex justify-between items-center mt-14 mb-4 space-x-4">
                     <div class="text-center flex-1">
-                        <div class="h-20 w-20 mx-auto rounded-full flex items-center justify-center text-3xl font-extrabold shadow-2xl border-4 bg-emerald-700 text-white border-emerald-400/50">CSC</div>
-                        <p class="mt-3 text-xl font-bold text-emerald-300">Comp Sci 200L</p>
+                        <div class="h-16 w-16 md:h-20 md:w-20 mx-auto rounded-full flex items-center justify-center text-2xl md:text-3xl font-extrabold shadow-2xl border-4 bg-emerald-700 text-white border-emerald-400/50">CSC</div>
+                        <p class="mt-3 text-lg md:text-xl font-bold text-emerald-300">Comp Sci 200L</p>
                     </div>
-                    <div class="text-center mx-6">
-                        <div class="text-6xl font-extrabold text-cyan-400">0 - 0</div>
-                        <div class="text-sm text-gray-400 mt-2 font-semibold">Friendly Match</div>
-                    </div>
+                    <div class="text-center text-4xl font-extrabold text-cyan-400">vs</div>
                     <div class="text-center flex-1">
-                        <div class="h-20 w-20 mx-auto rounded-full flex items-center justify-center text-3xl font-extrabold shadow-2xl border-4 bg-pink-700 text-white border-pink-400/50">LAW</div>
-                        <p class="mt-3 text-xl font-bold text-pink-300">Law 100</p>
+                        <div class="h-16 w-16 md:h-20 md:w-20 mx-auto rounded-full flex items-center justify-center text-2xl md:text-3xl font-extrabold shadow-2xl border-4 bg-pink-700 text-white border-pink-400/50">LAW</div>
+                        <p class="mt-3 text-lg md:text-xl font-bold text-pink-300">MSS 200</p>
                     </div>
                 </div>
-                <button class="w-full py-4 rounded-xl bg-gray-800/60 text-gray-500 cursor-not-allowed" disabled>No Match Center</button>
+
+                <div class="w-full text-center text-base font-semibold text-gray-400 py-2 border-t border-gray-700/50">
+                    Friendly Match
+                </div>
+
+                <button class="w-full py-4 rounded-xl bg-gray-800/60 text-gray-500 cursor-not-allowed mt-4" disabled>No Match Center</button>
                 <span class="tooltip-text">Match center not available for friendly fixtures.</span>
             </div>
 
@@ -652,25 +659,29 @@ a:focus, button:focus, .btn:focus{
                     <span class="live-dot bg-green-500 w-2.5 h-2.5 rounded-full inline-block"></span>
                     <span class="status-text ml-2">Full Time</span>
                 </div>
-                <div class="flex justify-between items-center mt-14 mb-8">
+                
+                <div class="flex justify-between items-center mt-14 mb-4 space-x-4">
                     <div class="text-center flex-1">
-                        <div class="h-20 w-20 mx-auto rounded-full flex items-center justify-center text-3xl font-extrabold shadow-2xl border-4 bg-emerald-700 text-white border-emerald-400/50">CSC</div>
-                        <p class="mt-3 text-xl font-bold text-emerald-300">Comp Sci 100L</p>
+                        <div class="h-16 w-16 md:h-20 md:w-20 mx-auto rounded-full flex items-center justify-center text-2xl md:text-3xl font-extrabold shadow-2xl border-4 bg-emerald-700 text-white border-emerald-400/50">CSC</div>
+                        <p class="mt-3 text-lg md:text-xl font-bold text-emerald-300">Comp Sci 100L</p>
                     </div>
-                    <div class="text-center mx-6">
-                        <div class="text-6xl font-extrabold text-green-400">6 - 8</div>
-                        <div class="text-sm text-gray-400 mt-2 font-semibold">Final Score</div>
-                    </div>
+                    <div class="text-center text-4xl font-extrabold text-green-400">6 - 8</div>
                     <div class="text-center flex-1">
-                        <div class="h-20 w-20 mx-auto rounded-full flex items-center justify-center text-3xl font-extrabold shadow-2xl border-4 bg-pink-700 text-white border-pink-400/50">LAW</div>
-                        <p class="mt-3 text-xl font-bold text-pink-300">Mss 200L</p>
+                        <div class="h-16 w-16 md:h-20 md:w-20 mx-auto rounded-full flex items-center justify-center text-2xl md:text-3xl font-extrabold shadow-2xl border-4 bg-pink-700 text-white border-pink-400/50">LAW</div>
+                        <p class="mt-3 text-lg md:text-xl font-bold text-pink-300">Mss 200L</p>
                     </div>
                 </div>
-                <button class="w-full py-4 rounded-xl bg-gray-800/60 text-gray-500 cursor-not-allowed" disabled>No Match Center</button>
+                
+                <div class="w-full text-center text-sm text-gray-400 pt-2 border-t border-gray-700/50">
+                    Final Score
+                </div>
+
+                <button class="w-full py-4 rounded-xl bg-gray-800/60 text-gray-500 cursor-not-allowed mt-4" disabled>No Match Center</button>
             </div>
         </div>
     </div>
 </section>
+
 
 <section class="py-16 px-4 md:px-8 bg-gray-900 text-gray-100">
     <div class="max-w-7xl mx-auto">
@@ -687,21 +698,24 @@ a:focus, button:focus, .btn:focus{
                     <span class="live-dot bg-gray-500 w-2.5 h-2.5 rounded-full inline-block"></span>
                     <span class="status-text ml-2">Not Started</span>
                 </div>
-                <div class="flex justify-between items-center mt-14 mb-8">
+                
+                <div class="flex justify-between items-center mt-14 mb-4 space-x-4">
                     <div class="text-center flex-1">
-                        <div class="h-20 w-20 mx-auto rounded-full flex items-center justify-center text-3xl font-extrabold shadow-2xl border-4 bg-emerald-700 text-white border-emerald-400/50">T1</div>
-                        <p class="mt-3 text-xl font-bold text-emerald-300">Team Alpha</p>
+                        <div class="h-16 w-16 md:h-20 md:w-20 mx-auto rounded-full flex items-center justify-center text-2xl md:text-3xl font-extrabold shadow-2xl border-4 bg-emerald-700 text-white border-emerald-400/50">T1</div>
+                        <p class="mt-3 text-lg md:text-xl font-bold text-emerald-300">Team Alpha</p>
                     </div>
-                    <div class="text-center mx-6">
-                        <div class="text-6xl font-extrabold text-yellow-400">0 - 0</div>
-                        <div class="text-sm text-gray-400 mt-2 font-semibold">Scheduled</div>
-                    </div>
+                    <div class="text-center text-4xl font-extrabold text-yellow-400">vs</div>
                     <div class="text-center flex-1">
-                        <div class="h-20 w-20 mx-auto rounded-full flex items-center justify-center text-3xl font-extrabold shadow-2xl border-4 bg-pink-700 text-white border-pink-400/50">T2</div>
-                        <p class="mt-3 text-xl font-bold text-pink-300">Team Beta</p>
+                        <div class="h-16 w-16 md:h-20 md:w-20 mx-auto rounded-full flex items-center justify-center text-2xl md:text-3xl font-extrabold shadow-2xl border-4 bg-pink-700 text-white border-pink-400/50">T2</div>
+                        <p class="mt-3 text-lg md:text-xl font-bold text-pink-300">Team Beta</p>
                     </div>
                 </div>
-                <button class="w-full py-4 rounded-xl text-gray-400 bg-gray-800/50 border-t border-gray-600 cursor-not-allowed" disabled>View Match Center</button>
+
+                <div class="w-full text-center text-base font-semibold text-gray-400 py-2 border-t border-gray-700/50">
+                    Scheduled
+                </div>
+
+                <button class="w-full py-4 rounded-xl text-gray-400 bg-gray-800/50 border-t border-gray-600 cursor-not-allowed mt-4" disabled>View Match Center</button>
                 <span class="tooltip-text">Match center will be available after kickoff.</span>
             </div>
 
@@ -713,26 +727,36 @@ a:focus, button:focus, .btn:focus{
                     <span class="live-dot bg-yellow-500 w-2.5 h-2.5 rounded-full inline-block"></span>
                     <span class="status-text ml-2">Full Time</span>
                 </div>
-                <div class="flex justify-between items-center mt-14 mb-8">
+                
+                <div class="flex justify-between items-center mt-14 mb-4 space-x-4">
                     <div class="text-center flex-1">
-                        <div class="h-20 w-20 mx-auto rounded-full flex items-center justify-center text-3xl font-extrabold shadow-2xl border-4 bg-red-700 text-white border-red-400/50">T5</div>
-                        <p class="mt-3 text-xl font-bold text-red-300">Team Epsilon</p>
+                        <div class="h-16 w-16 md:h-20 md:w-20 mx-auto rounded-full flex items-center justify-center text-2xl md:text-3xl font-extrabold shadow-2xl border-4 bg-red-700 text-white border-red-400/50">T5</div>
+                        <p class="mt-3 text-lg md:text-xl font-bold text-red-300">Team Epsilon</p>
                     </div>
-                    <div class="text-center mx-6">
-                        <div class="text-6xl font-extrabold text-yellow-400">5 - 3</div>
-                        <div class="text-sm text-gray-400 mt-2 font-semibold">Final Score</div>
-                    </div>
+                    <div class="text-center text-4xl font-extrabold text-yellow-400">5 - 3</div>
                     <div class="text-center flex-1">
-                        <div class="h-20 w-20 mx-auto rounded-full flex items-center justify-center text-3xl font-extrabold shadow-2xl border-4 bg-blue-700 text-white border-blue-400/50">T6</div>
-                        <p class="mt-3 text-xl font-bold text-blue-300">Team Zeta</p>
+                        <div class="h-16 w-16 md:h-20 md:w-20 mx-auto rounded-full flex items-center justify-center text-2xl md:text-3xl font-extrabold shadow-2xl border-4 bg-blue-700 text-white border-blue-400/50">T6</div>
+                        <p class="mt-3 text-lg md:text-xl font-bold text-blue-300">Team Zeta</p>
                     </div>
                 </div>
-                <button class="w-full py-4 rounded-xl bg-gray-800/60 text-gray-500 cursor-not-allowed" disabled>Match Concluded</button>
+
+                <div class="w-full text-center text-sm text-gray-400 pt-2 border-t border-gray-700/50">
+                    Final Score
+                </div>
+
+                <button class="w-full py-4 rounded-xl bg-gray-800/60 text-gray-500 cursor-not-allowed mt-4" disabled>Match Concluded</button>
             </div>
         </div>
     </div>
 </section>
 
+---
+
+## 🎨 Consolidated CSS Block (No Change Needed)
+
+The custom CSS logic remains the same, as the changes were mainly structural (HTML class placement). I've cleaned up the unused utility classes that I previously broke out from `@apply` for simpler reading, but the core custom CSS is the same as the prior revision.
+
+```html
 <style>
     /* Glass Effect Card */
     .glass-card {
@@ -768,7 +792,7 @@ a:focus, button:focus, .btn:focus{
     }
     .neon-border-glow:hover::before { opacity: 0.8; }
 
-    /* LIVE Glow (Red) */
+    /* LIVE Glow (Red) - Though not currently in use, kept for future use */
     .neon-border-live::before {
         background: linear-gradient(60deg, #ef4444, #f87171, #ef4444);
         opacity: 1;
@@ -799,7 +823,6 @@ a:focus, button:focus, .btn:focus{
         visibility: hidden;
         opacity: 0;
         transition: opacity 0.3s;
-        /* Tailwind utilities applied directly */
         position: absolute;
         top: -4rem; /* -top-16 */
         left: 50%; /* left-1/2 */
