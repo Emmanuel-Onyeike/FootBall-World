@@ -1862,8 +1862,14 @@ a:focus, button:focus, .btn:focus{
                         <tr class="hover:bg-gray-800/50"><td class="py-4 px-4">13</td><td class="py-4 px-6 font-semibold text-white">NIL</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right">0</td></tr>
                         <tr class="hover:bg-gray-800/50"><td class="py-4 px-4">14</td><td class="py-4 px-6 font-semibold text-white">NIL</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right">0</td></tr>
                     </tbody>
-                </table>
+               </table>
             </div>
+          <div class="mt-6 p-4 bg-blue-900/20 rounded-lg border border-blue-700/40 text-center">
+    <p class="text-sm text-blue-300">
+        The Glory Champions Cup is fiercely competitive — teams must fight their way through every match to claim the ultimate glory. Stay tuned for the latest updates as the battle for the top spot heats up!
+    </p>
+</div>
+
         </div>
 
         <!-- Provost CUP Table -->
@@ -2007,72 +2013,34 @@ a:focus, button:focus, .btn:focus{
 <div class="mb-20">
     <div class="glass-card p-6 md:p-8 space-y-6 mt-6" style="background: rgba(18, 18, 18, 0.9); border-radius: 12px; border: 1px solid #383838; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);">
         <h3 style="font-size: 1.75rem; font-weight: 700; color: #34d399; margin-bottom: 1rem; display: flex; align-items: center; gap: 8px;">
-            <span style="font-size: 1.5rem;">⚽</span> Top Scorers
+            Top Scorers
         </h3>
-
         <div style="display: flex; gap: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid rgba(52, 211, 153, 0.3);">
-
-            <button class="tab-link" data-tab="mikoko" style="
-                font-weight: 600;
-                color: #34d399; /* Green-400 */
-                border-bottom: 3px solid #34d399;
-                padding: 8px 12px;
-                background-color: rgba(52, 211, 153, 0.1); /* Light green background for active state */
-                border-radius: 6px 6px 0 0;
-                cursor: default;
-                transition: all 0.2s ease;
-                outline: none;
-            ">
+            <button class="tab-link" data-tab="mikoko" style="font-weight: 600; color: #34d399; border-bottom: 3px solid #34d399; padding: 8px 12px; background-color: rgba(52, 211, 153, 0.1); border-radius: 6px 6px 0 0; cursor: default; transition: all 0.2s ease; outline: none;">
                 Mikoko League
             </button>
-
-            <button class="tab-link" data-tab="glory" style="
-                font-weight: 500;
-                color: #a0a0a0; /* Gray-400 */
-                border-bottom: 3px solid transparent;
-                padding: 8px 12px;
-                background-color: transparent;
-                border-radius: 6px 6px 0 0;
-                cursor: pointer;
-                transition: all 0.2s ease;
-                outline: none;
-            " onmouseover="this.style.color='#6ee7b7'; this.style.borderBottom='3px solid rgba(110, 231, 183, 0.5)'" onmouseout="this.style.color='#a0a0a0'; this.style.borderBottom='3px solid transparent'">
+            <button class="tab-link" data-tab="glory" style="font-weight: 500; color: #a0a0a0; border-bottom: 3px solid transparent; padding: 8px 12px; background-color: transparent; border-radius: 6px 6px 0 0; cursor: pointer; transition: all 0.2s ease; outline: none;" 
+                onmouseover="this.style.color='#6ee7b7'; this.style.borderBottom='3px solid rgba(110, 231, 183, 0.5)'" 
+                onmouseout="this.style.color='#a0a0a0'; this.style.borderBottom='3px solid transparent'">
                 Glory Cup
             </button>
-
-            <button class="tab-link" data-tab="cit" style="
-                font-weight: 500;
-                color: #a0a0a0;
-                border-bottom: 3px solid transparent;
-                padding: 8px 12px;
-                background-color: transparent;
-                border-radius: 6px 6px 0 0;
-                cursor: pointer;
-                transition: all 0.2s ease;
-                outline: none;
-            " onmouseover="this.style.color='#6ee7b7'; this.style.borderBottom='3px solid rgba(110, 231, 183, 0.5)'" onmouseout="this.style.color='#a0a0a0'; this.style.borderBottom='3px solid transparent'">
+            <button class="tab-link" data-tab="cit" style="font-weight: 500; color: #a0a0a0; border-bottom: 3px solid transparent; padding: 8px 12px; background-color: transparent; border-radius: 6px 6px 0 0; cursor: pointer; transition: all 0.2s ease; outline: none;" 
+                onmouseover="this.style.color='#6ee7b7'; this.style.borderBottom='3px solid rgba(110, 231, 183, 0.5)'" 
+                onmouseout="this.style.color='#a0a0a0'; this.style.borderBottom='3px solid transparent'">
                 Provost Cup
             </button>
-
-            <button class="tab-link" data-tab="friendlies" style="
-                font-weight: 500;
-                color: #a0a0a0;
-                border-bottom: 3px solid transparent;
-                padding: 8px 12px;
-                background-color: transparent;
-                border-radius: 6px 6px 0 0;
-                cursor: pointer;
-                transition: all 0.2s ease;
-                outline: none;
-            " onmouseover="this.style.color='#6ee7b7'; this.style.borderBottom='3px solid rgba(110, 231, 183, 0.5)'" onmouseout="this.style.color='#a0a0a0'; this.style.borderBottom='3px solid transparent'">
+            <button class="tab-link" data-tab="friendlies" style="font-weight: 500; color: #a0a0a0; border-bottom: 3px solid transparent; padding: 8px 12px; background-color: transparent; border-radius: 6px 6px 0 0; cursor: pointer; transition: all 0.2s ease; outline: none;" 
+                onmouseover="this.style.color='#6ee7b7'; this.style.borderBottom='3px solid rgba(110, 231, 183, 0.5)'" 
+                onmouseout="this.style.color='#a0a0a0'; this.style.borderBottom='3px solid transparent'">
                 Friendlies
             </button>
         </div>
     </div>
 </div>
-  <!-- Mikoko League -->
- <div class="top-scorers-lists" style="padding: 10px; border-radius: 12px; background-color: #0d0d0d; box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);">
-    <div id="mikoko" class="tab-content space-y-4" style="border-left: 4px solid #34d399; padding-left: 10px;">
+
+<!-- Top Scorers Content -->
+<div class="top-scorers-lists" style="padding: 10px; border-radius: 12px; background-color: #0d0d0d; box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);">
+    <div id="mikoko" class="tab-content space-y-4" style="border-left: 4px solid #34d399; padding-left: 10px; display: block;">
         <ul class="space-y-4">
             <li style="display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; border-radius: 8px; background-color: rgba(52, 211, 153, 0.05); border: 1px solid #2a2a2a; transition: background-color 0.3s ease-in-out;" onmouseover="this.style.backgroundColor='rgba(52, 211, 153, 0.15)'" onmouseout="this.style.backgroundColor='rgba(52, 211, 153, 0.05)'">
                 <div style="display: flex; align-items: center;">
@@ -2085,10 +2053,9 @@ a:focus, button:focus, .btn:focus{
                 </div>
                 <span style="font-weight: 900; font-size: 2.25rem; color: #6ee7b7; text-shadow: 0 0 5px rgba(110, 231, 183, 0.5);">0</span>
             </li>
-            </ul>
+        </ul>
     </div>
-
-    <div id="glory" class="tab-content hidden space-y-4" style="display: none; border-left: 4px solid #facc15; padding-left: 10px;">
+    <div id="glory" class="tab-content space-y-4" style="display: none; border-left: 4px solid #facc15; padding-left: 10px;">
         <ul class="space-y-4">
             <li style="display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; border-radius: 8px; background-color: rgba(250, 204, 21, 0.05); border: 1px solid #2a2a2a; transition: background-color 0.3s ease-in-out;" onmouseover="this.style.backgroundColor='rgba(250, 204, 21, 0.15)'" onmouseout="this.style.backgroundColor='rgba(250, 204, 21, 0.05)'">
                 <div style="display: flex; align-items: center;">
@@ -2103,8 +2070,7 @@ a:focus, button:focus, .btn:focus{
             </li>
         </ul>
     </div>
-
-    <div id="cit" class="tab-content hidden space-y-4" style="display: none; border-left: 4px solid #a855f7; padding-left: 10px;">
+    <div id="cit" class="tab-content space-y-4" style="display: none; border-left: 4px solid #a855f7; padding-left: 10px;">
         <ul class="space-y-4">
             <li style="display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; border-radius: 8px; background-color: rgba(168, 85, 247, 0.05); border: 1px solid #2a2a2a; transition: background-color 0.3s ease-in-out;" onmouseover="this.style.backgroundColor='rgba(168, 85, 247, 0.15)'" onmouseout="this.style.backgroundColor='rgba(168, 85, 247, 0.05)'">
                 <div style="display: flex; align-items: center;">
@@ -2119,8 +2085,7 @@ a:focus, button:focus, .btn:focus{
             </li>
         </ul>
     </div>
-
-    <div id="friendlies" class="tab-content hidden space-y-4" style="display: none; border-left: 4px solid #ec4899; padding-left: 10px;">
+    <div id="friendlies" class="tab-content space-y-4" style="display: none; border-left: 4px solid #ec4899; padding-left: 10px;">
         <ul class="space-y-4">
             <li style="display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; border-radius: 8px; background-color: rgba(236, 72, 153, 0.05); border: 1px solid #2a2a2a; transition: background-color 0.3s ease-in-out;" onmouseover="this.style.backgroundColor='rgba(236, 72, 153, 0.15)'" onmouseout="this.style.backgroundColor='rgba(236, 72, 153, 0.05)'">
                 <div style="display: flex; align-items: center;">
@@ -2180,93 +2145,35 @@ a:focus, button:focus, .btn:focus{
         </ul>
     </div>
 </div>
-<script>
-  const tabs = document.querySelectorAll(".tab-link");
-  const contents = document.querySelectorAll(".tab-content");
 
-  tabs.forEach(tab => {
-    tab.addEventListener("click", () => {
-      // Reset all tabs
-      tabs.forEach(t => t.classList.remove("text-green-400", "border-green-400", "border-b-2"));
-      tabs.forEach(t => t.classList.add("text-gray-400"));
-      contents.forEach(c => c.classList.add("hidden"));
-
-      // Activate clicked tab
-      tab.classList.remove("text-gray-400");
-      tab.classList.add("text-green-400", "border-green-400", "border-b-2");
-
-      const target = document.getElementById(tab.dataset.tab);
-      target.classList.remove("hidden");
-    });
-  });
-</script>
-
-      <!-- Top Assists (Right on desktop) -->
+<!-- Top Assists -->
 <div class="glass-card p-6 md:p-8 space-y-6" style="background: rgba(18, 18, 18, 0.9); border-radius: 12px; border: 1px solid #383838; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);">
     <h3 style="font-size: 1.75rem; font-weight: 700; color: #34d399; margin-bottom: 1rem; display: flex; align-items: center; gap: 8px;">
-        <span style="font-size: 1.5rem;">🎯</span> Top Assists
+        Top Assists
     </h3>
-
     <div style="display: flex; gap: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid rgba(52, 211, 153, 0.3);">
-        <button class="assist-tab" data-tab="assist-mikoko" style="
-            font-weight: 600;
-            color: #34d399; /* Green-400 */
-            border-bottom: 3px solid #34d399;
-            padding: 8px 12px;
-            background-color: rgba(52, 211, 153, 0.1);
-            border-radius: 6px 6px 0 0;
-            cursor: default;
-            transition: all 0.2s ease;
-            outline: none;
-        ">
+        <button class="assist-tab" data-tab="assist-mikoko" style="font-weight: 600; color: #34d399; border-bottom: 3px solid #34d399; padding: 8px 12px; background-color: rgba(52, 211, 153, 0.1); border-radius: 6px 6px 0 0; cursor: default; transition: all 0.2s ease; outline: none;">
             Mikoko League
         </button>
-
-        <button class="assist-tab" data-tab="assist-glory" style="
-            font-weight: 500;
-            color: #a0a0a0; /* Gray-400 */
-            border-bottom: 3px solid transparent;
-            padding: 8px 12px;
-            background-color: transparent;
-            border-radius: 6px 6px 0 0;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            outline: none;
-        " onmouseover="this.style.color='#6ee7b7'; this.style.borderBottom='3px solid rgba(110, 231, 183, 0.5)'" onmouseout="this.style.color='#a0a0a0'; this.style.borderBottom='3px solid transparent'">
+        <button class="assist-tab" data-tab="assist-glory" style="font-weight: 500; color: #a0a0a0; border-bottom: 3px solid transparent; padding: 8px 12px; background-color: transparent; border-radius: 6px 6px 0 0; cursor: pointer; transition: all 0.2s ease; outline: none;" 
+            onmouseover="this.style.color='#6ee7b7'; this.style.borderBottom='3px solid rgba(110, 231, 183, 0.5)'" 
+            onmouseout="this.style.color='#a0a0a0'; this.style.borderBottom='3px solid transparent'">
             Glory Cup
         </button>
-
-        <button class="assist-tab" data-tab="assist-cit" style="
-            font-weight: 500;
-            color: #a0a0a0;
-            border-bottom: 3px solid transparent;
-            padding: 8px 12px;
-            background-color: transparent;
-            border-radius: 6px 6px 0 0;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            outline: none;
-        " onmouseover="this.style.color='#6ee7b7'; this.style.borderBottom='3px solid rgba(110, 231, 183, 0.5)'" onmouseout="this.style.color='#a0a0a0'; this.style.borderBottom='3px solid transparent'">
+        <button class="assist-tab" data-tab="assist-cit" style="font-weight: 500; color: #a0a0a0; border-bottom: 3px solid transparent; padding: 8px 12px; background-color: transparent; border-radius: 6px 6px 0 0; cursor: pointer; transition: all 0.2s ease; outline: none;" 
+            onmouseover="this.style.color='#6ee7b7'; this.style.borderBottom='3px solid rgba(110, 231, 183, 0.5)'" 
+            onmouseout="this.style.color='#a0a0a0'; this.style.borderBottom='3px solid transparent'">
             Provost Cup
         </button>
-
-        <button class="assist-tab" data-tab="assist-friendlies" style="
-            font-weight: 500;
-            color: #a0a0a0;
-            border-bottom: 3px solid transparent;
-            padding: 8px 12px;
-            background-color: transparent;
-            border-radius: 6px 6px 0 0;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            outline: none;
-        " onmouseover="this.style.color='#6ee7b7'; this.style.borderBottom='3px solid rgba(110, 231, 183, 0.5)'" onmouseout="this.style.color='#a0a0a0'; this.style.borderBottom='3px solid transparent'">
+        <button class="assist-tab" data-tab="assist-friendlies" style="font-weight: 500; color: #a0a0a0; border-bottom: 3px solid transparent; padding: 8px 12px; background-color: transparent; border-radius: 6px 6px 0 0; cursor: pointer; transition: all 0.2s ease; outline: none;" 
+            onmouseover="this.style.color='#6ee7b7'; this.style.borderBottom='3px solid rgba(110, 231, 183, 0.5)'" 
+            onmouseout="this.style.color='#a0a0a0'; this.style.borderBottom='3px solid transparent'">
             Friendlies
         </button>
     </div>
 
     <div class="top-assists-lists" style="padding: 10px; border-radius: 0 0 12px 12px; background-color: #0d0d0d; box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);">
-        <div id="assist-mikoko" class="assist-content space-y-4" style="border-left: 4px solid #34d399; padding-left: 10px;">
+        <div id="assist-mikoko" class="assist-content space-y-4" style="border-left: 4px solid #34d399; padding-left: 10px; display: block;">
             <ul class="space-y-4">
                 <li style="display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; border-radius: 8px; background-color: rgba(52, 211, 153, 0.05); border: 1px solid #2a2a2a; transition: background-color 0.3s ease-in-out;" onmouseover="this.style.backgroundColor='rgba(52, 211, 153, 0.15)'" onmouseout="this.style.backgroundColor='rgba(52, 211, 153, 0.05)'">
                     <div style="display: flex; align-items: center;">
@@ -2281,15 +2188,14 @@ a:focus, button:focus, .btn:focus{
                 </li>
             </ul>
         </div>
-
-        <div id="assist-glory" class="assist-content hidden space-y-4" style="display: none; border-left: 4px solid #facc15; padding-left: 10px;">
+        <div id="assist-glory" class="assist-content space-y-4" style="display: none; border-left: 4px solid #facc15; padding-left: 10px;">
             <ul class="space-y-4">
                 <li style="display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; border-radius: 8px; background-color: rgba(250, 204, 21, 0.05); border: 1px solid #2a2a2a; transition: background-color 0.3s ease-in-out;" onmouseover="this.style.backgroundColor='rgba(250, 204, 21, 0.15)'" onmouseout="this.style.backgroundColor='rgba(250, 204, 21, 0.05)'">
                     <div style="display: flex; align-items: center;">
                         <span style="font-size: 1.5rem; font-weight: 800; color: #facc15; margin-right: 15px; width: 30px; text-align: right;">1.</span>
                         <span style="height: 44px; width: 44px; background-color: #991b1b; border: 2px solid #facc15; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.875rem; color: #fff;">P11</span>
                         <div style="margin-left: 15px;">
-                            <p style="font-weight: 600; color: #ffffff;">Unknown</p>
+                            <p AQstyle="font-weight: 600; color: #ffffff;">Unknown</p>
                             <p style="font-size: 0.75rem; color: #9ca3af;">NIL</p>
                         </div>
                     </div>
@@ -2297,8 +2203,7 @@ a:focus, button:focus, .btn:focus{
                 </li>
             </ul>
         </div>
-
-        <div id="assist-cit" class="assist-content hidden space-y-4" style="display: none; border-left: 4px solid #a855f7; padding-left: 10px;">
+        <div id="assist-cit" class="assist-content space-y-4" style="display: none; border-left: 4px solid #a855f7; padding-left: 10px;">
             <ul class="space-y-4">
                 <li style="display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; border-radius: 8px; background-color: rgba(168, 85, 247, 0.05); border: 1px solid #2a2a2a; transition: background-color 0.3s ease-in-out;" onmouseover="this.style.backgroundColor='rgba(168, 85, 247, 0.15)'" onmouseout="this.style.backgroundColor='rgba(168, 85, 247, 0.05)'">
                     <div style="display: flex; align-items: center;">
@@ -2313,8 +2218,7 @@ a:focus, button:focus, .btn:focus{
                 </li>
             </ul>
         </div>
-
-        <div id="assist-friendlies" class="assist-content hidden space-y-4" style="display: none; border-left: 4px solid #60a5fa; padding-left: 10px;">
+        <div id="assist-friendlies" class="assist-content space-y-4" style="display: none; border-left: 4px solid #60a5fa; padding-left: 10px;">
             <ul class="space-y-4">
                 <li style="display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; border-radius: 8px; background-color: rgba(96, 165, 250, 0.05); border: 1px solid #2a2a2a; transition: background-color 0.3s ease-in-out;" onmouseover="this.style.backgroundColor='rgba(96, 165, 250, 0.15)'" onmouseout="this.style.backgroundColor='rgba(96, 165, 250, 0.05)'">
                     <div style="display: flex; align-items: center;">
@@ -2353,73 +2257,18 @@ a:focus, button:focus, .btn:focus{
         </div>
     </div>
 </div>
-<script>
-  const assistTabs = document.querySelectorAll(".assist-tab");
-  const assistContents = document.querySelectorAll(".assist-content");
 
-  assistTabs.forEach(tab => {
-    tab.addEventListener("click", () => {
-      assistTabs.forEach(t => t.classList.remove("text-green-400", "border-green-400", "border-b-2"));
-      assistTabs.forEach(t => t.classList.add("text-gray-400"));
-      assistContents.forEach(c => c.classList.add("hidden"));
-
-      tab.classList.remove("text-gray-400");
-      tab.classList.add("text-green-400", "border-green-400", "border-b-2");
-
-      const target = document.getElementById(tab.dataset.tab);
-      target.classList.remove("hidden");
-    });
-  });
-</script>
-
+<!-- Player Leaderboards Section (unchanged) -->
 <div class="mb-20">
     <section id="stats" style="padding-top: 1.5rem;">
-        <h2 style="
-            font-size: 2.25rem; /* text-4xl on md */
-            font-weight: 800;
-            margin-bottom: 2rem;
-            color: #10b981; /* Green-500 */
-            border-bottom: 3px solid #059669; /* Green-700 */
-            padding-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            letter-spacing: 0.5px;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-        ">
-            <i class="fas fa-chart-line mr-4"></i> Player Leaderboards
+        <h2 style="font-size: 2.25rem; font-weight: 800; margin-bottom: 2rem; color: #10b981; border-bottom: 3px solid #059669; padding-bottom: 0.5rem; display: flex; align-items: center; letter-spacing: 0.5px; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);">
+            Player Leaderboards
         </h2>
-
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 mt-10">
-            <div class="glass-card p-8 space-y-8" style="
-                background: linear-gradient(145deg, #1f2937 0%, #111827 100%); /* Dark gradient for depth */
-                border-radius: 16px;
-                border: 1px solid #374151; /* Subtle border */
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
-            ">
-                <h3 style="
-                    font-size: 1.875rem; /* text-3xl */
-                    font-weight: 700;
-                    color: #34d399; /* Green-400 */
-                    margin-bottom: 1.5rem;
-                    display: flex;
-                    align-items: center;
-                    gap: 10px;
-                    text-shadow: 0 0 5px rgba(52, 211, 153, 0.5);
-                ">
-                    ⚽ Top Scorers
-                </h3>
+            <div class="glass-card p-8 space-y-8" style="background: linear-gradient(145deg, #1f2937 0%, #111827 100%); border-radius: 16px; border: 1px solid #374151; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);">
+                <h3 style="font-size: 1.875rem; font-weight: 700; color: #34d399; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 10px; text-shadow: 0 0 5px rgba(52, 211, 153, 0.5);">Top Scorers</h3>
                 <ul class="space-y-4">
-                    <li style="
-                        display: flex;
-                        justify-content: space-between;
-                        align-items: center;
-                        padding: 1rem 1.25rem;
-                        border-radius: 12px;
-                        background: linear-gradient(90deg, #374151 0%, #1f2937 100%);
-                        border: 2px solid #fcd34d; /* Gold border */
-                        box-shadow: 0 4px 15px rgba(252, 211, 77, 0.3);
-                        transition: all 0.3s ease-in-out;
-                    " onmouseover="this.style.transform='scale(1.02)'; this.style.boxShadow='0 8px 20px rgba(252, 211, 77, 0.5)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 15px rgba(252, 211, 77, 0.3)'">
+                    <li style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.25rem; border-radius: 12px; background: linear-gradient(90deg, #374151 0%, #1f2937 100%); border: 2px solid #fcd34d; box-shadow: 0 4px 15px rgba(252, 211, 77, 0.3); transition: all 0.3s ease-in-out;" onmouseover="this.style.transform='scale(1.02)'; this.style.boxShadow='0 8px 20px rgba(252, 211, 77, 0.5)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 15px rgba(252, 211, 77, 0.3)'">
                         <div style="display: flex; align-items: center;">
                             <span style="font-size: 1.75rem; font-weight: 900; color: #fcd34d; margin-right: 1rem; width: 30px; text-align: right; text-shadow: 0 0 5px #fcd34d;">1.</span>
                             <span style="height: 48px; width: 48px; background-color: #dc2626; border: 3px solid #fcd34d; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1rem; color: #fff;">P1</span>
@@ -2430,18 +2279,7 @@ a:focus, button:focus, .btn:focus{
                         </div>
                         <span style="font-weight: 900; font-size: 2.5rem; color: #fcd34d; text-shadow: 0 0 10px rgba(252, 211, 77, 0.8);">4</span>
                     </li>
-
-                    <li style="
-                        display: flex;
-                        justify-content: space-between;
-                        align-items: center;
-                        padding: 1rem 1.25rem;
-                        border-radius: 12px;
-                        background: linear-gradient(90deg, #374151 0%, #1f2937 100%);
-                        border: 2px solid #9ca3af; /* Silver border */
-                        box-shadow: 0 4px 10px rgba(156, 163, 175, 0.2);
-                        transition: all 0.3s ease-in-out;
-                    " onmouseover="this.style.transform='scale(1.02)'; this.style.boxShadow='0 8px 20px rgba(156, 163, 175, 0.4)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 10px rgba(156, 163, 175, 0.2)'">
+                    <li style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.25rem; border-radius: 12px; background: linear-gradient(90deg, #374151 0%, #1f2937 100%); border: 2px solid #9ca3af; box-shadow: 0 4px 10px rgba(156, 163, 175, 0.2); transition: all 0.3s ease-in-out;" onmouseover="this.style.transform='scale(1.02)'; this.style.boxShadow='0 8px 20px rgba(156, 163, 175, 0.4)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 10px rgba(156, 163, 175, 0.2)'">
                         <div style="display: flex; align-items: center;">
                             <span style="font-size: 1.75rem; font-weight: 900; color: #9ca3af; margin-right: 1rem; width: 30px; text-align: right; text-shadow: 0 0 5px #9ca3af;">2.</span>
                             <span style="height: 48px; width: 48px; background-color: #2563eb; border: 3px solid #9ca3af; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1rem; color: #fff;">P2</span>
@@ -2452,18 +2290,7 @@ a:focus, button:focus, .btn:focus{
                         </div>
                         <span style="font-weight: 900; font-size: 2.5rem; color: #9ca3af; text-shadow: 0 0 10px rgba(156, 163, 175, 0.8);">3</span>
                     </li>
-
-                    <li style="
-                        display: flex;
-                        justify-content: space-between;
-                        align-items: center;
-                        padding: 1rem 1.25rem;
-                        border-radius: 12px;
-                        background: linear-gradient(90deg, #374151 0%, #1f2937 100%);
-                        border: 2px solid #b45309; /* Bronze/Amber border */
-                        box-shadow: 0 4px 10px rgba(180, 83, 9, 0.2);
-                        transition: all 0.3s ease-in-out;
-                    " onmouseover="this.style.transform='scale(1.02)'; this.style.boxShadow='0 8px 20px rgba(180, 83, 9, 0.4)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 10px rgba(180, 83, 9, 0.2)'">
+                    <li style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.25rem; border-radius: 12px; background: linear-gradient(90deg, #374151 0%, #1f2937 100%); border: 2px solid #b45309; box-shadow: 0 4px 10px rgba(180, 83, 9, 0.2); transition: all 0.3s ease-in-out;" onmouseover="this.style.transform='scale(1.02)'; this.style.boxShadow='0 8px 20px rgba(180, 83, 9, 0.4)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 10px rgba(180, 83, 9, 0.2)'">
                         <div style="display: flex; align-items: center;">
                             <span style="font-size: 1.75rem; font-weight: 900; color: #b45309; margin-right: 1rem; width: 30px; text-align: right; text-shadow: 0 0 5px #b45309;">3.</span>
                             <span style="height: 48px; width: 48px; background-color: #d97706; border: 3px solid #b45309; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1rem; color: #fff;">P3</span>
@@ -2476,100 +2303,83 @@ a:focus, button:focus, .btn:focus{
                     </li>
                 </ul>
             </div>
-            
-           
+
+            <div class="glass-card p-8 space-y-8" style="background: linear-gradient(145deg, #1f2937 0%, #111827 100%); border-radius: 16px; border: 1px solid #374151; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);">
+                <h3 style="font-size: 1.875rem; font-weight: 700; color: #34d399; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 10px; text-shadow: 0 0 5px rgba(52, 211, 153, 0.5);">Top Assists</h3>
+                <ul class="space-y-4">
+                    <li style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.25rem; border-radius: 12px; background: linear-gradient(90deg, #374151 0%, #1f2937 100%); border: 2px solid #fcd34d; box-shadow: 0 4px 15px rgba(252, 211, 77, 0.3); transition: all 0.3s ease-in-out;" onmouseover="this.style.transform='scale(1.02)'; this.style.boxShadow='0 8px 20px rgba(252, 211, 77, 0.5)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 15px rgba(252, 211, 77, 0.3)'">
+                        <div style="display: flex; align-items: center;">
+                            <span style="font-size: 1.75rem; font-weight: 900; color: #fcd34d; margin-right: 1rem; width: 30px; text-align: right; text-shadow: 0 0 5px #fcd34d;">1.</span>
+                            <span style="height: 48px; width: 48px; background-color: #ca8a04; border: 3px solid #fcd34d; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1rem; color: #fff;">P1</span>
+                            <div style="margin-left: 0.75rem;">
+                                <p style="font-weight: 600; color: #ffffff; font-size: 1.1rem;">Chukwuemeka</p>
+                                <p style="font-size: 0.75rem; color: #a0a0a0;">-</p>
+                            </div>
+                        </div>
+                        <span style="font-weight: 900; font-size: 2.5rem; color: #fcd34d; text-shadow: 0 0 10px rgba(252, 211, 77, 0.8);">6</span>
+                    </li>
+                    <li style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.25rem; border-radius: 12px; background: linear-gradient(90deg, #374151 0%, #1f2937 100%); border: 2px solid #9ca3af; box-shadow: 0 4px 10px rgba(156, 163, 175, 0.2); transition: all 0.3s ease-in-out;" onmouseover="this.style.transform='scale(1.02)'; this.style.boxShadow='0 8px 20px rgba(156, 163, 175, 0.4)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 10px rgba(156, 163, 175, 0.2)'">
+                        <div style="display: flex; align-items: center;">
+                            <span style="font-size: 1.75rem; font-weight: 900; color: #9ca3af; margin-right: 1rem; width: 30px; text-align: right; text-shadow: 0 0 5px #9ca3af;">2.</span>
+                            <span style="height: 48px; width: 48px; background-color: #991b1b; border: 3px solid #9ca3af; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1rem; color: #fff;">P2</span>
+                            <div style="margin-left: 0.75rem;">
+                                <p style="font-weight: 600; color: #ffffff; font-size: 1.1rem;">Emmanuel</p>
+                                <p style="font-size: 0.75rem; color: #a0a0a0;">-</p>
+                            </div>
+                        </div>
+                        <span style="font-weight: 900; font-size: 2.5rem; color: #9ca3af; text-shadow: 0 0 10px rgba(156, 163, 175, 0.8);">4</span>
+                    </li>
+                    <li style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.25rem; border-radius: 12px; background: linear-gradient(90deg, #374151 0%, #1f2937 100%); border: 2px solid #b45309; box-shadow: 0 4px 10px rgba(180, 83, 9, 0.2); transition: all 0.3s ease-in-out;" onmouseover="this.style.transform='scale(1.02)'; this.style.boxShadow='0 8px 20px rgba(180, 83, 9, 0.4)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 10px rgba(180, 83, 9, 0.2)'">
+                        <div style="display: flex; align-items: center;">
+                            <span style="font-size: 1.75rem; font-weight: 900; color: #b45309; margin-right: 1rem; width: 30px; text-align: right; text-shadow: 0 0 5px #b45309;">3.</span>
+                            <span style="height: 48px; width: 48px; background-color: #84cc16; border: 3px solid #b45309; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1rem; color: #fff;">P8</span>
+                            <div style="margin-left: 0.75rem;">
+                                <p style="font-weight: 600; color: #ffffff; font-size: 1.1rem;">Cush</p>
+                                <p style="font-size: 0.75rem; color: #a0a0a0;">NIL</p>
+                            </div>
+                        </div>
+                        <span style="font-weight: 900; font-size: 2.5rem; color: #b45309; text-shadow: 0 0 10px rgba(180, 83, 9, 0.8);">2</span>
+                    </li>
+                </ul>
+            </div>
         </div>
     </section>
 </div>
-  <div class="glass-card p-8 space-y-8" style="
-    background: linear-gradient(145deg, #1f2937 0%, #111827 100%); /* Dark gradient for depth */
-    border-radius: 16px;
-    border: 1px solid #374151; /* Subtle border */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
-">
-    <h3 style="
-        font-size: 1.875rem; /* text-3xl */
-        font-weight: 700;
-        color: #34d399; /* Green-400 */
-        margin-bottom: 1.5rem;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        text-shadow: 0 0 5px rgba(52, 211, 153, 0.5);
-    ">
-        🎯 Top Assists
-    </h3>
-    <ul class="space-y-4">
-        <li style="
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 1.25rem;
-            border-radius: 12px;
-            background: linear-gradient(90deg, #374151 0%, #1f2937 100%);
-            border: 2px solid #fcd34d; /* Gold border */
-            box-shadow: 0 4px 15px rgba(252, 211, 77, 0.3);
-            transition: all 0.3s ease-in-out;
-        " onmouseover="this.style.transform='scale(1.02)'; this.style.boxShadow='0 8px 20px rgba(252, 211, 77, 0.5)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 15px rgba(252, 211, 77, 0.3)'">
-            <div style="display: flex; align-items: center;">
-                <span style="font-size: 1.75rem; font-weight: 900; color: #fcd34d; margin-right: 1rem; width: 30px; text-align: right; text-shadow: 0 0 5px #fcd34d;">1.</span>
-                <span style="height: 48px; width: 48px; background-color: #ca8a04; border: 3px solid #fcd34d; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1rem; color: #fff;">P1</span>
-                <div style="margin-left: 0.75rem;">
-                    <p style="font-weight: 600; color: #ffffff; font-size: 1.1rem;">Chukwuemeka</p>
-                    <p style="font-size: 0.75rem; color: #a0a0a0;">-</p>
-                </div>
-            </div>
-            <span style="font-weight: 900; font-size: 2.5rem; color: #fcd34d; text-shadow: 0 0 10px rgba(252, 211, 77, 0.8);">6</span>
-        </li>
 
-        <li style="
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 1.25rem;
-            border-radius: 12px;
-            background: linear-gradient(90deg, #374151 0%, #1f2937 100%);
-            border: 2px solid #9ca3af; /* Silver border */
-            box-shadow: 0 4px 10px rgba(156, 163, 175, 0.2);
-            transition: all 0.3s ease-in-out;
-        " onmouseover="this.style.transform='scale(1.02)'; this.style.boxShadow='0 8px 20px rgba(156, 163, 175, 0.4)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 10px rgba(156, 163, 175, 0.2)'">
-            <div style="display: flex; align-items: center;">
-                <span style="font-size: 1.75rem; font-weight: 900; color: #9ca3af; margin-right: 1rem; width: 30px; text-align: right; text-shadow: 0 0 5px #9ca3af;">2.</span>
-                <span style="height: 48px; width: 48px; background-color: #991b1b; border: 3px solid #9ca3af; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1rem; color: #fff;">P2</span>
-                <div style="margin-left: 0.75rem;">
-                    <p style="font-weight: 600; color: #ffffff; font-size: 1.1rem;">Emmanuel</p>
-                    <p style="font-size: 0.75rem; color: #a0a0a0;">-</p>
-                </div>
-            </div>
-            <span style="font-weight: 900; font-size: 2.5rem; color: #9ca3af; text-shadow: 0 0 10px rgba(156, 163, 175, 0.8);">4</span>
-        </li>
+<!-- SINGLE WORKING SCRIPT (Old ones completely removed) -->
+<script>
+document.querySelectorAll('.tab-link, .assist-tab').forEach(tab => {
+    tab.addEventListener('click', function() {
+        const targetId = this.dataset.tab;
+        const isAssistTab = this.classList.contains('assist-tab');
+        const tabGroup = isAssistTab ? document.querySelectorAll('.assist-tab') : document.querySelectorAll('.tab-link');
+        const contentGroup = isAssistTab ? document.querySelectorAll('.assist-content') : document.querySelectorAll('.tab-content');
 
-        <li style="
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 1.25rem;
-            border-radius: 12px;
-            background: linear-gradient(90deg, #374151 0%, #1f2937 100%);
-            border: 2px solid #b45309; /* Bronze/Amber border */
-            box-shadow: 0 4px 10px rgba(180, 83, 9, 0.2);
-            transition: all 0.3s ease-in-out;
-        " onmouseover="this.style.transform='scale(1.02)'; this.style.boxShadow='0 8px 20px rgba(180, 83, 9, 0.4)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 10px rgba(180, 83, 9, 0.2)'">
-            <div style="display: flex; align-items: center;">
-                <span style="font-size: 1.75rem; font-weight: 900; color: #b45309; margin-right: 1rem; width: 30px; text-align: right; text-shadow: 0 0 5px #b45309;">3.</span>
-                <span style="height: 48px; width: 48px; background-color: #84cc16; border: 3px solid #b45309; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1rem; color: #fff;">P8</span>
-                <div style="margin-left: 0.75rem;">
-                    <p style="font-weight: 600; color: #ffffff; font-size: 1.1rem;">Cush</p>
-                    <p style="font-size: 0.75rem; color: #a0a0a0;">NIL</p>
-                </div>
-            </div>
-            <span style="font-weight: 900; font-size: 2.5rem; color: #b45309; text-shadow: 0 0 10px rgba(180, 83, 9, 0.8);">2</span>
-        </li>
-    </ul>
-</div>
-    </div>
-  </section>
-</div>
+        // Reset all tabs in this group
+        tabGroup.forEach(t => {
+            t.style.color = '#a0a0a0';
+            t.style.borderBottom = '3px solid transparent';
+            t.style.backgroundColor = 'transparent';
+            t.style.fontWeight = '500';
+            t.style.cursor = 'pointer';
+        });
+
+        // Activate clicked tab
+        this.style.color = '#34d399';
+        this.style.borderBottom = '3px solid #34d399';
+        this.style.backgroundColor = 'rgba(52, 211, 153, 0.1)';
+        this.style.fontWeight = '600';
+        this.style.cursor = 'default';
+
+        // Hide all content in this group
+        contentGroup.forEach(c => c.style.display = 'none');
+
+        // Show target content
+        const target = document.getElementById(targetId);
+        if (target) target.style.display = 'block';
+    });
+});
+</script>
 
 
       <section id="highlights" style="padding-top: 2rem;">
