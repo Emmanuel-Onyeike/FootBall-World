@@ -1761,1066 +1761,269 @@ a:focus, button:focus, .btn:focus{
         });
     });
 </script>
-        <!-- Standings Section (Updated with a Table) -->
-<div class="flex flex-col md:flex-row justify-between items-center
-            space-y-4 md:space-y-0 md:space-x-4 mb-10">
-
-    <button id="mikoko-btn"
-        class="w-full md:w-auto flex-1 
-               /* Base Style */
-               text-lg font-extrabold py-3 px-6 rounded-2xl shadow-lg
-               /* Color & Border */
-               border-2 border-emerald-500 text-emerald-300 bg-gray-900 
-               /* Hover Effect */
-               hover:bg-emerald-600 hover:text-white hover:border-emerald-600 
-               hover:shadow-[0_0_15px_rgba(52,211,163,0.5)] /* Subtle Glow */
-               transition duration-300 ease-in-out transform hover:scale-[1.03]">
+<!-- Standings Buttons -->
+<div class="flex flex-col md:flex-row justify-center items-center gap-4 mb-10 px-4">
+    <button id="mikoko-btn" class="tab-btn active w-full md:w-auto flex-1 max-w-sm px-8 py-4 text-lg font-extrabold rounded-2xl border-2 border-emerald-500 bg-emerald-600 text-white shadow-xl hover:scale-105 hover:shadow-emerald-500/50 transition-all duration-300">
         Mikoko League
     </button>
-
-    <button id="glory-btn"
-        class="w-full md:w-auto flex-1 
-               /* Base Style */
-               text-lg font-extrabold py-3 px-6 rounded-2xl shadow-lg
-               /* Color & Border */
-               border-2 border-emerald-500 text-emerald-300 bg-gray-900 
-               /* Hover Effect */
-               hover:bg-emerald-600 hover:text-white hover:border-emerald-600 
-               hover:shadow-[0_0_15px_rgba(52,211,163,0.5)] /* Subtle Glow */
-               transition duration-300 ease-in-out transform hover:scale-[1.03]">
+    <button id="glory-btn" class="tab-btn w-full md:w-auto flex-1 max-w-sm px-8 py-4 text-lg font-extrabold rounded-2xl border-2 border-emerald-500 text-emerald-400 bg-gray-900 hover:bg-emerald-600 hover:text-white shadow-lg transition-all duration-300">
         Glory Champions Cup
     </button>
-
-    <button id="cit-btn"
-        class="w-full md:w-auto flex-1 
-               /* Base Style */
-               text-lg font-extrabold py-3 px-6 rounded-2xl shadow-lg
-               /* Color & Border */
-               border-2 border-emerald-500 text-emerald-300 bg-gray-900 
-               /* Hover Effect */
-               hover:bg-emerald-600 hover:text-white hover:border-emerald-600 
-               hover:shadow-[0_0_15px_rgba(52,211,163,0.5)] /* Subtle Glow */
-               transition duration-300 ease-in-out transform hover:scale-[1.03]">
+    <button id="cit-btn" class="tab-btn w-full md:w-auto flex-1 max-w-sm px-8 py-4 text-lg font-extrabold rounded-2xl border-2 border-emerald-500 text-emerald-400 bg-gray-900 hover:bg-emerald-600 hover:text-white shadow-lg transition-all duration-300">
         Provost CUP
     </button>
-
-    <button id="friend-btn"
-        class="w-full md:w-auto flex-1 
-               /* Base Style */
-               text-lg font-extrabold py-3 px-6 rounded-2xl shadow-lg
-               /* Color & Border */
-               border-2 border-emerald-500 text-emerald-300 bg-gray-900 
-               /* Hover Effect */
-               hover:bg-emerald-600 hover:text-white hover:border-emerald-600 
-               hover:shadow-[0_0_15px_rgba(52,211,163,0.5)] /* Subtle Glow */
-               transition duration-300 ease-in-out transform hover:scale-[1.03]">
+    <button id="friend-btn" class="tab-btn w-full md:w-auto flex-1 max-w-sm px-8 py-4 text-lg font-extrabold rounded-2xl border-2 border-emerald-500 text-emerald-400 bg-gray-900 hover:bg-emerald-600 hover:text-white shadow-lg transition-all duration-300">
         Friendlies
     </button>
-
 </div>
 
-<section id="standings">
-    <div class="relative min-h-[500px]">
+<!-- All Tables Container -->
+<section id="standings" class="relative min-h-[600px] px-4">
+    <div class="max-w-7xl mx-auto">
 
-        <div id="mikoko-table" class="league-table p-6 lg:p-8 shadow-2xl rounded-2xl
-                                    bg-gradient-to-br from-gray-900/80 to-black/80
-                                    border border-emerald-700/50 backdrop-blur-sm">
-            <h2 class="text-4xl font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-green-600">
+        <!-- Mikoko League Table -->
+        <div id="mikoko-table" class="league-table block">
+            <h2 class="text-4xl font-extrabold mb-8 text-center text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-green-600">
                 Mikoko League Standings
             </h2>
-            <div class="overflow-x-auto custom-scrollbar rounded-xl border border-gray-700/60" style="max-height: 400px; overflow-y: auto;">
-                <table class="min-w-full bg-gray-800/60 rounded-xl border-collapse">
-                    <thead>
-                        <tr class="bg-gray-700/70 text-left text-sm uppercase tracking-wider sticky top-0 z-10 shadow-md">
-                            <th class="py-3 px-4 font-bold text-emerald-300 rounded-tl-xl">Rank</th>
-                            <th class="py-3 px-4 font-bold text-emerald-300">Team</th>
-                            <th class="py-3 px-4 text-center font-bold text-emerald-300">MP</th>
-                            <th class="py-3 px-4 text-center font-bold text-emerald-300">W</th>
-                            <th class="py-3 px-4 text-center font-bold text-emerald-300">D</th>
-                            <th class="py-3 px-4 text-center font-bold text-emerald-300">L</th>
-                            <th class="py-3 px-4 text-center font-bold text-emerald-300">GF</th>
-                            <th class="py-3 px-4 text-center font-bold text-emerald-300">GA</th>
-                            <th class="py-3 px-4 text-center font-bold text-emerald-300">GD</th>
-                            <th class="py-3 px-4 text-right font-bold text-emerald-300 rounded-tr-xl">Pts</th>
+            <div class="overflow-x-auto rounded-2xl border border-emerald-700/50 shadow-2xl bg-gray-900/90 backdrop-blur-sm custom-scrollbar">
+                <table class="min-w-full text-sm md:text-base">
+                    <thead class="bg-gray-800/90 text-emerald-300 uppercase tracking-wider text-xs sticky top-0 z-10">
+                        <tr>
+                            <th class="py-4 px-4 rounded-tl-xl">Rank</th>
+                            <th class="py-4 px-6">Team</th>
+                            <th class="py-4 px-4 text-center">MP</th>
+                            <th class="py-4 px-4 text-center">W</th>
+                            <th class="py-4 px-4 text-center">D</th>
+                            <th class="py-4 px-4 text-center">L</th>
+                            <th class="py-4 px-4 text-center">GF</th>
+                            <th class="py-4 px-4 text-center">GA</th>
+                            <th class="py-4 px-4 text-center">GD</th>
+                            <th class="py-4 px-4 text-right rounded-tr-xl">Pts</th>
                         </tr>
                     </thead>
-                    <tbody class="text-sm text-gray-200 divide-y divide-gray-700">
-                        <tr class="hover:bg-gray-700/40 transition-colors duration-200">
-                            <td class="py-3 px-4">1</td>
-                            <td class="py-3 px-4 font-semibold text-white">NIL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right font-bold text-emerald-400">0</td>
-                        </tr>
-                        <tr class="hover:bg-gray-700/40 transition-colors duration-200">
-                            <td class="py-3 px-4">2</td>
-                            <td class="py-3 px-4 font-semibold text-white">NIL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right font-bold text-emerald-400">0</td>
-                        </tr>
-                        <tr class="hover:bg-gray-700/40 transition-colors duration-200">
-                            <td class="py-3 px-4">3</td>
-                            <td class="py-3 px-4 font-semibold text-white">NIL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right font-bold text-emerald-400">0</td>
-                        </tr>
-                        <tr class="hover:bg-gray-700/40 transition-colors duration-200">
-                            <td class="py-3 px-4">4</td>
-                            <td class="py-3 px-4 font-semibold text-white">NIL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right font-bold text-emerald-400">0</td>
-                        </tr>
-                        <tr class="hover:bg-gray-700/40 transition-colors duration-200">
-                            <td class="py-3 px-4">5</td>
-                            <td class="py-3 px-4 font-semibold text-white">NIL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right font-bold text-emerald-400">0</td>
-                        </tr>
-                        <tr class="hover:bg-gray-700/40 transition-colors duration-200">
-                            <td class="py-3 px-4">6</td>
-                            <td class="py-3 px-4 font-semibold text-white">NIL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right font-bold text-emerald-400">0</td>
-                        </tr>
-                        <tr class="hover:bg-gray-700/40 transition-colors duration-200">
-                            <td class="py-3 px-4">7</td>
-                            <td class="py-3 px-4 font-semibold text-white">NIL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right font-bold text-emerald-400">0</td>
-                        </tr>
-                        <tr class="hover:bg-gray-700/40 transition-colors duration-200">
-                            <td class="py-3 px-4">8</td>
-                            <td class="py-3 px-4 font-semibold text-white">NIL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right font-bold text-emerald-400">0</td>
-                        </tr>
-                        <tr class="hover:bg-gray-700/40 transition-colors duration-200">
-                            <td class="py-3 px-4">9</td>
-                            <td class="py-3 px-4 font-semibold text-white">NIL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right font-bold text-emerald-400">0</td>
-                        </tr>
-                        <tr class="hover:bg-gray-700/40 transition-colors duration-200">
-                            <td class="py-3 px-4">10</td>
-                            <td class="py-3 px-4 font-semibold text-white">NIL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right font-bold text-emerald-400">0</td>
-                        </tr>
-                        <tr class="hover:bg-gray-700/40 transition-colors duration-200">
-                            <td class="py-3 px-4">11</td>
-                            <td class="py-3 px-4 font-semibold text-white">NIL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right font-bold text-emerald-400">0</td>
-                        </tr>
-                        <tr class="hover:bg-gray-700/40 transition-colors duration-200">
-                            <td class="py-3 px-4">12</td>
-                            <td class="py-3 px-4 font-semibold text-white">NIL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right font-bold text-emerald-400">0</td>
-                        </tr>
+                    <tbody class="divide-y divide-gray-700 text-gray-200">
+                        <tr class="hover:bg-gray-800/50 transition"><td class="py-4 px-4">1</td><td class="py-4 px-6 font-semibold text-white">NIL</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right font-bold text-emerald-400">0</td></tr>
+                        <tr class="hover:bg-gray-800/50 transition"><td class="py-4 px-4">2</td><td class="py-4 px-6 font-semibold text-white">NIL</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right font-bold text-emerald-400">0</td></tr>
+                        <tr class="hover:bg-gray-800/50 transition"><td class="py-4 px-4">3</td><td class="py-4 px-6 font-semibold text-white">NIL</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right font-bold text-emerald-400">0</td></tr>
+                        <tr class="hover:bg-gray-800/50 transition"><td class="py-4 px-4">4</td><td class="py-4 px-6 font-semibold text-white">NIL</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right font-bold text-emerald-400">0</td></tr>
+                        <tr class="hover:bg-gray-800/50 transition"><td class="py-4 px-4">5</td><td class="py-4 px-6 font-semibold text-white">NIL</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right font-bold text-emerald-400">0</td></tr>
+                        <tr class="hover:bg-gray-800/50 transition"><td class="py-4 px-4">6</td><td class="py-4 px-6 font-semibold text-white">NIL</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right font-bold text-emerald-400">0</td></tr>
+                        <tr class="hover:bg-gray-800/50 transition"><td class="py-4 px-4">7</td><td class="py-4 px-6 font-semibold text-white">NIL</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right font-bold text-emerald-400">0</td></tr>
+                        <tr class="hover:bg-gray-800/50 transition"><td class="py-4 px-4">8</td><td class="py-4 px-6 font-semibold text-white">NIL</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right font-bold text-emerald-400">0</td></tr>
+                        <tr class="hover:bg-gray-800/50 transition"><td class="py-4 px-4">9</td><td class="py-4 px-6 font-semibold text-white">NIL</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right font-bold text-emerald-400">0</td></tr>
+                        <tr class="hover:bg-gray-800/50 transition"><td class="py-4 px-4">10</td><td class="py-4 px-6 font-semibold text-white">NIL</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right font-bold text-emerald-400">0</td></tr>
+                        <tr class="hover:bg-gray-800/50 transition"><td class="py-4 px-4">11</td><td class="py-4 px-6 font-semibold text-white">NIL</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right font-bold text-emerald-400">0</td></tr>
+                        <tr class="hover:bg-gray-800/50 transition"><td class="py-4 px-4">12</td><td class="py-4 px-6 font-semibold text-white">NIL</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right font-bold text-emerald-400">0</td></tr>
                     </tbody>
                 </table>
             </div>
-            <div class="mt-6 p-4 bg-red-900/20 rounded-lg border border-red-700/40 text-center flex items-center justify-center">
-                <i class="fas fa-info-circle text-red-400 mr-3 text-lg"></i>
+            <div class="mt-6 p-4 bg-red-900/20 rounded-lg border border-red-700/40 text-center flex items-center justify-center gap-3">
+                <i class="fas fa-info-circle text-red-400 text-lg"></i>
                 <p class="text-sm text-red-300 font-medium">The Mikoko League is currently in its final stretch, with a tight race for the top spot.</p>
             </div>
         </div>
-        
+
+        <!-- Glory Champions Cup Table -->
+        <div id="glory-table" class="league-table hidden">
+            <h2 class="text-4xl font-extrabold mb-8 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-500">
+                Glory Champions Cup Standings
+            </h2>
+            <div class="overflow-x-auto rounded-2xl border border-blue-700/50 shadow-2xl bg-gray-900/90 backdrop-blur-sm custom-scrollbar">
+                <table class="min-w-full text-sm md:text-base">
+                    <thead class="bg-gray-800/90 text-blue-300 uppercase tracking-wider text-xs sticky top-0 z-10">
+                        <tr>
+                            <th class="py-4 px-4 rounded-tl-xl">Rank</th>
+                            <th class="py-4 px-6">Team</th>
+                            <th class="py-4 px-4 text-center">MP</th>
+                            <th class="py-4 px-4 text-center">W</th>
+                            <th class="py-4 px-4 text-center">D</th>
+                            <th class="py-4 px-4 text-center">L</th>
+                            <th class="py-4 px-4 text-center">GF</th>
+                            <th class="py-4 px-4 text-center">GA</th>
+                            <th class="py-4 px-4 text-center">GD</th>
+                            <th class="py-4 px-4 text-right rounded-tr-xl">Pts</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-700 text-gray-200">
+                        <tr class="hover:bg-gray-800/50"><td class="py-4 px-4">1</td><td class="py-4 px-6 font-semibold text-white">NIL</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right">0</td></tr>
+                        <tr class="hover:bg-gray-800/50"><td class="py-4 px-4">2</td><td class="py-4 px-6 font-semibold text-white">NIL</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right">0</td></tr>
+                        <tr class="hover:bg-gray-800/50"><td class="py-4 px-4">3</td><td class="py-4 px-6 font-semibold text-white">NIL</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right">0</td></tr>
+                        <tr class="hover:bg-gray-800/50"><td class="py-4 px-4">4</td><td class="py-4 px-6 font-semibold text-white">NIL</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right">0</td></tr>
+                        <tr class="hover:bg-gray-800/50"><td class="py-4 px-4">5</td><td class="py-4 px-6 font-semibold text-white">NIL</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right">0</td></tr>
+                        <tr class="hover:bg-gray-800/50"><td class="py-4 px-4">6</td><td class="py-4 px-6 font-semibold text-white">NIL</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right">0</td></tr>
+                        <tr class="hover:bg-gray-800/50"><td class="py-4 px-4">7</td><td class="py-4 px-6 font-semibold text-white">NIL</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right">0</td></tr>
+                        <tr class="hover:bg-gray-800/50"><td class="py-4 px-4">8</td><td class="py-4 px-6 font-semibold text-white">NIL</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right">0</td></tr>
+                        <tr class="hover:bg-gray-800/50"><td class="py-4 px-4">9</td><td class="py-4 px-6 font-semibold text-white">NIL</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right">0</td></tr>
+                        <tr class="hover:bg-gray-800/50"><td class="py-4 px-4">10</td><td class="py-4 px-6 font-semibold text-white">NIL</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right">0</td></tr>
+                        <tr class="hover:bg-gray-800/50"><td class="py-4 px-4">11</td><td class="py-4 px-6 font-semibold text-white">NIL</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right">0</td></tr>
+                        <tr class="hover:bg-gray-800/50"><td class="py-4 px-4">12</td><td class="py-4 px-6 font-semibold text-white">NIL</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right">0</td></tr>
+                        <tr class="hover:bg-gray-800/50"><td class="py-4 px-4">13</td><td class="py-4 px-6 font-semibold text-white">NIL</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right">0</td></tr>
+                        <tr class="hover:bg-gray-800/50"><td class="py-4 px-4">14</td><td class="py-4 px-6 font-semibold text-white">NIL</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right">0</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="mt-6 p-4 bg-red-900/20 rounded-lg border border-red-700/40 text-center">
+                <p class="text-sm text-red-400">The Mikoko League is currently in its final stretch, with a tight race for the top spot.</p>
+            </div>
         </div>
 
-    <style>
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
+        <!-- Provost CUP Table -->
+        <div id="cit-table" class="league-table hidden">
+            <h2 class="text-4xl font-extrabold mb-8 text-center text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-pink-600">
+                Provost CUP Standings
+            </h2>
+            <div class="overflow-x-auto rounded-2xl border border-red-700/50 shadow-2xl bg-gray-900/90 backdrop-blur-sm custom-scrollbar">
+                <table class="min-w-full text-sm md:text-base">
+                    <thead class="bg-gray-800/90 text-red-300 uppercase tracking-wider text-xs sticky top-0 z-10">
+                        <tr>
+                            <th class="py-4 px-4 rounded-tl-xl">Rank</th>
+                            <th class="py-4 px-6">Team</th>
+                            <th class="py-4 px-4 text-center">MP</th>
+                            <th class="py-4 px-4 text-center">W</th>
+                            <th class="py-4 px-4 text-center">D</th>
+                            <th class="py-4 px-4 text-center">L</th>
+                            <th class="py-4 px-4 text-center">GF</th>
+                            <th class="py-4 px-4 text-center">GA</th>
+                            <th class="py-4 px-4 text-center">GD</th>
+                            <th class="py-4 px-4 text-right rounded-tr-xl">Pts</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-700 text-gray-200">
+                        <tr class="hover:bg-gray-800/50"><td class="py-4 px-4">1</td><td class="py-4 px-6 font-semibold text-white">Nul</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right">0</td></tr>
+                        <tr class="hover:bg-gray-800/50"><td class="py-4 px-4">2</td><td class="py-4 px-6 font-semibold text-white">NUL</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right">0</td></tr>
+                        <tr class="hover:bg-gray-800/50"><td class="py-4 px-4">3</td><td class="py-4 px-6 font-semibold text-white">NUL</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right">0</td></tr>
+                        <tr class="hover:bg-gray-800/50"><td class="py-4 px-4">4</td><td class="py-4 px-6 font-semibold text-white">NUL</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right">0</td></tr>
+                        <tr class="hover:bg-gray-800/50"><td class="py-4 px-4">5</td><td class="py-4 px-6 font-semibold text-white">NUL</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right">0</td></tr>
+                        <tr class="hover:bg-gray-800/50"><td class="py-4 px-4">6</td><td class="py-4 px-6 font-semibold text-white">NUL</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right">0</td></tr>
+                        <tr class="hover:bg-gray-800/50"><td class="py-4 px-4">7</td><td class="py-4 px-6 font-semibold text-white">NUL</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right">0</td></tr>
+                        <tr class="hover:bg-gray-800/50"><td class="py-4 px-4">8</td><td class="py-4 px-6 font-semibold text-white">NUL</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right">0</td></tr>
+                        <tr class="hover:bg-gray-800/50"><td class="py-4 px-4">9</td><td class="py-4 px-6 font-semibold text-white">NUL</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right">0</td></tr>
+                        <tr class="hover:bg-gray-800/50"><td class="py-4 px-4">10</td><td class="py-4 px-6 font-semibold text-white">NUL</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right">0</td></tr>
+                        <tr class="hover:bg-gray-800/50"><td class="py-4 px-4">11</td><td class="py-4 px-6 font-semibold text-white">NUL</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right">0</td></tr>
+                        <tr class="hover:bg-gray-800/50"><td class="py-4 px-4">12</td><td class="py-4 px-6 font-semibold text-white">NUL</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right">0</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="mt-6 p-4 bg-red-900/20 rounded-lg border border-red-700/40 text-center">
+                <p class="text-sm text-red-400">The PROVOST CUP is highly competitive, rewarding consistency over the season.</p>
+            </div>
+        </div>
 
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.05); /* Darker track for contrast */
-            border-radius: 10px;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #059669; /* Emerald-600 */
-            border-radius: 10px;
-            border: 2px solid rgba(255, 255, 255, 0.05); /* Adds a subtle border to the thumb */
-        }
-
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: #047857; /* Darker emerald on hover */
-        }
-    </style>
-
-     <div id="glory-table" class="league-table hidden p-4 md:p-6 shadow-xl absolute w-full top-0" style="background: rgba(255, 255, 255, 0.05); border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1);">
-            <h2 class="text-3xl font-bold mb-4 text-blue-400">Glory Champions Cup Standings</h2>
-            <div class="overflow-x-auto rounded-xl" style="max-height: 400px; overflow-y: auto;">
-                <table class="min-w-full bg-[#121212] rounded-xl border-collapse">
-                    <thead>
-                        <tr class="bg-[#1a1a1a] text-left text-sm" style="position: sticky; top: 0; z-index: 1;">
-                            <th class="py-3 px-4 font-semibold text-gray-400 rounded-tl-xl">Rank</th>
-                            <th class="py-3 px-4 font-semibold text-gray-400">Team</th>
-                            <th class="py-3 px-4 text-center font-semibold text-gray-400">MP</th>
-                            <th class="py-3 px-4 text-center font-semibold text-gray-400">W</th>
-                            <th class="py-3 px-4 text-center font-semibold text-gray-400">D</th>
-                            <th class="py-3 px-4 text-center font-semibold text-gray-400">L</th>
-                            <th class="py-3 px-4 text-center font-semibold text-gray-400">GF</th>
-                            <th class="py-3 px-4 text-center font-semibold text-gray-400">GA</th>
-                            <th class="py-3 px-4 text-center font-semibold text-gray-400">GD</th>
-                            <th class="py-3 px-4 text-right font-semibold text-gray-400 rounded-tr-xl">Pts</th>
-                        </tr>
-                    </thead>
-                    <tbody class="text-sm">
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">1</td>
-                            <td class="py-3 px-4 font-semibold text-white">NIL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">2</td>
-                            <td class="py-3 px-4 font-semibold text-white">NIL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">3</td>
-                            <td class="py-3 px-4 font-semibold text-white">NIL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">4</td>
-                            <td class="py-3 px-4 font-semibold text-white">NIL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">5</td>
-                            <td class="py-3 px-4 font-semibold text-white">NIL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">6</td>
-                            <td class="py-3 px-4 font-semibold text-white">NIL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">7</td>
-                            <td class="py-3 px-4 font-semibold text-white">NIL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">8</td>
-                            <td class="py-3 px-4 font-semibold text-white">NIL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">9</td>
-                            <td class="py-3 px-4 font-semibold text-white">NIL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">10</td>
-                            <td class="py-3 px-4 font-semibold text-white">NIL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">11</td>
-                            <td class="py-3 px-4 font-semibold text-white">NIL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">12</td>
-                            <td class="py-3 px-4 font-semibold text-white">NIL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">13</td>
-                            <td class="py-3 px-4 font-semibold text-white">NIL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                        <tr class="hover:bg-[#151515]">
-                            <td class="py-3 px-4">14</td>
-                            <td class="py-3 px-4 font-semibold text-white">NIL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="mt-4 text-center flex items-center justify-center">
-                <i class="fas fa-info-circle text-red-500 mr-2"></i>
-                <p class="text-sm text-red-400">The Mikoko League is currently in its final stretch, with a tight race for the top spot.</p>
-            </div>
-        </div> 
-    
-   <div id="friend-table" class="league-table hidden p-4 md:p-6 shadow-xl absolute w-full top-0" style="background: rgba(255, 255, 255, 0.05); border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1);">
-            <h2 class="text-3xl font-bold mb-4 text-pink-400">Friendlies</h2>
-            <div class="overflow-x-auto rounded-xl" style="max-height: 400px; overflow-y: auto;">
-                <table class="min-w-full bg-[#121212] rounded-xl border-collapse">
-                    <thead>
-                        <tr class="bg-[#1a1a1a] text-left text-sm" style="position: sticky; top: 0; z-index: 1;">
-                            <th class="py-3 px-4 font-semibold text-gray-400 rounded-tl-xl">Rank</th>
-                            <th class="py-3 px-4 font-semibold text-gray-400">Team</th>
-                            <th class="py-3 px-4 text-center font-semibold text-gray-400">MP</th>
-                            <th class="py-3 px-4 text-center font-semibold text-gray-400">W</th>
-                            <th class="py-3 px-4 text-center font-semibold text-gray-400">D</th>
-                            <th class="py-3 px-4 text-center font-semibold text-gray-400">L</th>
-                            <th class="py-3 px-4 text-center font-semibold text-gray-400">GF</th>
-                            <th class="py-3 px-4 text-center font-semibold text-gray-400">GA</th>
-                            <th class="py-3 px-4 text-center font-semibold text-gray-400">GD</th>
-                            <th class="py-3 px-4 text-right font-semibold text-gray-400 rounded-tr-xl">Pts</th>
-                        </tr>
-                    </thead>
- <tbody class="text-sm">
-  <!-- 1st: Nur-200 -->
-  <tr class="border-b border-gray-800 hover:bg-[#151515] bg-green-900/10">
-    <td class="py-3 px-4">1</td>
-    <td class="py-3 px-4 font-semibold text-green-400 flex items-center gap-2">
-      <i class="fas fa-crown text-yellow-400"></i> Nur-200
-    </td>
-    <td class="py-3 px-4 text-center">2</td>
-    <td class="py-3 px-4 text-center">1</td>
-    <td class="py-3 px-4 text-center">1</td>
-    <td class="py-3 px-4 text-center">0</td>
-    <td class="py-3 px-4 text-center">9</td>
-    <td class="py-3 px-4 text-center">6</td>
-    <td class="py-3 px-4 text-center text-green-400 font-semibold">+3</td>
-    <td class="py-3 px-4 text-right font-bold text-green-500">4</td>
-  </tr>
-
-  <!-- 2nd: CSC-200 -->
-  <tr class="border-b border-gray-800 hover:bg-[#151515]">
-    <td class="py-3 px-4">2</td>
-    <td class="py-3 px-4 font-semibold text-white">CSC-200</td>
-    <td class="py-3 px-4 text-center">2</td>
-    <td class="py-3 px-4 text-center">1</td>
-    <td class="py-3 px-4 text-center">1</td>
-    <td class="py-3 px-4 text-center">0</td>
-    <td class="py-3 px-4 text-center">6</td>
-    <td class="py-3 px-4 text-center">4</td>
-    <td class="py-3 px-4 text-center text-green-400 font-semibold">+2</td>
-    <td class="py-3 px-4 text-right font-bold text-green-500">4</td>
-  </tr>
-
-  <!-- 3rd: Law-200 -->
-  <tr class="border-b border-gray-800 hover:bg-[#151515]">
-    <td class="py-3 px-4">3</td>
-    <td class="py-3 px-4 font-semibold text-white">Law-200</td>
-    <td class="py-3 px-4 text-center">1</td>
-    <td class="py-3 px-4 text-center">1</td>
-    <td class="py-3 px-4 text-center">0</td>
-    <td class="py-3 px-4 text-center">0</td>
-    <td class="py-3 px-4 text-center">8</td>
-    <td class="py-3 px-4 text-center">7</td>
-    <td class="py-3 px-4 text-center text-green-400 font-semibold">+1</td>
-    <td class="py-3 px-4 text-right font-bold text-green-500">3</td>
-  </tr>
-
-  <!-- 4th: MSS-200 now above Law-100 -->
-  <tr class="border-b border-gray-800 hover:bg-[#151515] bg-green-900/10">
-    <td class="py-3 px-4">4</td>
-    <td class="py-3 px-4 font-semibold text-green-400">MSS-200</td>
-    <td class="py-3 px-4 text-center">1</td>
-    <td class="py-3 px-4 text-center">1</td>
-    <td class="py-3 px-4 text-center">0</td>
-    <td class="py-3 px-4 text-center">0</td>
-    <td class="py-3 px-4 text-center">8</td>
-    <td class="py-3 px-4 text-center">6</td>
-    <td class="py-3 px-4 text-center text-green-400 font-semibold">+2</td>
-    <td class="py-3 px-4 text-right font-bold text-green-500">3</td>
-  </tr>
-
-  <!-- 5th: Law-100 -->
-  <tr class="border-b border-gray-800 hover:bg-[#151515]">
-    <td class="py-3 px-4">5</td>
-    <td class="py-3 px-4 font-semibold text-white">Law-100</td>
-    <td class="py-3 px-4 text-center">2</td>
-    <td class="py-3 px-4 text-center">1</td>
-    <td class="py-3 px-4 text-center">0</td>
-    <td class="py-3 px-4 text-center">1</td>
-    <td class="py-3 px-4 text-center">11</td>
-    <td class="py-3 px-4 text-center">10</td>
-    <td class="py-3 px-4 text-center text-green-400 font-semibold">+1</td>
-    <td class="py-3 px-4 text-right font-bold text-green-500">3</td>
-  </tr>
-
-  <!-- 6th: CSC-100 -->
-  <tr class="border-b border-gray-800 hover:bg-[#151515]">
-    <td class="py-3 px-4">6</td>
-    <td class="py-3 px-4 font-semibold text-white">CSC-100</td>
-    <td class="py-3 px-4 text-center">3</td>
-    <td class="py-3 px-4 text-center">1</td>
-    <td class="py-3 px-4 text-center">1</td>
-    <td class="py-3 px-4 text-center">1</td>
-    <td class="py-3 px-4 text-center">12</td>
-    <td class="py-3 px-4 text-center">15</td>
-    <td class="py-3 px-4 text-center text-red-400 font-semibold">-3</td>
-    <td class="py-3 px-4 text-right font-bold text-red-500">3</td>
-  </tr>
-
-  <!-- 7th: MSS-100 -->
-  <tr class="border-b border-gray-800 hover:bg-[#151515]">
-    <td class="py-3 px-4">7</td>
-    <td class="py-3 px-4 font-semibold text-white">MSS-100</td>
-    <td class="py-3 px-4 text-center">1</td>
-    <td class="py-3 px-4 text-center">0</td>
-    <td class="py-3 px-4 text-center">0</td>
-    <td class="py-3 px-4 text-center">1</td>
-    <td class="py-3 px-4 text-center">3</td>
-    <td class="py-3 px-4 text-center">4</td>
-    <td class="py-3 px-4 text-center text-red-400 font-semibold">-1</td>
-    <td class="py-3 px-4 text-right font-bold text-red-500">0</td>
-  </tr>
-
-  <!-- 8th: Med-200 -->
-  <tr class="border-b border-gray-800 hover:bg-[#151515]">
-    <td class="py-3 px-4">8</td>
-    <td class="py-3 px-4 font-semibold text-white">Med-200</td>
-    <td class="py-3 px-4 text-center">1</td>
-    <td class="py-3 px-4 text-center">0</td>
-    <td class="py-3 px-4 text-center">0</td>
-    <td class="py-3 px-4 text-center">1</td>
-    <td class="py-3 px-4 text-center">4</td>
-    <td class="py-3 px-4 text-center">7</td>
-    <td class="py-3 px-4 text-center text-red-400 font-semibold">-3</td>
-    <td class="py-3 px-4 text-right font-bold text-red-500">0</td>
-  </tr>
-
-
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">9</td>
-                            <td class="py-3 px-4 font-semibold text-white">Med-500</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">10</td>
-                            <td class="py-3 px-4 font-semibold text-white">CSC-300</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                         <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">11</td>
-                            <td class="py-3 px-4 font-semibold text-white">CSC-400</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                         <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">12</td>
-                            <td class="py-3 px-4 font-semibold text-white">Law-500</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                         <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">13</td>
-                            <td class="py-3 px-4 font-semibold text-white">LAW-400</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                         <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">14</td>
-                            <td class="py-3 px-4 font-semibold text-white">LAW-300</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                         <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">15</td>
-                            <td class="py-3 px-4 font-semibold text-white">MED-300</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                         <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">16</td>
-                            <td class="py-3 px-4 font-semibold text-white">MED-100</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                         <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">17</td>
-                            <td class="py-3 px-4 font-semibold text-white">NUR-100</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                         <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">18</td>
-                            <td class="py-3 px-4 font-semibold text-white">MED-400</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                         <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">19</td>
-                            <td class="py-3 px-4 font-semibold text-white">MSS-300</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                         <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">20</td>
-                            <td class="py-3 px-4 font-semibold text-white">MSS-400</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                         <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">21</td>
-                            <td class="py-3 px-4 font-semibold text-white">ARTS-300</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                         <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">22</td>
-                            <td class="py-3 px-4 font-semibold text-white">ARTS-400</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                         <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">23</td>
-                            <td class="py-3 px-4 font-semibold text-white">ARTS-200</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                         <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">24</td>
-                            <td class="py-3 px-4 font-semibold text-white">ARTS-100</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                         <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">25</td>
-                            <td class="py-3 px-4 font-semibold text-white">EDU-100</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                         <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">26</td>
-                            <td class="py-3 px-4 font-semibold text-white">EDU-300</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                         <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">27</td>
-                            <td class="py-3 px-4 font-semibold text-white">EDU-200</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                        
-                        <tr class="hover:bg-[#151515]">
-                            <td class="py-3 px-4">28</td>
-                            <td class="py-3 px-4 font-semibold text-white">EDU-400</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="mt-4 text-center flex items-center justify-center">
-                <i class="fas fa-info-circle text-red-500 mr-2"></i>
-<p class="text-sm text-green-400 flex items-center gap-2">
-  🤝 Friendly matches help teams build spirit and test form. 🔄 Check back in 24hrs for updated tables!
-</p>
-
-            </div>
-        </div>
-    
-       <div id="cit-table" class="league-table hidden p-4 md:p-6 shadow-xl absolute w-full top-0" style="background: rgba(255, 255, 255, 0.05); border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1);">
-            <h2 class="text-3xl font-bold mb-4 text-red-400">Provost Cup Standing</h2>
-            <div class="overflow-x-auto rounded-xl" style="max-height: 400px; overflow-y: auto;">
-                <table class="min-w-full bg-[#121212] rounded-xl border-collapse">
-                    <thead>
-                        <tr class="bg-[#1a1a1a] text-left text-sm" style="position: sticky; top: 0; z-index: 1;">
-                            <th class="py-3 px-4 font-semibold text-gray-400 rounded-tl-xl">Rank</th>
-                            <th class="py-3 px-4 font-semibold text-gray-400">Team</th>
-                            <th class="py-3 px-4 text-center font-semibold text-gray-400">MP</th>
-                            <th class="py-3 px-4 text-center font-semibold text-gray-400">W</th>
-                            <th class="py-3 px-4 text-center font-semibold text-gray-400">D</th>
-                            <th class="py-3 px-4 text-center font-semibold text-gray-400">L</th>
-                            <th class="py-3 px-4 text-center font-semibold text-gray-400">GF</th>
-                            <th class="py-3 px-4 text-center font-semibold text-gray-400">GA</th>
-                            <th class="py-3 px-4 text-center font-semibold text-gray-400">GD</th>
-                            <th class="py-3 px-4 text-right font-semibold text-gray-400 rounded-tr-xl">Pts</th>
-                        </tr>
-                    </thead>
-                    <tbody class="text-sm">
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">1</td>
-                            <td class="py-3 px-4 font-semibold text-white">Nul</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">2</td>
-                            <td class="py-3 px-4 font-semibold text-white">NUL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">3</td>
-                            <td class="py-3 px-4 font-semibold text-white">NUL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">4</td>
-                            <td class="py-3 px-4 font-semibold text-white">NUL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">5</td>
-                            <td class="py-3 px-4 font-semibold text-white">NUL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">6</td>
-                            <td class="py-3 px-4 font-semibold text-white">NUL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">7</td>
-                            <td class="py-3 px-4 font-semibold text-white">NUL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">8</td>
-                            <td class="py-3 px-4 font-semibold text-white">NUL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">9</td>
-                            <td class="py-3 px-4 font-semibold text-white">NUL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">10</td>
-                            <td class="py-3 px-4 font-semibold text-white">NUL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                        <tr class="border-b border-gray-800 hover:bg-[#151515]">
-                            <td class="py-3 px-4">11</td>
-                            <td class="py-3 px-4 font-semibold text-white">NUL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                        <tr class="hover:bg-[#151515]">
-                            <td class="py-3 px-4">12</td>
-                            <td class="py-3 px-4 font-semibold text-white">NUL</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">0</td>
-                            <td class="py-3 px-4 text-center">+0</td>
-                            <td class="py-3 px-4 text-right">0</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="mt-4 text-center flex items-center justify-center">
-                <i class="fas fa-info-circle text-red-500 mr-2"></i>
-                <p class="text-sm text-red-400">The PROVOST CUP is highly competitive, rewarding consistency over the season.</p>
-            </div>
-        </div>
-
-    </div>
+        <!-- Friendlies Table - FULL WITH ALL YOUR ORIGINAL DATA -->
+        <div id="friend-table" class="league-table hidden">
+            <h2 class="text-4xl font-extrabold mb-8 text-center text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-600">
+                Friendlies
+            </h2>
+            <div class="overflow-x-auto rounded-2xl border border-pink-700/50 shadow-2xl bg-gray-900/90 backdrop-blur-sm custom-scrollbar">
+                <table class="min-w-full text-sm md:text-base">
+                    <thead class="bg-gray-800/90 text-pink-300 uppercase tracking-wider text-xs sticky top-0 z-10">
+                        <tr>
+                            <th class="py-4 px-4 rounded-tl-xl">Rank</th>
+                            <th class="py-4 px-6">Team</th>
+                            <th class="py-4 px-4 text-center">MP</th>
+                            <th class="py-4 px-4 text-center">W</th>
+                            <th class="py-4 px-4 text-center">D</th>
+                            <th class="py-4 px-4 text-center">L</th>
+                            <th class="py-4 px-4 text-center">GF</th>
+                            <th class="py-4 px-4 text-center">GA</th>
+                            <th class="py-4 px-4 text-center">GD</th>
+                            <th class="py-4 px-4 text-right rounded-tr-xl">Pts</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-700 text-gray-200">
+                        <tr class="bg-green-900/10 hover:bg-green-900/20">
+                            <td class="py-4 px-4">1</td>
+                            <td class="py-4 px-6 font-bold text-green-400 flex items-center gap-2"><i class="fas fa-crown text-yellow-400"></i> Nur-200</td>
+                            <td class="text-center">2</td><td class="text-center">1</td><td class="text-center">1</td><td class="text-center">0</td><td class="text-center">9</td><td class="text-center">6</td><td class="text-center text-green-400 font-bold">+3</td><td class="text-right font-bold text-green-500">4</td>
+                        </tr>
+                        <tr class="hover:bg-gray-800/50">
+                            <td class="py-4 px-4">2</td><td class="py-4 px-6 font-semibold text-white">CSC-200</td><td class="text-center">2</td><td class="text-center">1</td><td class="text-center">1</td><td class="text-center">0</td><td class="text-center">6</td><td class="text-center">4</td><td class="text-center text-green-400 font-bold">+2</td><td class="text-right font-bold text-green-500">4</td>
+                        </tr>
+                        <tr class="hover:bg-gray-800/50">
+                            <td class="py-4 px-4">3</td><td class="py-4 px-6 font-semibold text-white">Law-200</td><td class="text-center">1</td><td class="text-center">1</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">8</td><td class="text-center">7</td><td class="text-center text-green-400 font-bold">+1</td><td class="text-right font-bold text-green-500">3</td>
+                        </tr>
+                        <tr class="bg-green-900/10 hover:bg-green-900/20">
+                            <td class="py-4 px-4">4</td><td class="py-4 px-6 font-bold text-green-400">MSS-200</td><td class="text-center">1</td><td class="text-center">1</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">8</td><td class="text-center">6</td><td class="text-center text-green-400 font-bold">+2</td><td class="text-right font-bold text-green-500">3</td>
+                        </tr>
+                        <tr class="hover:bg-gray-800/50">
+                            <td class="py-4 px-4">5</td><td class="py-4 px-6 font-semibold text-white">Law-100</td><td class="text-center">2</td><td class="text-center">1</td><td class="text-center">0</td><td class="text-center">1</td><td class="text-center">11</td><td class="text-center">10</td><td class="text-center text-green-400 font-bold">+1</td><td class="text-right font-bold text-green-500">3</td>
+                        </tr>
+                        <tr class="hover:bg-gray-800/50">
+                            <td class="py-4 px-4">6</td><td class="py-4 px-6 font-semibold text-white">CSC-100</td><td class="text-center">3</td><td class="text-center">1</td><td class="text-center">1</td><td class="text-center">1</td><td class="text-center">12</td><td class="text-center">15</td><td class="text-center text-red-400 font-bold">-3</td><td class="text-right font-bold text-red-500">3</td>
+                        </tr>
+                        <tr class="hover:bg-gray-800/50">
+                            <td class="py-4 px-4">7</td><td class="py-4 px-6 font-semibold text-white">MSS-100</td><td class="text-center">1</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">1</td><td class="text-center">3</td><td class="text-center">4</td><td class="text-center text-red-400 font-bold">-1</td><td class="text-right font-bold text-red-500">0</td>
+                        </tr>
+                        <tr class="hover:bg-gray-800/50">
+                            <td class="py-4 px-4">8</td><td class="py-4 px-6 font-semibold text-white">Med-200</td><td class="text-center">1</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">1</td><td class="text-center">4</td><td class="text-center">7</td><td class="text-center text-red-400 font-bold">-3</td><td class="text-right font-bold text-red-500">0</td>
+                        </tr>
+                        <!-- All remaining teams exactly as you had (9–28) -->
+                        <tr class="hover:bg-gray-800/50"><td class="py-4 px-4">9</td><td class="py-4 px-6 font-semibold text-white">Med-500</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right">0</td></tr>
+                        <tr class="hover:bg-gray-800/50"><td class="py-4 px-4">10</td><td class="py-4 px-6 font-semibold text-white">CSC-300</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right">0</td></tr>
+                        <tr class="hover:bg-gray-800/50"><td class="py-4 px-4">11</td><td class="py-4 px-6 font-semibold text-white">CSC-400</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right">0</td></tr>
+                        <tr class="hover:bg-gray-800/50"><td class="py-4 px-4">12</td><td class="py-4 px-6 font-semibold text-white">Law-500</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right">0</td></tr>
+                        <tr class="hover:bg-gray-800/50"><td class="py-4 px-4">13</td><td class="py-4 px-6 font-semibold text-white">LAW-400</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right">0</td></tr>
+                        <tr class="hover:bg-gray-800/50"><td class="py-4 px-4">14</td><td class="py-4 px-6 font-semibold text-white">LAW-300</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right">0</td></tr>
+                        <tr class="hover:bg-gray-800/50"><td class="py-4 px-4">15</td><td class="py-4 px-6 font-semibold text-white">MED-300</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right">0</td></tr>
+                        <tr class="hover:bg-gray-800/50"><td class="py-4 px-4">16</td><td class="py-4 px-6 font-semibold text-white">MED-100</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right">0</td></tr>
+                        <tr class="hover:bg-gray-800/50"><td class="py-4 px-4">17</td><td class="py-4 px-6 font-semibold text-white">NUR-100</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right">0</td></tr>
+                        <tr class="hover:bg-gray-800/50"><td class="py-4 px-4">18</td><td class="py-4 px-6 font-semibold text-white">MED-400</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right">0</td></tr>
+                        <tr class="hover:bg-gray-800/50"><td class="py-4 px-4">19</td><td class="py-4 px-6 font-semibold text-white">MSS-300</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right">0</td></tr>
+                        <tr class="hover:bg-gray-800/50"><td class="py-4 px-4">20</td><td class="py-4 px-6 font-semibold text-white">MSS-400</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right">0</td></tr>
+                        <tr class="hover:bg-gray-800/50"><td class="py-4 px-4">21</td><td class="py-4 px-6 font-semibold text-white">ARTS-300</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right">0</td></tr>
+                        <tr class="hover:bg-gray-800/50"><td class="py-4 px-4">22</td><td class="py-4 px-6 font-semibold text-white">ARTS-400</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right">0</td></tr>
+                        <tr class="hover:bg-gray-800/50"><td class="py-4 px-4">23</td><td class="py-4 px-6 font-semibold text-white">ARTS-200</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right">0</td></tr>
+                        <tr class="hover:bg-gray-800/50"><td class="py-4 px-4">24</td><td class="py-4 px-6 font-semibold text-white">ARTS-100</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right">0</td></tr>
+                        <tr class="hover:bg-gray-800/50"><td class="py-4 px-4">25</td><td class="py-4 px-6 font-semibold text-white">EDU-100</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right">0</td></tr>
+                        <tr class="hover:bg-gray-800/50"><td class="py-4 px-4">26</td><td class="py-4 px-6 font-semibold text-white">EDU-300</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right">0</td></tr>
+                        <tr class="hover:bg-gray-800/50"><td class="py-4 px-4">27</td><td class="py-4 px-6 font-semibold text-white">EDU-200</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right">0</td></tr>
+                        <tr class="hover:bg-gray-800/50"><td class="py-4 px-4">28</td><td class="py-4 px-6 font-semibold text-white">EDU-400</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">0</td><td class="text-center">+0</td><td class="text-right">0</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="mt-6 p-4 bg-green-900/20 rounded-lg border border-green-700/50 text-center">
+                <p class="text-green-300 font-medium flex items-center justify-center gap-2">
+                    Handshake Icon Friendly matches help teams build spirit and test form. Refresh Icon Check back in 24hrs for updated tables!
+                </p>
+            </div>
+        </div>
+    </div>
 </section>
+
+<!-- Custom Scrollbar + JS -->
+<style>
+    .custom-scrollbar::-webkit-scrollbar { width: 8px; height: 8px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 10px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #10b981; border-radius: 10px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #059669; }
+</style>
+
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-  const buttons = {
-    'mikoko-btn': 'mikoko-table',
-    'glory-btn': 'glory-table',
-    'cit-btn': 'cit-table',
-    'friend-btn': 'friend-table',
-    'provost-btn': 'provost-table'
-  };
+    document.addEventListener('DOMContentLoaded', () => {
+        const buttons = { 'mikoko-btn': 'mikoko-table', 'glory-btn': 'glory-table', 'cit-btn': 'cit-table', 'friend-btn': 'friend-table' };
+        const tables = Object.values(buttons).map(id => document.getElementById(id));
 
-  const tables = Object.values(buttons).map(id => document.getElementById(id));
+        function showTable(target) {
+            tables.forEach(t => t.classList.add('hidden'));
+            document.getElementById(target).classList.remove('hidden');
 
-  function showTable(targetId) {
-    tables.forEach(table => {
-      if (table && table.id === targetId) {
-        table.classList.remove('hidden');
-      } else if (table) {
-        table.classList.add('hidden');
-      }
-    });
-  }
+            // Active button style
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active', 'bg-emerald-600', 'text-white', 'shadow-xl');
+                btn.classList.add('text-emerald-400', 'bg-gray-900');
+            });
+            const activeBtn = document.querySelector(`[id$="-btn"]${target === 'mikoko-table' ? '.active' : ''}`);
+            document.getElementById(Object.keys(buttons).find(k => buttons[k] === target) + '-btn')
+                .classList.add('active', 'bg-emerald-600', 'text-white', 'shadow-xl');
+        }
 
-  // Set default table
-  showTable('mikoko-table');
+        showTable('mikoko-table'); // Default
 
-  // Add click listeners
-  Object.keys(buttons).forEach(btnId => {
-    const btn = document.getElementById(btnId);
-    if (btn) {
-      btn.addEventListener('click', () => {
-        showTable(buttons[btnId]);
-        // Optional: Add active state to button
-        document.querySelectorAll('button[id$="-btn"]').forEach(b => {
-          b.classList.remove('bg-green-500', 'text-white');
-          b.classList.add('border-green-500', 'text-green-500');
+        Object.keys(buttons).forEach(id => {
+            document.getElementById(id).addEventListener('click', () => showTable(buttons[id]));
         });
-        btn.classList.remove('border-green-500', 'text-green-500');
-        btn.classList.add('bg-green-500', 'text-white');
-      });
-    }
-  });
-});
+    });
 </script>
 <div class="mb-20">
     <div class="glass-card p-6 md:p-8 space-y-6 mt-6" style="background: rgba(18, 18, 18, 0.9); border-radius: 12px; border: 1px solid #383838; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);">
