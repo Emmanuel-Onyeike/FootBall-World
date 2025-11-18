@@ -1545,39 +1545,40 @@ a:focus, button:focus, .btn:focus{
         </div>
     </section>
 
-  <div class="modal-components-container">
-    <div id="csc100-mss100-modal" class="fixed inset-0 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 hidden z-50">
-        <div class="bg-gradient-to-br from-[#0a0a0a] to-[#111] text-white rounded-2xl shadow-2xl w-full max-w-4xl p-8
-                 border border-green-700/50 max-h-[95vh] overflow-y-auto relative glass-card">
-            
-            <button onclick="closeMatchModal('csc100-mss100')" class="modal-close">
-                <i class="fas fa-times"></i>
+<div id="csc100-mss100-modal" class="fixed inset-0 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 hidden z-50">
+    <div class="bg-gradient-to-br from-[#0a0a0a] to-[#111] text-white rounded-2xl shadow-2xl w-full max-w-4xl p-8
+                 border border-green-700/50 max-h-[95vh] relative glass-card flex flex-col">
+        
+        <button onclick="closeMatchModal('csc100-mss100')" class="modal-close">
+            <i class="fas fa-times"></i>
+        </button>
+
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 border-b border-gray-700 pb-4 flex-shrink-0">
+            <h2 class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-500">
+                CSC 100 <span class="text-gray-600">vs</span> MSS 200
+            </h2>
+            <div class="flex items-center gap-4 mt-3 sm:mt-0">
+                <span class="text-3xl font-black text-red-500">6–8</span>
+                <span class="text-sm bg-red-800/60 text-red-200 px-4 py-1.5 rounded-full font-semibold border border-red-700">
+                    LOSS / Full Time
+                </span>
+            </div>
+        </div>
+
+        <p class="text-gray-400 mb-8 flex items-center gap-2 text-sm md:text-base flex-shrink-0">
+            <i class="fas fa-calendar-alt"></i> Saturday, 15th November 2025 · <i class="fas fa-clock"></i> 11:00 AM · <i class="fas fa-map-marker-alt"></i> Campus Main Field 2
+        </p>
+
+        <div class="flex gap-2 mb-8 bg-black/40 p-1 rounded-xl w-fit flex-shrink-0">
+            <button data-tab="summary1" class="tab-btn active">
+                <i class="fas fa-list-alt mr-1"></i> Match Summary
             </button>
-
-            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 border-b border-gray-700 pb-4">
-                <h2 class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-500">
-                    CSC 100 <span class="text-gray-600">vs</span> MSS 200
-                </h2>
-                <div class="flex items-center gap-4 mt-3 sm:mt-0">
-                    <span class="text-3xl font-black text-red-500">6–8</span>
-                    <span class="text-sm bg-red-800/60 text-red-200 px-4 py-1.5 rounded-full font-semibold border border-red-700">
-                        LOSS / Full Time
-                    </span>
-                </div>
-            </div>
-
-            <p class="text-gray-400 mb-8 flex items-center gap-2 text-sm md:text-base">
-                <i class="fas fa-calendar-alt"></i> Saturday, 15th November 2025 · <i class="fas fa-clock"></i> 11:00 AM · <i class="fas fa-map-marker-alt"></i> Campus Main Field 2
-            </p>
-
-            <div class="flex gap-2 mb-8 bg-black/40 p-1 rounded-xl w-fit">
-                <button data-tab="summary1" class="tab-btn active">
-                    <i class="fas fa-list-alt mr-1"></i> Match Summary
-                </button>
-                <button data-tab="players1" class="tab-btn">
-                    <i class="fas fa-users mr-1"></i> Players & Stats
-                </button>
-            </div>
+            <button data-tab="players1" class="tab-btn">
+                <i class="fas fa-users mr-1"></i> Players & Stats
+            </button>
+        </div>
+        
+        <div class="overflow-y-auto custom-scrollbar pr-4 flex-grow"> 
 
             <div id="summary1" class="tab-content space-y-6">
                 <h3 class="text-xl font-bold text-gray-300 border-b border-gray-800 pb-2 mb-4">Match Timeline</h3>
@@ -1657,42 +1658,43 @@ a:focus, button:focus, .btn:focus{
                 <i class="fas fa-chart-bar text-5xl text-gray-700 mb-4"></i>
                 <p class="text-gray-400 text-lg">Player ratings & stats will be updated post-match.</p>
             </div>
+        </div> </div>
+</div>
+
+<div id="csc100-law100-modal" class="fixed inset-0 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 hidden z-50">
+    <div class="bg-gradient-to-br from-[#0a0a0a] to-[#111] text-white rounded-2xl shadow-2xl w-full max-w-4xl p-8
+                 border border-green-700/50 max-h-[95vh] relative glass-card flex flex-col">
+        
+        <button onclick="closeMatchModal('csc100-law100')" class="modal-close">
+            <i class="fas fa-times"></i>
+        </button>
+
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 border-b border-gray-700 pb-4 flex-shrink-0">
+            <h2 class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-500">
+                CSC 100 <span class="text-gray-600">vs</span> Law 100
+            </h2>
+            <div class="flex items-center gap-4 mt-3 sm:mt-0">
+                <span class="text-3xl font-black text-red-500">2–4</span>
+                <span class="text-sm bg-red-800/60 text-red-200 px-4 py-1.5 rounded-full font-semibold border border-red-700">
+                    LOSS / Full Time
+                </span>
+            </div>
         </div>
-    </div>
 
-    <div id="csc100-law100-modal" class="fixed inset-0 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 hidden z-50">
-        <div class="bg-gradient-to-br from-[#0a0a0a] to-[#111] text-white rounded-2xl shadow-2xl w-full max-w-4xl p-8
-                 border border-green-700/50 max-h-[95vh] overflow-y-auto relative glass-card">
-            
-            <button onclick="closeMatchModal('csc100-law100')" class="modal-close">
-                <i class="fas fa-times"></i>
+        <p class="text-gray-400 mb-8 flex items-center gap-2 text-sm md:text-base flex-shrink-0">
+            <i class="fas fa-calendar-alt"></i> Saturday, 8th November 2025 · <i class="fas fa-clock"></i> 11:00 AM · <i class="fas fa-map-marker-alt"></i> Campus Main Field
+        </p>
+
+        <div class="flex gap-2 mb-8 bg-black/40 p-1 rounded-xl w-fit flex-shrink-0">
+            <button data-tab="summary2" class="tab-btn active">
+                <i class="fas fa-list-alt mr-1"></i> Match Summary
             </button>
+            <button data-tab="players2" class="tab-btn">
+                <i class="fas fa-users mr-1"></i> Players & Stats
+            </button>
+        </div>
 
-            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 border-b border-gray-700 pb-4">
-                <h2 class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-500">
-                    CSC 100 <span class="text-gray-600">vs</span> Law 100
-                </h2>
-                <div class="flex items-center gap-4 mt-3 sm:mt-0">
-                    <span class="text-3xl font-black text-red-500">2–4</span>
-                    <span class="text-sm bg-red-800/60 text-red-200 px-4 py-1.5 rounded-full font-semibold border border-red-700">
-                        LOSS / Full Time
-                    </span>
-                </div>
-            </div>
-
-            <p class="text-gray-400 mb-8 flex items-center gap-2 text-sm md:text-base">
-                <i class="fas fa-calendar-alt"></i> Saturday, 8th November 2025 · <i class="fas fa-clock"></i> 11:00 AM · <i class="fas fa-map-marker-alt"></i> Campus Main Field
-            </p>
-
-            <div class="flex gap-2 mb-8 bg-black/40 p-1 rounded-xl w-fit">
-                <button data-tab="summary2" class="tab-btn active">
-                    <i class="fas fa-list-alt mr-1"></i> Match Summary
-                </button>
-                <button data-tab="players2" class="tab-btn">
-                    <i class="fas fa-users mr-1"></i> Players & Stats
-                </button>
-            </div>
-
+        <div class="overflow-y-auto custom-scrollbar pr-4 flex-grow">
             <div id="summary2" class="tab-content space-y-6">
                 <h3 class="text-xl font-bold text-gray-300 border-b border-gray-800 pb-2 mb-4">Match Timeline</h3>
                 
@@ -1732,151 +1734,183 @@ a:focus, button:focus, .btn:focus{
                 <i class="fas fa-chart-bar text-5xl text-gray-700 mb-4"></i>
                 <p class="text-gray-400 text-lg">Player ratings & stats will be updated post-match.</p>
             </div>
-        </div>
-    </div>
-
-    <style>
-        /* Global Styles for background/modal */
-        .glass-card {
-            background: rgba(10, 10, 10, 0.9); /* Darker background for details */
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        }
-        
-        /* Modal Styles */
-        .modal-close {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            font-size: 1.875rem; /* text-3xl */
-            color: #6b7280; /* text-gray-500 */
-            transition-property: color;
-            transition-duration: 150ms;
-            padding: 0.5rem;
-        }
-        .modal-close:hover {
-            color: #ef4444; /* text-red-500 */
-        }
-
-        /* Tab Buttons */
-        .tab-btn {
-            padding-left: 1rem;
-            padding-right: 1rem;
-            padding-top: 0.5rem;
-            padding-bottom: 0.5rem;
-            border-radius: 0.5rem;
-            font-weight: 600;
-            transition: all 200ms;
-            font-size: 0.875rem; /* text-sm */
-        }
-
-        .tab-btn:not(.active) {
-            color: #9ca3af; /* text-gray-400 */
-        }
-        .tab-btn:not(.active):hover {
-            background-color: rgba(55, 65, 81, 0.5); /* hover:bg-gray-700/50 */
-        }
-
-        .tab-btn.active {
-            color: #22d3ee; /* text-cyan-400 */
-            background-color: rgba(8, 145, 178, 0.3); /* bg-cyan-900/30 */
-            --tw-ring-color: rgba(6, 182, 212, 0.5); /* ring-cyan-500/50 */
-            box-shadow: 0 0 0 2px var(--tw-ring-color); /* ring-2 */
-        }
-
-        /* Timeline Styling */
-        .timeline-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-            padding: 0.75rem 1.5rem 0.75rem 0.75rem;
-            border-left: 4px solid #374151; /* border-l-4 border-gray-700 */
-            transition-property: background-color;
-            transition-duration: 150ms;
-            position: relative;
-        }
-
-        .timeline-item:hover {
-            background-color: rgba(31, 41, 55, 0.5); /* hover:bg-gray-800/50 */
-        }
-
-        .timeline-icon {
-            /* This is the minute marker / event icon */
-            flex-shrink: 0;
-            width: 2.5rem;
-            height: 2.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.125rem; /* text-lg */
-            font-weight: 700;
-            border-radius: 9999px; /* rounded-full */
-            color: white;
-            box-shadow: 0 0 0 4px #0a0a0a; /* Creates a cutout effect from the dark background */
-            margin-left: -27px; /* Aligns icon on the border line (27px = 4px border + half of 40px width) */
-        }
-
-        /* Event Colors for Icons */
-        .timeline-item .fa-futbol {
-            background-color: #059669; /* emerald-600 */
-        }
-        .timeline-item .fa-hat-trick {
-            background-color: #ca8a04; /* yellow-600 */
-        }
-        .timeline-item .fa-skull-crossbones {
-            background-color: #b91c1c; /* red-700 */
-        }
-        .timeline-item .fa-redo {
-            background-color: #2563eb; /* blue-700 */
-        }
-        .timeline-item .fa-whistle {
-            background-color: #6b7280; /* gray-500 */
-        }
-        
-        /* Specific styling for the icons of the losing team's goals/events */
-        .timeline-item .timeline-icon.bg-red-700\/70 {
-            background-color: #b91c1c; /* red-700 */
-        }
-
-    </style>
-
-    <script>
-        function openMatchModal(id) {
-            document.getElementById(id + '-modal').classList.remove('hidden');
-        }
-        function closeMatchModal(id) {
-            document.getElementById(id + '-modal').classList.add('hidden');
-        }
-
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const modal = btn.closest('[id$="-modal"]');
-                const target = btn.dataset.tab;
-
-                // Deactivate all buttons in the current modal
-                modal.querySelectorAll('.tab-btn').forEach(b => {
-                    b.classList.remove('active', 'text-cyan-400', 'bg-cyan-900/30', 'ring-2', 'ring-cyan-500/50');
-                    b.classList.add('text-gray-400', 'hover:bg-gray-700/50');
-                });
-                
-                // Hide all tab contents in the current modal
-                modal.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
-
-                // Activate the clicked button
-                btn.classList.add('active', 'text-cyan-400', 'bg-cyan-900/30', 'ring-2', 'ring-cyan-500/50');
-                btn.classList.remove('text-gray-400', 'hover:bg-gray-700/50');
-
-                // Show the target content
-                document.getElementById(target).classList.remove('hidden');
-            });
-        });
-
-        // --- IMPORTANT: Utility to show the modal for testing (for your environment) ---
-        // Uncomment the line below after pasting the code to see the first modal instantly
-        // openMatchModal('csc100-mss100'); 
-    </script>
+        </div> </div>
 </div>
+
+<style>
+    /* Global Styles for background/modal */
+    .glass-card {
+        background: rgba(10, 10, 10, 0.9); /* Darker background for details */
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+    
+    /* Match Card Button */
+    .btn-details {
+        background: linear-gradient(to right, #10b981, #059669); /* green-600 to emerald-600 */
+        color: white;
+        font-weight: 600;
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.75rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+        transition: all 300ms;
+    }
+
+    .btn-details:hover {
+        background: linear-gradient(to right, #059669, #047857); /* darker green/emerald */
+        transform: scale(1.05);
+        box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.3), 0 4px 6px -4px rgba(16, 185, 129, 0.3);
+    }
+
+    /* Custom Scrollbar for better UX on the match stream */
+    .custom-scrollbar::-webkit-scrollbar {
+        height: 6px;
+        width: 6px; /* Added width for vertical scrollbar visibility */
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-track {
+        background: #1f2937; /* Gray-800 */
+        border-radius: 10px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #10b981; /* Emerald-500 */
+        border-radius: 10px;
+    }
+    
+    /* Modal Styles */
+    .modal-close {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        font-size: 1.875rem; /* text-3xl */
+        color: #6b7280; /* text-gray-500 */
+        transition-property: color;
+        transition-duration: 150ms;
+        padding: 0.5rem;
+    }
+    .modal-close:hover {
+        color: #ef4444; /* text-red-500 */
+    }
+
+    /* Tab Buttons */
+    .tab-btn {
+        padding-left: 1rem;
+        padding-right: 1rem;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        transition: all 200ms;
+        font-size: 0.875rem; /* text-sm */
+    }
+
+    .tab-btn:not(.active) {
+        color: #9ca3af; /* text-gray-400 */
+    }
+    .tab-btn:not(.active):hover {
+        background-color: rgba(55, 65, 81, 0.5); /* hover:bg-gray-700/50 */
+    }
+
+    .tab-btn.active {
+        color: #22d3ee; /* text-cyan-400 */
+        background-color: rgba(8, 145, 178, 0.3); /* bg-cyan-900/30 */
+        --tw-ring-color: rgba(6, 182, 212, 0.5); /* ring-cyan-500/50 */
+        box-shadow: 0 0 0 2px var(--tw-ring-color); /* ring-2 */
+    }
+
+    /* Timeline Styling */
+    .timeline-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        padding: 0.75rem 1.5rem 0.75rem 0.75rem;
+        border-left: 4px solid #374151; /* border-l-4 border-gray-700 */
+        transition-property: background-color;
+        transition-duration: 150ms;
+        position: relative;
+    }
+
+    .timeline-item:hover {
+        background-color: rgba(31, 41, 55, 0.5); /* hover:bg-gray-800/50 */
+    }
+
+    .timeline-icon {
+        /* This is the minute marker / event icon */
+        flex-shrink: 0;
+        width: 2.5rem;
+        height: 2.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.125rem; /* text-lg */
+        font-weight: 700;
+        border-radius: 9999px; /* rounded-full */
+        color: white;
+        box-shadow: 0 0 0 4px #0a0a0a; /* Creates a cutout effect from the dark background */
+        margin-left: -27px; /* Aligns icon on the border line (27px = 4px border + half of 40px width) */
+    }
+
+    /* Event Colors for Icons */
+    .timeline-item .fa-futbol {
+        background-color: #059669; /* emerald-600 */
+    }
+    .timeline-item .fa-hat-trick {
+        background-color: #ca8a04; /* yellow-600 */
+    }
+    .timeline-item .fa-skull-crossbones {
+        background-color: #b91c1c; /* red-700 */
+    }
+    .timeline-item .fa-redo {
+        background-color: #2563eb; /* blue-700 */
+    }
+    .timeline-item .fa-whistle {
+        background-color: #6b7280; /* gray-500 */
+    }
+    
+    /* Specific styling for the icons of the losing team's goals/events */
+    /* Overrides generic icon color for specific events in the HTML (e.g., auto-goals or goals against) */
+    .timeline-item .timeline-icon.bg-red-700\/70 {
+        background-color: #b91c1c; /* red-700 */
+    }
+
+</style>
+
+<script>
+    function openMatchModal(id) {
+        document.getElementById(id + '-modal').classList.remove('hidden');
+    }
+    function closeMatchModal(id) {
+        document.getElementById(id + '-modal').classList.add('hidden');
+    }
+
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const modal = btn.closest('[id$="-modal"]');
+            const target = btn.dataset.tab;
+
+            // Deactivate all buttons in the current modal
+            modal.querySelectorAll('.tab-btn').forEach(b => {
+                b.classList.remove('active', 'text-cyan-400', 'bg-cyan-900/30', 'ring-2', 'ring-cyan-500/50');
+                b.classList.add('text-gray-400', 'hover:bg-gray-700/50');
+            });
+            
+            // Hide all tab contents in the current modal
+            modal.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+
+            // Activate the clicked button
+            btn.classList.add('active', 'text-cyan-400', 'bg-cyan-900/30', 'ring-2', 'ring-cyan-500/50');
+            btn.classList.remove('text-gray-400', 'hover:bg-gray-700/50');
+
+            // Show the target content
+            document.getElementById(target).classList.remove('hidden');
+        });
+    });
+</script>
         <!-- Standings Section (Updated with a Table) -->
 <div class="flex flex-col md:flex-row justify-between items-center 
             space-y-4 md:space-y-0 md:space-x-4 mb-8">
