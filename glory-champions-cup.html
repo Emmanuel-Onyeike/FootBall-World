@@ -3,138 +3,236 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tournament Bracket: R16 to Final</title>
+    <title>Tournament Bracket: Champions Edition</title>
     <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Custom styles for the Inter font and overall background */
+        /* Custom styles for the Inter font and dark background */
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #0d0d0d;
+            background-color: #080808; /* Even darker background */
             min-height: 100vh;
+            color: #e5e7eb; /* Light text */
         }
 
-        /* Styles for the trophy pulse effect */
+        /* Styles for the trophy pulse effect (made more intense) */
         .animate-pulse {
             animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
         @keyframes pulse {
             0%, 100% {
                 opacity: 1;
-                text-shadow: 0 0 10px rgba(255, 255, 0, 0.8);
+                text-shadow: 0 0 15px rgba(255, 215, 0, 1); /* Gold glow */
             }
             50% {
-                opacity: 0.7;
-                text-shadow: 0 0 20px rgba(255, 255, 0, 1);
+                opacity: 0.8;
+                text-shadow: 0 0 30px rgba(255, 215, 0, 1);
             }
         }
 
-        /* Match Box Styling - Consistent container for all rounds */
+        /* Match Box Styling - Premium Look */
         .match-box {
-            @apply p-3 bg-gray-800/90 border border-gray-700/50 rounded-lg shadow-2xl transition duration-300 transform hover:scale-[1.02];
-            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3), 0 4px 6px -2px rgba(0,0,0,0.1);
+            @apply p-3 bg-gray-800/80 border-t-2 border-b-2 border-gray-700/50 rounded-lg shadow-2xl transition duration-300 transform hover:scale-[1.03] cursor-pointer;
+            box-shadow: 0 15px 30px -5px rgba(0,0,0,0.5), 0 5px 15px -5px rgba(0,0,0,0.2);
         }
         .match-box:hover {
-            @apply border-yellow-500 shadow-yellow-900/40;
+            @apply border-yellow-500 shadow-yellow-900/60;
         }
 
+        /* Match Score Styling */
+        .score-winner {
+            @apply text-yellow-300 font-extrabold text-sm;
+        }
+        .score-loser {
+            @apply text-gray-400 font-bold text-sm;
+        }
+        
         /* --- Bracket Line Styles (Desktop Only) --- */
         @media (min-width: 1024px) {
-            /* All containers in the grid need to be relative to position the lines absolutely */
+            /* General container setup for relative positioning */
             .round-column {
                 position: relative;
                 height: 100%;
             }
 
-            /* Generic Line Styling */
-            .bracket-line {
-                display: none; /* Hide by default */
-                position: absolute;
-                background: none;
-                border-color: #4b5563; /* Tailwind gray-600 */
-                border-style: solid;
-                pointer-events: none;
-                z-index: 10;
+            /* Hides the line wrappers on mobile */
+            .bracket-line-wrapper {
+                display: none;
             }
 
-            /* R16 to QF Connectors (L-shape) */
-            .r16-line-left {
+            /* Show line wrappers on desktop */
+            .lg\:bracket-line-wrapper {
                 display: block;
-                width: 50%;
-                height: 100px; /* Space between R16 matches */
-                border-top-width: 2px;
-                border-right-width: 2px;
-                top: calc(50% - 50px);
-                right: 0;
-                transform: translateY(-50%);
-            }
-            .r16-line-right {
-                display: block;
-                width: 50%;
-                height: 100px;
-                border-top-width: 2px;
-                border-left-width: 2px;
-                top: calc(50% - 50px);
-                left: 0;
-                transform: translateY(-50%);
+                position: absolute;
+                z-index: 10;
+                pointer-events: none;
             }
             
-            /* QF to SF & SF to Final Connectors (Straight horizontal lines) */
-            .qf-to-sf-line {
-                display: block;
-                width: 50%;
-                height: 0;
-                border-top-width: 2px;
+            /* The common line style (Yellow, 2px thick, slight shadow) */
+            .line-style {
+                border-color: #fcd34d; /* Tailwind yellow-300 */
+                border-width: 2px;
+                border-style: solid;
+                box-shadow: 0 0 5px #fcd34d;
+                background-color: transparent;
+            }
+
+            /* R16 to QF Connector (L-shape) - Left side */
+            .r16-to-qf-left {
+                left: 100%; /* Start at the edge of the match container */
                 top: 50%;
-            }
-
-            .qf-to-sf-line.left {
-                right: 0;
-            }
-
-            .qf-to-sf-line.right {
-                left: 0;
-            }
-
-            /* QF/SF Vertical connections */
-            .vertical-line {
-                display: block;
-                width: 0;
-                height: 50%; /* Half the height of the container */
-                border-right-width: 2px;
-                left: 50%;
-                transform: translateX(-50%);
-            }
-
-            /* Specific Vertical alignment in QF */
-            .qf-line-v {
-                display: block;
+                width: 20px; /* Horizontal segment length */
                 height: 100%;
+                transform: translateY(-50%);
+                border-right-width: 0; 
+                border-top-width: 2px; /* Top horizontal bar */
+                border-bottom-width: 2px; /* Bottom horizontal bar */
+                
+                /* This is the vertical connector line, calculated to sit in the center of the gap */
+                position: absolute;
                 width: 0;
-                border-right-width: 2px;
-                left: 50%;
-                top: 0;
-                transform: translateX(-50%);
+                height: calc(100% + 2rem); /* Full height + vertical gap (32px) */
+                border-right: 2px solid #fcd34d;
+                left: 100%;
+                top: -16px; /* Half the vertical gap */
+                transform: none;
+                
+                /* This is the final horizontal piece */
+                /* I will use ::before and ::after on a single element for the L-shape */
             }
-        }
-        /* Mobile adjustment for stacked rounds */
-        .qf-match {
-            margin-top: 2rem;
+
+            /* Custom Line Implementation for perfect center alignment */
+            
+            /* This div wraps two R16 matches and defines the height for the QF connection */
+            .r16-group {
+                position: relative;
+                margin-bottom: 2rem; /* Add consistent gap */
+            }
+            
+            /* Pseudo-element for the entire R16 L-bracket (Left) */
+            .r16-group-left::before {
+                content: '';
+                position: absolute;
+                right: -20px; /* Gap between R16 and QF columns */
+                top: 50%;
+                width: 20px;
+                height: 1px;
+                transform: translateY(-50%);
+                border-top: 2px solid #fcd34d;
+                box-shadow: 0 0 5px #fcd34d;
+                z-index: 20;
+            }
+
+            /* Pseudo-element for the entire R16 L-bracket (Right) */
+            .r16-group-right::before {
+                content: '';
+                position: absolute;
+                left: -20px; /* Gap between R16 and QF columns */
+                top: 50%;
+                width: 20px;
+                height: 1px;
+                transform: translateY(-50%);
+                border-top: 2px solid #fcd34d;
+                box-shadow: 0 0 5px #fcd34d;
+                z-index: 20;
+            }
+            
+            /* QF to SF line (Horizontal Bar) - Left Side */
+            .qf-match-left::after {
+                content: '';
+                position: absolute;
+                right: -20px;
+                top: 50%;
+                width: 20px;
+                height: 1px;
+                transform: translateY(-50%);
+                border-top: 2px solid #fcd34d;
+                box-shadow: 0 0 5px #fcd34d;
+                z-index: 20;
+            }
+
+            /* QF to SF line (Horizontal Bar) - Right Side */
+            .qf-match-right::after {
+                content: '';
+                position: absolute;
+                left: -20px;
+                top: 50%;
+                width: 20px;
+                height: 1px;
+                transform: translateY(-50%);
+                border-top: 2px solid #fcd34d;
+                box-shadow: 0 0 5px #fcd34d;
+                z-index: 20;
+            }
+
+            /* QF Vertical Connector (Left) */
+            .qf-col-left::before {
+                content: '';
+                position: absolute;
+                right: -20px;
+                top: calc(50% + 2rem); /* Center of QF column */
+                width: 2px;
+                height: calc(100% - 4rem - 32px); /* Vertical space between two QFs */
+                transform: translateY(-50%);
+                border-left: 2px solid #fcd34d;
+                box-shadow: 0 0 5px #fcd34d;
+                z-index: 20;
+            }
+
+            /* QF Vertical Connector (Right) */
+            .qf-col-right::before {
+                content: '';
+                position: absolute;
+                left: -20px;
+                top: calc(50% + 2rem); 
+                width: 2px;
+                height: calc(100% - 4rem - 32px); 
+                transform: translateY(-50%);
+                border-left: 2px solid #fcd34d;
+                box-shadow: 0 0 5px #fcd34d;
+                z-index: 20;
+            }
+
+            /* SF to Final Horizontal Connector */
+            .sf-match-box::after {
+                content: '';
+                position: absolute;
+                left: 50%;
+                bottom: -32px; /* Gap to Final Section */
+                width: 2px;
+                height: 32px; /* Vertical segment */
+                transform: translateX(-50%);
+                border-left: 2px solid #fcd34d;
+                box-shadow: 0 0 5px #fcd34d;
+                z-index: 20;
+            }
+
+            /* Final Horizontal Bar across the top of the Final Section */
+            .final-section-line::before {
+                content: '';
+                position: absolute;
+                left: -120%; /* Extend across the whole bracket */
+                right: -120%;
+                top: -80px; /* Position above the SF matches */
+                height: 2px;
+                background: #fcd34d;
+                box-shadow: 0 0 10px #fcd34d;
+                z-index: 15;
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="py-12 md:py-16 bg-gray-950">
-        <h2 class="text-4xl md:text-6xl font-black text-center mb-12 text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-orange-400 to-red-500 drop-shadow-lg tracking-wider">
+    <div class="py-12 md:py-16 bg-gray-950/50 min-h-screen">
+        <h2 class="text-4xl md:text-6xl font-black text-center mb-12 text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-yellow-400 to-amber-500 drop-shadow-xl tracking-wider uppercase">
             THE CHAMPIONS KNOCKOUT
         </h2>
 
-        <div class="max-w-7xl mx-auto px-4">
+        <div class="max-w-8xl mx-auto px-4">
             
             <!-- Desktop Round Headings -->
-            <!-- Using the 3 | 2 | 2 | 2 | 3 structure for 12 columns -->
-            <div class="hidden lg:grid lg:grid-cols-12 text-center text-sm font-extrabold text-yellow-300 mb-8">
+            <div class="hidden lg:grid lg:grid-cols-12 text-center text-sm font-extrabold text-yellow-300 mb-8 border-b border-gray-700 pb-2">
                 <div class="lg:col-span-3">ROUND OF 16</div>
                 <div class="lg:col-span-2">QUARTER-FINALS</div>
                 <div class="lg:col-span-2">SEMI-FINALS & FINAL</div>
@@ -146,155 +244,121 @@
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-y-8 lg:gap-x-4 items-center">
 
                 <!-- 1. LEFT ROUND OF 16 (Matches 1-4) -->
-                <div class="w-full lg:col-span-3 space-y-4 lg:space-y-8 round-column">
+                <div class="w-full lg:col-span-3 space-y-8 round-column">
                     <h3 class="lg:hidden text-xl font-bold text-center text-yellow-300 mb-4 border-b border-gray-700 pb-2">Round of 16 (Bracket 1)</h3>
                     
                     <!-- R16 Group 1 (M1 & M2) -->
-                    <div class="space-y-4 relative lg:mb-[4.5rem]">
-                        <div class="match-box"><div class="flex justify-between items-center text-sm"><p class="font-semibold text-white">Team 1 (M1)</p><span class="text-xs font-bold text-yellow-400">1</span></div><div class="flex justify-between items-center text-sm pt-1 border-t border-gray-800 mt-1"><p class="font-semibold text-white">Team 2</p><span class="text-xs font-bold text-red-400">0</span></div></div>
-                        <div class="match-box"><div class="flex justify-between items-center text-sm"><p class="font-semibold text-white">Team 3 (M2)</p><span class="text-xs font-bold text-yellow-400">2</span></div><div class="flex justify-between items-center text-sm pt-1 border-t border-gray-800 mt-1"><p class="font-semibold text-white">Team 4</p><span class="text-xs font-bold text-red-400">0</span></div></div>
-                        <!-- Connector to QF 1 -->
-                        <div class="bracket-line r16-line-left top-[2.5rem]"></div>
-                        <div class="bracket-line w-[50%] h-[2px] border-t-2 border-gray-600/50 absolute top-[2.5rem] right-0"></div>
-                        <div class="bracket-line w-[50%] h-[2px] border-t-2 border-gray-600/50 absolute top-[6.5rem] right-0"></div>
+                    <div class="r16-group r16-group-left relative space-y-4">
+                        <div class="match-box"><div class="flex justify-between items-center text-sm"><p class="font-semibold text-white">Team A1 (M1)</p><span class="score-winner">3</span></div><div class="flex justify-between items-center text-sm pt-1 border-t border-gray-800 mt-1"><p class="font-semibold text-white">Team B2</p><span class="score-loser">1</span></div></div>
+                        <div class="match-box"><div class="flex justify-between items-center text-sm"><p class="font-semibold text-white">Team C3 (M2)</p><span class="score-winner">2</span></div><div class="flex justify-between items-center text-sm pt-1 border-t border-gray-800 mt-1"><p class="font-semibold text-white">Team D4</p><span class="score-loser">0</span></div></div>
                     </div>
 
                     <!-- R16 Group 2 (M3 & M4) -->
-                    <div class="space-y-4 relative lg:mt-[4.5rem] lg:mb-[4.5rem]">
-                        <div class="match-box"><div class="flex justify-between items-center text-sm"><p class="font-semibold text-white">Team 5 (M3)</p><span class="text-xs font-bold text-red-400">0</span></div><div class="flex justify-between items-center text-sm pt-1 border-t border-gray-800 mt-1"><p class="font-semibold text-white">Team 6</p><span class="text-xs font-bold text-yellow-400">1</span></div></div>
-                        <div class="match-box"><div class="flex justify-between items-center text-sm"><p class="font-semibold text-white">Team 7 (M4)</p><span class="text-xs font-bold text-yellow-400">3</span></div><div class="flex justify-between items-center text-sm pt-1 border-t border-gray-800 mt-1"><p class="font-semibold text-white">Team 8</p><span class="text-xs font-bold text-red-400">1</span></div></div>
-                        <!-- Connector to QF 2 -->
-                        <div class="bracket-line r16-line-left top-[2.5rem]"></div>
-                        <div class="bracket-line w-[50%] h-[2px] border-t-2 border-gray-600/50 absolute top-[2.5rem] right-0"></div>
-                        <div class="bracket-line w-[50%] h-[2px] border-t-2 border-gray-600/50 absolute top-[6.5rem] right-0"></div>
+                    <div class="r16-group r16-group-left relative space-y-4 lg:mt-16">
+                        <div class="match-box"><div class="flex justify-between items-center text-sm"><p class="font-semibold text-white">Team E5 (M3)</p><span class="score-loser">0</span></div><div class="flex justify-between items-center text-sm pt-1 border-t border-gray-800 mt-1"><p class="font-semibold text-white">Team F6</p><span class="score-winner">1</span></div></div>
+                        <div class="match-box"><div class="flex justify-between items-center text-sm"><p class="font-semibold text-white">Team G7 (M4)</p><span class="score-winner">3</span></div><div class="flex justify-between items-center text-sm pt-1 border-t border-gray-800 mt-1"><p class="font-semibold text-white">Team H8</p><span class="score-loser">1</span></div></div>
                     </div>
                 </div>
 
                 <!-- 2. LEFT QUARTER-FINALS (Matches 1-2) -->
-                <div class="w-full lg:col-span-2 space-y-16 lg:pt-[5.5rem] lg:pb-[5.5rem] round-column">
+                <div class="w-full lg:col-span-2 space-y-32 lg:pt-[4.5rem] lg:pb-[4.5rem] round-column qf-col-left">
                     <h3 class="lg:hidden text-xl font-bold text-center text-orange-400 mb-4 border-b border-gray-700 pb-2">Quarter-Finals (Left)</h3>
 
                     <!-- Quarter Final 1 (QF 1) -->
-                    <div class="match-box qf-match bg-gradient-to-r from-orange-900/40 to-amber-900/40 border-orange-600/70 relative lg:mt-[2rem]">
+                    <div class="match-box qf-match-left bg-gradient-to-r from-orange-800/40 to-amber-800/40 border-orange-500/70 relative">
                         <div class="text-center">
-                            <p class="text-base font-bold text-white">Winner M1</p>
-                            <p class="text-orange-400 my-1 text-xs font-bold">VS</p>
-                            <p class="text-base font-bold text-white">Winner M2</p>
+                            <p class="text-base font-bold text-white">Team A1</p>
+                            <p class="text-orange-300 my-1 text-xs font-bold">VS</p>
+                            <p class="text-base font-bold text-white">Team C3</p>
+                            <p class="text-xs text-yellow-300 mt-2">Winner: Team A1</p>
                         </div>
-                        <!-- Connector to SF 1 -->
-                        <div class="bracket-line qf-to-sf-line left"></div>
                     </div>
                     
                     <!-- Quarter Final 2 (QF 2) -->
-                    <div class="match-box qf-match bg-gradient-to-r from-orange-900/40 to-amber-900/40 border-orange-600/70 relative">
+                    <div class="match-box qf-match-left bg-gradient-to-r from-orange-800/40 to-amber-800/40 border-orange-500/70 relative">
                         <div class="text-center">
-                            <p class="text-base font-bold text-white">Winner M3</p>
-                            <p class="text-orange-400 my-1 text-xs font-bold">VS</p>
-                            <p class="text-base font-bold text-white">Winner M4</p>
+                            <p class="text-base font-bold text-white">Team F6</p>
+                            <p class="text-orange-300 my-1 text-xs font-bold">VS</p>
+                            <p class="text-base font-bold text-white">Team G7</p>
+                            <p class="text-xs text-yellow-300 mt-2">Winner: Team G7</p>
                         </div>
-                        <!-- Connector to SF 1 -->
-                        <div class="bracket-line qf-to-sf-line left"></div>
                     </div>
-                    
-                    <!-- QF Vertical line (QF1 to SF1) -->
-                    <div class="bracket-line vertical-line left-[100%] h-[50%] top-[40%] translate-x-[-100%]"></div>
-                    
-                    <!-- Invisible spacer for mobile -->
-                    <div class="h-0 lg:hidden"></div>
                 </div>
 
                 <!-- 3. CENTER SEMI-FINAL & FINAL -->
-                <div class="w-full lg:col-span-2 space-y-4 lg:pt-[22.5rem] round-column">
+                <div class="w-full lg:col-span-2 space-y-4 lg:pt-[10.5rem] lg:pb-[10.5rem] round-column relative final-section-line">
                     <h3 class="lg:hidden text-xl font-bold text-center text-red-400 mb-4 border-b border-gray-700 pb-2">Semi-Finals & Final</h3>
 
                     <!-- Semi Final 1 (SF 1) -->
-                    <div class="semi-final-group mx-auto max-w-xs match-box bg-gradient-to-r from-red-900/60 to-purple-900/60 border-red-600/80 relative">
+                    <div class="sf-match-box mx-auto max-w-xs match-box bg-gradient-to-r from-red-800/60 to-purple-800/60 border-red-500/80 relative">
                         <div class="text-center">
-                            <p class="text-lg font-extrabold text-white">Winner QF 1</p>
+                            <p class="text-lg font-extrabold text-white">Team A1</p>
                             <p class="text-red-400 my-2 text-sm font-bold">VS</p>
-                            <p class="text-lg font-extrabold text-white">Winner QF 2</p>
+                            <p class="text-lg font-extrabold text-white">Team G7</p>
+                            <p class="text-sm text-yellow-300 mt-2">Winner: Team A1</p>
                         </div>
-                        <!-- Connector to Final -->
-                        <div class="bracket-line w-full h-[2px] border-t-2 border-gray-600/50 absolute top-1/2 left-0 right-0 lg:top-[125%]"></div>
-                        <div class="bracket-line w-[2px] h-[50%] border-r-2 border-gray-600/50 absolute top-[125%] left-1/2 transform -translate-x-1/2"></div>
                     </div>
                     
                     <!-- THE FINAL -->
-                    <div class="lg:mt-[10rem] text-center">
-                        <h3 class="text-3xl font-black text-red-500 mb-6 lg:mt-0">THE FINAL</h3>
-                        <div class="bg-gradient-to-br from-purple-900/80 via-red-900/80 to-black rounded-2xl p-6 border-4 border-yellow-400 shadow-2xl mx-auto max-w-sm">
-                            <p class="text-xl font-black text-white mb-4">Winner SF 1 <span class="text-red-400 mx-2">VS</span> Winner SF 2</p>
+                    <div class="lg:mt-24 text-center">
+                        <h3 class="text-3xl font-black text-red-400 mb-6 lg:mt-0">THE GRAND FINAL</h3>
+                        <div class="bg-gradient-to-br from-purple-900/90 via-red-900/90 to-gray-900 rounded-3xl p-6 border-4 border-yellow-400 shadow-2xl mx-auto max-w-sm">
+                            <p class="text-xl font-black text-white mb-4">Team A1 <span class="text-red-400 mx-2">VS</span> Team M16</p>
                             <div class="text-7xl md:text-8xl text-yellow-400 animate-pulse drop-shadow-2xl">
                                 🏆
                             </div>
-                            <p class="text-lg font-black text-yellow-300 mt-4 tracking-wide">
-                                TOURNAMENT CHAMPION
+                            <p class="text-lg font-black text-yellow-300 mt-4 tracking-wider">
+                                CHAMPION: TEAM A1
                             </p>
                         </div>
                     </div>
                 </div>
 
                 <!-- 4. RIGHT QUARTER-FINALS (Matches 3-4) -->
-                <div class="w-full lg:col-span-2 space-y-16 lg:pt-[5.5rem] lg:pb-[5.5rem] round-column">
+                <div class="w-full lg:col-span-2 space-y-32 lg:pt-[4.5rem] lg:pb-[4.5rem] round-column qf-col-right">
                     <h3 class="lg:hidden text-xl font-bold text-center text-orange-400 mb-4 border-b border-gray-700 pb-2">Quarter-Finals (Right)</h3>
 
                     <!-- Quarter Final 3 (QF 3) -->
-                    <div class="match-box qf-match bg-gradient-to-l from-orange-900/40 to-amber-900/40 border-orange-600/70 relative lg:mt-[2rem]">
+                    <div class="match-box qf-match-right bg-gradient-to-l from-orange-800/40 to-amber-800/40 border-orange-500/70 relative">
                         <div class="text-center">
-                            <p class="text-base font-bold text-white">Winner M5</p>
-                            <p class="text-orange-400 my-1 text-xs font-bold">VS</p>
-                            <p class="text-base font-bold text-white">Winner M6</p>
+                            <p class="text-base font-bold text-white">Team I9</p>
+                            <p class="text-orange-300 my-1 text-xs font-bold">VS</p>
+                            <p class="text-base font-bold text-white">Team L12</p>
+                            <p class="text-xs text-yellow-300 mt-2">Winner: Team L12</p>
                         </div>
-                        <!-- Connector to SF 2 -->
-                        <div class="bracket-line qf-to-sf-line right"></div>
                     </div>
                     
                     <!-- Quarter Final 4 (QF 4) -->
-                    <div class="match-box qf-match bg-gradient-to-l from-orange-900/40 to-amber-900/40 border-orange-600/70 relative">
+                    <div class="match-box qf-match-right bg-gradient-to-l from-orange-800/40 to-amber-800/40 border-orange-500/70 relative">
                         <div class="text-center">
-                            <p class="text-base font-bold text-white">Winner M7</p>
-                            <p class="text-orange-400 my-1 text-xs font-bold">VS</p>
-                            <p class="text-base font-bold text-white">Winner M8</p>
+                            <p class="text-base font-bold text-white">Team M13</p>
+                            <p class="text-orange-300 my-1 text-xs font-bold">VS</p>
+                            <p class="text-base font-bold text-white">Team P16</p>
+                            <p class="text-xs text-yellow-300 mt-2">Winner: Team P16</p>
                         </div>
-                        <!-- Connector to SF 2 -->
-                        <div class="bracket-line qf-to-sf-line right"></div>
                     </div>
-
-                    <!-- QF Vertical line (QF3 to SF2) -->
-                    <div class="bracket-line vertical-line left-0 h-[50%] top-[40%] translate-x-0 border-r-0 border-l-2"></div>
-                    
-                    <!-- Invisible spacer for mobile -->
-                    <div class="h-0 lg:hidden"></div>
                 </div>
 
                 <!-- 5. RIGHT ROUND OF 16 (Matches 5-8) -->
-                <div class="w-full lg:col-span-3 space-y-4 lg:space-y-8 round-column">
+                <div class="w-full lg:col-span-3 space-y-8 round-column">
                     <h3 class="lg:hidden text-xl font-bold text-center text-yellow-300 mb-4 border-b border-gray-700 pb-2">Round of 16 (Bracket 2)</h3>
                     
                     <!-- R16 Group 3 (M5 & M6) -->
-                    <div class="space-y-4 relative lg:mb-[4.5rem]">
-                        <div class="match-box"><div class="flex justify-between items-center text-sm"><p class="font-semibold text-white">Team 9 (M5)</p><span class="text-xs font-bold text-yellow-400">1</span></div><div class="flex justify-between items-center text-sm pt-1 border-t border-gray-800 mt-1"><p class="font-semibold text-white">Team 10</p><span class="text-xs font-bold text-red-400">0</span></div></div>
-                        <div class="match-box"><div class="flex justify-between items-center text-sm"><p class="font-semibold text-white">Team 11 (M6)</p><span class="text-xs font-bold text-red-400">0</span></div><div class="flex justify-between items-center text-sm pt-1 border-t border-gray-800 mt-1"><p class="font-semibold text-white">Team 12</p><span class="text-xs font-bold text-yellow-400">2</span></div></div>
-                        <!-- Connector to QF 3 -->
-                        <div class="bracket-line r16-line-right top-[2.5rem]"></div>
-                        <div class="bracket-line w-[50%] h-[2px] border-t-2 border-gray-600/50 absolute top-[2.5rem] left-0"></div>
-                        <div class="bracket-line w-[50%] h-[2px] border-t-2 border-gray-600/50 absolute top-[6.5rem] left-0"></div>
+                    <div class="r16-group r16-group-right relative space-y-4">
+                        <div class="match-box"><div class="flex justify-between items-center text-sm"><p class="font-semibold text-white">Team I9 (M5)</p><span class="score-winner">1</span></div><div class="flex justify-between items-center text-sm pt-1 border-t border-gray-800 mt-1"><p class="font-semibold text-white">Team J10</p><span class="score-loser">0</span></div></div>
+                        <div class="match-box"><div class="flex justify-between items-center text-sm"><p class="font-semibold text-white">Team K11</p><span class="score-loser">0</span></div><div class="flex justify-between items-center text-sm pt-1 border-t border-gray-800 mt-1"><p class="font-semibold text-white">Team L12 (M6)</p><span class="score-winner">2</span></div></div>
                     </div>
 
                     <!-- R16 Group 4 (M7 & M8) -->
-                    <div class="space-y-4 relative lg:mt-[4.5rem]">
+                    <div class="r16-group r16-group-right relative space-y-4 lg:mt-16">
                         <div class="match-box">
-                            <div class="flex justify-between items-center text-sm"><p class="font-semibold text-white">Team 13 (M7)</p><span class="text-xs font-bold text-yellow-400">3</span></div>
-                            <div class="flex justify-between items-center text-sm pt-1 border-t border-gray-800 mt-1"><p class="font-semibold text-white">Team 14</p><span class="text-xs font-bold text-red-400">1</span></div>
+                            <div class="flex justify-between items-center text-sm"><p class="font-semibold text-white">Team M13 (M7)</p><span class="score-winner">3</span></div>
+                            <div class="flex justify-between items-center text-sm pt-1 border-t border-gray-800 mt-1"><p class="font-semibold text-white">Team N14</p><span class="score-loser">1</span></div>
                         </div>
                         <div class="match-box">
-                            <div class="flex justify-between items-center text-sm"><p class="font-semibold text-white">Team 15 (M8)</p><span class="text-xs font-bold text-red-400">0</span></div>
-                            <div class="flex justify-between items-center text-sm pt-1 border-t border-gray-800 mt-1"><p class="font-semibold text-white">Team 16</p><span class="text-xs font-bold text-yellow-400">1</span></div>
+                            <div class="flex justify-between items-center text-sm"><p class="font-semibold text-white">Team O15</p><span class="score-loser">0</span></div>
+                            <div class="flex justify-between items-center text-sm pt-1 border-t border-gray-800 mt-1"><p class="font-semibold text-white">Team P16 (M8)</p><span class="score-winner">1</span></div>
                         </div>
-                        <!-- Connector to QF 4 -->
-                        <div class="bracket-line r16-line-right top-[2.5rem]"></div>
-                        <div class="bracket-line w-[50%] h-[2px] border-t-2 border-gray-600/50 absolute top-[2.5rem] left-0"></div>
-                        <div class="bracket-line w-[50%] h-[2px] border-t-2 border-gray-600/50 absolute top-[6.5rem] left-0"></div>
                     </div>
                 </div>
 
@@ -302,7 +366,7 @@
         </div>
         
         <div class="text-center mt-16">
-            <p class="text-gray-400 text-sm">A standard 16-team single-elimination tournament structure with visual bracket connectors.</p>
+            <p class="text-gray-500 text-sm">Responsive 16-team single-elimination bracket. Bracket lines are visible only on desktop.</p>
         </div>
     </div>
 </body>
