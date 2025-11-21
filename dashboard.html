@@ -871,17 +871,45 @@ a:focus, button:focus, .btn:focus{
       Choose your preferred player below.
     </p>
 
-    <!-- VOTING FORM (PLACEHOLDER) -->
-    <div class="flex flex-col gap-3 mb-6">
-      <button class="w-full py-3 rounded-xl bg-[#2d2d31] text-gray-200 hover:bg-[#3a3a3e] transition">
-        Player 1
-      </button>
-      <button class="w-full py-3 rounded-xl bg-[#2d2d31] text-gray-200 hover:bg-[#3a3a3e] transition">
-        Player 2
-      </button>
-      <button class="w-full py-3 rounded-xl bg-[#2d2d31] text-gray-200 hover:bg-[#3a3a3e] transition">
-        Player 3
-      </button>
+    <!-- VOTING FORM WITH PROGRESS BARS -->
+    <div id="playersContainer" class="flex flex-col gap-4 mb-6">
+
+      <!-- PLAYER 1 -->
+      <div class="player-item bg-[#2d2d31] p-4 rounded-xl flex items-center justify-between gap-3">
+        <div class="w-full">
+          <p class="text-white font-semibold mb-2">Player 1</p>
+          <div class="w-full h-3 bg-[#1a1a1d] rounded-full overflow-hidden">
+            <div class="progress-bar h-full bg-green-500" style="width: 0%;"></div>
+          </div>
+          <p class="text-gray-400 text-sm mt-1 percent-text">0%</p>
+        </div>
+        <button class="vote-btn bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-semibold transition">Vote</button>
+      </div>
+
+      <!-- PLAYER 2 -->
+      <div class="player-item bg-[#2d2d31] p-4 rounded-xl flex items-center justify-between gap-3">
+        <div class="w-full">
+          <p class="text-white font-semibold mb-2">Player 2</p>
+          <div class="w-full h-3 bg-[#1a1a1d] rounded-full overflow-hidden">
+            <div class="progress-bar h-full bg-green-500" style="width: 0%;"></div>
+          </div>
+          <p class="text-gray-400 text-sm mt-1 percent-text">0%</p>
+        </div>
+        <button class="vote-btn bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-semibold transition">Vote</button>
+      </div>
+
+      <!-- PLAYER 3 -->
+      <div class="player-item bg-[#2d2d31] p-4 rounded-xl flex items-center justify-between gap-3">
+        <div class="w-full">
+          <p class="text-white font-semibold mb-2">Player 3</p>
+          <div class="w-full h-3 bg-[#1a1a1d] rounded-full overflow-hidden">
+            <div class="progress-bar h-full bg-green-500" style="width: 0%;"></div>
+          </div>
+          <p class="text-gray-400 text-sm mt-1 percent-text">0%</p>
+        </div>
+        <button class="vote-btn bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-semibold transition">Vote</button>
+      </div>
+
     </div>
 
     <!-- CLOSE BUTTON -->
@@ -904,6 +932,32 @@ a:focus, button:focus, .btn:focus{
     animation: fadeIn 0.25s ease-out;
   }
 </style>
+<script>
+  const playersContainer = document.getElementById("playersContainer");
+  let playerVotes = [];
+
+  // Initialize votes for each player
+  document.querySelectorAll(".player-item").forEach(() => playerVotes.push(0));
+
+  function updatePercentages() {
+    const totalVotes = playerVotes.reduce((a, b) => a + b, 0);
+    const safeTotal = totalVotes === 0 ? 1 : totalVotes;
+
+    document.querySelectorAll(".player-item").forEach((item, index) => {
+      const percent = Math.round((playerVotes[index] / safeTotal) * 100);
+      item.querySelector(".progress-bar").style.width = percent + "%";
+      item.querySelector(".percent-text").textContent = percent + "%";
+    });
+  }
+
+  // Add click events to vote buttons
+  document.querySelectorAll(".vote-btn").forEach((btn, index) => {
+    btn.addEventListener("click", () => {
+      playerVotes[index] += 1;
+      updatePercentages();
+    });
+  });
+</script>
 
 <script>
   // Open modal
