@@ -839,7 +839,6 @@ a:focus, button:focus, .btn:focus{
 <!-- PLAYER OF THE WEEK SECTION -->
 <section id="voteSection" class="hidden w-full justify-center items-center py-14 px-4 bg-[#0d0d0f]">
   <div class="max-w-lg w-full text-center bg-[#1a1a1d] border border-[#2a2a2d] shadow-2xl rounded-2xl p-8">
-    
     <h2 class="text-2xl font-extrabold mb-3 text-white tracking-wide">
       Player of the Week Voting
     </h2>
@@ -865,7 +864,7 @@ a:focus, button:focus, .btn:focus{
     <h3 class="text-2xl font-bold mb-4 text-center text-white">Vote Now</h3>
     <p class="text-gray-400 text-center mb-10">Choose your preferred player below.</p>
 
-    <!-- PLAYERS -->
+    <!-- DYNAMIC PLAYERS LIST -->
     <div id="playersContainer" class="flex flex-col gap-4 mb-6"></div>
 
     <div class="flex justify-center">
@@ -885,16 +884,29 @@ a:focus, button:focus, .btn:focus{
 
 <!-- VOTING LOGIC -->
 <script type="module">
-  import { supabase } from "./supabase.js";
+  import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+
+  const PROJECT_URL = "https://hsjzyqnpigxurnovlxvs.supabase.co";
+  const PUBLIC_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhzanp5cW5waWd4dXJub3ZseHZzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM3NTMwNDgsImV4cCI6MjA3OTMyOTA0OH0.U2FGDGJq2ym0tK0eWkBruJoSkS0rqwJ1scW4Wvj_gyg";
+
+  const supabase = createClient(PROJECT_URL, PUBLIC_ANON_KEY);
 
   const playersContainer = document.getElementById("playersContainer");
   let playerData = [];
 
   // Load players from Supabase
   async function loadPlayers() {
-    const { data } = await supabase.from("votes").select("*").order("id", { ascending: true });
-    playerData = data;
+    const { data, error } = await supabase
+      .from("votes")
+      .select("*")
+      .order("id", { ascending: true });
 
+    if (error) {
+      console.error("Error loading players:", error);
+      return;
+    }
+
+    playerData = data;
     playersContainer.innerHTML = "";
 
     data.forEach(player => {
@@ -907,7 +919,7 @@ a:focus, button:focus, .btn:focus{
             </div>
             <p class="text-gray-400 text-sm mt-1 percent-text">0%</p>
           </div>
-          <button data-player="${player.player_name}" 
+          <button data-id="${player.id}" 
             class="vote-btn bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-semibold transition">
             Vote
           </button>
@@ -930,19 +942,23 @@ a:focus, button:focus, .btn:focus{
     });
   }
 
-  // Handle button clicks
+  // Vote button events
   function attachVoteEvents() {
     document.querySelectorAll(".vote-btn").forEach(btn => {
       btn.addEventListener("click", async () => {
-        const playerName = btn.dataset.player;
+        const id = btn.dataset.id;
 
-        await fetch("/api/vote", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ player_name: playerName })
-        });
+        // Increment vote in Supabase
+        const { error } = await supabase
+          .from("votes")
+          .update({ vote_count: supabase.raw("vote_count + 1") })
+          .eq("id", id);
 
-        await loadPlayers();
+        if (error) {
+          console.error("Vote error:", error);
+        }
+
+        await loadPlayers(); // Refresh UI
       });
     });
   }
@@ -962,7 +978,6 @@ a:focus, button:focus, .btn:focus{
     const now = new Date();
     const day = now.getDay();
     const hour = now.getHours();
-
     const voteSection = document.getElementById('voteSection');
 
     if ((day === 5 && hour >= 0) || (day === 6 && hour === 0)) {
@@ -978,6 +993,7 @@ a:focus, button:focus, .btn:focus{
   handleVoteSectionVisibility();
   loadPlayers();
 </script>
+
 
         <!-- Upcoming Fixtures Section -->
 <section id="upcoming" class="mb-20 px-4 md:px-6 bg-gray-900 text-gray-100">
