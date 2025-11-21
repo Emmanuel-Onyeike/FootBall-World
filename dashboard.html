@@ -832,6 +832,80 @@ a:focus, button:focus, .btn:focus{
     }
     .glass-card:hover .tooltip-text { visibility: visible; opacity: 1; }
 </style>
+
+
+
+
+        <!-- PLAYER OF THE WEEK SECTION -->
+<section id="voteSection" class="hidden w-full flex justify-center items-center py-10 px-4">
+  <div class="max-w-md w-full text-center bg-white shadow-lg rounded-xl p-6">
+    <h2 class="text-xl font-bold mb-3">Player of the Week Voting</h2>
+    <p class="text-gray-600 mb-6">
+      Vote for your Player of the Week. Voting opens every Friday at 12:00AM and closes Saturday at 12:00AM.
+    </p>
+
+    <!-- OPEN MODAL BUTTON -->
+    <button 
+      onclick="openVoteModal()" 
+      class="bg-green-600 text-white px-6 py-3 rounded-full text-lg font-semibold hover:bg-green-700 transition">
+      Cast Your Vote
+    </button>
+  </div>
+</section>
+
+<!-- MODAL -->
+<div id="voteModal" class="fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center p-4">
+  <div class="bg-white w-full max-w-md rounded-xl p-6 shadow-xl">
+    <h3 class="text-xl font-bold mb-3 text-center">Vote Now</h3>
+    <p class="text-gray-600 text-center mb-6">Select your preferred player below.</p>
+
+    <!-- PLACE YOUR VOTING FORM HERE -->
+    <div class="flex justify-center">
+      <button onclick="closeVoteModal()" class="bg-red-600 text-white px-5 py-2 rounded-lg">
+        Close
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Open modal
+  function openVoteModal() {
+    document.getElementById('voteModal').classList.remove('hidden');
+    document.getElementById('voteModal').classList.add('flex');
+  }
+
+  // Close modal
+  function closeVoteModal() {
+    document.getElementById('voteModal').classList.add('hidden');
+    document.getElementById('voteModal').classList.remove('flex');
+  }
+
+  // Show or hide voting section based on the day & time
+  function handleVoteSectionVisibility() {
+    const now = new Date();
+    
+    const day = now.getDay();  // 5 = Friday, 6 = Saturday
+    const hour = now.getHours();
+
+    const voteSection = document.getElementById('voteSection');
+
+    // Open Friday 12am (00:00) → Saturday 12am (00:00)
+    if (day === 5 && hour >= 0 || (day === 6 && hour === 0)) {
+      voteSection.classList.remove("hidden");
+      voteSection.classList.add("flex");
+    } else {
+      voteSection.classList.add("hidden");
+      voteSection.classList.remove("flex");
+    }
+  }
+
+  // Check visibility every 1 minute
+  setInterval(handleVoteSectionVisibility, 60000);
+  // Run immediately on page load
+  handleVoteSectionVisibility();
+</script>
+
         <!-- Upcoming Fixtures Section -->
 <section id="upcoming" class="mb-20 px-4 md:px-6 bg-gray-900 text-gray-100">
     <h2 class="text-3xl md:text-4xl font-extrabold mb-10 text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-cyan-400 border-b-2 border-green-700/50 pb-3 flex items-center">
