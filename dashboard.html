@@ -836,62 +836,101 @@ a:focus, button:focus, .btn:focus{
 
 
 
-        <!-- PLAYER OF THE WEEK SECTION -->
-<section id="voteSection" class="hidden w-full flex justify-center items-center py-10 px-4">
-  <div class="max-w-md w-full text-center bg-white shadow-lg rounded-xl p-6">
-    <h2 class="text-xl font-bold mb-3">Player of the Week Voting</h2>
-    <p class="text-gray-600 mb-6">
-      Vote for your Player of the Week. Voting opens every Friday at 12:00AM and closes Saturday at 12:00AM.
+<!-- PLAYER OF THE WEEK SECTION -->
+<section id="voteSection" class="hidden w-full justify-center items-center py-14 px-4 bg-[#0d0d0f]">
+  <div class="max-w-lg w-full text-center bg-[#1a1a1d] border border-[#2a2a2d] shadow-2xl rounded-2xl p-8">
+    
+    <!-- TITLE -->
+    <h2 class="text-2xl font-extrabold mb-3 text-white tracking-wide">
+      Player of the Week Voting
+    </h2>
+
+    <!-- SUBTEXT -->
+    <p class="text-gray-400 mb-8 leading-relaxed">
+      Cast your vote for the standout player this week.  
+      Voting opens <span class="text-green-400 font-semibold">Friday 12:00AM</span>  
+      and closes <span class="text-red-400 font-semibold">Saturday 12:00AM</span>.
     </p>
 
-    <!-- OPEN MODAL BUTTON -->
+    <!-- BUTTON -->
     <button 
-      onclick="openVoteModal()" 
-      class="bg-green-600 text-white px-6 py-3 rounded-full text-lg font-semibold hover:bg-green-700 transition">
+      onclick="openVoteModal()"
+      class="bg-gradient-to-r from-green-500 to-lime-500 text-black font-bold px-8 py-3 rounded-full text-lg shadow-lg hover:scale-105 transition-all duration-300">
       Cast Your Vote
     </button>
   </div>
 </section>
 
-<!-- MODAL -->
-<div id="voteModal" class="fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center p-4">
-  <div class="bg-white w-full max-w-md rounded-xl p-6 shadow-xl">
-    <h3 class="text-xl font-bold mb-3 text-center">Vote Now</h3>
-    <p class="text-gray-600 text-center mb-6">Select your preferred player below.</p>
+<!-- DARK MODAL OVERLAY -->
+<div id="voteModal" class="fixed inset-0 bg-black bg-opacity-70 hidden justify-center items-center p-4 backdrop-blur-sm">
+  <div class="bg-[#1c1c1f] w-full max-w-md rounded-2xl p-8 shadow-2xl border border-[#2b2b2f] animate-fadeIn">
 
-    <!-- PLACE YOUR VOTING FORM HERE -->
+    <!-- MODAL HEADER -->
+    <h3 class="text-2xl font-bold mb-4 text-center text-white">Vote Now</h3>
+    <p class="text-gray-400 text-center mb-10">
+      Choose your preferred player below.
+    </p>
+
+    <!-- VOTING FORM (PLACEHOLDER) -->
+    <div class="flex flex-col gap-3 mb-6">
+      <button class="w-full py-3 rounded-xl bg-[#2d2d31] text-gray-200 hover:bg-[#3a3a3e] transition">
+        Player 1
+      </button>
+      <button class="w-full py-3 rounded-xl bg-[#2d2d31] text-gray-200 hover:bg-[#3a3a3e] transition">
+        Player 2
+      </button>
+      <button class="w-full py-3 rounded-xl bg-[#2d2d31] text-gray-200 hover:bg-[#3a3a3e] transition">
+        Player 3
+      </button>
+    </div>
+
+    <!-- CLOSE BUTTON -->
     <div class="flex justify-center">
-      <button onclick="closeVoteModal()" class="bg-red-600 text-white px-5 py-2 rounded-lg">
+      <button onclick="closeVoteModal()" 
+        class="bg-red-500 text-white px-6 py-2 rounded-xl font-semibold shadow-lg hover:bg-red-600 transition">
         Close
       </button>
     </div>
   </div>
 </div>
 
+<!-- ANIMATION -->
+<style>
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  .animate-fadeIn {
+    animation: fadeIn 0.25s ease-out;
+  }
+</style>
+
 <script>
   // Open modal
   function openVoteModal() {
-    document.getElementById('voteModal').classList.remove('hidden');
-    document.getElementById('voteModal').classList.add('flex');
+    const modal = document.getElementById('voteModal');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
   }
 
   // Close modal
   function closeVoteModal() {
-    document.getElementById('voteModal').classList.add('hidden');
-    document.getElementById('voteModal').classList.remove('flex');
+    const modal = document.getElementById('voteModal');
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
   }
 
-  // Show or hide voting section based on the day & time
+  // Auto show/hide section based on time
   function handleVoteSectionVisibility() {
     const now = new Date();
-    
+
     const day = now.getDay();  // 5 = Friday, 6 = Saturday
     const hour = now.getHours();
 
     const voteSection = document.getElementById('voteSection');
 
-    // Open Friday 12am (00:00) → Saturday 12am (00:00)
-    if (day === 5 && hour >= 0 || (day === 6 && hour === 0)) {
+    // SHOW: Friday 00:00 → Saturday 00:00
+    if ((day === 5 && hour >= 0) || (day === 6 && hour === 0)) {
       voteSection.classList.remove("hidden");
       voteSection.classList.add("flex");
     } else {
@@ -900,9 +939,10 @@ a:focus, button:focus, .btn:focus{
     }
   }
 
-  // Check visibility every 1 minute
+  // Check every minute
   setInterval(handleVoteSectionVisibility, 60000);
-  // Run immediately on page load
+
+  // Run immediately on load
   handleVoteSectionVisibility();
 </script>
 
