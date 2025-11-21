@@ -1555,149 +1555,138 @@ a:focus, button:focus, .btn:focus{
     }
 </style>
 <!-- MODALS -->
-
-
 <div id="csc100-mss100-modal" class="fixed inset-0 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 hidden z-50">
     <div class="bg-gradient-to-br from-[#0a0a0a] to-[#111] text-white rounded-2xl shadow-2xl w-full max-w-4xl p-8
-                 border border-green-700/50 max-h-[95vh] relative glass-card flex flex-col">
-        
+                 border-amber-600/60 border max-h-[95vh] relative glass-card flex flex-col overflow-hidden">
+
         <button onclick="closeMatchModal('csc100-mss100')" class="modal-close">
             <i class="fas fa-times"></i>
         </button>
 
-        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 border-b border-gray-700 pb-4 flex-shrink-0">
-            <h2 class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-500">
-                CSC 100 <span class="text-gray-600">vs</span> MSS 200
+        <!-- EPIC HEADER -->
+        <div class="text-center mb-8 pb-6 border-b-2 border-amber-600/40">
+            <div class="text-amber-500 text-sm font-bold tracking-widest uppercase mb-2">Provost Cup 2025 – Group B</div>
+            <h2 class="text-5xl md:text-6xl font-black bg-gradient-to-r from-green-400 via-emerald-400 to-cyan-400 bg-clip-text text-transparent leading-tight">
+                CSC 200 <span class="text-gray-500 text-4xl">VS</span> MSS 200
             </h2>
-            <div class="flex items-center gap-4 mt-3 sm:mt-0">
-                <span class="text-3xl font-black text-red-500">6–8</span>
-                <span class="text-sm bg-red-800/60 text-red-200 px-4 py-1.5 rounded-full font-semibold border border-red-700">
-                    LOSS / Full Time
+            <p class="text-2xl font-bold text-amber-400 mt-4">The Battle of the Giants</p>
+        </div>
+
+        <!-- Score + Status -->
+        <div class="flex justify-center items-center gap-8 mb-8">
+            <span class="text-6xl font-black text-gray-600">–</span>
+            <div class="text-center">
+                <span class="text-lg bg-gradient-to-r from-amber-500 to-orange-500 text-white px-8 py-3 rounded-full font-extrabold text-shadow-lg animate-pulse">
+                    TOMORROW • 11:00 AM
                 </span>
+                <p class="text-amber-300 mt-3 text-sm font-medium">Campus Main Field 1</p>
             </div>
         </div>
 
-        <p class="text-gray-400 mb-8 flex items-center gap-2 text-sm md:text-base flex-shrink-0">
-            <i class="fas fa-calendar-alt"></i> Saturday, 15th November 2025 · <i class="fas fa-clock"></i> 11:00 AM · <i class="fas fa-map-marker-alt"></i> Campus Main Field 2
-        </p>
-
-        <div class="flex gap-2 mb-8 bg-black/40 p-1 rounded-xl w-fit flex-shrink-0">
-            <button data-tab="summary1" class="tab-btn active">
-                <i class="fas fa-list-alt mr-1"></i> Match Summary
-            </button>
-            <button data-tab="players1" class="tab-btn">
-                <i class="fas fa-users mr-1"></i> Players & Stats
-            </button>
+        <!-- Tabs -->
+        <div class="flex gap-2 mb-8 bg-black/50 p-1.5 rounded-xl w-fit mx-auto">
+            <button data-tab="summary1" class="tab-btn active"><i class="fas fa-list-alt mr-1"></i> Match Summary</button>
+            <button data-tab="players1" class="tab-btn"><i class="fas fa-users mr-1"></i> Players & Stats</button>
         </div>
-        
-        <div class="overflow-y-auto custom-scrollbar pr-4 flex-grow"> 
 
-            <div id="summary1" class="tab-content space-y-6">
-                <h3 class="text-xl font-bold text-gray-300 border-b border-gray-800 pb-2 mb-4">Match Timeline</h3>
+        <!-- HYPE TIMELINE (PRE-MATCH) -->
+        <div class="overflow-y-auto custom-scrollbar pr-4 flex-grow">
+            <div id="summary1" class="tab-content">
 
-                <div class="timeline-item">
-                    <div class="timeline-icon bg-red-700/70"><i class="fas fa-futbol"></i></div>
-                    <p>5': <strong>Early shock!</strong> CSC 100 concedes an own goal. MSS 200 takes the lead. <strong class="text-red-400">0–1</strong></p>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-icon"><i class="fas fa-futbol"></i></div>
-                    <p>10': <strong>CSC strikes back!</strong> Baron scores to restore CSC lead. <strong class="text-green-400">1–1</strong></p>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-icon"><i class="fas fa-futbol"></i></div>
-                    <p>17': <strong>Momentum swing!</strong> Baron scores again (Brace). CSC takes the lead. <strong class="text-green-400">2–1</strong></p>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-icon bg-red-700/70"><i class="fas fa-futbol"></i></div>
-                    <p>25': <strong>MSS equalizes!</strong> Clinical finish draws the game. <strong class="text-red-400">2–2</strong></p>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-icon bg-red-700/70"><i class="fas fa-futbol"></i></div>
-                    <p>30': <strong>MSS takes lead!</strong> Defensive lapse allows MSS to go ahead. <strong class="text-red-400">2–3</strong></p>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-icon"><i class="fas fa-futbol"></i></div>
-                    <p>35': <strong>CSC response!</strong> Ugo strikes brilliantly to regain parity. <strong class="text-green-400">3–3</strong></p>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-icon"><i class="fas fa-futbol"></i></div>
-                    <p>38': <strong>CSC lead restored!</strong> Another brilliant strike makes it: <strong class="text-green-400">4–3</strong></p>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-icon"><i class="fas fa-whistle"></i></div>
-                    <p>45': <strong>Half Time.</strong></p>
-                </div>
+                <div class="text-center py-16 px-6 bg-gradient-to-br from-amber-900/30 via-black/70 to-black rounded-3xl border-2 border-amber-600/50">
 
-                <h3 class="text-xl font-bold text-gray-300 border-b border-gray-800 pt-4 pb-2 mb-4">Second Half</h3>
+                    <i class="fas fa-futbol text-9xl text-amber-600 mb-amber mb-10 animate-ping"></i>
 
-                <div class="timeline-item">
-                    <div class="timeline-icon"><i class="fas fa-futbol"></i></div>
-                    <p>45': <strong>Second-half surge!</strong> CSC adds two quick goals, taking a solid lead. <strong class="text-green-400">5–3</strong></p>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-icon"><i class="fas fa-futbol"></i></div>
-                    <p>50': <strong>Hot!</strong> Emeka scores for CSC. <strong class="text-green-400">6–3</strong></p>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-icon bg-red-700/70"><i class="fas fa-futbol"></i></div>
-                    <p>57': <strong>Ebuka strikes again!</strong> MSS reduces the deficit. <strong class="text-red-400">6–4</strong></p>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-icon bg-red-700/70"><i class="fas fa-hat-trick"></i></div>
-                    <p>59': <strong>Ebuka completes hat-trick!</strong> MSS closes the gap to one goal. <strong class="text-red-400">6–5</strong></p>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-icon bg-red-700/70"><i class="fas fa-futbol"></i></div>
-                    <p>65': <strong>MSS comeback!</strong> Defensive errors by CSC allow Ebuka MSS to score again. <strong class="text-red-400">6–6</strong></p>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-icon bg-red-700/70"><i class="fas fa-futbol"></i></div>
-                    <p>75': <strong>Late drama!</strong> MSS converts another defensive lapse. <strong class="text-red-400">6–7</strong></p>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-icon bg-red-700/70"><i class="fas fa-skull-crossbones"></i></div>
-                    <p>80': <strong>Final blow!</strong> MSS seals the comeback. Final Score: <strong class="text-red-400">6–8</strong></p>
-                </div>
+                    <h3 class="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-orange-400 mb-6">
+                        TOMORROW WE FIGHT!
+                    </h3>
 
-                <div class="mt-8 p-4 bg-red-900/30 rounded-xl border border-red-700/50">
-                    <p class="font-bold text-red-400 text-xl text-center flex items-center justify-center gap-2">
-                        <i class="fas fa-trophy"></i> Full-Time: Incredible comeback! MSS 200 wins <span class="text-white">8–6</span> against CSC 100.
+                    <p class="text-xl md:text-2xl text-gray-200 leading-relaxed max-w-2xl mx-auto mb-10 font-medium">
+                        Two departments. One pitch. Zero mercy.<br><br>
+                        <span class="text-amber-400 font-bold">CSC 200</span> bring fire code and pure grit.<br>
+                        <span class="text-cyan-400 font-bold">MSS 200</span> answer with steel nerves and clinical finishing.<br><br>
+                        This isn’t just a match — it’s a <span class="text-amber-300">statement</span>.
                     </p>
+
+                    <div class="grid grid-cols-3 gap-8 max-w-md mx-auto my-12">
+                        <div class="text-center">
+                            <div class="text-7xl font-black text-amber-400">11</div>
+                            <div class="text-amber-300 text-sm uppercase tracking-wider">Hours</div>
+                        </div>
+                        <div class="text-7xl font-thin text-gray-600 self-center">:</div>
+                        <div class="text-center">
+                            <div class="text-7xl font-black text-amber-400">00</div>
+                            <div class="text-amber-300 text-sm uppercase tracking-wider">Minutes</div>
+                        </div>
+                    </div>
+
+                    <div class="bg-black/60 rounded-2xl p-6 mt-10 border border-amber-700/50">
+                        <p class="text-amber-200 text-lg font-bold flex items-center justify-center gap-3">
+                            <i class="fas fa-fire text-orange-500"></i>
+                            Expect goals. Expect drama. Expect war.
+                            <i class="fas fa-fire text-orange-500"></i>
+                        </p>
+                        <p class="text-gray-400 mt-4">
+                            Live updates drop the second the ball rolls. Be here.
+                        </p>
+                    </div>
                 </div>
+
             </div>
 
-            <div id="players1" class="tab-content hidden text-center py-12">
-                <i class="fas fa-chart-bar text-5xl text-gray-700 mb-4"></i>
-                <p class="text-gray-400 text-lg">Player ratings & stats will be updated post-match.</p>
+            <!-- Players Tab -->
+            <div id="players1" class="tab-content hidden text-center py-24">
+                <i class="fas fa-users text-8xl text-gray-700 mb-8"></i>
+                <p class="text-2xl text-gray-300 font-bold">Official lineups drop tomorrow @ 10:30 AM</p>
+                <p class="text-gray-500 mt-4">Player ratings, stats, and MOM — all live after full-time</p>
             </div>
-        </div> </div>
+        </div>
+
+    </div>
 </div>
-
 <div id="csc100-law100-modal" class="fixed inset-0 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 hidden z-50">
     <div class="bg-gradient-to-br from-[#0a0a0a] to-[#111] text-white rounded-2xl shadow-2xl w-full max-w-4xl p-8
-                 border border-green-700/50 max-h-[95vh] relative glass-card flex flex-col">
-        
+                 border border-amber-600/50 max-h-[95vh] relative glass-card flex flex-col">
+
         <button onclick="closeMatchModal('csc100-law100')" class="modal-close">
             <i class="fas fa-times"></i>
         </button>
 
-        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 border-b border-gray-700 pb-4 flex-shrink-0">
-            <h2 class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-500">
-                CSC 100 <span class="text-gray-600">vs</span> Law 100
-            </h2>
-            <div class="flex items-center gap-4 mt-3 sm:mt-0">
-                <span class="text-3xl font-black text-red-500">2–4</span>
-                <span class="text-sm bg-red-800/60 text-red-200 px-4 py-1.5 rounded-full font-semibold border border-red-700">
-                    LOSS / Full Time
+        <!-- Match Header -->
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 border-b border-gray-700 pb-5">
+            <div>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-orange-400 to-yellow-400 drop-shadow-lg">
+                    100L <span class="text-gray-500 text-2xl">vs</span> 400L
+                </h2>
+                <p class="text-amber-300 text-lg font-semibold mt-2 flex items-center gap-2">
+                    <i class="fas fa-trophy"></i> Provost Cup 
+                </p>
+            </div>
+
+            <div class="flex items-center gap-5 mt-4 sm:mt-0">
+                <span class="text-5xl font-black text-gray-600">–</span>
+                <span class="text-sm bg-gradient-to-r from-amber-600 to-orange-600 text-white px-6 py-3 rounded-full font-bold border border-amber-500 shadow-lg animate-pulse">
+                    KICK-OFF TOMORROW
                 </span>
             </div>
         </div>
 
-        <p class="text-gray-400 mb-8 flex items-center gap-2 text-sm md:text-base flex-shrink-0">
-            <i class="fas fa-calendar-alt"></i> Saturday, 8th November 2025 · <i class="fas fa-clock"></i> 11:00 AM · <i class="fas fa-map-marker-alt"></i> Campus Main Field
+        <!-- Match Info -->
+        <p class="text-gray-300 mb-8 flex flex-wrap items-center gap-4 text-base font-medium">
+            <span class="flex items-center gap-2">
+                <i class="fas fa-calendar-alt text-amber-400"></i> Saturday, 22nd November 2025
+            </span>
+            <span class="text-gray-500">•</span>
+            <span class="flex items-center gap-2">
+                <i class="fas fa-clock text-amber-400"></i> 09:00 AM
+            </span> <span class="text-gray-500">•</span>
+            <span class="flex items-center gap-2">
+                <i class="fas fa-map-marker-alt text-amber-400"></i> Campus Pitch 2
+            </span>
         </p>
 
-        <div class="flex gap-2 mb-8 bg-black/40 p-1 rounded-xl w-fit flex-shrink-0">
+        <!-- Tabs -->
+        <div class="flex gap-2 mb-8 bg-black/50 p- p-1.5 rounded-xl w-fit">
             <button data-tab="summary2" class="tab-btn active">
                 <i class="fas fa-list-alt mr-1"></i> Match Summary
             </button>
@@ -1706,49 +1695,51 @@ a:focus, button:focus, .btn:focus{
             </button>
         </div>
 
+        <!-- PRE-MATCH TIMELINE (LIVE TOMORROW) -->
         <div class="overflow-y-auto custom-scrollbar pr-4 flex-grow">
-            <div id="summary2" class="tab-content space-y-6">
-                <h3 class="text-xl font-bold text-gray-300 border-b border-gray-800 pb-2 mb-4">Match Timeline</h3>
-                
-                <div class="timeline-item">
-                    <div class="timeline-icon"><i class="fas fa-futbol"></i></div>
-                    <p>12': <strong>CSC opens strong!</strong> Early pressure pays off. <strong class="text-green-400">1–0</strong></p>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-icon bg-red-700/70"><i class="fas fa-futbol"></i></div>
-                    <p>20': <strong>Law levels it!</strong> Collins with a world-class finish. <strong class="text-red-400">1–1</strong></p>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-icon"><i class="fas fa-futbol"></i></div>
-                    <p>30': <strong>CSC retakes lead!</strong> Clinical edge-of-box strike. <strong class="text-green-400">2–1</strong></p>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-icon bg-red-700/70"><i class="fas fa-futbol"></i></div>
-                    <p>45': <strong>Law equalizes!</strong> High press forces error. <strong class="text-red-400">2–2</strong></p>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-icon bg-red-700/70"><i class="fas fa-futbol"></i></div>
-                    <p>60': <strong>Law ahead!</strong> Defensive lapse punished. <strong class="text-red-400">2–3</strong></p>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-icon bg-red-700/70"><i class="fas fa-redo"></i></div>
-                    <p>90+3': <strong>Penalty drama!</strong> Law converts under pressure, sealing the win. <strong class="text-red-400">2–4</strong></p>
-                </div>
+            <div id="summary2" class="tab-content">
 
-                <div class="mt-8 p-4 bg-red-900/30 rounded-xl border border-red-700/50">
-                    <p class="font-bold text-red-400 text-xl text-center flex items-center justify-center gap-2">
-                        <i class="fas fa-trophy"></i> Full Time: Law completes stunning comeback to win <span class="text-white">4–2</span>.
+                <div class="text-center py-20 bg-gradient-to-b from-amber-900/20 to-black/60 rounded-3xl border-2 border-dashed border-amber-600/50">
+                    <i class="fas fa-futbol text-9xl text-amber-600 mb-8 animate-bounce"></i>
+
+                    <h3 class="text-4xl font-black text-amber-400 mb-4">
+                        Tomorrow at 9:00 AM!
+                    </h3>
+                    <p class="text-xl text-gray-300 max-w-lg mx-auto leading-relaxed">
+                        The biggest freshman vs final-year clash of the year is almost here!<br>
+                        <span class="text-amber-300 font-bold">100L</span> take on the mighty 
+                        <span class="text-amber-300 font-bold">400L</span> in the Provost Cup 2025.
+                    </p>
+
+                    <div class="mt-10 grid grid-cols-3 gap-6 max-w-xs mx-auto text-amber-400">
+                        <div class="text-center">
+                            <div class="text-6xl font-black">09</div>
+                            <div class="text-sm uppercase tracking-wider">Hours</div>
+                        </div>
+                        <div class="text-6xl font-thin text-gray-600 self-center">:</div>
+                        <div class="text-center">
+                            <div class="text-6xl font-black">00</div>
+                            <div class="text-sm uppercase tracking-wider">Mins</div>
+                        </div>
+                    </div>
+
+                    <p class="mt-10 text-gray-400 text-sm">
+                        <i class="fas fa-bell text-amber-400"></i>
+                        Live minute-by-minute updates start the second the whistle blows!
                     </p>
                 </div>
+
             </div>
 
-            <div id="players2" class="tab-content hidden text-center py-12">
-                <i class="fas fa-chart-bar text-5xl text-gray-700 mb-4"></i>
-                <p class="text-gray-400 text-lg">Player ratings & stats will be updated post-match.</p>
+            <!-- Players Tab -->
+            <div id="players2" class="tab-content hidden text-center py-20">
+                <i class="fas fa-users text-7xl text-gray-700 mb-6"></i>
+                <p class="text-xl text-gray-400">Official lineups and player stats drop tomorrow after kick-off</p>
             </div>
-        </div> </div>
+        </div>
+
+    </div>
 </div>
-
 <style>
     /* Global Styles for background/modal */
     .glass-card {
