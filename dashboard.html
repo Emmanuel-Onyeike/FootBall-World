@@ -840,19 +840,16 @@ a:focus, button:focus, .btn:focus{
 <section id="voteSection" class="hidden w-full justify-center items-center py-14 px-4 bg-[#0d0d0f]">
   <div class="max-w-lg w-full text-center bg-[#1a1a1d] border border-[#2a2a2d] shadow-2xl rounded-2xl p-8">
     
-    <!-- TITLE -->
     <h2 class="text-2xl font-extrabold mb-3 text-white tracking-wide">
       Player of the Week Voting
     </h2>
 
-    <!-- SUBTEXT -->
     <p class="text-gray-400 mb-8 leading-relaxed">
       Cast your vote for the standout player this week.  
       Voting opens <span class="text-green-400 font-semibold">Friday 12:00AM</span>  
       and closes <span class="text-red-400 font-semibold">Saturday 12:00AM</span>.
     </p>
 
-    <!-- BUTTON -->
     <button 
       onclick="openVoteModal()"
       class="bg-gradient-to-r from-green-500 to-lime-500 text-black font-bold px-8 py-3 rounded-full text-lg shadow-lg hover:scale-105 transition-all duration-300">
@@ -861,58 +858,16 @@ a:focus, button:focus, .btn:focus{
   </div>
 </section>
 
-<!-- DARK MODAL OVERLAY -->
+<!-- DARK MODAL -->
 <div id="voteModal" class="fixed inset-0 bg-black bg-opacity-70 hidden justify-center items-center p-4 backdrop-blur-sm">
   <div class="bg-[#1c1c1f] w-full max-w-md rounded-2xl p-8 shadow-2xl border border-[#2b2b2f] animate-fadeIn">
 
-    <!-- MODAL HEADER -->
     <h3 class="text-2xl font-bold mb-4 text-center text-white">Vote Now</h3>
-    <p class="text-gray-400 text-center mb-10">
-      Choose your preferred player below.
-    </p>
+    <p class="text-gray-400 text-center mb-10">Choose your preferred player below.</p>
 
-    <!-- VOTING FORM WITH PROGRESS BARS -->
-    <div id="playersContainer" class="flex flex-col gap-4 mb-6">
+    <!-- PLAYERS -->
+    <div id="playersContainer" class="flex flex-col gap-4 mb-6"></div>
 
-      <!-- PLAYER 1 -->
-      <div class="player-item bg-[#2d2d31] p-4 rounded-xl flex items-center justify-between gap-3">
-        <div class="w-full">
-          <p class="text-white font-semibold mb-2">Player 1</p>
-          <div class="w-full h-3 bg-[#1a1a1d] rounded-full overflow-hidden">
-            <div class="progress-bar h-full bg-green-500" style="width: 0%;"></div>
-          </div>
-          <p class="text-gray-400 text-sm mt-1 percent-text">0%</p>
-        </div>
-        <button class="vote-btn bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-semibold transition">Vote</button>
-      </div>
-
-      <!-- PLAYER 2 -->
-      <div class="player-item bg-[#2d2d31] p-4 rounded-xl flex items-center justify-between gap-3">
-        <div class="w-full">
-          <p class="text-white font-semibold mb-2">Player 2</p>
-          <div class="w-full h-3 bg-[#1a1a1d] rounded-full overflow-hidden">
-            <div class="progress-bar h-full bg-green-500" style="width: 0%;"></div>
-          </div>
-          <p class="text-gray-400 text-sm mt-1 percent-text">0%</p>
-        </div>
-        <button class="vote-btn bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-semibold transition">Vote</button>
-      </div>
-
-      <!-- PLAYER 3 -->
-      <div class="player-item bg-[#2d2d31] p-4 rounded-xl flex items-center justify-between gap-3">
-        <div class="w-full">
-          <p class="text-white font-semibold mb-2">Player 3</p>
-          <div class="w-full h-3 bg-[#1a1a1d] rounded-full overflow-hidden">
-            <div class="progress-bar h-full bg-green-500" style="width: 0%;"></div>
-          </div>
-          <p class="text-gray-400 text-sm mt-1 percent-text">0%</p>
-        </div>
-        <button class="vote-btn bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-semibold transition">Vote</button>
-      </div>
-
-    </div>
-
-    <!-- CLOSE BUTTON -->
     <div class="flex justify-center">
       <button onclick="closeVoteModal()" 
         class="bg-red-500 text-white px-6 py-2 rounded-xl font-semibold shadow-lg hover:bg-red-600 transition">
@@ -924,66 +879,92 @@ a:focus, button:focus, .btn:focus{
 
 <!-- ANIMATION -->
 <style>
-  @keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
-  }
-  .animate-fadeIn {
-    animation: fadeIn 0.25s ease-out;
-  }
+  @keyframes fadeIn { from{opacity:0;transform:scale(0.95);} to{opacity:1;transform:scale(1);} }
+  .animate-fadeIn { animation: fadeIn .25s ease-out; }
 </style>
-<script>
+
+<!-- VOTING LOGIC -->
+<script type="module">
+  import { supabase } from "./supabase.js";
+
   const playersContainer = document.getElementById("playersContainer");
-  let playerVotes = [];
+  let playerData = [];
 
-  // Initialize votes for each player
-  document.querySelectorAll(".player-item").forEach(() => playerVotes.push(0));
+  // Load players from Supabase
+  async function loadPlayers() {
+    const { data } = await supabase.from("votes").select("*").order("id", { ascending: true });
+    playerData = data;
 
-  function updatePercentages() {
-    const totalVotes = playerVotes.reduce((a, b) => a + b, 0);
-    const safeTotal = totalVotes === 0 ? 1 : totalVotes;
+    playersContainer.innerHTML = "";
 
-    document.querySelectorAll(".player-item").forEach((item, index) => {
-      const percent = Math.round((playerVotes[index] / safeTotal) * 100);
-      item.querySelector(".progress-bar").style.width = percent + "%";
-      item.querySelector(".percent-text").textContent = percent + "%";
+    data.forEach(player => {
+      playersContainer.innerHTML += `
+        <div class="player-item bg-[#2d2d31] p-4 rounded-xl flex items-center justify-between gap-3">
+          <div class="w-full">
+            <p class="text-white font-semibold mb-2">${player.player_name}</p>
+            <div class="w-full h-3 bg-[#1a1a1d] rounded-full overflow-hidden">
+              <div class="progress-bar h-full bg-green-500" style="width: 0%;"></div>
+            </div>
+            <p class="text-gray-400 text-sm mt-1 percent-text">0%</p>
+          </div>
+          <button data-player="${player.player_name}" 
+            class="vote-btn bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-semibold transition">
+            Vote
+          </button>
+        </div>
+      `;
+    });
+
+    updateUI();
+    attachVoteEvents();
+  }
+
+  // Update progress bars
+  function updateUI() {
+    const total = playerData.reduce((sum, p) => sum + p.vote_count, 0) || 1;
+
+    document.querySelectorAll(".player-item").forEach((item, i) => {
+      const percentage = Math.round((playerData[i].vote_count / total) * 100);
+      item.querySelector(".progress-bar").style.width = percentage + "%";
+      item.querySelector(".percent-text").textContent = percentage + "%";
     });
   }
 
-  // Add click events to vote buttons
-  document.querySelectorAll(".vote-btn").forEach((btn, index) => {
-    btn.addEventListener("click", () => {
-      playerVotes[index] += 1;
-      updatePercentages();
+  // Handle button clicks
+  function attachVoteEvents() {
+    document.querySelectorAll(".vote-btn").forEach(btn => {
+      btn.addEventListener("click", async () => {
+        const playerName = btn.dataset.player;
+
+        await fetch("/api/vote", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ player_name: playerName })
+        });
+
+        await loadPlayers();
+      });
     });
-  });
-</script>
-
-<script>
-  // Open modal
-  function openVoteModal() {
-    const modal = document.getElementById('voteModal');
-    modal.classList.remove('hidden');
-    modal.classList.add('flex');
   }
 
-  // Close modal
-  function closeVoteModal() {
-    const modal = document.getElementById('voteModal');
-    modal.classList.add('hidden');
-    modal.classList.remove('flex');
-  }
+  // Modal logic
+  window.openVoteModal = () => {
+    document.getElementById('voteModal').classList.remove('hidden');
+    document.getElementById('voteModal').classList.add('flex');
+  };
+  window.closeVoteModal = () => {
+    document.getElementById('voteModal').classList.add('hidden');
+    document.getElementById('voteModal').classList.remove('flex');
+  };
 
-  // Auto show/hide section based on time
+  // Show section only Friday–Saturday
   function handleVoteSectionVisibility() {
     const now = new Date();
-
-    const day = now.getDay();  // 5 = Friday, 6 = Saturday
+    const day = now.getDay();
     const hour = now.getHours();
 
     const voteSection = document.getElementById('voteSection');
 
-    // SHOW: Friday 00:00 → Saturday 00:00
     if ((day === 5 && hour >= 0) || (day === 6 && hour === 0)) {
       voteSection.classList.remove("hidden");
       voteSection.classList.add("flex");
@@ -993,11 +974,9 @@ a:focus, button:focus, .btn:focus{
     }
   }
 
-  // Check every minute
   setInterval(handleVoteSectionVisibility, 60000);
-
-  // Run immediately on load
   handleVoteSectionVisibility();
+  loadPlayers();
 </script>
 
         <!-- Upcoming Fixtures Section -->
