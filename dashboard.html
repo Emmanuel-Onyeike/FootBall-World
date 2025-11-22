@@ -836,37 +836,79 @@ a:focus, button:focus, .btn:focus{
 
 
 
-<!-- PLAYER OF THE WEEK SECTION -->
-<section id="voteSection" class="hidden w-full justify-center items-center py-14 px-4 bg-[#0d0d0f]">
-  <div class="max-w-lg w-full text-center bg-[#1a1a1d] border border-[#2a2a2d] shadow-2xl rounded-2xl p-8">
-    <h2 class="text-2xl font-extrabold mb-3 text-white tracking-wide">
-      Player of the Week Voting
-    </h2>
-
-    <p class="text-gray-400 mb-8 leading-relaxed">
-      Cast your vote for the standout player this week.  
-      Voting opens <span class="text-green-400 font-semibold">Friday 12:00AM</span>  
-      and closes <span class="text-red-400 font-semibold">Saturday 12:00AM</span>.
-    </p>
-
-    <button 
-      onclick="openVoteModal()"
-      class="bg-gradient-to-r from-green-500 to-lime-500 text-black font-bold px-8 py-3 rounded-full text-lg shadow-lg hover:scale-105 transition-all duration-300">
-      Cast Your Vote
-    </button>
-  </div>
-</section>
-
-<!-- DARK MODAL -->
 <div id="voteModal" class="fixed inset-0 bg-black bg-opacity-70 hidden justify-center items-center p-4 backdrop-blur-sm">
   <div class="bg-[#1c1c1f] w-full max-w-md rounded-2xl p-8 shadow-2xl border border-[#2b2b2f] animate-fadeIn">
 
+    <!-- MODAL HEADER -->
     <h3 class="text-2xl font-bold mb-4 text-center text-white">Vote Now</h3>
-    <p class="text-gray-400 text-center mb-10">Choose your preferred player below.</p>
+    <p class="text-gray-400 text-center mb-10">
+      Choose your preferred player below.
+    </p>
 
-    <!-- DYNAMIC PLAYERS LIST -->
-    <div id="playersContainer" class="flex flex-col gap-4 mb-6"></div>
+    <!-- VOTING FORM WITH PROGRESS BARS -->
+    <div id="playersContainer" class="flex flex-col gap-4 mb-6">
 
+      <!-- PLAYER 1 -->
+      <div class="player-item bg-[#2d2d31] p-4 rounded-xl flex items-center justify-between gap-3">
+        <div class="w-full">
+          <p class="text-white font-semibold mb-2">Emeka</p>
+          <div class="w-full h-3 bg-[#1a1a1d] rounded-full overflow-hidden">
+            <div class="progress-bar h-full bg-green-500" style="width: 0%;"></div>
+          </div>
+          <p class="text-gray-400 text-sm mt-1 percent-text">0%</p>
+        </div>
+        <button class="vote-btn bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-semibold transition">Vote</button>
+      </div>
+
+      <!-- PLAYER 2 -->
+      <div class="player-item bg-[#2d2d31] p-4 rounded-xl flex items-center justify-between gap-3">
+        <div class="w-full">
+          <p class="text-white font-semibold mb-2">Ebuka</p>
+          <div class="w-full h-3 bg-[#1a1a1d] rounded-full overflow-hidden">
+            <div class="progress-bar h-full bg-green-500" style="width: 0%;"></div>
+          </div>
+          <p class="text-gray-400 text-sm mt-1 percent-text">0%</p>
+        </div>
+        <button class="vote-btn bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-semibold transition">Vote</button>
+      </div>
+
+      <!-- PLAYER 3 -->
+      <div class="player-item bg-[#2d2d31] p-4 rounded-xl flex items-center justify-between gap-3">
+        <div class="w-full">
+          <p class="text-white font-semibold mb-2">Paschal</p>
+          <div class="w-full h-3 bg-[#1a1a1d] rounded-full overflow-hidden">
+            <div class="progress-bar h-full bg-green-500" style="width: 0%;"></div>
+          </div>
+          <p class="text-gray-400 text-sm mt-1 percent-text">0%</p>
+        </div>
+        <button class="vote-btn bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-semibold transition">Vote</button>
+      </div>
+
+         <div class="player-item bg-[#2d2d31] p-4 rounded-xl flex items-center justify-between gap-3">
+        <div class="w-full">
+          <p class="text-white font-semibold mb-2">Mallow</p>
+          <div class="w-full h-3 bg-[#1a1a1d] rounded-full overflow-hidden">
+            <div class="progress-bar h-full bg-green-500" style="width: 0%;"></div>
+          </div>
+          <p class="text-gray-400 text-sm mt-1 percent-text">0%</p>
+        </div>
+        <button class="vote-btn bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-semibold transition">Vote</button>
+      </div>
+
+         <div class="player-item bg-[#2d2d31] p-4 rounded-xl flex items-center justify-between gap-3">
+        <div class="w-full">
+          <p class="text-white font-semibold mb-2">NIl</p>
+          <div class="w-full h-3 bg-[#1a1a1d] rounded-full overflow-hidden">
+            <div class="progress-bar h-full bg-green-500" style="width: 0%;"></div>
+          </div>
+          <p class="text-gray-400 text-sm mt-1 percent-text">0%</p>
+        </div>
+        <button class="vote-btn bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-semibold transition">Vote</button>
+      </div>
+
+    </div>
+
+    <!-- CLOSE BUTTON -->
     <div class="flex justify-center">
       <button onclick="closeVoteModal()" 
         class="bg-red-500 text-white px-6 py-2 rounded-xl font-semibold shadow-lg hover:bg-red-600 transition">
@@ -875,123 +917,31 @@ a:focus, button:focus, .btn:focus{
     </div>
   </div>
 </div>
-
-<!-- ANIMATION -->
-<style>
-  @keyframes fadeIn { from{opacity:0;transform:scale(0.95);} to{opacity:1;transform:scale(1);} }
-  .animate-fadeIn { animation: fadeIn .25s ease-out; }
-</style>
-
-<!-- VOTING LOGIC -->
-<script type="module">
-  import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
-
-  const PROJECT_URL = "https://hsjzyqnpigxurnovlxvs.supabase.co";
-  const PUBLIC_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhzanp5cW5waWd4dXJub3ZseHZzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM3NTMwNDgsImV4cCI6MjA3OTMyOTA0OH0.U2FGDGJq2ym0tK0eWkBruJoSkS0rqwJ1scW4Wvj_gyg";
-
-  const supabase = createClient(PROJECT_URL, PUBLIC_ANON_KEY);
-
+<script>
   const playersContainer = document.getElementById("playersContainer");
-  let playerData = [];
+  let playerVotes = [];
 
-  // Load players from Supabase
-  async function loadPlayers() {
-    const { data, error } = await supabase
-      .from("votes")
-      .select("*")
-      .order("id", { ascending: true });
+  // Initialize votes for each player
+  document.querySelectorAll(".player-item").forEach(() => playerVotes.push(0));
 
-    if (error) {
-      console.error("Error loading players:", error);
-      return;
-    }
+  function updatePercentages() {
+    const totalVotes = playerVotes.reduce((a, b) => a + b, 0);
+    const safeTotal = totalVotes === 0 ? 1 : totalVotes;
 
-    playerData = data;
-    playersContainer.innerHTML = "";
-
-    data.forEach(player => {
-      playersContainer.innerHTML += `
-        <div class="player-item bg-[#2d2d31] p-4 rounded-xl flex items-center justify-between gap-3">
-          <div class="w-full">
-            <p class="text-white font-semibold mb-2">${player.player_name}</p>
-            <div class="w-full h-3 bg-[#1a1a1d] rounded-full overflow-hidden">
-              <div class="progress-bar h-full bg-green-500" style="width: 0%;"></div>
-            </div>
-            <p class="text-gray-400 text-sm mt-1 percent-text">0%</p>
-          </div>
-          <button data-id="${player.id}" 
-            class="vote-btn bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-semibold transition">
-            Vote
-          </button>
-        </div>
-      `;
-    });
-
-    updateUI();
-    attachVoteEvents();
-  }
-
-  // Update progress bars
-  function updateUI() {
-    const total = playerData.reduce((sum, p) => sum + p.vote_count, 0) || 1;
-
-    document.querySelectorAll(".player-item").forEach((item, i) => {
-      const percentage = Math.round((playerData[i].vote_count / total) * 100);
-      item.querySelector(".progress-bar").style.width = percentage + "%";
-      item.querySelector(".percent-text").textContent = percentage + "%";
+    document.querySelectorAll(".player-item").forEach((item, index) => {
+      const percent = Math.round((playerVotes[index] / safeTotal) * 100);
+      item.querySelector(".progress-bar").style.width = percent + "%";
+      item.querySelector(".percent-text").textContent = percent + "%";
     });
   }
 
-  // Vote button events
-  function attachVoteEvents() {
-    document.querySelectorAll(".vote-btn").forEach(btn => {
-      btn.addEventListener("click", async () => {
-        const id = btn.dataset.id;
-
-        // Increment vote in Supabase
-        const { error } = await supabase
-          .from("votes")
-          .update({ vote_count: supabase.raw("vote_count + 1") })
-          .eq("id", id);
-
-        if (error) {
-          console.error("Vote error:", error);
-        }
-
-        await loadPlayers(); // Refresh UI
-      });
+  // Add click events to vote buttons
+  document.querySelectorAll(".vote-btn").forEach((btn, index) => {
+    btn.addEventListener("click", () => {
+      playerVotes[index] += 1;
+      updatePercentages();
     });
-  }
-
-  // Modal logic
-  window.openVoteModal = () => {
-    document.getElementById('voteModal').classList.remove('hidden');
-    document.getElementById('voteModal').classList.add('flex');
-  };
-  window.closeVoteModal = () => {
-    document.getElementById('voteModal').classList.add('hidden');
-    document.getElementById('voteModal').classList.remove('flex');
-  };
-
-  // Show section only Friday–Saturday
-  function handleVoteSectionVisibility() {
-    const now = new Date();
-    const day = now.getDay();
-    const hour = now.getHours();
-    const voteSection = document.getElementById('voteSection');
-
-    if ((day === 5 && hour >= 0) || (day === 6 && hour === 0)) {
-      voteSection.classList.remove("hidden");
-      voteSection.classList.add("flex");
-    } else {
-      voteSection.classList.add("hidden");
-      voteSection.classList.remove("flex");
-    }
-  }
-
-  setInterval(handleVoteSectionVisibility, 60000);
-  handleVoteSectionVisibility();
-  loadPlayers();
+  });
 </script>
 
 
