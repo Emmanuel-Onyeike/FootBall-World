@@ -197,7 +197,12 @@
 
     // --- API and News Loading Logic ---
 
-    // Function to create a news card HTML
+    /**
+     * Creates the HTML structure for a single news card.
+     * @param {object} item - The news item data.
+     * @param {boolean} isApi - True if from API, false if user post.
+     * @returns {string} The HTML string for the news card.
+     */
     function createNewsCard(item, isApi = true) {
         const sourceIcon = isApi 
             ? '<i class="fas fa-globe text-xl text-red-500 mr-2"></i>' // API Source Icon
@@ -209,12 +214,14 @@
 
         const titleColor = isApi ? 'text-primary' : 'text-secondary';
         
-        // Use placeholder image if no URL is provided, and only if there's no actual image data for user posts
-        const imageUrl = item.imageUrl || `https://via.placeholder.com/600x300?text=${item.title.replace(/\s/g, '+')}`;
+        // ONLY include the image tag if imageUrl is present
+        const imageHtml = item.imageUrl 
+            ? `<img src="${item.imageUrl}" alt="${item.title}" class="w-full h-48 object-cover rounded-xl mb-4 shadow-xl" />`
+            : '';
         
         return `
             <div class="news-card bg-card-bg p-5 rounded-2xl shadow-lg ${cardClass} transition duration-300">
-                ${item.imageUrl ? `<img src="${imageUrl}" alt="${item.title}" class="w-full h-48 object-cover rounded-xl mb-4 shadow-xl" />` : ''}
+                ${imageHtml}
                 <div class="flex items-center mb-3">
                     ${sourceIcon}
                     <span class="text-sm font-semibold text-text-muted">${isApi ? 'API News Feed' : 'Your Post'}</span>
@@ -231,16 +238,12 @@
 
     async function loadNews() {
         // *** REPLACE THIS WITH YOUR ACTUAL API FETCH USING YOUR KEY ***
-        // Example:
-        // const response = await fetch('YOUR_API_ENDPOINT', { headers: { 'X-API-KEY': 'YOUR_KEY' } });
-        // const apiData = await response.json();
-        
-        // Example dummy data (simulate API response)
+        // NOTE: Use high-quality image URLs from your API for clear pictures.
         const apiData = [
-            { title: "Man. City Star Faces Long Layoff After Injury", body: "Scans confirm a Grade 2 hamstring tear, sidelining the winger for up to two months, a major blow to their title defence.", imageUrl: "https://via.placeholder.com/600x300?text=Injury+Report", date: "45 minutes ago" },
-            { title: "Transfer Buzz: Bellingham to Liverpool Rumors Resurface", body: "Reports from Spain indicate a renewed interest from the Merseyside club as the summer window approaches. A €150M fee is being floated.", imageUrl: "https://via.placeholder.com/600x300?text=Transfer+Rumours", date: "3 hours ago" },
-            { title: "Analysis: Why VAR Decisions Are Still Causing Controversy", body: "An in-depth look at the latest major incidents and calls for clearer communication protocols.", date: "1 day ago" },
-            { title: "MLS Expansion Update: San Diego Announced as 30th Team", body: "The league confirms the new franchise will begin play in 2028 with a custom-built downtown stadium.", imageUrl: "https://via.placeholder.com/600x300?text=MLS+Expansion", date: "2 days ago" },
+            { title: "Man. City Star Faces Long Layoff After Injury", body: "Scans confirm a Grade 2 hamstring tear, sidelining the winger for up to two months, a major blow to their title defence.", imageUrl: "https://images.unsplash.com/photo-1543787361-9c6a71e2330e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", date: "45 minutes ago" },
+            { title: "Transfer Buzz: Bellingham to Liverpool Rumors Resurface", body: "Reports from Spain indicate a renewed interest from the Merseyside club as the summer window approaches. A €150M fee is being floated.", imageUrl: "https://images.unsplash.com/photo-1533083811807-6b47c0c29b6f?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", date: "3 hours ago" },
+            { title: "Analysis: Why VAR Decisions Are Still Causing Controversy", body: "An in-depth look at the latest major incidents and calls for clearer communication protocols.", imageUrl: "", date: "1 day ago" }, // Example with no image
+            { title: "MLS Expansion Update: San Diego Announced as 30th Team", body: "The league confirms the new franchise will begin play in 2028 with a custom-built downtown stadium.", imageUrl: "https://images.unsplash.com/photo-1531671981881-807923f03b5f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", date: "2 days ago" },
         ];
 
         let hasContent = false;
