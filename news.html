@@ -6,14 +6,17 @@
     <title>Football News Hub ⚽</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
+        // Customizing Tailwind for a deep, modern dark theme
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        'dark-bg': '#121212',
-                        'card-bg': '#1E1E1E',
-                        'primary': '#4CAF50', // Green for emphasis
-                        'secondary': '#BB86FC', // Lighter accent
+                        'dark-bg': '#0A0A0A', // Ultra Dark Background
+                        'card-bg': '#1F1F1F', // Slightly lighter for cards
+                        'primary': '#4CAF50', // Classic Sports Green
+                        'secondary': '#81C784', // Light green accent
+                        'text-light': '#F5F5F5',
+                        'text-muted': '#A0A0A0',
                     }
                 }
             }
@@ -21,67 +24,85 @@
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <style>
+        .news-card {
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+        }
         .news-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.5);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
+            border-color: #4CAF50;
+        }
+        /* Hide scrollbar for aesthetics in the news feed container (Webkit browsers) */
+        #scrollableNewsFeed::-webkit-scrollbar {
+            display: none;
+        }
+        /* Hide scrollbar for aesthetics (IE and Edge) */
+        #scrollableNewsFeed {
+            -ms-overflow-style: none;
+            /* Firefox */
+            scrollbar-width: none;
         }
     </style>
 </head>
 
-<body class="bg-dark-bg text-gray-100 min-h-screen flex flex-col antialiased">
+<body class="bg-dark-bg text-text-light min-h-screen flex flex-col antialiased">
 
-    <header class="sticky top-0 z-40 p-4 bg-card-bg border-b border-gray-700 shadow-xl">
-        <div class="max-w-4xl mx-auto flex justify-between items-center">
-            <h1 class="text-3xl font-extrabold tracking-tight text-primary">
-                Football News Hub
+    <header class="sticky top-0 z-40 p-4 bg-card-bg border-b border-gray-800 shadow-xl">
+        <div class="max-w-3xl mx-auto flex justify-between items-center">
+            <h1 class="text-3xl font-extrabold tracking-wide text-primary">
+                <i class="fas fa-newspaper mr-2"></i> Football News Hub
             </h1>
-            <div class="text-xl text-gray-400 hidden sm:block">
-                <i class="fas fa-futbol mr-2"></i> Stay Updated
-            </div>
+            <button class="text-xl text-text-muted hover:text-secondary transition">
+                <i class="fas fa-search"></i>
+            </button>
         </div>
     </header>
-    
-    <div class="flex-grow">
-        <main id="newsContainer" class="max-w-4xl mx-auto p-4 md:p-6 grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-            </main>
-        
-        <div id="emptyState" class="hidden text-center p-20 text-gray-500">
-            <i class="fas fa-inbox text-5xl mb-4"></i>
-            <p class="text-lg">No news found. Try posting or check your API connection!</p>
+
+    <div class="flex-grow max-w-3xl mx-auto w-full p-4 md:p-6 flex flex-col">
+
+        <h2 class="text-2xl font-bold mb-4 text-text-light border-b border-gray-700 pb-2">Latest Updates</h2>
+        <div id="scrollableNewsFeed" class="flex-grow overflow-y-auto space-y-6 pr-2">
+            <main id="newsContainer" class="space-y-6">
+                </main>
+
+            <div id="emptyState" class="hidden text-center p-12 text-text-muted">
+                <i class="fas fa-inbox text-5xl mb-4 text-gray-700"></i>
+                <p class="text-lg">No news found. Be the first to post an update!</p>
+            </div>
         </div>
     </div>
 
 
     <button id="openModalBtn" title="Create New Post" 
-        class="fixed bottom-6 right-6 bg-primary hover:bg-green-600 text-white w-14 h-14 rounded-full shadow-2xl transition duration-300 transform hover:scale-105 z-50">
-        <i class="fas fa-plus text-2xl"></i>
+        class="fixed bottom-8 right-8 bg-primary hover:bg-green-600 text-white w-16 h-16 rounded-full shadow-2xl transition duration-300 transform hover:scale-110 z-50">
+        <i class="fas fa-plus text-3xl"></i>
     </button>
 
-    <div id="modalBg" class="hidden fixed inset-0 bg-black bg-opacity-80 backdrop-blur-sm flex items-center justify-center z-50 transition-opacity duration-300">
+    <div id="modalBg" class="hidden fixed inset-0 bg-black bg-opacity-80 backdrop-blur-sm flex items-center justify-center z-50">
 
-        <div class="bg-card-bg p-6 md:p-8 rounded-xl shadow-2xl w-11/12 max-w-lg transform scale-95 transition-transform duration-300 ease-out border border-gray-700">
+        <div class="bg-card-bg p-6 md:p-8 rounded-2xl shadow-2xl w-11/12 max-w-lg transform scale-100 transition-transform duration-300 ease-out border border-gray-700">
             <h2 class="text-2xl font-bold mb-6 text-center text-secondary">
                 <i class="fas fa-feather-alt mr-2"></i> Create News Post
             </h2>
 
-            <div id="imagePreviewContainer" class="hidden mb-4 rounded-lg overflow-hidden border border-gray-600">
-                <img id="imagePreview" src="" alt="Image Preview" class="w-full h-auto object-cover max-h-40" />
+            <div id="imagePreviewContainer" class="hidden mb-4 rounded-lg overflow-hidden border-2 border-primary/50">
+                <img id="imagePreview" src="" alt="Image Preview" class="w-full h-40 object-cover" />
             </div>
 
-            <label for="postImage" class="block mb-2 font-semibold text-gray-300">Upload Image (Optional)</label>
-            <input id="postImage" type="file" accept="image/*" class="w-full mb-4 bg-dark-bg text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary/20 file:text-primary hover:file:bg-primary/30 rounded-lg p-2 transition duration-150 cursor-pointer" />
+            <label for="postImage" class="block mb-2 font-semibold text-text-muted">Upload Image (Optional)</label>
+            <input id="postImage" type="file" accept="image/*" class="w-full mb-4 text-text-light file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary/20 file:text-primary hover:file:bg-primary/30 rounded-lg p-2 transition cursor-pointer border border-gray-700" />
 
-            <label for="postText" class="block mb-2 font-semibold text-gray-300">Write Up *</label>
+            <label for="postText" class="block mb-2 font-semibold text-text-muted">Write Up *</label>
             <textarea id="postText" placeholder="What's the latest scoop?" 
-                class="w-full h-32 bg-dark-bg text-gray-100 p-4 rounded-lg border border-gray-700 focus:ring-2 focus:ring-primary focus:border-transparent transition duration-150 resize-none"></textarea>
+                class="w-full h-32 bg-dark-bg text-text-light p-4 rounded-lg border border-gray-700 focus:ring-2 focus:ring-primary focus:border-primary transition resize-none"></textarea>
 
-            <div class="flex justify-end space-x-4 mt-6">
+            <div class="flex justify-between mt-6">
                 <button id="closeModalBtn" 
-                    class="bg-gray-700 text-white font-semibold px-5 py-2 rounded-full hover:bg-gray-600 transition duration-150">
+                    class="bg-gray-700 text-white font-semibold px-6 py-2 rounded-full hover:bg-gray-600 transition duration-150">
                     Cancel
                 </button>
                 <button id="postBtn" 
-                    class="bg-primary text-white font-semibold px-5 py-2 rounded-full hover:bg-green-600 transition duration-150 disabled:opacity-50" disabled>
+                    class="bg-primary text-dark-bg font-bold px-6 py-2 rounded-full hover:bg-green-600 transition duration-150 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
                     <i class="fas fa-paper-plane mr-2"></i> Post
                 </button>
             </div>
@@ -99,15 +120,13 @@
     const postText = document.getElementById("postText");
     const imagePreview = document.getElementById("imagePreview");
     const imagePreviewContainer = document.getElementById("imagePreviewContainer");
+    const emptyState = document.getElementById("emptyState");
+
 
     // --- Modal Logic ---
 
     // Open Modal
-    openModalBtn.addEventListener("click", () => {
-        modalBg.classList.remove("hidden");
-        // Optional: Add a class for animation if using pure CSS transitions
-        // modalBox.classList.add("modal-open"); 
-    });
+    openModalBtn.addEventListener("click", () => modalBg.classList.remove("hidden"));
 
     // Close Modal
     function closeModal() {
@@ -117,7 +136,7 @@
         postText.value = "";
         imagePreview.src = "";
         imagePreviewContainer.classList.add("hidden");
-        postBtn.disabled = true; // Disable post button after closing
+        postBtn.disabled = true;
     }
     closeModalBtn.addEventListener("click", closeModal);
 
@@ -151,93 +170,94 @@
         const file = postImage.files[0];
         const text = postText.value.trim();
 
-        if (!file && !text) return; // Should be handled by disabled state, but for safety
+        if (!file && !text) return;
 
         const reader = new FileReader();
 
         reader.onloadend = () => {
             const imgSrc = file ? reader.result : null;
-            const postDate = new Date().toLocaleString();
+            const postDate = new Date().toLocaleDateString('en-US', { hour: 'numeric', minute: 'numeric', day: '2-digit', month: 'short', year: 'numeric' });
 
-            const postHTML = `
-                <div class="news-card user-post bg-card-bg p-5 rounded-xl shadow-lg border-2 border-primary/50 transition duration-300">
-                    <div class="flex items-center mb-3">
-                        <i class="fas fa-user-circle text-2xl text-secondary mr-3"></i>
-                        <h4 class="text-lg font-bold text-secondary">Your Post</h4>
-                    </div>
-                    ${imgSrc ? `<img src="${imgSrc}" alt="User Image" class="w-full h-48 object-cover rounded-lg mb-4 shadow-md" />` : ""}
-                    <p class="text-gray-200 text-base leading-relaxed">${text.replace(/\n/g, '<br>')}</p>
-                    <p class="text-xs text-gray-500 mt-3 text-right">Posted: ${postDate}</p>
-                </div>
-            `;
+            const postHTML = createNewsCard({ 
+                title: "User Post", 
+                body: text, 
+                imageUrl: imgSrc, 
+                date: postDate 
+            }, false); // false indicates it's a user post
 
             // Insert new post at the beginning of the news list
             newsContainer.insertAdjacentHTML("afterbegin", postHTML);
             closeModal(); // Close modal and reset fields
-            document.getElementById("emptyState").classList.add("hidden");
+            emptyState.classList.add("hidden"); // Hide empty state if post is successful
         };
 
         if (file) reader.readAsDataURL(file);
-        else reader.onloadend(); // Process text-only post
+        else reader.onloadend(); 
     });
 
     // --- API and News Loading Logic ---
 
     // Function to create a news card HTML
     function createNewsCard(item, isApi = true) {
-        const sourceIcon = isApi ? '<i class="fas fa-broadcast-tower text-xl text-red-500 mr-2"></i>' : '<i class="fas fa-user-circle text-xl text-secondary mr-2"></i>';
-        const sourceText = isApi ? 'API Feed' : 'Your Post';
-        const cardColor = isApi ? 'border-gray-700' : 'border-primary/50';
+        const sourceIcon = isApi 
+            ? '<i class="fas fa-globe text-xl text-red-500 mr-2"></i>' // API Source Icon
+            : '<i class="fas fa-user-circle text-xl text-secondary mr-2"></i>'; // User Post Icon
+        
+        const cardClass = isApi 
+            ? 'border-gray-700' 
+            : 'border-2 border-secondary/70 shadow-secondary/20';
 
-        // Placeholder for image, assuming the API might return an image URL
-        const imageUrl = item.imageUrl || `https://via.placeholder.com/400x200?text=${item.title.replace(/\s/g, '+')}`;
+        const titleColor = isApi ? 'text-primary' : 'text-secondary';
+        
+        // Use placeholder image if no URL is provided, and only if there's no actual image data for user posts
+        const imageUrl = item.imageUrl || `https://via.placeholder.com/600x300?text=${item.title.replace(/\s/g, '+')}`;
         
         return `
-            <div class="news-card bg-card-bg p-5 rounded-xl shadow-xl transition duration-300 hover:shadow-2xl hover:border-primary/70 border ${cardColor}">
-                ${item.imageUrl !== undefined ? `<img src="${imageUrl}" alt="${item.title}" class="w-full h-40 object-cover rounded-lg mb-4 shadow-md" />` : ''}
+            <div class="news-card bg-card-bg p-5 rounded-2xl shadow-lg ${cardClass} transition duration-300">
+                ${item.imageUrl ? `<img src="${imageUrl}" alt="${item.title}" class="w-full h-48 object-cover rounded-xl mb-4 shadow-xl" />` : ''}
                 <div class="flex items-center mb-3">
                     ${sourceIcon}
-                    <span class="text-sm font-semibold ${isApi ? 'text-red-400' : 'text-secondary'}">${sourceText}</span>
+                    <span class="text-sm font-semibold text-text-muted">${isApi ? 'API News Feed' : 'Your Post'}</span>
                 </div>
-                <h3 class="text-xl font-extrabold mb-2 text-primary">${item.title}</h3>
-                <p class="text-gray-300 text-sm leading-relaxed">${item.body}</p>
-                <div class="mt-4 flex justify-between items-center">
-                    <a href="#" class="text-xs text-secondary hover:text-white transition-colors duration-150">Read More <i class="fas fa-arrow-right ml-1"></i></a>
-                    <span class="text-xs text-gray-500">${item.date || 'Just now'}</span>
+                <h3 class="text-xl font-extrabold mb-2 ${titleColor}">${item.title}</h3>
+                <p class="text-text-light text-base leading-relaxed whitespace-pre-line">${item.body}</p>
+                <div class="mt-4 flex justify-between items-center border-t border-gray-800 pt-3">
+                    <a href="#" class="text-sm text-primary hover:text-white transition-colors duration-150 font-medium">Read More <i class="fas fa-arrow-right ml-1"></i></a>
+                    <span class="text-xs text-gray-500">${item.date || 'Less than a minute ago'}</span>
                 </div>
             </div>
         `;
     }
 
     async function loadNews() {
-        // **!!! Replace this with your actual API fetch !!!**
-        try {
-            // const response = await fetch('YOUR_FOOTBALL_NEWS_API_ENDPOINT');
-            // const apiData = await response.json();
-            
-            // Example dummy data (simulate API response)
-            const apiData = [
-                { title: "Kylian Mbappé Transfer Saga Heats Up", body: "Sources suggest a major announcement is imminent regarding the French star's next club.", imageUrl: "https://via.placeholder.com/400x200?text=Mbappe+Transfer+News", date: "2 hours ago" },
-                { title: "Premier League Title Race: Closer Than Ever", body: "With five games left, the top three teams are separated by a single point, setting up a thrilling finale.", imageUrl: "https://via.placeholder.com/400x200?text=EPL+Title+Race", date: "1 day ago" },
-                { title: "Champions League Quarter-Final Draw Analysis", body: "Experts break down the matchups, predicting upsets and potential finalists.", date: "2 days ago" },
-                { title: "Injury Update on Star Midfielder", body: "Team doctor confirms the player will be sidelined for at least six weeks with a hamstring strain.", imageUrl: "https://via.placeholder.com/400x200?text=Injury+Update", date: "3 days ago" },
-            ];
+        // *** REPLACE THIS WITH YOUR ACTUAL API FETCH USING YOUR KEY ***
+        // Example:
+        // const response = await fetch('YOUR_API_ENDPOINT', { headers: { 'X-API-KEY': 'YOUR_KEY' } });
+        // const apiData = await response.json();
+        
+        // Example dummy data (simulate API response)
+        const apiData = [
+            { title: "Man. City Star Faces Long Layoff After Injury", body: "Scans confirm a Grade 2 hamstring tear, sidelining the winger for up to two months, a major blow to their title defence.", imageUrl: "https://via.placeholder.com/600x300?text=Injury+Report", date: "45 minutes ago" },
+            { title: "Transfer Buzz: Bellingham to Liverpool Rumors Resurface", body: "Reports from Spain indicate a renewed interest from the Merseyside club as the summer window approaches. A €150M fee is being floated.", imageUrl: "https://via.placeholder.com/600x300?text=Transfer+Rumours", date: "3 hours ago" },
+            { title: "Analysis: Why VAR Decisions Are Still Causing Controversy", body: "An in-depth look at the latest major incidents and calls for clearer communication protocols.", date: "1 day ago" },
+            { title: "MLS Expansion Update: San Diego Announced as 30th Team", body: "The league confirms the new franchise will begin play in 2028 with a custom-built downtown stadium.", imageUrl: "https://via.placeholder.com/600x300?text=MLS+Expansion", date: "2 days ago" },
+        ];
 
-            if (apiData && apiData.length > 0) {
-                apiData.forEach(item => {
-                    const html = createNewsCard(item, true);
-                    newsContainer.insertAdjacentHTML("beforeend", html);
-                });
-            }
+        let hasContent = false;
+        
+        if (apiData && apiData.length > 0) {
+            apiData.forEach(item => {
+                const html = createNewsCard(item, true);
+                newsContainer.insertAdjacentHTML("beforeend", html);
+            });
+            hasContent = true;
+        }
 
-            if (newsContainer.children.length === 0) {
-                 document.getElementById("emptyState").classList.remove("hidden");
-            }
-
-        } catch (error) {
-            console.error("Error fetching news:", error);
-            // Show error message or empty state if API fails
-             document.getElementById("emptyState").classList.remove("hidden");
+        // Check for content after loading API data and custom posts
+        if (!hasContent && newsContainer.children.length === 0) {
+             emptyState.classList.remove("hidden");
+        } else {
+             emptyState.classList.add("hidden");
         }
     }
 
