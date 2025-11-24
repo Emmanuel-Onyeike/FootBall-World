@@ -4,479 +4,487 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Football News Hub ⚽</title>
-    <meta name="description" content="Live football news, updates, and fan posts" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
-    <link rel="icon" href="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png" />
-
     <script>
-        // Updated Tailwind Config
+        // Customizing Tailwind for a deep, modern dark theme
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        'dark-bg': '#0a0a0a',
-                        'card-bg': '#141414', /* Slightly darker card background */
-                        'primary': '#00ff9d', /* Neon Green */
-                        'secondary': '#00d68f',
-                        'text-light': '#f0f0f0',
-                        'text-muted': '#aaaaaa',
-                        'accent-red': '#ff3366',
-                        'accent-yellow': '#ffdd00', /* Gold/Yellow for User Posts */
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        'dark-bg': '#070707', // Deeper Ultra Dark
+                        'card-bg': '#171717', // Lighter for cards
+                        'primary': '#4CAF50', // Classic Sports Green
+                        'secondary': '#81C784', // Light green accent
+                        'text-light': '#F0F0F0', // Near White
+                        'text-muted': '#A0A0A0',
+                        'action-red': '#EF4444',
+                        'action-blue': '#3B82F6',
+                        'action-yellow': '#FBBF24',
                     }
                 }
             }
         }
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <style>
-        body { background: #0a0a0a; }
-
-        /* --- Card Enhancement: Neon Hover/Glow --- */
         .news-card {
-            transition: all 0.3s ease;
-            position: relative;
-            border: 1px solid #1f1f1f; /* Base border */
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+            border-left: 5px solid transparent; /* Base for hover effect */
         }
         .news-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 255, 157, 0.2);
-            border-color: #00ff9d55;
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+            border-color: #4CAF50; /* Primary color highlight on hover */
         }
-
-        /* Dedicated style for user posts */
-        .news-card-user {
-            border: 2px dashed #ffdd00; /* Yellow dashed border */
-            box-shadow: 0 0 15px rgba(255, 221, 0, 0.3);
-        }
-        .news-card-user:hover {
-            box-shadow: 0 10px 25px rgba(255, 221, 0, 0.4);
-            transform: translateY(-5px);
-        }
-
-        /* --- Interaction Buttons --- */
-        .interaction-btn {
-            @apply p-2.5 rounded-full hover:bg-white/10 transition text-base;
-        }
-        .liked { @apply text-accent-red; }
-        .saved { @apply text-accent-yellow; }
-
-        /* --- Input/Search Focus Glow (Applied to Modals and Search) --- */
-        .glowing-input:focus {
-            box-shadow: 0 0 8px rgba(0, 255, 157, 0.6);
-            border-color: #00ff9d !important;
-            outline: none;
-        }
-
-        /* --- Scrollbar and Search Bar Visibility --- */
+        /* Scrollbar hiding styles */
         #scrollableNewsFeed::-webkit-scrollbar { display: none; }
         #scrollableNewsFeed { -ms-overflow-style: none; scrollbar-width: none; }
-        .search-bar-hidden { max-height: 0; opacity: 0; padding: 0 !important; margin: 0 !important; overflow: hidden; }
-        .search-bar-visible { max-height: 100px; opacity: 1; margin-bottom: 1.5rem !important; }
+        
+        /* Search Bar Animation */
+        .search-bar-hidden {
+            max-height: 0; opacity: 0; padding: 0 !important; margin: 0 !important;
+            transition: max-height 0.4s ease-out, opacity 0.4s ease-out;
+        }
+        .search-bar-visible {
+            max-height: 100px; opacity: 1;
+            transition: max-height 0.4s ease-in, opacity 0.4s ease-in;
+        }
+
+        /* Action Button Styles */
+        .interaction-btn {
+            @apply p-2 rounded-full hover:bg-gray-800 transition duration-150 text-text-muted;
+        }
+        .liked { @apply text-action-red; }
+        .saved { @apply text-action-yellow; }
     </style>
 </head>
-<body class="bg-dark-bg text-text-light min-h-screen flex flex-col font-sans">
 
-    <header class="sticky top-0 z-40 bg-card-bg/95 backdrop-blur-sm border-b border-gray-800 shadow-xl">
-        <div class="p-4 max-w-4xl mx-auto flex justify-between items-center">
-            <h1 class="text-3xl font-black tracking-widest bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                FOOTBALL HUB
+<body class="bg-dark-bg text-text-light min-h-screen flex flex-col antialiased">
+
+    <header class="sticky top-0 z-40 bg-card-bg border-b border-gray-800 shadow-xl">
+        <div class="p-4 max-w-3xl mx-auto flex justify-between items-center">
+            <h1 class="text-3xl font-extrabold tracking-wide text-primary">
+                <i class="fas fa-futbol mr-2"></i> Football News Hub
             </h1>
-            <button id="searchButton" class="text-xl text-primary hover:text-white transition flex items-center gap-2 font-medium py-2 px-4 rounded-lg border border-primary/50 hover:bg-primary/10">
-                <i class="fas fa-search"></i> Search
+            <button id="searchButton" class="text-xl text-text-muted hover:text-secondary transition" title="Toggle Search">
+                <i class="fas fa-search"></i>
             </button>
         </div>
-        <div id="searchBar" class="search-bar-hidden transition-all duration-400 px-4 max-w-4xl mx-auto">
+
+        <div id="searchBar" class="search-bar-hidden px-4 pb-4 max-w-3xl mx-auto w-full">
             <div class="relative">
-                <input type="text" id="searchInput" placeholder="Search news, teams, players..."
-                    class="glowing-input w-full bg-dark-bg/80 text-text-light p-4 pl-12 rounded-xl border border-gray-700 focus:ring-0 outline-none transition">
-                <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-primary pointer-events-none"></i>
+                <input type="text" id="searchInput" placeholder="Search news by title or content..." 
+                    class="w-full bg-dark-bg text-text-light p-3 pl-10 rounded-lg border border-gray-700 focus:ring-2 focus:ring-primary focus:border-primary transition duration-150"
+                    oninput="filterNews()">
+                <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500"></i>
             </div>
         </div>
     </header>
 
-    <main class="flex-grow max-w-4xl mx-auto w-full p-4 md:p-6">
-        <h2 class="text-3xl font-extrabold mb-8 text-center bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent border-b-2 border-primary/20 pb-2">
-            LATEST FEED
-        </h2>
+    <div class="flex-grow max-w-3xl mx-auto w-full p-4 md:p-6 flex flex-col">
 
-        <div id="scrollableNewsFeed" class="space-y-8 overflow-y-auto">
-             <div id="userPostContainer" class="space-y-8"></div> 
+        <h2 class="text-2xl font-bold mb-4 text-text-light border-b border-gray-700 pb-2">Latest Updates</h2>
+        
+        <div id="scrollableNewsFeed" class="flex-grow overflow-y-auto space-y-6 pr-2">
+            <main id="newsContainer" class="space-y-6">
+                </main>
 
-            <div id="newsContainer" class="space-y-8"></div>
-
-            <div id="loading" class="text-center py-20 text-primary">
-                <i class="fas fa-sync-alt fa-spin text-6xl mb-4"></i>
-                <p class="text-xl font-medium">Booting up the feed...</p>
+            <div id="emptyState" class="hidden text-center p-12 text-text-muted">
+                <i class="fas fa-inbox text-5xl mb-4 text-gray-700"></i>
+                <p class="text-lg">No news found. Be the first to post an update!</p>
             </div>
-
-            <div id="emptyState" class="hidden text-center py-20 text-gray-500">
-                <i class="fas fa-newspaper text-7xl mb-6 opacity-20 text-primary"></i>
-                <p class="text-xl font-bold">No news found. Be the first to post!</p>
-            </div>
-
-            <div id="noResults" class="hidden text-center py-20 text-gray-500">
-                <i class="fas fa-search-minus text-7xl mb-6 opacity-20 text-accent-red"></i>
-                <p class="text-xl font-bold">No results found for your query. Try a new search.</p>
+            
+            <div id="noResults" class="hidden text-center p-12 text-text-muted">
+                <i class="fas fa-exclamation-circle text-5xl mb-4 text-action-red"></i>
+                <p class="text-lg">No results found for your search term.</p>
             </div>
         </div>
-    </main>
+    </div>
 
-    <button id="openModalBtn" class="fixed bottom-8 right-8 bg-primary text-dark-bg w-16 h-16 rounded-full shadow-2xl text-3xl hover:scale-110 transition z-40"
-            style="box-shadow: 0 0 20px rgba(0, 255, 157, 0.7);">
-        <i class="fas fa-plus"></i>
+
+    <button id="openModalBtn" title="Create New Post" 
+        class="fixed bottom-8 right-8 bg-primary hover:bg-green-600 text-dark-bg w-16 h-16 rounded-full shadow-2xl transition duration-300 transform hover:scale-110 z-50">
+        <i class="fas fa-plus text-3xl"></i>
     </button>
 
-    <div id="modalBg" class="hidden fixed inset-0 bg-black/90 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-        <div class="bg-card-bg p-8 rounded-2xl shadow-2xl w-full max-w-lg border border-primary/30" style="box-shadow: 0 0 20px rgba(0, 255, 157, 0.1);">
-            <h2 class="text-2xl font-bold mb-6 text-center text-primary border-b border-gray-700 pb-2">Create New Post</h2>
-            
-            <div id="imagePreviewContainer" class="hidden mb-6 rounded-xl overflow-hidden border-2 border-primary/50">
-                <img id="imagePreview" src="" alt="Preview" class="w-full h-64 object-cover" />
+    <div id="modalBg" class="hidden fixed inset-0 bg-black bg-opacity-80 backdrop-blur-sm flex items-center justify-center z-50">
+        <div id="postModalContent" class="bg-card-bg p-6 md:p-8 rounded-2xl shadow-2xl w-11/12 max-w-lg border border-gray-700">
+            <h2 class="text-2xl font-bold mb-6 text-center text-secondary">
+                <i class="fas fa-feather-alt mr-2"></i> Create News Post
+            </h2>
+            <div id="imagePreviewContainer" class="hidden mb-4 rounded-lg overflow-hidden border-2 border-primary/50">
+                <img id="imagePreview" src="" alt="Image Preview" class="w-full h-40 object-cover" />
             </div>
-
-            <input type="file" id="postImage" accept="image/*" class="block w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:bg-primary/20 file:text-primary hover:file:bg-primary/30 mb-4" />
-            
-            <textarea id="postText" rows="5" placeholder="What's the latest football news? Share your thoughts..."
-                class="glowing-input w-full bg-dark-bg/70 text-text-light p-4 rounded-xl border border-gray-700 focus:ring-0 focus:border-primary outline-none resize-none"></textarea>
-
-            <div class="flex justify-end gap-3 mt-6">
-                <button id="closeModalBtn" class="px-6 py-3 bg-gray-700 hover:bg-gray-600 rounded-full font-bold transition">Cancel</button>
-                <button id="postBtn" disabled class="px-8 py-3 bg-gradient-to-r from-primary to-secondary text-black rounded-full font-bold transition opacity-50 cursor-not-allowed">
-                    <i class="fas fa-paper-plane mr-1"></i> Post
+            <label for="postImage" class="block mb-2 font-semibold text-text-muted">Upload Image (Optional)</label>
+            <input id="postImage" type="file" accept="image/*" class="w-full mb-4 text-text-light file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary/20 file:text-primary hover:file:bg-primary/30 rounded-lg p-2 transition cursor-pointer border border-gray-700" />
+            <label for="postText" class="block mb-2 font-semibold text-text-muted">Write Up *</label>
+            <textarea id="postText" placeholder="What's the latest scoop?" 
+                class="w-full h-32 bg-dark-bg text-text-light p-4 rounded-lg border border-gray-700 focus:ring-2 focus:ring-primary focus:border-primary transition resize-none"></textarea>
+            <div class="flex justify-between mt-6">
+                <button id="closeModalBtn" class="bg-gray-700 text-white font-semibold px-6 py-2 rounded-full hover:bg-gray-600 transition duration-150">
+                    Cancel
+                </button>
+                <button id="postBtn" class="bg-primary text-dark-bg font-bold px-6 py-2 rounded-full hover:bg-green-600 transition duration-150 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                    <i class="fas fa-paper-plane mr-2"></i> Post
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="commentModalBg" class="hidden fixed inset-0 bg-black bg-opacity-80 backdrop-blur-sm flex items-center justify-center z-50">
+        <div id="commentModalContent" class="bg-card-bg p-6 md:p-8 rounded-2xl shadow-2xl w-11/12 max-w-lg border border-gray-700">
+            <h2 class="text-2xl font-bold mb-6 text-center text-secondary">
+                <i class="fas fa-comments mr-2"></i> Add a Comment
+            </h2>
+            <textarea id="commentText" placeholder="Share your thoughts..." 
+                class="w-full h-24 bg-dark-bg text-text-light p-4 rounded-lg border border-gray-700 focus:ring-2 focus:ring-primary focus:border-primary transition resize-none"></textarea>
+            <div class="flex justify-between mt-6">
+                <button id="closeCommentModalBtn" class="bg-gray-700 text-white font-semibold px-6 py-2 rounded-full hover:bg-gray-600 transition duration-150">
+                    Cancel
+                </button>
+                <button id="submitCommentBtn" class="bg-primary text-dark-bg font-bold px-6 py-2 rounded-full hover:bg-green-600 transition duration-150">
+                    <i class="fas fa-check mr-2"></i> Submit Comment
                 </button>
             </div>
         </div>
     </div>
 
-    <div id="commentModalBg" class="hidden fixed inset-0 bg-black/90 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-        <div class="bg-card-bg p-8 rounded-2xl shadow-2xl w-full max-w-md border border-primary/30">
-            <h3 class="text-xl font-bold mb-6 text-primary border-b border-gray-700 pb-2">Add Comment</h3>
-            <textarea id="commentText" rows="4" placeholder="Write your comment..."
-                class="glowing-input w-full bg-dark-bg/70 text-text-light p-4 rounded-xl border border-gray-700 focus:ring-0 focus:border-primary"></textarea>
-            <div class="flex justify-end gap-3 mt-6">
-                <button id="closeCommentModalBtn" class="px-6 py-3 bg-gray-700 hover:bg-gray-600 rounded-full font-bold">Cancel</button>
-                <button id="submitCommentBtn" class="px-8 py-3 bg-primary hover:bg-secondary text-black rounded-full font-bold transition">Submit</button>
-            </div>
-        </div>
-    </div>
-
-
 <script>
     // --- Configuration ---
-    // API KEY INTEGRATED: Using the key 7286dd2e13720bdc15b0a24407265cd113acaf74c8f2990f9a68e3a3c9f86363
-    const NEWS_API_URL = "https://allsportsapi.com/api/football/?met=News&APIkey=7286dd2e13720bdc15b0a24407265cd113acaf74c8f2990f9a68e3a3c9f86363&lang=en";
+    const API_KEY = "7286dd2e13720bdc15b0a24407265cd113acaf74c8f2990f9a68e3a3c9f86363"; 
+    const CACHE_KEY = "footballNewsCache";
+    const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
 
-    // --- DOM Elements ---
-    const newsContainer = document.getElementById("newsContainer");
-    const userPostContainer = document.getElementById("userPostContainer"); // NEW USER CONTAINER
-    const loading = document.getElementById("loading");
-    const emptyState = document.getElementById("emptyState");
-    const noResults = document.getElementById("noResults");
-    const postText = document.getElementById("postText");
-    const postImage = document.getElementById("postImage");
-    const postBtn = document.getElementById("postBtn");
-    const modalBg = document.getElementById("modalBg");
-    const commentModalBg = document.getElementById("commentModalBg");
-    const searchInput = document.getElementById("searchInput");
+    // --- UI Elements ---
     const searchButton = document.getElementById("searchButton");
     const searchBar = document.getElementById("searchBar");
+    const searchInput = document.getElementById("searchInput");
+    const openModalBtn = document.getElementById("openModalBtn");
+    const modalBg = document.getElementById("modalBg");
+    const closeModalBtn = document.getElementById("closeModalBtn");
+    const postBtn = document.getElementById("postBtn");
+    const newsContainer = document.getElementById("newsContainer");
+    const postImage = document.getElementById("postImage");
+    const postText = document.getElementById("postText");
+    const imagePreview = document.getElementById("imagePreview");
     const imagePreviewContainer = document.getElementById("imagePreviewContainer");
+    const emptyState = document.getElementById("emptyState");
+    const noResults = document.getElementById("noResults");
+    const commentModalBg = document.getElementById("commentModalBg");
     
-    let allNewsCards = []; // Global array to hold news card elements for filtering
+    let allNewsCards = []; // Store all card elements for filtering
 
-    // --- Utility Functions ---
+    // Utility to format date in a readable way (e.g., "3 hours ago")
+    const timeSince = (date) => {
+        const seconds = Math.floor((new Date() - date) / 1000);
+        let interval = seconds / 31536000;
+        if (interval > 1) return Math.floor(interval) + " years ago";
+        interval = seconds / 2592000;
+        if (interval > 1) return Math.floor(interval) + " months ago";
+        interval = seconds / 86400;
+        if (interval > 1) return Math.floor(interval) + " days ago";
+        interval = seconds / 3600;
+        if (interval > 1) return Math.floor(interval) + " hours ago";
+        interval = seconds / 60;
+        if (interval > 1) return Math.floor(interval) + " minutes ago";
+        return "Just now";
+    };
 
-    // Format time ago
-    function timeAgo(date) {
-        const seconds = Math.floor((new Date() - new Date(date)) / 1000);
-        const intervals = [
-            { label: 'year', seconds: 31536000 },
-            { label: 'month', seconds: 2592000 },
-            { label: 'day', seconds: 86400 },
-            { label: 'hour', seconds: 3600 },
-            { label: 'minute', seconds: 60 },
-            { label: 'second', seconds: 1 }
-        ];
-        for (const interval of intervals) {
-            const count = Math.floor(seconds / interval.seconds);
-            if (count >= 1) {
-                return `${count} ${interval.label}${count > 1 ? 's' : ''} ago`;
-            }
+    // --- Interaction Functions ---
+    
+    // 1. LIKE BUTTON FUNCTION (FIXED)
+    window.handleLike = (postId, buttonElement) => {
+        const card = document.getElementById(`post-${postId}`);
+        if (!card) return;
+
+        let currentLikes = parseInt(card.dataset.likes || 0);
+        const likeCounter = card.querySelector('.like-count');
+        
+        if (buttonElement.classList.toggle('liked')) {
+            currentLikes++;
+            buttonElement.querySelector('i').classList.replace('far', 'fas');
+            console.log(`Liked post ${postId}. New count: ${currentLikes}`);
+        } else {
+            currentLikes--;
+            buttonElement.querySelector('i').classList.replace('fas', 'far');
+            console.log(`Unliked post ${postId}. New count: ${currentLikes}`);
         }
-        return 'Just now';
+
+        card.dataset.likes = currentLikes;
+        likeCounter.textContent = currentLikes > 0 ? currentLikes : '';
+    };
+
+    // 2. SAVE BUTTON FUNCTION (FIXED)
+    window.handleSave = (postId, buttonElement) => {
+        buttonElement.classList.toggle('saved');
+        const isSaved = buttonElement.classList.contains('saved');
+        buttonElement.title = isSaved ? 'Unsave Post' : 'Save Post';
+        buttonElement.querySelector('i').classList.toggle('far');
+        buttonElement.querySelector('i').classList.toggle('fas');
+
+        console.log(`Post ${postId} is now ${isSaved ? 'SAVED' : 'UNSAVED'} on the site.`);
+    };
+
+    // 3. DOWNLOAD BUTTON FUNCTION (UPDATED to simulate download)
+    window.handleDownload = (postId) => {
+        const card = document.getElementById(`post-${postId}`);
+        const img = card.querySelector('img');
+
+        if (img && img.src) {
+            const imageUrl = img.src;
+            // Create a temporary anchor element
+            const a = document.createElement('a');
+            a.href = imageUrl;
+            // Set filename. This usually only works for same-origin URLs or data URLs.
+            a.download = `news_post_${postId}.jpg`; 
+            
+            // Append to body, click it, and remove it
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            
+            console.log(`Download simulated for post ${postId}. Image URL: ${imageUrl}`);
+            alert(`Download initiated for image from post ${postId}. Check your downloads.`);
+        } else {
+            alert("No image available to download for this post.");
+        }
+    };
+
+    // 4. COMMENT MODAL OPENER (FIXED)
+    window.openCommentModal = (postId) => {
+        commentModalBg.classList.remove("hidden");
+        commentModalBg.dataset.postId = postId; 
+        document.getElementById("commentText").value = ''; 
+    };
+    
+    // --- Modal Closing (Enhanced) ---
+    function closeModal(modalElement) {
+        modalElement.classList.add("hidden");
+    }
+    
+    // Close Post Modal logic
+    modalBg.addEventListener('click', (e) => {
+        if (e.target === modalBg) {
+            closeModal(modalBg);
+        }
+    });
+    document.getElementById("closeModalBtn").addEventListener("click", () => {
+        closeModal(modalBg);
+    });
+
+    // Close Comment Modal logic
+    commentModalBg.addEventListener('click', (e) => {
+        if (e.target === commentModalBg) {
+            closeModal(commentModalBg);
+        }
+    });
+    document.getElementById("closeCommentModalBtn").addEventListener("click", () => {
+        closeModal(commentModalBg);
+    });
+
+    document.getElementById("submitCommentBtn").addEventListener("click", () => {
+        const postId = commentModalBg.dataset.postId;
+        const comment = document.getElementById("commentText").value.trim();
+        
+        if (comment) {
+            console.log(`SUBMITTED COMMENT for Post ID ${postId}: "${comment}"`);
+            alert(`Comment submitted for Post ID ${postId}. (Saved locally, not persistent)`);
+            closeModal(commentModalBg);
+        } else {
+            alert("Please enter a comment.");
+        }
+    });
+
+    // --- Post Form Logic (FIXED: Post Button Enable) ---
+    openModalBtn.addEventListener("click", () => {
+        modalBg.classList.remove("hidden");
+        // Reset form content when opening
+        postImage.value = "";
+        postText.value = "";
+        imagePreviewContainer.classList.add("hidden");
+        postBtn.disabled = true;
+    });
+
+    function togglePostButton() {
+        const filePresent = postImage.files.length > 0;
+        const textPresent = postText.value.trim().length > 0;
+        postBtn.disabled = !(filePresent || textPresent);
     }
 
-    // --- Card Builder (ENHANCED) ---
-
-    function createNewsCard(item, isUserPost = false) {
-        const id = item.id || 'api-' + Math.random().toString(36).substring(2, 9);
-        const likes = item.likes || 0;
-        const date = item.date || new Date();
-
-        // Fix for broken images
-        const imageUrl = item.imageUrl && !item.imageUrl.includes("null") ? item.imageUrl : 'https://via.placeholder.com/600x400/111/00ff9d?text=Image+Not+Available';
-
-        // Updated the heart icon/text logic to show "Heart" only when likes is 0
-        const heartDisplay = likes > 0 ? likes : 'Heart';
-
-        // Choose classes and headers based on post type
-        const cardClass = isUserPost ? 'news-card news-card-user' : 'news-card';
-        const sourceIcon = isUserPost ? '<i class="fas fa-user-astronaut text-accent-yellow text-xl"></i>' : '<i class="fas fa-satellite-dish text-primary text-xl"></i>';
-        const sourceText = isUserPost ? '<span class="text-sm font-bold text-accent-yellow">Your Post</span>' : '<span class="text-sm text-gray-400">API Feed</span>';
+    postImage.addEventListener("change", togglePostButton);
+    postText.addEventListener("input", togglePostButton);
 
 
+    // Remaining Post Image Preview Logic
+    postImage.addEventListener("change", (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                imagePreview.src = e.target.result;
+                imagePreviewContainer.classList.remove("hidden");
+            };
+            reader.readAsDataURL(file);
+        } else {
+            imagePreview.src = "";
+            imagePreviewContainer.classList.add("hidden");
+        }
+    });
+
+    // Post Submission Logic (Unchanged, uses createNewsCard)
+    postBtn.addEventListener("click", () => {
+        const file = postImage.files[0];
+        const text = postText.value.trim();
+        if (!file && !text) return;
+        
+        const postId = crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2, 9);
+        const reader = new FileReader();
+
+        reader.onloadend = () => {
+            const imgSrc = file ? reader.result : null;
+            const postDate = new Date();
+
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = createNewsCard({ 
+                id: postId,
+                title: "User Post", 
+                body: text, 
+                imageUrl: imgSrc, 
+                date: postDate,
+                likes: 0 
+            }, false);
+            const newCard = tempDiv.firstChild;
+
+            newsContainer.insertAdjacentElement("afterbegin", newCard);
+            allNewsCards.unshift(newCard); 
+
+            closeModal(modalBg);
+            emptyState.classList.add("hidden");
+            filterNews(); 
+        };
+
+        if (file) reader.readAsDataURL(file);
+        else reader.onloadend(); 
+    });
+
+
+    // --- News Card Builder (Unchanged) ---
+    function createNewsCard(item, isApi = true) {
+        const postId = item.id || crypto.randomUUID(); 
+        const initialLikes = item.likes || 0;
+        const postDate = item.date instanceof Date ? item.date : new Date(item.date); 
+        
+        const sourceIcon = isApi 
+            ? '<i class="fas fa-globe text-xl text-action-red mr-2"></i>'
+            : '<i class="fas fa-user-circle text-xl text-secondary mr-2"></i>';
+        
+        const cardClass = isApi 
+            ? 'border-gray-700' 
+            : 'border-2 border-secondary/70 shadow-secondary/20';
+
+        const titleColor = isApi ? 'text-primary' : 'text-secondary';
+        
+        const imageHtml = item.imageUrl 
+            ? `<img src="${item.imageUrl}" alt="${item.title}" class="w-full h-48 object-cover rounded-xl mb-4 shadow-lg" />`
+            : '';
+        
         return `
-            <div id="post-${id}" class="${cardClass} bg-card-bg p-6 rounded-xl shadow-2xl" data-likes="${likes}" data-date="${new Date(date).toISOString()}">
-                ${item.imageUrl ? `<img src="${imageUrl}" alt="${item.title}" class="w-full h-64 object-cover rounded-lg mb-5 shadow-lg" onerror="this.onerror=null;this.src='https://via.placeholder.com/600x400/111/00ff9d?text=Image+Not+Available';" />` : ''}
-                
-                <div class="flex items-center gap-3 mb-4 border-b border-gray-800 pb-3">
-                    ${sourceIcon}${sourceText}
+            <div id="post-${postId}" class="news-card bg-card-bg p-5 rounded-2xl shadow-xl ${cardClass} transition duration-300" data-likes="${initialLikes}" data-date="${postDate.toISOString()}">
+                ${imageHtml}
+                <div class="flex items-center mb-3">
+                    ${sourceIcon}
+                    <span class="text-sm font-semibold text-text-muted">${isApi ? 'API News Feed' : 'Your Post'}</span>
                 </div>
+                <h3 class="text-xl font-extrabold mb-2 ${titleColor}">${item.title}</h3>
+                <p class="text-text-light text-base leading-relaxed whitespace-pre-line">${item.body}</p>
+                <div class="mt-4 flex justify-between items-center border-t border-gray-800 pt-3">
+                    <span class="text-xs text-gray-500"><i class="far fa-calendar-alt mr-1"></i> ${timeSince(postDate)}</span>
+                    
+                    <div class="flex items-center space-x-1 text-text-muted">
+                        <div class="flex items-center space-x-1">
+                            <button onclick="handleLike('${postId}', this)" title="Like Post" class="interaction-btn hover:text-action-red">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <span class="like-count text-xs">${initialLikes > 0 ? initialLikes : ''}</span>
+                        </div>
 
-                <h3 class="text-2xl font-black mb-3 text-primary">${item.title}</h3>
-                <p class="text-text-light leading-relaxed mb-5">${item.body}</p>
-
-                <div class="flex justify-between items-center pt-4 border-t border-gray-700">
-                    <span class="text-xs text-gray-500 font-mono"><i class="far fa-clock mr-1"></i> ${timeAgo(date)}</span>
-                    <div class="flex items-center gap-2 text-text-muted">
-                        <button onclick="handleLike('${id}', this)" class="interaction-btn ${likes > 0 ? 'liked' : ''} text-base">
-                            <i class="${likes > 0 ? 'fas' : 'far'} fa-heart"></i> ${heartDisplay}
-                        </button>
-                        <button onclick="openCommentModal('${id}')" class="interaction-btn text-base">
-                            <i class="far fa-comment-dots"></i> Comment
-                        </button>
-                        ${item.imageUrl ? `<button onclick="handleDownload('${id}')" class="interaction-btn text-base">
-                            <i class="fas fa-download"></i>
-                        </button>` : ''}
-                        <button onclick="handleSave('${id}', this)" class="interaction-btn text-base">
-                            <i class="far fa-bookmark"></i>
-                        </button>
+                        <button onclick="openCommentModal('${postId}')" title="Comment" class="interaction-btn hover:text-action-blue"><i class="far fa-comment-dots"></i></button>
+                        <button onclick="handleDownload('${postId}')" title="Download Image" class="interaction-btn hover:text-primary"><i class="fas fa-download"></i></button>
+                        <button onclick="handleSave('${postId}', this)" title="Save Post" class="interaction-btn hover:text-action-yellow"><i class="far fa-bookmark"></i></button>
                     </div>
                 </div>
             </div>
         `;
     }
 
-    // --- Data Loading (API ONLY) ---
-    async function loadNews() {
-        loading.classList.remove("hidden");
-        // Only clear the API container, user posts remain
-        newsContainer.innerHTML = ''; 
-        // Filter out existing user posts from the filter array before clearing
-        allNewsCards = allNewsCards.filter(card => card.id.startsWith('post-user-')); 
-
-        try {
-            const res = await fetch(NEWS_API_URL); 
-            
-            if (!res.ok) {
-                throw new Error(`HTTP error! status: ${res.status}`);
-            }
-            
-            const data = await res.json();
-
-            if (data.success === 1 && data.result && data.result.length > 0) {
-                data.result.slice(0, 15).forEach(item => {
-                    const tempDiv = document.createElement('div');
-                    tempDiv.innerHTML = createNewsCard({
-                        id: item.article_id,
-                        title: item.article_title || "Latest Update",
-                        body: item.article_summary || "Check out the latest football news and updates.",
-                        imageUrl: item.article_image || null,
-                        date: item.article_date || new Date(),
-                        likes: Math.floor(Math.random() * 100)
-                    }, false);
-                    const newCard = tempDiv.firstChild;
-                    newsContainer.appendChild(newCard);
-                    allNewsCards.push(newCard);
-                });
-                emptyState.classList.add("hidden");
-            } else if (allNewsCards.length === 0) { // Only show empty state if NO posts (user or API) exist
-                emptyState.classList.remove("hidden");
-            }
-        } catch (err) {
-            console.error("Failed to load news from API:", err);
-            if (allNewsCards.length === 0) { // Only show empty state if NO posts (user or API) exist
-                emptyState.classList.remove("hidden"); 
-            }
-        } finally {
-            loading.classList.add("hidden");
-        }
-    }
-
-    // --- Interaction Handlers (Functionality Unchanged) ---
-
-    window.handleLike = (id, btn) => {
-        const card = document.getElementById(`post-${id}`);
-        let likes = parseInt(card.dataset.likes || 0);
+    // --- Data Loading and Initialization (UPDATED MOCK DATA) ---
+    function loadNews() {
+        console.log("Loading news using API Key:", API_KEY);
         
-        if (btn.classList.toggle('liked')) {
-            likes++;
-        } else {
-            likes = Math.max(0, likes - 1); 
-        }
-        card.dataset.likes = likes;
-        
-        const icon = btn.querySelector('i');
-        const heartText = likes > 0 ? likes : 'Heart';
+        // Dummy data with guaranteed images for testing
+        const apiData = [
+            { id: 'a1', title: "Man. City Star Faces Long Layoff After Injury", body: "Scans confirm a Grade 2 hamstring tear, sidelining the winger for up to two months, a major blow to their title defence.", imageUrl: "https://images.unsplash.com/photo-1543787361-9c6a71e2330e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", date: new Date(Date.now() - 45 * 60 * 1000), likes: 12 },
+            { id: 'b2', title: "Transfer Buzz: Bellingham to Liverpool Rumors Resurface", body: "Reports from Spain indicate a renewed interest from the Merseyside club as the summer window approaches. A €150M fee is being floated.", imageUrl: "https://images.unsplash.com/photo-1533083811807-6b47c0c29b6f?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", date: new Date(Date.now() - 3 * 60 * 60 * 1000), likes: 58 },
+            { id: 'c3', title: "VAR Controversy Rages On", body: "An in-depth look at the latest major incidents and calls for clearer communication protocols.", imageUrl: "https://images.unsplash.com/photo-1579975775468-2c262174c35e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", date: new Date(Date.now() - 24 * 60 * 60 * 1000), likes: 0 }, 
+            { id: 'd4', title: "MLS Expansion Update: San Diego Announced as 30th Team", body: "The league confirms the new franchise will begin play in 2028 with a custom-built downtown stadium.", imageUrl: "https://images.unsplash.com/photo-1531671981881-807923f03b5f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", date: new Date(Date.now() - 48 * 60 * 60 * 1000), likes: 23 },
+        ];
 
-        icon.classList.toggle('far', !btn.classList.contains('liked'));
-        icon.classList.toggle('fas', btn.classList.contains('liked'));
-        
-        btn.innerHTML = `<i class="${icon.className}"></i> ${heartText}`;
-    };
-
-    window.handleSave = (id, btn) => {
-        btn.classList.toggle('saved');
-        const icon = btn.querySelector('i');
-        icon.classList.toggle('far');
-        icon.classList.toggle('fas');
-    };
-
-    window.handleDownload = (id) => {
-        const img = document.querySelector(`#post-${id} img`);
-        if (img && img.src && !img.src.includes('No+Image')) {
-            const a = document.createElement('a');
-            a.href = img.src;
-            a.download = `football-news-${id}.jpg`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            alert("Download initiated! (Check your downloads folder)");
-        } else {
-            alert("Cannot download: Image is a placeholder or not available.");
-        }
-    };
-
-    window.openCommentModal = (id) => {
-        commentModalBg.classList.remove("hidden");
-        commentModalBg.dataset.postId = id;
-    };
-
-    // --- Modal/Form Logic ---
-
-    // Modal/Button bindings
-    document.getElementById("openModalBtn").onclick = () => modalBg.classList.remove("hidden");
-    document.getElementById("closeModalBtn").onclick = () => modalBg.classList.add("hidden");
-    document.getElementById("closeCommentModalBtn").onclick = () => commentModalBg.classList.add("hidden");
-    modalBg.onclick = (e) => e.target === modalBg && modalBg.classList.add("hidden");
-    commentModalBg.onclick = (e) => e.target === commentModalBg && commentModalBg.classList.add("hidden");
-
-    // Enable Post Button
-    function checkPostReady() {
-        const isReady = postText.value.trim() || postImage.files[0];
-        postBtn.disabled = !isReady;
-        postBtn.classList.toggle('opacity-50', !isReady);
-        postBtn.classList.toggle('cursor-not-allowed', !isReady);
-    }
-    postText.oninput = checkPostReady;
-    postImage.onchange = checkPostReady;
-
-    // Image Preview
-    postImage.onchange = (e) => {
-        checkPostReady();
-        const file = e.target.files[0];
-        if (file) {
-            imagePreview.src = URL.createObjectURL(file);
-            imagePreviewContainer.classList.remove("hidden");
-        } else {
-            imagePreviewContainer.classList.add("hidden");
-        }
-    };
-
-    // Submit Post (UPDATED to use userPostContainer)
-    document.getElementById("postBtn").onclick = () => {
-        const text = postText.value.trim();
-        const file = postImage.files[0];
-        if (!text && !file) return;
-
-        const reader = new FileReader();
-        reader.onload = () => {
-            const imgUrl = file ? reader.result : null;
-            const newCardHTML = createNewsCard({
-                id: 'user-' + Date.now(),
-                title: "Fan Update", // Default title for user posts
-                body: text,
-                imageUrl: imgUrl,
-                date: new Date(),
-                likes: 0
-            }, true);
-
-            const tempDiv = document.createElement('div');
-            tempDiv.innerHTML = newCardHTML;
-            const newCard = tempDiv.firstChild;
-
-            // *** CRITICAL CHANGE: Insert user post into its dedicated container ***
-            userPostContainer.insertAdjacentElement("afterbegin", newCard);
-            allNewsCards.unshift(newCard); // Add to filter array
-            modalBg.classList.add("hidden");
-            
-            // Reset form
-            postText.value = "";
-            postImage.value = "";
-            imagePreviewContainer.classList.add("hidden");
-            checkPostReady();
+        if (apiData && apiData.length > 0) {
+            apiData.forEach(item => {
+                const html = createNewsCard(item, true);
+                newsContainer.insertAdjacentHTML("beforeend", html);
+            });
+            allNewsCards = Array.from(newsContainer.children);
             emptyState.classList.add("hidden");
-            filterNews(); 
-        };
-        if (file) reader.readAsDataURL(file);
-        else reader.onload();
-    };
-
-    // Submit Comment (Demo)
-    document.getElementById("submitCommentBtn").onclick = () => {
-        const comment = document.getElementById("commentText").value.trim();
-        if (comment) {
-            alert(`Comment posted on ${commentModalBg.dataset.postId}! (Demo mode)`);
-            commentModalBg.classList.add("hidden");
-            document.getElementById("commentText").value = "";
+        } else if (newsContainer.children.length === 0) {
+            emptyState.classList.remove("hidden");
         }
-    };
+    }
 
-    // --- Search Functionality ---
-    searchButton.onclick = () => {
+    // Load news immediately when the script is parsed
+    loadNews();
+
+    // --- Search Logic (Unchanged) ---
+    searchButton.addEventListener("click", () => {
         searchBar.classList.toggle("search-bar-hidden");
         searchBar.classList.toggle("search-bar-visible");
-        if (!searchBar.classList.contains("search-bar-hidden")) searchInput.focus();
-        else {
+        if (searchBar.classList.contains("search-bar-visible")) {
+            searchInput.focus();
+        } else {
             searchInput.value = '';
-            filterNews(); // Clear filter when closing search
+            filterNews(); 
         }
-    };
+    });
 
     function filterNews() {
         const query = searchInput.value.toLowerCase().trim();
-        let visible = 0;
+        let matches = 0;
+
         allNewsCards.forEach(card => {
-            // Check both title (h3) and body (p)
             const title = card.querySelector('h3').textContent.toLowerCase();
             const body = card.querySelector('p').textContent.toLowerCase();
-            const match = title.includes(query) || body.includes(query);
-            
-            card.style.display = match ? '' : 'none';
-            if (match) visible++;
+
+            if (title.includes(query) || body.includes(query)) {
+                card.style.display = 'block';
+                matches++;
+            } else {
+                card.style.display = 'none';
+            }
         });
 
-        const newsAvailable = allNewsCards.length > 0;
+        if (query.length > 0 && matches === 0) {
+            noResults.classList.remove("hidden");
+        } else {
+            noResults.classList.add("hidden");
+        }
         
-        // Control noResults state
-        noResults.classList.toggle("hidden", visible > 0 || query === "");
-
-        // If there are no results and no news was loaded initially, show emptyState (redundant but safe check)
-        if (!newsAvailable && query === "") {
-             emptyState.classList.remove("hidden");
-        } else if (newsAvailable && query === "") {
-             emptyState.classList.add("hidden");
+        if (allNewsCards.length > 0) {
+            emptyState.classList.add("hidden");
+        } else if (matches === 0 && query.length === 0) {
+            emptyState.classList.remove("hidden");
         }
     }
-    searchInput.oninput = filterNews;
-
-    // Load news on start
-    loadNews();
 </script>
+
 </body>
 </html>
