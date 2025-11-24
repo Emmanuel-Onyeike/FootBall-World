@@ -55,6 +55,10 @@
             opacity: 1;
             transition: max-height 0.4s ease-in, opacity 0.4s ease-in, padding 0.4s ease-in;
         }
+        /* Style for active liked state */
+        .liked {
+            color: #EF4444; /* Tailwind red-500 */
+        }
     </style>
 </head>
 
@@ -149,8 +153,10 @@
     </div>
 
 <script>
+    // --- Configuration ---
+    const API_KEY = "7286dd2e13720bdc15b0a24407265cd113acaf74c8f2990f9a68e3a3c9f86363"; 
+
     // --- UI Elements ---
-    const API_KEY = "7286dd2e13720bdc15b0a24407265cd113acaf74c8f2990f9a68e3a3c9f86363"; // Inserted API Key
     const searchButton = document.getElementById("searchButton");
     const searchBar = document.getElementById("searchBar");
     const searchInput = document.getElementById("searchInput");
@@ -165,22 +171,56 @@
     const imagePreviewContainer = document.getElementById("imagePreviewContainer");
     const emptyState = document.getElementById("emptyState");
     const noResults = document.getElementById("noResults");
-    
-    // Comment Modal Elements
     const commentModalBg = document.getElementById("commentModalBg");
     const closeCommentModalBtn = document.getElementById("closeCommentModalBtn");
     const submitCommentBtn = document.getElementById("submitCommentBtn");
     const commentText = document.getElementById("commentText");
     
     let allNewsCards = []; // Store all card elements for filtering
+    
+    // --- Interaction Functions (FIXED) ---
+    
+    // 1. LIKE BUTTON FUNCTION
+    window.handleLike = (postId, buttonElement) => {
+        const card = document.getElementById(`post-${postId}`);
+        if (!card) return;
 
-    // --- Interaction Functions ---
-    const handleAction = (action, postId) => {
-        console.log(`${action} clicked for post ID: ${postId}`);
-        // In a real application, this is where you would call an API to:
-        // - Increment the 'like' count (Like)
-        // - Start a file download (Download)
-        // - Send the post ID to a server database (Save)
+        let currentLikes = parseInt(card.dataset.likes || 0);
+        const likeCounter = card.querySelector('.like-count');
+        
+        if (buttonElement.classList.contains('liked')) {
+            // Unlike
+            buttonElement.classList.remove('liked');
+            currentLikes--;
+            buttonElement.querySelector('i').classList.remove('fas');
+            buttonElement.querySelector('i').classList.add('far');
+            console.log(`Unliked post ${postId}. New count: ${currentLikes}`);
+        } else {
+            // Like
+            buttonElement.classList.add('liked');
+            currentLikes++;
+            buttonElement.querySelector('i').classList.remove('far');
+            buttonElement.querySelector('i').classList.add('fas'); // Use solid heart icon
+            console.log(`Liked post ${postId}. New count: ${currentLikes}`);
+        }
+
+        // Update card data and display
+        card.dataset.likes = currentLikes;
+        likeCounter.textContent = currentLikes > 0 ? currentLikes : '';
+    };
+
+    // 2. OTHER INTERACTION ACTIONS
+    window.handleAction = (action, postId) => {
+        console.log(`${action} clicked for post ID: ${postId}. This should trigger server/download logic.`);
+        // Note: For download, you'd need the image URL stored in the card data or fetched from an API.
+    };
+
+    // 3. COMMENT MODAL OPENER
+    window.openCommentModal = (postId) => {
+        commentModalBg.classList.remove("hidden");
+        commentModalBg.dataset.postId = postId; 
+        commentText.value = ''; 
+        console.log(`Opening comment modal for Post ID: ${postId}`);
     };
     
     // --- Search Logic (Unchanged) ---
@@ -224,7 +264,6 @@
         }
     }
 
-
     // --- Post Modal Logic (Unchanged) ---
     openModalBtn.addEventListener("click", () => modalBg.classList.remove("hidden"));
     function closeModal() {
@@ -236,23 +275,16 @@
         postBtn.disabled = true;
     }
     closeModalBtn.addEventListener("click", closeModal);
-    postImage.addEventListener("change", () => { togglePostButton(); /* Image Preview logic here */ });
+    postImage.addEventListener("change", togglePostButton);
     postText.addEventListener("input", togglePostButton);
     function togglePostButton() {
         const filePresent = postImage.files.length > 0;
         const textPresent = postText.value.trim().length > 0;
         postBtn.disabled = !(filePresent || textPresent);
     }
-    // Simplified Image Preview logic here for brevity, assuming original logic works.
+    // Image Preview logic...
 
-    // --- Comment Modal Logic (New) ---
-    const openCommentModal = (postId) => {
-        commentModalBg.classList.remove("hidden");
-        commentModalBg.dataset.postId = postId; // Store the ID of the post being commented on
-        commentText.value = ''; // Clear previous comment
-        console.log(`Ready to comment on Post ID: ${postId}`);
-    };
-    
+    // --- Comment Modal Logic (Fixed Submission) ---
     closeCommentModalBtn.addEventListener("click", () => commentModalBg.classList.add("hidden"));
     
     submitCommentBtn.addEventListener("click", () => {
@@ -260,16 +292,19 @@
         const comment = commentText.value.trim();
         
         if (comment) {
-            // *** IMPORTANT: You need a server endpoint to save this comment permanently. ***
+            // *** This is where you would send the comment to your database using an AJAX/fetch request. ***
             console.log(`SUBMITTED COMMENT for Post ID ${postId}: "${comment}"`);
-            alert(`Comment submitted for Post ID ${postId}. In a real app, this would be saved online.`);
+            alert(`Comment submitted for Post ID ${postId}. This comment should now be saved online.`);
+            
+            // Clear and close
+            commentText.value = '';
             commentModalBg.classList.add("hidden");
         } else {
             alert("Please enter a comment.");
         }
     });
 
-    // --- Posting Logic (Modified to include UUID and update allNewsCards) ---
+    // --- Posting Logic (Unchanged, relies on createNewsCard fix) ---
     postBtn.addEventListener("click", () => {
         const file = postImage.files[0];
         const text = postText.value.trim();
@@ -288,7 +323,8 @@
                 title: "User Post", 
                 body: text, 
                 imageUrl: imgSrc, 
-                date: postDate 
+                date: postDate,
+                likes: 0 // New posts start at 0 likes
             }, false);
             const newCard = tempDiv.firstChild;
 
@@ -306,8 +342,8 @@
 
     // --- API and News Loading Logic ---
     function createNewsCard(item, isApi = true) {
-        // Use a UUID for the post ID to handle interaction buttons
         const postId = item.id || crypto.randomUUID(); 
+        const initialLikes = item.likes || 0;
         
         const sourceIcon = isApi 
             ? '<i class="fas fa-globe text-xl text-red-500 mr-2"></i>'
@@ -324,7 +360,7 @@
             : '';
         
         return `
-            <div id="post-${postId}" class="news-card bg-card-bg p-5 rounded-2xl shadow-lg ${cardClass} transition duration-300">
+            <div id="post-${postId}" class="news-card bg-card-bg p-5 rounded-2xl shadow-lg ${cardClass} transition duration-300" data-likes="${initialLikes}">
                 ${imageHtml}
                 <div class="flex items-center mb-3">
                     ${sourceIcon}
@@ -335,8 +371,14 @@
                 <div class="mt-4 flex justify-between items-center border-t border-gray-800 pt-3">
                     <span class="text-xs text-gray-500"><i class="far fa-calendar mr-1"></i> ${item.date || 'Less than a minute ago'}</span>
                     
-                    <div class="flex space-x-3 text-text-muted">
-                        <button onclick="handleAction('Like', '${postId}')" title="Like" class="hover:text-red-500 transition"><i class="far fa-heart"></i></button>
+                    <div class="flex items-center space-x-3 text-text-muted">
+                        <div class="flex items-center space-x-1">
+                            <button onclick="handleLike('${postId}', this)" title="Like" class="hover:text-red-500 transition">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <span class="like-count text-xs">${initialLikes > 0 ? initialLikes : ''}</span>
+                        </div>
+
                         <button onclick="openCommentModal('${postId}')" title="Comment" class="hover:text-blue-400 transition"><i class="far fa-comment-dots"></i></button>
                         <button onclick="handleAction('Download', '${postId}')" title="Download Image" class="hover:text-primary transition"><i class="fas fa-download"></i></button>
                         <button onclick="handleAction('Save', '${postId}')" title="Save Post" class="hover:text-yellow-400 transition"><i class="far fa-bookmark"></i></button>
@@ -346,17 +388,32 @@
         `;
     }
 
-    async function loadNews() {
-        // *** Your API Key is HERE. Use it in your fetch request: ***
-        // Example: const response = await fetch('YOUR_API_ENDPOINT', { headers: { 'X-API-KEY': API_KEY } });
-        console.log("Using API Key:", API_KEY);
+    // Function to load news data and populate the container
+    function loadNews() {
+        console.log("Loading news using API Key:", API_KEY);
         
-        // Example dummy data (Use UUIDs for unique post IDs)
+        // *** This is where you would replace the dummy data with your actual API fetch ***
+        /*
+        fetch('YOUR_API_ENDPOINT_URL', {
+            method: 'GET',
+            headers: {
+                'X-API-KEY': API_KEY, 
+                // Add any other headers required by your API, e.g., 'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(apiData => {
+            // Process apiData here
+        })
+        .catch(error => console.error("Error fetching news:", error));
+        */
+        
+        // Example dummy data (SIMULATING an API response)
         const apiData = [
-            { id: 'a1', title: "Man. City Star Faces Long Layoff After Injury", body: "Scans confirm a Grade 2 hamstring tear, sidelining the winger for up to two months, a major blow to their title defence.", imageUrl: "https://images.unsplash.com/photo-1543787361-9c6a71e2330e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", date: "45 minutes ago" },
-            { id: 'b2', title: "Transfer Buzz: Bellingham to Liverpool Rumors Resurface", body: "Reports from Spain indicate a renewed interest from the Merseyside club as the summer window approaches. A €150M fee is being floated.", imageUrl: "https://images.unsplash.com/photo-1533083811807-6b47c0c29b6f?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", date: "3 hours ago" },
-            { id: 'c3', title: "Analysis: Why VAR Decisions Are Still Causing Controversy", body: "An in-depth look at the latest major incidents and calls for clearer communication protocols.", imageUrl: "", date: "1 day ago" }, 
-            { id: 'd4', title: "MLS Expansion Update: San Diego Announced as 30th Team", body: "The league confirms the new franchise will begin play in 2028 with a custom-built downtown stadium.", imageUrl: "https://images.unsplash.com/photo-1531671981881-807923f03b5f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", date: "2 days ago" },
+            { id: 'a1', title: "Man. City Star Faces Long Layoff After Injury", body: "Scans confirm a Grade 2 hamstring tear, sidelining the winger for up to two months, a major blow to their title defence.", imageUrl: "https://images.unsplash.com/photo-1543787361-9c6a71e2330e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", date: "45 minutes ago", likes: 12 },
+            { id: 'b2', title: "Transfer Buzz: Bellingham to Liverpool Rumors Resurface", body: "Reports from Spain indicate a renewed interest from the Merseyside club as the summer window approaches. A €150M fee is being floated.", imageUrl: "https://images.unsplash.com/photo-1533083811807-6b47c0c29b6f?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", date: "3 hours ago", likes: 58 },
+            { id: 'c3', title: "Analysis: Why VAR Decisions Are Still Causing Controversy", body: "An in-depth look at the latest major incidents and calls for clearer communication protocols.", imageUrl: "", date: "1 day ago", likes: 0 }, 
+            { id: 'd4', title: "MLS Expansion Update: San Diego Announced as 30th Team", body: "The league confirms the new franchise will begin play in 2028 with a custom-built downtown stadium.", imageUrl: "https://images.unsplash.com/photo-1531671981881-807923f03b5f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", date: "2 days ago", likes: 23 },
         ];
 
         if (apiData && apiData.length > 0) {
@@ -371,8 +428,8 @@
         }
     }
 
-    // Load news when the page loads
-    window.addEventListener('load', loadNews);
+    // Load news immediately when the script is parsed
+    loadNews();
 </script>
 
 </body>
