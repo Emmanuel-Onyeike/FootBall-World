@@ -42,19 +42,42 @@
             /* Firefox */
             scrollbar-width: none;
         }
+        /* Class for controlling the search bar visibility and animation */
+        .search-bar-hidden {
+            max-height: 0;
+            overflow: hidden;
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+            opacity: 0;
+            transition: max-height 0.4s ease-out, opacity 0.4s ease-out, padding 0.4s ease-out;
+        }
+        .search-bar-visible {
+            max-height: 100px; /* Adjust based on content height */
+            opacity: 1;
+            transition: max-height 0.4s ease-in, opacity 0.4s ease-in, padding 0.4s ease-in;
+        }
     </style>
 </head>
 
 <body class="bg-dark-bg text-text-light min-h-screen flex flex-col antialiased">
 
-    <header class="sticky top-0 z-40 p-4 bg-card-bg border-b border-gray-800 shadow-xl">
-        <div class="max-w-3xl mx-auto flex justify-between items-center">
+    <header class="sticky top-0 z-40 bg-card-bg border-b border-gray-800 shadow-xl">
+        <div class="p-4 max-w-3xl mx-auto flex justify-between items-center">
             <h1 class="text-3xl font-extrabold tracking-wide text-primary">
                 <i class="fas fa-newspaper mr-2"></i> Football News Hub
             </h1>
-            <button class="text-xl text-text-muted hover:text-secondary transition">
+            <button id="searchButton" class="text-xl text-text-muted hover:text-secondary transition" title="Toggle Search">
                 <i class="fas fa-search"></i>
             </button>
+        </div>
+
+        <div id="searchBar" class="search-bar-hidden px-4 pb-4 max-w-3xl mx-auto w-full">
+            <div class="relative">
+                <input type="text" id="searchInput" placeholder="Search news by title or content..." 
+                    class="w-full bg-dark-bg text-text-light p-3 pl-10 rounded-lg border border-gray-700 focus:ring-2 focus:ring-primary focus:border-primary transition duration-150"
+                    oninput="filterNews()">
+                <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500"></i>
+            </div>
         </div>
     </header>
 
@@ -68,6 +91,11 @@
             <div id="emptyState" class="hidden text-center p-12 text-text-muted">
                 <i class="fas fa-inbox text-5xl mb-4 text-gray-700"></i>
                 <p class="text-lg">No news found. Be the first to post an update!</p>
+            </div>
+            
+            <div id="noResults" class="hidden text-center p-12 text-text-muted">
+                <i class="fas fa-exclamation-circle text-5xl mb-4 text-red-500"></i>
+                <p class="text-lg">No results found for your search term.</p>
             </div>
         </div>
     </div>
@@ -111,6 +139,9 @@
 
 <script>
     // --- UI Elements ---
+    const searchButton = document.getElementById("searchButton");
+    const searchBar = document.getElementById("searchBar");
+    const searchInput = document.getElementById("searchInput");
     const openModalBtn = document.getElementById("openModalBtn");
     const modalBg = document.getElementById("modalBg");
     const closeModalBtn = document.getElementById("closeModalBtn");
@@ -121,17 +152,59 @@
     const imagePreview = document.getElementById("imagePreview");
     const imagePreviewContainer = document.getElementById("imagePreviewContainer");
     const emptyState = document.getElementById("emptyState");
+    const noResults = document.getElementById("noResults");
+    let allNewsCards = []; // Store all card elements for filtering
+
+    // --- Search Bar Logic ---
+    searchButton.addEventListener("click", () => {
+        searchBar.classList.toggle("search-bar-hidden");
+        searchBar.classList.toggle("search-bar-visible");
+        if (searchBar.classList.contains("search-bar-visible")) {
+            searchInput.focus();
+        } else {
+            searchInput.value = '';
+            filterNews(); // Reset filter when search bar is closed
+        }
+    });
+
+    function filterNews() {
+        const query = searchInput.value.toLowerCase().trim();
+        let matches = 0;
+
+        allNewsCards.forEach(card => {
+            const title = card.querySelector('h3').textContent.toLowerCase();
+            const body = card.querySelector('p').textContent.toLowerCase();
+
+            if (title.includes(query) || body.includes(query)) {
+                card.style.display = 'block';
+                matches++;
+            } else {
+                card.style.display = 'none';
+            }
+        });
+
+        // Toggle No Results Message
+        if (query.length > 0 && matches === 0) {
+            noResults.classList.remove("hidden");
+        } else {
+            noResults.classList.add("hidden");
+        }
+        
+        // Hide initial empty state if we have cards (even if they are filtered)
+        if (allNewsCards.length > 0) {
+            emptyState.classList.add("hidden");
+        } else if (matches === 0) {
+             // Only show empty state if NO news was ever loaded
+            if(query.length === 0) emptyState.classList.remove("hidden");
+        }
+    }
 
 
-    // --- Modal Logic ---
-
-    // Open Modal
+    // --- Modal Logic (Unchanged) ---
     openModalBtn.addEventListener("click", () => modalBg.classList.remove("hidden"));
 
-    // Close Modal
     function closeModal() {
         modalBg.classList.add("hidden");
-        // Reset form fields
         postImage.value = "";
         postText.value = "";
         imagePreview.src = "";
@@ -140,7 +213,6 @@
     }
     closeModalBtn.addEventListener("click", closeModal);
 
-    // Enable/Disable Post Button based on content
     function togglePostButton() {
         const filePresent = postImage.files.length > 0;
         const textPresent = postText.value.trim().length > 0;
@@ -149,7 +221,6 @@
     postImage.addEventListener("change", togglePostButton);
     postText.addEventListener("input", togglePostButton);
 
-    // Image Preview
     postImage.addEventListener("change", (event) => {
         const file = event.target.files[0];
         if (file) {
@@ -178,17 +249,21 @@
             const imgSrc = file ? reader.result : null;
             const postDate = new Date().toLocaleDateString('en-US', { hour: 'numeric', minute: 'numeric', day: '2-digit', month: 'short', year: 'numeric' });
 
-            const postHTML = createNewsCard({ 
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = createNewsCard({ 
                 title: "User Post", 
                 body: text, 
                 imageUrl: imgSrc, 
                 date: postDate 
-            }, false); // false indicates it's a user post
+            }, false);
+            const newCard = tempDiv.firstChild;
 
-            // Insert new post at the beginning of the news list
-            newsContainer.insertAdjacentHTML("afterbegin", postHTML);
-            closeModal(); // Close modal and reset fields
-            emptyState.classList.add("hidden"); // Hide empty state if post is successful
+            newsContainer.insertAdjacentElement("afterbegin", newCard);
+            allNewsCards.unshift(newCard); // Add new card to the list for filtering
+
+            closeModal();
+            emptyState.classList.add("hidden");
+            filterNews(); // Re-apply filter in case the search bar is open
         };
 
         if (file) reader.readAsDataURL(file);
@@ -196,17 +271,10 @@
     });
 
     // --- API and News Loading Logic ---
-
-    /**
-     * Creates the HTML structure for a single news card.
-     * @param {object} item - The news item data.
-     * @param {boolean} isApi - True if from API, false if user post.
-     * @returns {string} The HTML string for the news card.
-     */
     function createNewsCard(item, isApi = true) {
         const sourceIcon = isApi 
-            ? '<i class="fas fa-globe text-xl text-red-500 mr-2"></i>' // API Source Icon
-            : '<i class="fas fa-user-circle text-xl text-secondary mr-2"></i>'; // User Post Icon
+            ? '<i class="fas fa-globe text-xl text-red-500 mr-2"></i>'
+            : '<i class="fas fa-user-circle text-xl text-secondary mr-2"></i>';
         
         const cardClass = isApi 
             ? 'border-gray-700' 
@@ -214,7 +282,6 @@
 
         const titleColor = isApi ? 'text-primary' : 'text-secondary';
         
-        // ONLY include the image tag if imageUrl is present
         const imageHtml = item.imageUrl 
             ? `<img src="${item.imageUrl}" alt="${item.title}" class="w-full h-48 object-cover rounded-xl mb-4 shadow-xl" />`
             : '';
@@ -238,29 +305,23 @@
 
     async function loadNews() {
         // *** REPLACE THIS WITH YOUR ACTUAL API FETCH USING YOUR KEY ***
-        // NOTE: Use high-quality image URLs from your API for clear pictures.
         const apiData = [
             { title: "Man. City Star Faces Long Layoff After Injury", body: "Scans confirm a Grade 2 hamstring tear, sidelining the winger for up to two months, a major blow to their title defence.", imageUrl: "https://images.unsplash.com/photo-1543787361-9c6a71e2330e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", date: "45 minutes ago" },
             { title: "Transfer Buzz: Bellingham to Liverpool Rumors Resurface", body: "Reports from Spain indicate a renewed interest from the Merseyside club as the summer window approaches. A €150M fee is being floated.", imageUrl: "https://images.unsplash.com/photo-1533083811807-6b47c0c29b6f?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", date: "3 hours ago" },
-            { title: "Analysis: Why VAR Decisions Are Still Causing Controversy", body: "An in-depth look at the latest major incidents and calls for clearer communication protocols.", imageUrl: "", date: "1 day ago" }, // Example with no image
+            { title: "Analysis: Why VAR Decisions Are Still Causing Controversy", body: "An in-depth look at the latest major incidents and calls for clearer communication protocols.", imageUrl: "", date: "1 day ago" }, 
             { title: "MLS Expansion Update: San Diego Announced as 30th Team", body: "The league confirms the new franchise will begin play in 2028 with a custom-built downtown stadium.", imageUrl: "https://images.unsplash.com/photo-1531671981881-807923f03b5f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", date: "2 days ago" },
         ];
 
-        let hasContent = false;
-        
         if (apiData && apiData.length > 0) {
             apiData.forEach(item => {
                 const html = createNewsCard(item, true);
                 newsContainer.insertAdjacentHTML("beforeend", html);
             });
-            hasContent = true;
-        }
-
-        // Check for content after loading API data and custom posts
-        if (!hasContent && newsContainer.children.length === 0) {
-             emptyState.classList.remove("hidden");
-        } else {
-             emptyState.classList.add("hidden");
+            // Collect all cards into the global array for filtering
+            allNewsCards = Array.from(newsContainer.children);
+            emptyState.classList.add("hidden");
+        } else if (newsContainer.children.length === 0) {
+            emptyState.classList.remove("hidden");
         }
     }
 
