@@ -1,1 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Football News Hub ⚽</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'dark-bg': '#121212',
+                        'card-bg': '#1E1E1E',
+                        'primary': '#4CAF50', // Green for emphasis
+                        'secondary': '#BB86FC', // Lighter accent
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        .news-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
 
+<body class="bg-dark-bg text-gray-100 min-h-screen flex flex-col antialiased">
+
+    <header class="sticky top-0 z-40 p-4 bg-card-bg border-b border-gray-700 shadow-xl">
+        <div class="max-w-4xl mx-auto flex justify-between items-center">
+            <h1 class="text-3xl font-extrabold tracking-tight text-primary">
+                Football News Hub
+            </h1>
+            <div class="text-xl text-gray-400 hidden sm:block">
+                <i class="fas fa-futbol mr-2"></i> Stay Updated
+            </div>
+        </div>
+    </header>
+    
+    <div class="flex-grow">
+        <main id="newsContainer" class="max-w-4xl mx-auto p-4 md:p-6 grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            </main>
+        
+        <div id="emptyState" class="hidden text-center p-20 text-gray-500">
+            <i class="fas fa-inbox text-5xl mb-4"></i>
+            <p class="text-lg">No news found. Try posting or check your API connection!</p>
+        </div>
+    </div>
+
+
+    <button id="openModalBtn" title="Create New Post" 
+        class="fixed bottom-6 right-6 bg-primary hover:bg-green-600 text-white w-14 h-14 rounded-full shadow-2xl transition duration-300 transform hover:scale-105 z-50">
+        <i class="fas fa-plus text-2xl"></i>
+    </button>
+
+    <div id="modalBg" class="hidden fixed inset-0 bg-black bg-opacity-80 backdrop-blur-sm flex items-center justify-center z-50 transition-opacity duration-300">
+
+        <div class="bg-card-bg p-6 md:p-8 rounded-xl shadow-2xl w-11/12 max-w-lg transform scale-95 transition-transform duration-300 ease-out border border-gray-700">
+            <h2 class="text-2xl font-bold mb-6 text-center text-secondary">
+                <i class="fas fa-feather-alt mr-2"></i> Create News Post
+            </h2>
+
+            <div id="imagePreviewContainer" class="hidden mb-4 rounded-lg overflow-hidden border border-gray-600">
+                <img id="imagePreview" src="" alt="Image Preview" class="w-full h-auto object-cover max-h-40" />
+            </div>
+
+            <label for="postImage" class="block mb-2 font-semibold text-gray-300">Upload Image (Optional)</label>
+            <input id="postImage" type="file" accept="image/*" class="w-full mb-4 bg-dark-bg text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary/20 file:text-primary hover:file:bg-primary/30 rounded-lg p-2 transition duration-150 cursor-pointer" />
+
+            <label for="postText" class="block mb-2 font-semibold text-gray-300">Write Up *</label>
+            <textarea id="postText" placeholder="What's the latest scoop?" 
+                class="w-full h-32 bg-dark-bg text-gray-100 p-4 rounded-lg border border-gray-700 focus:ring-2 focus:ring-primary focus:border-transparent transition duration-150 resize-none"></textarea>
+
+            <div class="flex justify-end space-x-4 mt-6">
+                <button id="closeModalBtn" 
+                    class="bg-gray-700 text-white font-semibold px-5 py-2 rounded-full hover:bg-gray-600 transition duration-150">
+                    Cancel
+                </button>
+                <button id="postBtn" 
+                    class="bg-primary text-white font-semibold px-5 py-2 rounded-full hover:bg-green-600 transition duration-150 disabled:opacity-50" disabled>
+                    <i class="fas fa-paper-plane mr-2"></i> Post
+                </button>
+            </div>
+        </div>
+    </div>
+
+<script>
+    // --- UI Elements ---
+    const openModalBtn = document.getElementById("openModalBtn");
+    const modalBg = document.getElementById("modalBg");
+    const closeModalBtn = document.getElementById("closeModalBtn");
+    const postBtn = document.getElementById("postBtn");
+    const newsContainer = document.getElementById("newsContainer");
+    const postImage = document.getElementById("postImage");
+    const postText = document.getElementById("postText");
+    const imagePreview = document.getElementById("imagePreview");
+    const imagePreviewContainer = document.getElementById("imagePreviewContainer");
+
+    // --- Modal Logic ---
+
+    // Open Modal
+    openModalBtn.addEventListener("click", () => {
+        modalBg.classList.remove("hidden");
+        // Optional: Add a class for animation if using pure CSS transitions
+        // modalBox.classList.add("modal-open"); 
+    });
+
+    // Close Modal
+    function closeModal() {
+        modalBg.classList.add("hidden");
+        // Reset form fields
+        postImage.value = "";
+        postText.value = "";
+        imagePreview.src = "";
+        imagePreviewContainer.classList.add("hidden");
+        postBtn.disabled = true; // Disable post button after closing
+    }
+    closeModalBtn.addEventListener("click", closeModal);
+
+    // Enable/Disable Post Button based on content
+    function togglePostButton() {
+        const filePresent = postImage.files.length > 0;
+        const textPresent = postText.value.trim().length > 0;
+        postBtn.disabled = !(filePresent || textPresent);
+    }
+    postImage.addEventListener("change", togglePostButton);
+    postText.addEventListener("input", togglePostButton);
+
+    // Image Preview
+    postImage.addEventListener("change", (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                imagePreview.src = e.target.result;
+                imagePreviewContainer.classList.remove("hidden");
+            };
+            reader.readAsDataURL(file);
+        } else {
+            imagePreview.src = "";
+            imagePreviewContainer.classList.add("hidden");
+        }
+    });
+
+    // --- Posting Logic ---
+    postBtn.addEventListener("click", () => {
+        const file = postImage.files[0];
+        const text = postText.value.trim();
+
+        if (!file && !text) return; // Should be handled by disabled state, but for safety
+
+        const reader = new FileReader();
+
+        reader.onloadend = () => {
+            const imgSrc = file ? reader.result : null;
+            const postDate = new Date().toLocaleString();
+
+            const postHTML = `
+                <div class="news-card user-post bg-card-bg p-5 rounded-xl shadow-lg border-2 border-primary/50 transition duration-300">
+                    <div class="flex items-center mb-3">
+                        <i class="fas fa-user-circle text-2xl text-secondary mr-3"></i>
+                        <h4 class="text-lg font-bold text-secondary">Your Post</h4>
+                    </div>
+                    ${imgSrc ? `<img src="${imgSrc}" alt="User Image" class="w-full h-48 object-cover rounded-lg mb-4 shadow-md" />` : ""}
+                    <p class="text-gray-200 text-base leading-relaxed">${text.replace(/\n/g, '<br>')}</p>
+                    <p class="text-xs text-gray-500 mt-3 text-right">Posted: ${postDate}</p>
+                </div>
+            `;
+
+            // Insert new post at the beginning of the news list
+            newsContainer.insertAdjacentHTML("afterbegin", postHTML);
+            closeModal(); // Close modal and reset fields
+            document.getElementById("emptyState").classList.add("hidden");
+        };
+
+        if (file) reader.readAsDataURL(file);
+        else reader.onloadend(); // Process text-only post
+    });
+
+    // --- API and News Loading Logic ---
+
+    // Function to create a news card HTML
+    function createNewsCard(item, isApi = true) {
+        const sourceIcon = isApi ? '<i class="fas fa-broadcast-tower text-xl text-red-500 mr-2"></i>' : '<i class="fas fa-user-circle text-xl text-secondary mr-2"></i>';
+        const sourceText = isApi ? 'API Feed' : 'Your Post';
+        const cardColor = isApi ? 'border-gray-700' : 'border-primary/50';
+
+        // Placeholder for image, assuming the API might return an image URL
+        const imageUrl = item.imageUrl || `https://via.placeholder.com/400x200?text=${item.title.replace(/\s/g, '+')}`;
+        
+        return `
+            <div class="news-card bg-card-bg p-5 rounded-xl shadow-xl transition duration-300 hover:shadow-2xl hover:border-primary/70 border ${cardColor}">
+                ${item.imageUrl !== undefined ? `<img src="${imageUrl}" alt="${item.title}" class="w-full h-40 object-cover rounded-lg mb-4 shadow-md" />` : ''}
+                <div class="flex items-center mb-3">
+                    ${sourceIcon}
+                    <span class="text-sm font-semibold ${isApi ? 'text-red-400' : 'text-secondary'}">${sourceText}</span>
+                </div>
+                <h3 class="text-xl font-extrabold mb-2 text-primary">${item.title}</h3>
+                <p class="text-gray-300 text-sm leading-relaxed">${item.body}</p>
+                <div class="mt-4 flex justify-between items-center">
+                    <a href="#" class="text-xs text-secondary hover:text-white transition-colors duration-150">Read More <i class="fas fa-arrow-right ml-1"></i></a>
+                    <span class="text-xs text-gray-500">${item.date || 'Just now'}</span>
+                </div>
+            </div>
+        `;
+    }
+
+    async function loadNews() {
+        // **!!! Replace this with your actual API fetch !!!**
+        try {
+            // const response = await fetch('YOUR_FOOTBALL_NEWS_API_ENDPOINT');
+            // const apiData = await response.json();
+            
+            // Example dummy data (simulate API response)
+            const apiData = [
+                { title: "Kylian Mbappé Transfer Saga Heats Up", body: "Sources suggest a major announcement is imminent regarding the French star's next club.", imageUrl: "https://via.placeholder.com/400x200?text=Mbappe+Transfer+News", date: "2 hours ago" },
+                { title: "Premier League Title Race: Closer Than Ever", body: "With five games left, the top three teams are separated by a single point, setting up a thrilling finale.", imageUrl: "https://via.placeholder.com/400x200?text=EPL+Title+Race", date: "1 day ago" },
+                { title: "Champions League Quarter-Final Draw Analysis", body: "Experts break down the matchups, predicting upsets and potential finalists.", date: "2 days ago" },
+                { title: "Injury Update on Star Midfielder", body: "Team doctor confirms the player will be sidelined for at least six weeks with a hamstring strain.", imageUrl: "https://via.placeholder.com/400x200?text=Injury+Update", date: "3 days ago" },
+            ];
+
+            if (apiData && apiData.length > 0) {
+                apiData.forEach(item => {
+                    const html = createNewsCard(item, true);
+                    newsContainer.insertAdjacentHTML("beforeend", html);
+                });
+            }
+
+            if (newsContainer.children.length === 0) {
+                 document.getElementById("emptyState").classList.remove("hidden");
+            }
+
+        } catch (error) {
+            console.error("Error fetching news:", error);
+            // Show error message or empty state if API fails
+             document.getElementById("emptyState").classList.remove("hidden");
+        }
+    }
+
+    // Load news when the page loads
+    window.addEventListener('load', loadNews);
+</script>
+
+</body>
+</html>
