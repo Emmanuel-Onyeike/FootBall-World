@@ -117,6 +117,10 @@
             </div>
             <label for="postImage" class="block mb-2 font-semibold text-text-muted">Upload Image (Optional)</label>
             <input id="postImage" type="file" accept="image/*" class="w-full mb-4 text-text-light file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary/20 file:text-primary hover:file:bg-primary/30 rounded-lg p-2 transition cursor-pointer border border-gray-700" />
+            
+            <label for="postTitle" class="block mb-2 font-semibold text-text-muted">Title *</label>
+            <input id="postTitle" type="text" placeholder="Enter a catchy headline for your post"
+                class="w-full bg-dark-bg text-text-light p-3 rounded-lg border border-gray-700 focus:ring-2 focus:ring-primary focus:border-primary transition mb-4" />
             <label for="postText" class="block mb-2 font-semibold text-text-muted">Write Up *</label>
             <textarea id="postText" placeholder="What's the latest scoop?" 
                 class="w-full h-32 bg-dark-bg text-text-light p-4 rounded-lg border border-gray-700 focus:ring-2 focus:ring-primary focus:border-primary transition resize-none"></textarea>
@@ -165,6 +169,8 @@
     const postBtn = document.getElementById("postBtn");
     const newsContainer = document.getElementById("newsContainer");
     const postImage = document.getElementById("postImage");
+    // ADDED: UI Element for new title field
+    const postTitle = document.getElementById("postTitle"); 
     const postText = document.getElementById("postText");
     const imagePreview = document.getElementById("imagePreview");
     const imagePreviewContainer = document.getElementById("imagePreviewContainer");
@@ -295,11 +301,12 @@
         }
     });
 
-    // --- Post Form Logic (FIXED: Post Button Enable) ---
+    // --- Post Form Logic (UPDATED: Title check added) ---
     openModalBtn.addEventListener("click", () => {
         modalBg.classList.remove("hidden");
         // Reset form content when opening
         postImage.value = "";
+        postTitle.value = ""; // Reset new field
         postText.value = "";
         imagePreviewContainer.classList.add("hidden");
         postBtn.disabled = true;
@@ -308,11 +315,16 @@
     function togglePostButton() {
         const filePresent = postImage.files.length > 0;
         const textPresent = postText.value.trim().length > 0;
-        postBtn.disabled = !(filePresent || textPresent);
+        // NEW: Check for title content
+        const titlePresent = postTitle.value.trim().length > 0; 
+        
+        // Post requires: File OR (Title AND Text)
+        postBtn.disabled = !(filePresent || (titlePresent && textPresent));
     }
 
     postImage.addEventListener("change", togglePostButton);
     postText.addEventListener("input", togglePostButton);
+    postTitle.addEventListener("input", togglePostButton); // Listen to new title field
 
 
     // Remaining Post Image Preview Logic
@@ -331,11 +343,16 @@
         }
     });
 
-    // Post Submission Logic (Unchanged, uses createNewsCard)
+    // Post Submission Logic (UPDATED: Use postTitle value)
     postBtn.addEventListener("click", () => {
         const file = postImage.files[0];
         const text = postText.value.trim();
-        if (!file && !text) return;
+        const customTitle = postTitle.value.trim();
+        
+        // Define title: use custom title, or fall back to the first part of the text.
+        const title = customTitle || (text.length > 30 ? text.substring(0, 30) + '...' : text || "User Post");
+        
+        if ((!file && !text) || (!title && !text)) return;
         
         const postId = crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2, 9);
         const reader = new FileReader();
@@ -347,7 +364,7 @@
             const tempDiv = document.createElement('div');
             tempDiv.innerHTML = createNewsCard({ 
                 id: postId,
-                title: "User Post", 
+                title: title, // Use the determined title
                 body: text, 
                 imageUrl: imgSrc, 
                 date: postDate,
