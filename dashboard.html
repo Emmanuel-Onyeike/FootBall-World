@@ -524,6 +524,186 @@ a:focus, button:focus, .btn:focus{
   </span>
 </h1>
 
+
+        <!-- NEWS MODAL -->
+<div id="newsModal" class="modal-overlay">
+  <div class="modal-content">
+
+      <button class="close-btn" onclick="closeNewsModal()">
+          <i class="fas fa-times"></i>
+      </button>
+
+      <!-- IMAGE AREA -->
+      <img src="your-image.jpg" alt="News Banner"
+           class="news-image">
+
+      <!-- NEWS INFO -->
+      <div class="news-text">
+         <h2 class="news-title">
+    Major League Format Update — Qualifiers Revealed!
+</h2>
+
+<p class="news-body">
+    The Friendly League is transforming! 🚀  
+    From next season, the league will be rebranded with brand-new rules built for fairness, intensity and pure competition.
+    <br><br>
+
+    🔥 <span class="highlight">Top Four Teams</span> in the league table will automatically qualify for the prestigious
+    <strong>Glory Champions Cup</strong>.
+    <br><br>
+
+    League standings will be strictly regulated —  
+    <strong>no point deductions, no point additions, no manipulation</strong>.  
+    Every goal, every win, every match counts.
+    <br><br>
+
+    The <span class="highlight">Glory Champions Cup</span> will kick off from the Quarter-Finals → Semi-Finals → Final  
+    where only one club will rise as the true champions.
+    <br><br>
+
+    A new era of competition is here.  
+    Who will dominate? Who will crumble?  
+    The fight for greatness begins now. ⚽🔥
+</p>
+
+      </div>
+  </div>
+</div>
+
+
+<!-- Floating Icon -->
+<div id="infoButton" class="info-icon hidden" onclick="openNewsModal()">
+  <i class="fas fa-info"></i>
+</div>
+
+
+
+<style>
+/* Overlay */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.88);
+    backdrop-filter: blur(6px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+/* Modal */
+.modal-content {
+    background: linear-gradient(to bottom right, #0a0a0a, #111);
+    width: 92%;
+    max-width: 480px;
+    border-radius: 22px;
+    border: 1.5px solid #fbbf24a8;
+    overflow: hidden;
+    position: relative;
+    animation: fadeIn 0.28s ease-in-out;
+}
+
+/* Close Button */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #00000080;
+    border: none;
+    color: #fff;
+    font-size: 20px;
+    padding: 6px 10px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* Image */
+.news-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    max-height: 210px;
+}
+
+/* Text Area */
+.news-text {
+    padding: 18px;
+    text-align: center;
+}
+
+.news-title {
+    font-size: 1.4rem;
+    font-weight: 900;
+    background: linear-gradient(to right, #facc15, #fb923c);
+    -webkit-background-clip: text;
+    color: transparent;
+    margin-bottom: 10px;
+}
+
+.news-body {
+    color: #e2e8f0;
+    font-size: 0.95rem;
+    line-height: 1.5rem;
+}
+
+.highlight {
+    color: #fbbf24;
+    font-weight: bold;
+}
+
+/* Floating Button */
+.info-icon {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 55px;
+    height: 55px;
+    background: #111;
+    color: #fbbf24;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    border: 2px solid #fbbf24;
+    cursor: pointer;
+    font-size: 22px;
+    z-index: 9999;
+    transition: 0.3s;
+}
+
+/* Utility */
+.hidden { display: none !important; }
+
+/* Animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px) scale(0.96); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Mobile Optimized */
+@media (max-width: 480px) {
+    .news-title { font-size: 1.25rem; }
+    .news-body { font-size: 0.9rem; }
+}
+</style>
+
+
+<script>
+window.addEventListener("load", () => {
+    document.getElementById("newsModal").classList.remove("hidden");
+});
+
+function closeNewsModal() {
+    document.getElementById("newsModal").classList.add("hidden");
+    document.getElementById("infoButton").classList.remove("hidden");
+}
+
+function openNewsModal() {
+    document.getElementById("newsModal").classList.remove("hidden");
+    document.getElementById("infoButton").classList.add("hidden");
+}
+</script>
+
         <!-- Live Match Section -->
 <!-- Live Match Section -->
 <section id="live" class="py-12 px-4 md:px-8 bg-gray-900 min-h-screen text-gray-100 relative overflow-hidden">
