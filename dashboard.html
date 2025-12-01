@@ -908,18 +908,18 @@ function openNewsModal() {
                 </div>
                 <div class="status absolute top-4 right-4 text-xs bg-gray-800/80 px-4 py-1.5 rounded-full flex items-center font-bold border border-gray-700">
                     <span class="live-dot bg-gray-500 w-2.5 h-2.5 rounded-full inline-block"></span>
-                    <span class="status-text ml-2">Not Started</span>
+                    <span class="status-text ml-2">Finished</span>
                 </div>
                 
                 <div class="flex justify-between items-center mt-14 mb-4 space-x-4">
                     <div class="text-center flex-1">
-                        <div class="h-16 w-16 md:h-20 md:w-20 mx-auto rounded-full flex items-center justify-center text-2xl md:text-3xl font-extrabold shadow-2xl border-4 bg-emerald-700 text-white border-emerald-400/50">MED</div>
-                        <p class="mt-3 text-lg md:text-xl font-bold text-emerald-300"> MED 200L</p>
+                        <div class="h-16 w-16 md:h-20 md:w-20 mx-auto rounded-full flex items-center justify-center text-2xl md:text-3xl font-extrabold shadow-2xl border-4 bg-emerald-700 text-white border-emerald-400/50">NUR</div>
+                        <p class="mt-3 text-lg md:text-xl font-bold text-emerald-300"> NUR 200L</p>
                     </div>
-                    <div class="text-center text-4xl font-extrabold text-yellow-400">1 - 0</div>
+                    <div class="text-center text-4xl font-extrabold text-yellow-400">3 - 3</div>
                     <div class="text-center flex-1">
-                        <div class="h-16 w-16 md:h-20 md:w-20 mx-auto rounded-full flex items-center justify-center text-2xl md:text-3xl font-extrabold shadow-2xl border-4 bg-pink-700 text-white border-pink-400/50">MED</div>
-                        <p class="mt-3 text-lg md:text-xl font-bold text-pink-300">MED 300L</p>
+                        <div class="h-16 w-16 md:h-20 md:w-20 mx-auto rounded-full flex items-center justify-center text-2xl md:text-3xl font-extrabold shadow-2xl border-4 bg-pink-700 text-white border-pink-400/50">NUR</div>
+                        <p class="mt-3 text-lg md:text-xl font-bold text-pink-300">NUR 100L</p>
                     </div>
                 </div>
 
@@ -1147,6 +1147,27 @@ function openNewsModal() {
                         CSC 100L <span class="text-gray-600 mx-2">4 - 2</span> CSC 200L
                     </p>
                     <p class="text-sm text-gray-500 mt-1">Played: Nov 29TH, 2025 • 2:00 PM</p>
+                </div>
+                <div class="flex gap-2 min-w-[200px] justify-end">
+                    <button class="btn-disabled" disabled>
+                        <i class="fas fa-bell-slash"></i> Reminder
+                    </button>
+                    <button class="btn-disabled" disabled>
+                        <i class="fas fa-times-circle"></i> Finished
+                    </button>
+                </div>
+            </div>
+        </div>
+          <div class="glass-card p-5 md:p-6 rounded-xl opacity-60 border border-gray-700/50" data-match-id="u4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div class="flex-1">
+                    <p class="text-sm font-medium text-gray-500 flex items-center gap-2">
+                        <i class="fas fa-handshake text-green-500"></i> Provost Cup <span class="text-green-500 text-xs ml-2">FINISHED</span>
+                    </p>
+                    <p class="text-xl md:text-2xl font-bold mt-1 text-gray-400">
+                        NUR 100L <span class="text-gray-600 mx-2">3 - 3</span> NUR 200L
+                    </p>
+                    <p class="text-sm text-gray-500 mt-1">Played: Nov 30TH, 2025 • 2:00 PM</p>
                 </div>
                 <div class="flex gap-2 min-w-[200px] justify-end">
                     <button class="btn-disabled" disabled>
@@ -1541,16 +1562,16 @@ function openNewsModal() {
                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5 mb-5">
                     <div>
                         <p class="text-xl font-bold text-white flex items-center gap-3">
-                            <span class="text-red-400"> MED 200L</span>
+                            <span class="text-red-400"> NUR 200L</span>
                             <span class="text-gray-500 text-lg">vs</span>
-                            <span class="text-green-400"> MED 300L</span>
+                            <span class="text-green-400"> NUR 100L</span>
                         </p>
                         <p class="text-sm text-gray-400 mt-1 flex items-center gap-2">
                             <i class="fas fa-map-marker-alt"></i> Campus Main Field 2
                         </p>
                     </div>
                     <div class="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-orange-500">
-                        1–0
+                        3–3
                     </div>
                 </div>
 
@@ -1737,7 +1758,7 @@ function openNewsModal() {
         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 border-b border-gray-700 pb-5">
             <div>
                 <h2 class="text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-orange-400 to-yellow-400 drop-shadow-lg">
-                    100L <span class="text-gray-500 text-2xl">vs</span> 400L
+                    100L <span class="text-gray-500 text-2xl">vs</span> 200L
                 </h2>
                 <p class="text-amber-300 text-lg font-semibold mt-2 flex items-center gap-2">
                     <i class="fas fa-trophy"></i> Provost Cup 
@@ -1783,48 +1804,54 @@ function openNewsModal() {
     <i class="fas fa-futbol text-9xl text-amber-500 mb-8 animate-pulse"></i>
 
     <h3 class="text-5xl font-black text-amber-300 mb-6">
-        FULL MATCH REPORT –  MED 300L vs  MED 200L
-    </h3>
+        FULL MATCH REPORT – NUR 200L vs NUR 100L
+</h3>
 
-   <p class="text-xl text-gray-300 max-w-xl mx-auto leading-relaxed mb-10">
-    A strong tactical battle from start to finish. 
-    <span class="font-bold text-amber-300">MED 300</span> controlled the early tempo, 
-    pushing forward with determination but unable to convert their promising chances.
+<p class="text-xl text-gray-300 max-w-xl mx-auto leading-relaxed mb-10">
+    A thrilling contest filled with momentum swings and pure determination.
+    <span class="font-bold text-amber-300">NUR 200</span> struck first, 
+    but the response from NUR 100 turned this match into a dramatic six-goal showdown.
 </p>
 
 <div class="bg-black/60 rounded-2xl p-6 border border-amber-700/40 max-w-xl mx-auto mb-8">
-    <p class="text-amber-400 text-lg font-bold">FIRST HALF – NOTHING TO SEPARATE THEM</p>
+    <p class="text-amber-400 text-lg font-bold">FIRST HALF – EARLY FIREWORKS</p>
     <p class="text-gray-300 mt-3 leading-relaxed">
-        MED 300 started sharply, dominating possession and moving the ball with confidence — 
-        but the finishing touch was missing.
+        NUR 100 started strongly, pushing the attack with quality — but no finish to show for it.
         <br><br>
-        MED 200 responded with pace, creating their own big moments yet wasting them one after another.
+        Then out of nowhere, a sharp strike from Austin put 
+        <span class="font-bold text-amber-300">NUR 200</span> ahead — 1–0.
         <br><br>
-        Both sides fought hard, but neither could break through before the break.
+        The lead didn’t last long.  
+        NUR 100 grew confident and replied with a composed goal to pull level — 1–1.
     </p>
-    <p class="text-3xl font-black text-amber-400 mt-4">Halftime: MED 300 0 – 0 MED 200</p>
+    <p class="text-3xl font-black text-amber-400 mt-4">Halftime: NUR 200 1 – 1 NUR 100</p>
 </div>
 
 <div class="bg-black/60 rounded-2xl p-6 border border-amber-700/40 max-w-xl mx-auto mb-10">
-    <p class="text-amber-400 text-lg font-bold">SECOND HALF – A DECISIVE STRIKE</p>
+    <p class="text-amber-400 text-lg font-bold">SECOND HALF – A GAME OF COMEBACKS</p>
     <p class="text-gray-300 mt-3 leading-relaxed">
-        MED 300 returned with more confidence and kept the ball beautifully — 
-        but every attack ended without reward.
+        NUR 100 came out flying — scoring two quick goals to take a big advantage.  
+        A confident 1–3 lead that looked like the game was done and dusted.
         <br><br>
-        Then came the turning point:
-        <span class="font-bold text-amber-400">MED 200 struck with a brilliant finish — 1–0.</span>
+        But NUR 200 refused to give up.
+        <span class="font-bold text-amber-400">Temile</span> stepped up with a brilliant goal — 2–3 — 
+        and hope returned to the squad.
         <br><br>
-        From there, they locked down the defense, refusing to let MED 300 find any way back.
+        The final minutes brought chaos and passion.  
+        Eyinna produced a clutch equalizer in the dying moments — a true hero moment — leveling the game.
     </p>
 
-    <p class="text-4xl font-black text-amber-500 mt-4">Full Time: MED 200 1 – 0 MED 300</p>
+    <p class="text-4xl font-black text-amber-500 mt-4">Full Time: NUR 200 3 – 3 NUR 100</p>
 </div>
 
 <p class="text-lg text-gray-300 max-w-xl mx-auto leading-relaxed">
-    MED 300 fought with heart, but missed chances proved costly.  
-    <span class="font-bold text-amber-300">MED 200</span> stood strong and took their moment — 
-    earning a massive victory and bragging rights in the medical faculty!
+    A match filled with emotion, belief, and pure resilience.  
+    <span class="font-bold text-amber-300">NUR 200</span> fought back from the edge of defeat, 
+    while <span class="font-bold text-amber-300">NUR 100</span> will walk away frustrated after letting their lead slip.
+    <br><br>
+    In the end — a **classic draw** that had everything spectators love about football.
 </p>
+
 
 </div>
 
@@ -2410,11 +2437,33 @@ function openNewsModal() {
                     <span style="font-size: 1.5rem; font-weight: 800; color: #a855f7; margin-right: 15px; width: 30px; text-align: right;">1.</span>
                     <span style="height: 44px; width: 44px; background-color: #9333ea; border: 2px solid #a855f7; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.875rem; color: #fff;">P10</span>
                     <div style="margin-left: 15px;">
-                        <p style="font-weight: 600; color: #ffffff;">Unknown</p>
-                        <p style="font-size: 0.75rem; color: #9ca3af;">NIL</p>
+                        <p style="font-weight: 600; color: #ffffff;">Austin</p>
+                        <p style="font-size: 0.75rem; color: #9ca3af;">-</p>
                     </div>
                 </div>
-                <span style="font-weight: 900; font-size: 2.25rem; color: #c084fc; text-shadow: 0 0 5px rgba(192, 132, 252, 0.5);">0</span>
+                <span style="font-weight: 900; font-size: 2.25rem; color: #c084fc; text-shadow: 0 0 5px rgba(192, 132, 252, 0.5);">1</span>
+            </li>
+             <li style="display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; border-radius: 8px; background-color: rgba(168, 85, 247, 0.05); border: 1px solid #2a2a2a; transition: background-color 0.3s ease-in-out;" onmouseover="this.style.backgroundColor='rgba(168, 85, 247, 0.15)'" onmouseout="this.style.backgroundColor='rgba(168, 85, 247, 0.05)'">
+                <div style="display: flex; align-items: center;">
+                    <span style="font-size: 1.5rem; font-weight: 800; color: #a855f7; margin-right: 15px; width: 30px; text-align: right;">2.</span>
+                    <span style="height: 44px; width: 44px; background-color: #9333ea; border: 2px solid #a855f7; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.875rem; color: #fff;">P10</span>
+                    <div style="margin-left: 15px;">
+                        <p style="font-weight: 600; color: #ffffff;">Franklin</p>
+                        <p style="font-size: 0.75rem; color: #9ca3af;">-</p>
+                    </div>
+                </div>
+                <span style="font-weight: 900; font-size: 2.25rem; color: #c084fc; text-shadow: 0 0 5px rgba(192, 132, 252, 0.5);">1</span>
+            </li>
+             <li style="display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; border-radius: 8px; background-color: rgba(168, 85, 247, 0.05); border: 1px solid #2a2a2a; transition: background-color 0.3s ease-in-out;" onmouseover="this.style.backgroundColor='rgba(168, 85, 247, 0.15)'" onmouseout="this.style.backgroundColor='rgba(168, 85, 247, 0.05)'">
+                <div style="display: flex; align-items: center;">
+                    <span style="font-size: 1.5rem; font-weight: 800; color: #a855f7; margin-right: 15px; width: 30px; text-align: right;">3.</span>
+                    <span style="height: 44px; width: 44px; background-color: #9333ea; border: 2px solid #a855f7; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.875rem; color: #fff;">P10</span>
+                    <div style="margin-left: 15px;">
+                        <p style="font-weight: 600; color: #ffffff;">Enyinna</p>
+                        <p style="font-size: 0.75rem; color: #9ca3af;">-</p>
+                    </div>
+                </div>
+                <span style="font-weight: 900; font-size: 2.25rem; color: #c084fc; text-shadow: 0 0 5px rgba(192, 132, 252, 0.5);">1</span>
             </li>
         </ul>
     </div>
@@ -2633,7 +2682,7 @@ function openNewsModal() {
                                 <p style="font-size: 0.75rem; color: #a0a0a0;">-</p>
                             </div>
                         </div>
-                        <span style="font-weight: 900; font-size: 2.5rem; color: #9ca3af; text-shadow: 0 0 10px rgba(156, 163, 175, 0.8);">4</span>
+                        <span style="font-weight: 900; font-size: 2.5rem; color: #9ca3af; text-shadow: 0 0 10px rgba(156, 163, 175, 0.8);">5</span>
                     </li>
                     <li style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.25rem; border-radius: 12px; background: linear-gradient(90deg, #374151 0%, #1f2937 100%); border: 2px solid #b45309; box-shadow: 0 4px 10px rgba(180, 83, 9, 0.2); transition: all 0.3s ease-in-out;" onmouseover="this.style.transform='scale(1.02)'; this.style.boxShadow='0 8px 20px rgba(180, 83, 9, 0.4)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 10px rgba(180, 83, 9, 0.2)'">
                         <div style="display: flex; align-items: center;">
