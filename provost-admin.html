@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en" class="transition-colors duration-500">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Provost League - ADMIN DASHBOARD</title>
+     <link rel="icon" type="image/svg+xml" href="MIKOKO .png">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* Custom styles for the Mikoko color theme */
+        .mikoko-red {
+            --tw-bg-opacity: 1;
+            background-color: rgb(239 68 68 / var(--tw-bg-opacity)); /* red-500 */
+        }
+        .dark .mikoko-red {
+            background-color: rgb(220 38 38 / var(--tw-bg-opacity)); /* red-700 */
+        }
+
+        /* Set font to Inter for better readability */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* --- Custom Table Layout for Scroll Alignment --- */
+        .table-scroll-container tbody {
+            display: block; 
+            height: 24rem; 
+            overflow-y: auto;
+        }
+
+        .table-scroll-container thead, 
+        .table-scroll-container tbody tr {
+            display: table; 
+            width: 100%; 
+            table-layout: fixed; 
+        }
+
+        /* Define fixed widths for ALL column headers (th) and body cells (td) */
+        .table-scroll-container th:nth-child(1),
+        .table-scroll-container td:nth-child(1) { width: 5%; } /* # */
+
+        .table-scroll-container th:nth-child(2),
+        .table-scroll-container td:nth-child(2) { width: 45%; } /* Team Name (Wider) */
+
+        .table-scroll-container th:nth-child(3),
+        .table-scroll-container td:nth-child(3) { width: 10%; } /* P */
+
+        .table-scroll-container th:nth-child(4),
+        .table-scroll-container td:nth-child(4) { width: 10%; } /* W */
+        
+        .table-scroll-container th:nth-child(5),
+        .table-scroll-container td:nth-child(5) { width: 10%; } /* D */
+
+        .table-scroll-container th:nth-child(6),
+        .table-scroll-container td:nth-child(6) { width: 10%; } /* L */
+
+        .table-scroll-container th:nth-child(7),
+        .table-scroll-container td:nth-child(7) { width: 10%; } /* Pts */
+
+        /* Editable Cell Styling */
+        .editable-cell:hover {
+            cursor: pointer;
+            background-color: rgba(252, 165, 165, 0.1); /* red-300 with transparency */
+        }
+        .dark .editable-cell:hover {
+            background-color: rgba(185, 28, 28, 0.2); /* red-700 with transparency */
+        }
+        .editable-cell input {
+            width: 100%;
+            text-align: center;
+            border: 1px solid #f87171; /* red-400 */
+            padding: 2px 0;
+            background-color: white;
+            color: black;
+            border-radius: 4px;
+        }
+        .dark .editable-cell input {
+            background-color: #374151; /* gray-700 */
+            color: white;
+            border: 1px solid #f87171;
+        }
+
+        /* Custom Scrollbar for dark sections */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #1f2937;
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: red;
+            border-radius: 10px;
+        }
+
+        /* Modal Styles (Removed from HTML, but styles kept for reference if needed) */
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.75);
+            display: none; 
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+        }
+        .modal-content {
+            background-color: white;
+            border-radius: 0.75rem; 
+            padding: 2.5rem; 
+            width: 90%;
+            max-width: 40rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .dark .modal-content {
+            background-color: rgb(31 41 55); 
+        }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 font-sans min-h-screen transition-colors duration-500">
+
+    <nav class="bg-white dark:bg-gray-800 shadow-md transition-colors duration-500">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <span class="text-2xl font-extrabold text-red-600 dark:text-red-400">PROVOST LEAGUE - ADMIN</span>
+            <div class="flex items-center space-x-4">
+                <p id="userIdDisplay" class="text-xs text-gray-500 dark:text-gray-400">Admin User</p>
+                <a href="Mikoko league.html" class="text-gray-700 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-300 transition duration-300 p-2 rounded-full">
+                    View Public Dashboard
+                </a>
+            </div>
+        </div>
+    </nav>
+    
+    <main class="container mx-auto px-4 py-8 space-y-12">
+
+        <section class="p-6 md:p-10 rounded-xl shadow-2xl mikoko-red text-white flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-8">
+            <div class="text-center md:text-left flex-grow">
+                <h1 class="text-3xl sm:text-4xl font-black uppercase tracking-wider text-white">
+                    Administrator Control Panel
+                </h1>
+                <p class="text-xl font-medium text-red-100 mt-1">
+                    Manage Teams, Stats, and League News
+                </p>
+            </div>
+            <button id="clearDataButton" class="px-6 py-2 bg-white text-red-600 font-semibold rounded-lg hover:bg-red-100 transition duration-300">
+                ⚠️ Reset All Data
+            </button>
+        </section>
+
+        <div class="space-y-8">
+            
+            <section class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg transition-colors duration-500">
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6 border-b pb-3 border-red-400 dark:border-red-600">
+                    🏆 League Table Standings (<span id="teamCount">6</span> Teams)
+                </h2>
+                
+                <p class="text-sm text-red-500 dark:text-red-400 mb-3 font-semibold">
+                    *Click any number cell (P, W, D, L, Pts) to edit the team's record.*
+                </p>
+                <div class="overflow-x-auto table-scroll-container"> 
+                    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                        <thead class="bg-gray-50 dark:bg-gray-700"> 
+                            <tr>
+                                <th class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">#</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">Team</th>
+                                <th class="px-3 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">P</th>
+                                <th class="px-3 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">W</th>
+                                <th class="px-3 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">D</th>
+                                <th class="px-3 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">L</th>
+                                <th class="px-3 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">Pts</th>
+                            </tr>
+                        </thead>
+                        <tbody id="leagueTableBody" class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700"> 
+                            <tr><td colspan="7" class="py-4 text-center text-gray-500 dark:text-gray-400">Loading teams...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            
+            <section class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg transition-colors duration-500">
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6 border-b pb-3 border-red-400 dark:border-red-600">
+                    🗓️ Fixture Management (TBD vs TBD)
+                </h2>
+                
+                <ul id="fixtureList" class="space-y-4">
+                    <li class="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg shadow-sm flex justify-between items-center">
+                        <p class="text-sm font-semibold text-gray-500 dark:text-gray-400">Fixture creation and result management...</p>
+                    </li>
+                    <li class="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg shadow-sm flex justify-between items-center">
+                        <p class="text-sm font-semibold text-gray-500 dark:text-gray-400">Example: MED 100 vs NUR 200 - Enter Result</p>
+                    </li>
+                </ul>
+            </section>
+            
+            <section class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg transition-colors duration-500 border-t-4 border-red-500 dark:border-red-600">
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4 flex items-center">
+                    📰 League News & Announcements
+                </h2>
+                <p class="text-gray-700 dark:text-gray-300 text-sm mb-4">
+                    Publish official announcements to the public dashboard.
+                </p>
+                <div class="space-y-4">
+                    <input type="text" id="newsTitleInput" placeholder="News Headline (e.g., Week 1 Results are LIVE!)" class="w-full p-3 border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 rounded-lg text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:ring-red-500 focus:border-red-500">
+                    <textarea id="newsContentInput" rows="3" placeholder="Full announcement details..." class="w-full p-3 border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 rounded-lg text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:ring-red-500 focus:border-red-500"></textarea>
+                    <div class="flex justify-end">
+                        <button id="publishNewsButton" class="px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg transition duration-300 shadow-md">
+                            Publish Announcement
+                        </button>
+                    </div>
+                </div>
+                <div id="publishedNewsList" class="mt-6 border-t pt-4 border-gray-200 dark:border-gray-700 space-y-3">
+                    </div>
+            </section>
+            
+            <section class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg transition-colors duration-500 border-r-4 border-red-500 dark:border-red-600" id="teamManagementSection">
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4 flex items-center">
+                    🗑️ Team Management
+                </h2>
+                <p class="text-gray-700 dark:text-gray-300 text-sm mb-3">
+                    Select a team to remove them from the league.
+                </p>
+                <div class="space-y-3">
+                    <select id="removeTeamDropdown" class="w-full p-3 border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 rounded-lg text-gray-900 dark:text-gray-100">
+                        <option value="">-- Select Team --</option>
+                    </select>
+                    <button 
+                        id="removeTeamButton"
+                        class="w-full px-6 py-3 bg-gray-400 hover:bg-gray-500 text-white font-semibold rounded-lg transition duration-300 shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
+                        disabled
+                    >
+                        Remove Selected Team
+                    </button>
+                </div>
+            </section>
+        </div>
+
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <section class="card p-6 bg-gray-900 rounded-2xl shadow-xl border border-gray-700">
+                <h2 class="text-3xl font-bold text-red-400 mb-6 flex items-center gap-2">
+                    <i class="fas fa-futbol"></i> Top Goal Scorers (Top 20)
+                </h2>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+                    <input type="text" id="scorerName" placeholder="Player Name" class="p-4 bg-gray-800 text-white rounded-xl border border-gray-700 focus:border-red-400 focus:ring-2 focus:ring-red-500 outline-none transition col-span-1 sm:col-span-2">
+                    
+                    <input type="number" id="scorerGoals" placeholder="Goals" class="p-4 bg-gray-800 text-white rounded-xl border border-gray-700 focus:border-red-400 focus:ring-2 focus:ring-red-500 outline-none transition">
+                    
+                    <button id="addScorerBtn" class="px-4 py-4 rounded-xl bg-red-500 hover:bg-red-600 text-black font-semibold shadow-md transition flex items-center justify-center gap-2 col-span-full">
+                        <i class="fas fa-plus"></i> Add / Update Scorer
+                    </button>
+                </div>
+
+                <div id="scorersList" class="space-y-3 max-h-72 overflow-y-auto pr-2 custom-scrollbar">
+                    </div>
+            </section>
+            
+            <section class="card p-6 bg-gray-900 rounded-2xl shadow-xl border border-gray-700">
+                <h2 class="text-3xl font-bold text-red-400 mb-6 flex items-center gap-2">
+                    <i class="fas fa-handshake"></i> Top Assist Providers (Top 20)
+                </h2>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+                    <input type="text" id="assisterName" placeholder="Player Name" class="p-4 bg-gray-800 text-white rounded-xl border border-gray-700 focus:border-red-400 focus:ring-2 focus:ring-red-500 outline-none transition col-span-1 sm:col-span-2">
+                    
+                    <input type="number" id="assisterAssists" placeholder="Assists" class="p-4 bg-gray-800 text-white rounded-xl border border-gray-700 focus:border-red-400 focus:ring-2 focus:ring-red-500 outline-none transition">
+                    
+                    <button id="addAssisterBtn" class="px-4 py-4 rounded-xl bg-red-500 hover:bg-red-600 text-black font-semibold shadow-md transition flex items-center justify-center gap-2 col-span-full">
+                        <i class="fas fa-plus"></i> Add / Update Assister
+                    </button>
+                </div>
+
+                <div id="assistersList" class="space-y-3 max-h-72 overflow-y-auto pr-2 custom-scrollbar">
+                    </div>
+            </section>
+        </div>
+
+    </main>
+    
+    <footer class="bg-gray-800 dark:bg-gray-950 text-white p-6 mt-12 shadow-inner transition-colors duration-500">
+        <div class="container mx-auto text-center">
+            <p class="text-sm font-light">
+                Provost League | Admin Dashboard.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // --- LOCAL STORAGE KEY DEFINITIONS ---
+        const STORAGE_KEYS = {
+            STANDINGS: 'provostLeagueStandings',
+            SCORERS: 'provostLeagueScorers',
+            ASSISTS: 'provostLeagueAssists',
+            NEWS: 'provostLeagueNews',
+        };
+
+        // --- HARDCODED INITIAL DATA STRUCTURE ---
+        const INITIAL_STANDINGS = [
+            { id: 'med100', name: 'MED 100', P: 0, W: 0, D: 0, L: 0, Pts: 0 },
+            { id: 'med200', name: 'MED 200', P: 0, W: 0, D: 0, L: 0, Pts: 0 },
+            { id: 'med300', name: 'MED 300', P: 0, W: 0, D: 0, L: 0, Pts: 0 },
+            { id: 'med400', name: 'MED 400', P: 0, W: 0, D: 0, L: 0, Pts: 0 },
+            { id: 'nur100', name: 'NUR 100', P: 0, W: 0, D: 0, L: 0, Pts: 0 },
+            { id: 'nur200', name: 'NUR 200', P: 0, W: 0, D: 0, L: 0, Pts: 0 },
+        ];
+        
+        // --- DATA HANDLING FUNCTIONS ---
+
+        /** Fetches data from localStorage or returns initial data if not found. */
+        function loadData(key, initialData) {
+            const data = localStorage.getItem(key);
+            if (data) {
+                try {
+                    return JSON.parse(data);
+                } catch (e) {
+                    console.error("Error parsing stored data for key:", key, e);
+                    return initialData;
+                }
+            }
+            return initialData;
+        }
+
+        /** Saves data to localStorage. */
+        function saveData(key, data) {
+            localStorage.setItem(key, JSON.stringify(data));
+        }
+
+        // Load initial data
+        let standings = loadData(STORAGE_KEYS.STANDINGS, INITIAL_STANDINGS);
+        let scorers = loadData(STORAGE_KEYS.SCORERS, []);
+        let assists = loadData(STORAGE_KEYS.ASSISTS, []);
+        let newsList = loadData(STORAGE_KEYS.NEWS, [{ title: 'Welcome to the Provost League Admin Panel!', content: 'Manage all league statistics here.' }]);
+
+
+        // --- LEAGUE TABLE MANAGEMENT ---
+
+        /** Sorts standings: Pts descending, then W descending, then name ascending. */
+        function sortStandings(data) {
+            return data.sort((a, b) => {
+                if (b.Pts !== a.Pts) return b.Pts - a.Pts;
+                if (b.W !== a.W) return b.W - a.W;
+                return a.name.localeCompare(b.name);
+            });
+        }
+
+        /** Renders the league table rows. */
+        function renderLeagueTable() {
+            const tableBody = document.getElementById('leagueTableBody');
+            const sortedStandings = sortStandings(standings);
+            
+            tableBody.innerHTML = ''; // Clear existing rows
+            
+            sortedStandings.forEach((team, index) => {
+                const row = document.createElement('tr');
+                row.dataset.teamId = team.id;
+                
+                row.innerHTML = `
+                    <td class="px-3 py-3 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">${index + 1}</td>
+                    <td class="px-6 py-3 whitespace-nowrap text-sm font-semibold text-red-600 dark:text-red-400">${team.name}</td>
+                    <td class="editable-cell px-3 py-3 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300 text-center" data-stat="P">${team.P}</td>
+                    <td class="editable-cell px-3 py-3 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300 text-center" data-stat="W">${team.W}</td>
+                    <td class="editable-cell px-3 py-3 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300 text-center" data-stat="D">${team.D}</td>
+                    <td class="editable-cell px-3 py-3 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300 text-center" data-stat="L">${team.L}</td>
+                    <td class="editable-cell px-3 py-3 whitespace-nowrap text-sm font-bold text-gray-900 dark:text-gray-100 text-center" data-stat="Pts">${team.Pts}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+            
+            document.getElementById('teamCount').textContent = standings.length;
+        }
+
+        /** Handles editing an individual cell in the table. */
+        function handleCellEdit(event) {
+            const cell = event.target.closest('.editable-cell');
+            if (!cell || cell.querySelector('input')) return;
+
+            const teamId = cell.closest('tr').dataset.teamId;
+            const statKey = cell.dataset.stat;
+            const originalValue = cell.textContent;
+
+            cell.innerHTML = `<input type="number" value="${originalValue}" min="0">`;
+            const input = cell.querySelector('input');
+            input.focus();
+
+            const finishEdit = () => {
+                let newValue = parseInt(input.value) || 0;
+                if (newValue < 0) newValue = 0;
+
+                // Update local data array
+                const team = standings.find(t => t.id === teamId);
+                if (team) {
+                    // Special handling for Pts: 3 points for W, 1 for D
+                    if (statKey === 'Pts') {
+                        team.Pts = newValue; // Allow direct override of points
+                    } else {
+                        team[statKey] = newValue;
+                        // Recalculate Points based on W and D if they were changed
+                        team.Pts = (team.W * 3) + (team.D * 1);
+                    }
+                    
+                    // P is Games Played: P = W + D + L
+                    team.P = team.W + team.D + team.L; 
+
+                    saveData(STORAGE_KEYS.STANDINGS, standings);
+                    renderLeagueTable(); // Re-render to show new value and re-sort
+                }
+                
+                // Clean up if something went wrong or data was reset
+                cell.textContent = originalValue;
+                renderLeagueTable(); 
+            };
+
+            input.addEventListener('blur', finishEdit);
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    finishEdit();
+                }
+            });
+        }
+
+
+        // --- SCORER/ASSIST MANAGEMENT FUNCTIONS ---
+
+        /** Renders the top N players list (Scorers or Assists). */
+        function renderTopPlayers(listId, data, statKey, titleKey) {
+            const listContainer = document.getElementById(listId);
+            listContainer.innerHTML = '';
+            
+            // Sort: statKey descending, then name ascending
+            const sortedData = data.sort((a, b) => {
+                if (b[statKey] !== a[statKey]) return b[statKey] - a[statKey];
+                return a[titleKey].localeCompare(b[titleKey]);
+            }).slice(0, 20); // Top 20
+
+            if (sortedData.length === 0) {
+                listContainer.innerHTML = `<p class="text-gray-500">No ${listId === 'scorersList' ? 'scorers' : 'assists'} added yet.</p>`;
+                return;
+            }
+
+            sortedData.forEach((player, index) => {
+                const card = document.createElement('div');
+                card.className = 'p-3 bg-gray-800 rounded-lg shadow flex justify-between items-center text-white';
+                card.innerHTML = `
+                    <div class="flex items-center space-x-3">
+                        <span class="font-bold text-lg text-red-400 w-6 text-right">${index + 1}.</span>
+                        <span class="font-semibold">${player[titleKey]}</span>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <span class="text-xl font-extrabold text-red-500">${player[statKey]}</span>
+                        <button data-name="${player[titleKey]}" class="remove-player-${listId} text-red-400 hover:text-red-600 transition duration-150">
+                            &times;
+                        </button>
+                    </div>
+                `;
+                listContainer.appendChild(card);
+            });
+
+            // Add event listeners for removal buttons
+            listContainer.querySelectorAll(`.remove-player-${listId}`).forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const playerName = e.currentTarget.dataset.name;
+                    removePlayer(listId === 'scorersList' ? scorers : assists, listId, playerName);
+                });
+            });
+        }
+
+        /** Handles adding or updating a player's stats (Goals or Assists). */
+        function addOrUpdatePlayer(data, statKey, titleKey, listKey, nameInputId, statInputId) {
+            const nameInput = document.getElementById(nameInputId);
+            const statInput = document.getElementById(statInputId);
+            
+            const name = nameInput.value.trim();
+            const stat = parseInt(statInput.value);
+
+            if (!name || isNaN(stat) || stat < 0) {
+                alert(`Please enter a valid Player Name and a non-negative number for ${statKey}.`);
+                return;
+            }
+
+            const existingPlayerIndex = data.findIndex(p => p[titleKey].toLowerCase() === name.toLowerCase());
+
+            if (existingPlayerIndex > -1) {
+                data[existingPlayerIndex][statKey] = stat;
+            } else {
+                const newPlayer = {};
+                newPlayer[titleKey] = name;
+                newPlayer[statKey] = stat;
+                data.push(newPlayer);
+            }
+            
+            // Clear inputs and re-render
+            nameInput.value = '';
+            statInput.value = '';
+            
+            if (listKey === STORAGE_KEYS.SCORERS) {
+                saveData(STORAGE_KEYS.SCORERS, data);
+                renderTopPlayers('scorersList', scorers, 'goals', 'name');
+            } else if (listKey === STORAGE_KEYS.ASSISTS) {
+                saveData(STORAGE_KEYS.ASSISTS, data);
+                renderTopPlayers('assistersList', assists, 'assists', 'name');
+            }
+        }
+        
+        /** Removes a player from the list. */
+        function removePlayer(data, listId, name) {
+            const titleKey = 'name';
+            const newData = data.filter(p => p[titleKey] !== name);
+            
+            if (listId === 'scorersList') {
+                scorers = newData;
+                saveData(STORAGE_KEYS.SCORERS, scorers);
+                renderTopPlayers('scorersList', scorers, 'goals', 'name');
+            } else if (listId === 'assistersList') {
+                assists = newData;
+                saveData(STORAGE_KEYS.ASSISTS, assists);
+                renderTopPlayers('assistersList', assists, 'assists', 'name');
+            }
+        }
+
+
+        // --- NEWS MANAGEMENT ---
+
+        /** Renders the news list. */
+        function renderNewsList() {
+            const container = document.getElementById('publishedNewsList');
+            container.innerHTML = '';
+
+            if (newsList.length === 0) {
+                container.innerHTML = '<p class="text-gray-500 dark:text-gray-400">No announcements published yet.</p>';
+                return;
+            }
+
+            // Display newest first
+            [...newsList].reverse().forEach((newsItem, index) => {
+                // index in newsList is length - 1 - displayedIndex
+                const originalIndex = newsList.length - 1 - index; 
+                
+                const newsCard = document.createElement('div');
+                newsCard.className = 'p-4 bg-gray-50 dark:bg-gray-700 rounded-lg shadow-sm border border-gray-200 dark:border-gray-600';
+                newsCard.innerHTML = `
+                    <h4 class="font-bold text-lg text-red-600 dark:text-red-400">${newsItem.title}</h4>
+                    <p class="text-sm text-gray-700 dark:text-gray-300 mt-1">${newsItem.content}</p>
+                    <div class="mt-2 text-right">
+                        <button data-index="${originalIndex}" class="remove-news text-xs text-gray-500 hover:text-red-500">Remove</button>
+                    </div>
+                `;
+                container.appendChild(newsCard);
+            });
+
+            // Add remove listener
+            container.querySelectorAll('.remove-news').forEach(button => {
+                button.addEventListener('click', removeNews);
+            });
+        }
+
+        /** Publishes a new announcement. */
+        function publishNews() {
+            const titleInput = document.getElementById('newsTitleInput');
+            const contentInput = document.getElementById('newsContentInput');
+            
+            const title = titleInput.value.trim();
+            const content = contentInput.value.trim();
+
+            if (!title || !content) {
+                alert('Please enter both a Headline and Content for the announcement.');
+                return;
+            }
+
+            newsList.push({ title, content });
+            saveData(STORAGE_KEYS.NEWS, newsList);
+            
+            // Clear inputs
+            titleInput.value = '';
+            contentInput.value = '';
+            
+            renderNewsList();
+        }
+
+        /** Removes a news item. */
+        function removeNews(event) {
+            const indexToRemove = parseInt(event.target.dataset.index);
+            if (confirm('Are you sure you want to remove this announcement?')) {
+                newsList.splice(indexToRemove, 1);
+                saveData(STORAGE_KEYS.NEWS, newsList);
+                renderNewsList();
+            }
+        }
+        
+        
+        // --- TEAM MANAGEMENT (Remove) ---
+        
+        /** Enables/disables the remove team button based on dropdown selection. */
+        function toggleRemoveButton() {
+            const dropdown = document.getElementById('removeTeamDropdown');
+            const button = document.getElementById('removeTeamButton');
+            button.disabled = !dropdown.value;
+        }
+
+        /** Handles removing a selected team from the standings. */
+        function removeTeam() {
+            const dropdown = document.getElementById('removeTeamDropdown');
+            const teamIdToRemove = dropdown.value;
+
+            if (!teamIdToRemove) return;
+
+            const teamName = standings.find(t => t.id === teamIdToRemove)?.name || 'Team';
+
+            if (confirm(`Are you sure you want to permanently remove ${teamName} from the league? This cannot be undone.`)) {
+                standings = standings.filter(team => team.id !== teamIdToRemove);
+                saveData(STORAGE_KEYS.STANDINGS, standings);
+                
+                // Re-render table and update dropdown options
+                renderLeagueTable();
+                updateRemoveTeamDropdown();
+                alert(`${teamName} has been removed.`);
+            }
+        }
+        
+        /** Populates the remove team dropdown with current registered teams. */
+        function updateRemoveTeamDropdown() {
+            const dropdown = document.getElementById('removeTeamDropdown');
+            dropdown.innerHTML = '<option value="">-- Select Team --</option>';
+            
+            standings.forEach(team => {
+                const option = document.createElement('option');
+                option.value = team.id;
+                option.textContent = team.name;
+                dropdown.appendChild(option);
+            });
+            
+            toggleRemoveButton(); // Disable button if no selection
+        }
+        
+        
+        // --- GLOBAL RESET ---
+        
+        /** Resets all league data in localStorage. */
+        function resetAllData() {
+            if (confirm('⚠️ WARNING: This will PERMANENTLY delete ALL league standings, player stats, and news. Are you absolutely sure?')) {
+                localStorage.removeItem(STORAGE_KEYS.STANDINGS);
+                localStorage.removeItem(STORAGE_KEYS.SCORERS);
+                localStorage.removeItem(STORAGE_KEYS.ASSISTS);
+                localStorage.removeItem(STORAGE_KEYS.NEWS);
+
+                // Reload default state
+                standings = INITIAL_STANDINGS;
+                scorers = [];
+                assists = [];
+                newsList = [{ title: 'Welcome to the Provost League Admin Panel!', content: 'Manage all league statistics here.' }];
+                
+                // Re-render all elements
+                initializeDashboard();
+                alert('League data has been successfully reset.');
+            }
+        }
+
+
+        // --- INITIALIZATION AND EVENT LISTENERS ---
+
+        function initializeDashboard() {
+            renderLeagueTable();
+            renderTopPlayers('scorersList', scorers, 'goals', 'name');
+            renderTopPlayers('assistersList', assists, 'assists', 'name');
+            renderNewsList();
+            updateRemoveTeamDropdown(); // Initialize team dropdown
+            
+            // Event Listeners for editing and interactions
+            document.getElementById('leagueTableBody').addEventListener('click', handleCellEdit);
+            document.getElementById('clearDataButton').addEventListener('click', resetAllData);
+            
+            // Scorers
+            document.getElementById('addScorerBtn').addEventListener('click', () => {
+                addOrUpdatePlayer(scorers, 'goals', 'name', STORAGE_KEYS.SCORERS, 'scorerName', 'scorerGoals');
+            });
+            
+            // Assists
+            document.getElementById('addAssisterBtn').addEventListener('click', () => {
+                addOrUpdatePlayer(assists, 'assists', 'name', STORAGE_KEYS.ASSISTS, 'assisterName', 'assisterAssists');
+            });
+
+            // News
+            document.getElementById('publishNewsButton').addEventListener('click', publishNews);
+            
+            // Team Removal
+            document.getElementById('removeTeamDropdown').addEventListener('change', toggleRemoveButton);
+            document.getElementById('removeTeamButton').addEventListener('click', removeTeam);
+        }
+
+        // Initialize the dashboard when the document loads
+        document.addEventListener('DOMContentLoaded', initializeDashboard);
+
+    </script>
+</body>
+</html>

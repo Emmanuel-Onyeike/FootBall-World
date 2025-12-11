@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en" class="transition-colors duration-500">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite League - Admin Dashboard</title>
+     <link rel="icon" type="image/svg+xml" href="MIKOKO .png">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* light gray bg */
+        }
+        .dark body {
+            background-color: #111827; /* dark gray bg */
+        }
+        .dark .bg-white {
+            background-color: #1f2937;
+        }
+        /* Custom Dark Blue Theme */
+        .elite-blue {
+            background-color: #3b82f6; /* blue-500 */
+        }
+        .elite-border {
+            border-color: #60a5fa; /* blue-400 */
+        }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 font-sans min-h-screen transition-colors duration-500">
+
+    <nav class="bg-white dark:bg-gray-800 shadow-md transition-colors duration-500">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <span class="text-2xl font-extrabold text-blue-600 dark:text-blue-400">ELITE LEAGUE - Admin</span>
+            <button id="resetAllData" class="text-sm px-3 py-1 bg-red-500 hover:bg-red-600 text-white rounded transition duration-300">
+                <i class="fas fa-trash-alt mr-1"></i> Reset All Data
+            </button>
+        </div>
+    </nav>
+    
+    <main class="container mx-auto px-4 py-8 space-y-12">
+
+        <section class="p-6 md:p-10 rounded-xl shadow-2xl elite-blue text-white text-center flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-6">
+            <i class="fas fa-shield-alt text-6xl text-blue-200"></i>
+            <div>
+                <h1 class="text-3xl sm:text-4xl font-black uppercase tracking-wider text-white">
+                    Elite League Administration Panel
+                </h1>
+                <p class="text-xl font-medium text-blue-100 mt-2">
+                    Manage Standings, Roster, Scorers, and News
+                </p>
+            </div>
+        </section>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <div class="lg:col-span-2 space-y-8">
+
+                <section class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg transition-colors duration-500 border-t-4 border-blue-500">
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6 border-b pb-3 border-blue-400">
+                        🏆 Update League Standings
+                    </h2>
+                    
+                    <div class="overflow-x-auto"> 
+                        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                            <thead class="bg-gray-50 dark:bg-gray-700"> 
+                                <tr>
+                                    <th class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">Team</th>
+                                    <th class="px-3 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">P</th>
+                                    <th class="px-3 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">W</th>
+                                    <th class="px-3 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">D</th>
+                                    <th class="px-3 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">L</th>
+                                    <th class="px-3 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">Pts</th>
+                                    <th class="px-3 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="leagueTableBody" class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700"> 
+                                </tbody>
+                        </table>
+                    </div>
+                    <button onclick="renderLeagueTable(true)" class="mt-4 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition duration-300">
+                        <i class="fas fa-sync-alt mr-1"></i> Sync/Reload Standings
+                    </button>
+                    <p id="standingsMessage" class="mt-3 text-sm font-medium text-green-500 dark:text-green-400"></p>
+                </section>
+                
+                <section class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg transition-colors duration-500 border-l-4 border-blue-500">
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4 border-b pb-3 border-blue-400">
+                        📰 Post League News
+                    </h2>
+                    <input type="text" id="newsTitleInput" placeholder="News Headline (e.g., CSC 100 wins thrilling opener)" class="w-full p-3 mb-3 border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 rounded-lg text-gray-900 dark:text-gray-100 focus:ring-blue-500 focus:border-blue-500">
+                    <textarea id="newsContentInput" placeholder="Details of the announcement..." rows="3" class="w-full p-3 mb-3 border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 rounded-lg text-gray-900 dark:text-gray-100 focus:ring-blue-500 focus:border-blue-500"></textarea>
+                    <button id="postNewsButton" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition duration-300">
+                        <i class="fas fa-bullhorn mr-1"></i> Post News
+                    </button>
+                    <p id="newsMessage" class="mt-3 text-sm font-medium text-green-500 dark:text-green-400"></p>
+                    
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mt-6 mb-3">Recent Posts</h3>
+                    <div id="recentNewsList" class="space-y-3 max-h-48 overflow-y-auto">
+                        <p class="text-gray-500 dark:text-gray-400">No recent posts.</p>
+                    </div>
+                </section>
+            </div>
+
+            <div class="lg:col-span-1 space-y-8">
+
+                 <section class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg transition-colors duration-500 border-r-4 border-blue-500">
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4 border-b pb-3 border-blue-400">
+                        👥 Player Roster Management
+                    </h2>
+                    <input type="text" id="playerNameInput" placeholder="Full Name of Player" class="w-full p-3 mb-3 border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 rounded-lg text-gray-900 dark:text-gray-100 focus:ring-blue-500 focus:border-blue-500">
+                    <select id="playerTeamSelect" class="w-full p-3 mb-3 border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 rounded-lg text-gray-900 dark:text-gray-100 focus:ring-blue-500 focus:border-blue-500">
+                        <option value="">Select Team to Assign (Optional)</option>
+                        </select>
+                    <button id="addPlayerButton" class="w-full px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition duration-300">
+                        <i class="fas fa-user-plus mr-1"></i> Add/Assign Player
+                    </button>
+                    <p id="playerMessage" class="mt-3 text-sm font-medium text-green-500 dark:text-green-400"></p>
+                    
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mt-6 mb-3">Current Roster</h3>
+                    <div id="currentRoster" class="space-y-3 max-h-48 overflow-y-auto">
+                        <p class="text-gray-500 dark:text-gray-400">Roster loading...</p>
+                    </div>
+                </section>
+
+                <section class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg transition-colors duration-500 border-b-4 border-blue-500">
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4 border-b pb-3 border-blue-400">
+                        📈 Update Player Stats
+                    </h2>
+                    
+                    <div class="space-y-4">
+                        <select id="statPlayerSelect" class="w-full p-3 border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 rounded-lg text-gray-900 dark:text-gray-100 focus:ring-blue-500 focus:border-blue-500">
+                            <option value="">Select Player (Roster must be filled)</option>
+                            </select>
+                        <div class="flex space-x-4">
+                            <input type="number" id="goalsInput" placeholder="Goals" min="0" value="0" class="flex-1 p-3 border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 rounded-lg text-gray-900 dark:text-gray-100 focus:ring-blue-500 focus:border-blue-500">
+                            <input type="number" id="assistsInput" placeholder="Assists" min="0" value="0" class="flex-1 p-3 border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 rounded-lg text-gray-900 dark:text-gray-100 focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <button id="updateStatsButton" class="w-full px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition duration-300 disabled:opacity-50">
+                            <i class="fas fa-chart-bar mr-1"></i> Update Stats
+                        </button>
+                    </div>
+
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mt-6 mb-3">Top Leaders Preview</h3>
+                    <div id="statsPreview" class="space-y-2 text-sm text-gray-700 dark:text-gray-300">
+                        <p>Preview loading...</p>
+                    </div>
+                </section>
+                
+            </div>
+        </div>
+    </main>
+    
+    <footer class="bg-gray-800 dark:bg-gray-950 text-white p-6 mt-12 shadow-inner transition-colors duration-500">
+        <div class="container mx-auto text-center">
+            <p class="text-sm font-light">
+                Elite League | Admin View. Use this panel to update the Public Dashboard.
+            </p>
+        </div>
+    </footer>
+
+<script>
+    // --- LOCAL STORAGE KEY DEFINITIONS ---
+    const STORAGE_KEYS = {
+        STANDINGS: 'eliteLeagueStandings',
+        SCORERS: 'eliteLeagueScorers',
+        ASSISTS: 'eliteLeagueAssists',
+        NEWS: 'eliteLeagueNews',
+        PLAYERS: 'eliteLeaguePlayers'
+    };
+
+    // --- ELITE LEAGUE TEAMS ---
+    const TEAM_NAMES = [
+        'CSC 100', 'CSC 200', 'CSC 300', 'CSC 400', 
+        'MSS 100', 'MSS 200', 'MSS 300', 'MSS 400', 
+        'LAW 100', 'LAW 200', 'LAW 300', 'LAW 400', 'LAW 500'
+    ];
+    
+    // Initial Team Structure from the provided list
+    const INITIAL_STANDINGS = TEAM_NAMES.map(name => ({
+        id: name.replace(/\s/g, '').toLowerCase(),
+        name: name,
+        P: 0, W: 0, D: 0, L: 0, Pts: 0 
+    }));
+
+    // --- DATA HANDLING UTILITIES ---
+
+    function loadData(key, fallbackData) {
+        const data = localStorage.getItem(key);
+        if (data) {
+            try { return JSON.parse(data); } catch (e) {
+                console.error("Error parsing stored data for key:", key, e);
+                return fallbackData;
+            }
+        }
+        return fallbackData;
+    }
+
+    function saveData(key, data) {
+        localStorage.setItem(key, JSON.stringify(data));
+    }
+
+    // --- STATE VARIABLES ---
+    let standings = loadData(STORAGE_KEYS.STANDINGS, INITIAL_STANDINGS);
+    let registeredPlayers = loadData(STORAGE_KEYS.PLAYERS, []);
+    let scorers = loadData(STORAGE_KEYS.SCORERS, []);
+    let assists = loadData(STORAGE_KEYS.ASSISTS, []);
+    let newsList = loadData(STORAGE_KEYS.NEWS, []);
+
+    // --- LEAGUE TABLE RENDERING & EDITING ---
+
+    function sortStandings(data) {
+        return data.sort((a, b) => {
+            if (b.Pts !== a.Pts) return b.Pts - a.Pts;
+            if (b.W !== a.W) return b.W - a.W;
+            return a.name.localeCompare(b.name);
+        });
+    }
+
+    function renderLeagueTable(loadFresh = false) {
+        if (loadFresh) standings = loadData(STORAGE_KEYS.STANDINGS, INITIAL_STANDINGS);
+        
+        const tableBody = document.getElementById('leagueTableBody');
+        tableBody.innerHTML = '';
+        
+        // Use the initial structure to ensure all defined teams are present
+        const currentTeams = standings.map(t => t.name);
+        INITIAL_STANDINGS.forEach(initialTeam => {
+            if (!currentTeams.includes(initialTeam.name)) {
+                standings.push(initialTeam);
+            }
+        });
+        
+        const sortedStandings = sortStandings(standings);
+
+        sortedStandings.forEach((team) => {
+            const row = document.createElement('tr');
+            row.className = 'bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition duration-150';
+            
+            row.innerHTML = `
+                <td class="px-3 py-3 whitespace-nowrap text-sm font-semibold text-blue-600 dark:text-blue-400">${team.name}</td>
+                <td><input type="number" id="P-${team.id}" value="${team.P}" min="0" class="w-12 text-center p-1 text-sm bg-gray-100 dark:bg-gray-700 border rounded"></td>
+                <td><input type="number" id="W-${team.id}" value="${team.W}" min="0" class="w-12 text-center p-1 text-sm bg-gray-100 dark:bg-gray-700 border rounded"></td>
+                <td><input type="number" id="D-${team.id}" value="${team.D}" min="0" class="w-12 text-center p-1 text-sm bg-gray-100 dark:bg-gray-700 border rounded"></td>
+                <td><input type="number" id="L-${team.id}" value="${team.L}" min="0" class="w-12 text-center p-1 text-sm bg-gray-100 dark:bg-gray-700 border rounded"></td>
+                <td class="px-3 py-3 whitespace-nowrap text-sm font-extrabold text-blue-600 dark:text-blue-400 text-center">${team.Pts}</td>
+                <td><button data-team-id="${team.id}" onclick="updateTeamStats(this)" class="px-3 py-1 bg-blue-500 text-white text-xs rounded hover:bg-blue-600 transition duration-150">Save</button></td>
+            `;
+            tableBody.appendChild(row);
+        });
+    }
+
+    function updateTeamStats(button) {
+        const teamId = button.getAttribute('data-team-id');
+        const teamIndex = standings.findIndex(t => t.id === teamId);
+
+        if (teamIndex !== -1) {
+            const P = parseInt(document.getElementById(`P-${teamId}`).value) || 0;
+            const W = parseInt(document.getElementById(`W-${teamId}`).value) || 0;
+            const D = parseInt(document.getElementById(`D-${teamId}`).value) || 0;
+            const L = parseInt(document.getElementById(`L-${teamId}`).value) || 0;
+            
+            // Basic validation
+            if (P !== W + D + L) {
+                document.getElementById('standingsMessage').textContent = `Error: P (${P}) must equal W+D+L (${W+D+L}). Please correct.`;
+                document.getElementById('standingsMessage').className = 'mt-3 text-sm font-medium text-red-500 dark:text-red-400';
+                return;
+            }
+
+            const Pts = (W * 3) + D;
+
+            standings[teamIndex] = {
+                ...standings[teamIndex],
+                P, W, D, L, Pts
+            };
+
+            saveData(STORAGE_KEYS.STANDINGS, standings);
+            renderLeagueTable(); // Re-render to show new sort order and Pts
+            
+            document.getElementById('standingsMessage').textContent = `${standings[teamIndex].name} standings updated successfully!`;
+            document.getElementById('standingsMessage').className = 'mt-3 text-sm font-medium text-green-500 dark:text-green-400';
+        }
+    }
+
+    // --- PLAYER ROSTER MANAGEMENT ---
+
+    function renderPlayerOptions() {
+        const teamSelect = document.getElementById('playerTeamSelect');
+        const statPlayerSelect = document.getElementById('statPlayerSelect');
+        
+        // Clear existing options, keeping the initial one
+        teamSelect.innerHTML = '<option value="">Select Team to Assign (Optional)</option>';
+        statPlayerSelect.innerHTML = '<option value="">Select Player</option>';
+
+        standings.forEach(team => {
+            const option = document.createElement('option');
+            option.value = team.id;
+            option.textContent = team.name;
+            teamSelect.appendChild(option);
+        });
+        
+        // Add registered players to stats select
+        registeredPlayers.forEach(player => {
+            const option = document.createElement('option');
+            option.value = player.name; // Use name as value for simplicity
+            option.textContent = player.name + (player.teamId ? ` (${standings.find(t => t.id === player.teamId)?.name || 'N/A'})` : ' (Unassigned)');
+            statPlayerSelect.appendChild(option);
+        });
+    }
+    
+    function renderCurrentRoster() {
+        const rosterDiv = document.getElementById('currentRoster');
+        rosterDiv.innerHTML = '';
+        
+        if (registeredPlayers.length === 0) {
+            rosterDiv.innerHTML = '<p class="text-gray-500 dark:text-gray-400">No players currently registered.</p>';
+            return;
+        }
+
+        const sortedPlayers = registeredPlayers.sort((a, b) => a.name.localeCompare(b.name));
+        
+        sortedPlayers.forEach(player => {
+            const teamName = player.teamId ? standings.find(t => t.id === player.teamId)?.name : 'Unassigned';
+            const item = document.createElement('div');
+            item.className = 'flex justify-between items-center p-2 bg-gray-50 dark:bg-gray-700 rounded';
+            item.innerHTML = `
+                <span class="text-gray-900 dark:text-gray-100">${player.name}</span>
+                <span class="text-xs ${player.teamId ? 'text-blue-500' : 'text-yellow-500'}">${teamName}</span>
+                <button data-player-name="${player.name}" onclick="removePlayer(this)" class="text-red-500 hover:text-red-700 text-sm ml-2">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            rosterDiv.appendChild(item);
+        });
+    }
+
+    function addPlayer() {
+        const nameInput = document.getElementById('playerNameInput');
+        const teamSelect = document.getElementById('playerTeamSelect');
+        const messageDisplay = document.getElementById('playerMessage');
+        
+        const playerName = nameInput.value.trim();
+        const teamId = teamSelect.value || null;
+
+        if (playerName.length < 3) {
+            messageDisplay.textContent = 'Please enter a valid player name.';
+            messageDisplay.className = 'mt-3 text-sm font-medium text-red-500 dark:text-red-400';
+            return;
+        }
+
+        const existingIndex = registeredPlayers.findIndex(p => p.name.toLowerCase() === playerName.toLowerCase());
+        
+        if (existingIndex !== -1) {
+            // Player exists, update team
+            registeredPlayers[existingIndex].teamId = teamId;
+            saveData(STORAGE_KEYS.PLAYERS, registeredPlayers);
+            messageDisplay.textContent = `${playerName} team updated to ${teamId ? standings.find(t => t.id === teamId).name : 'Unassigned'}.`;
+        } else {
+            // New player
+            registeredPlayers.push({ name: playerName, teamId: teamId });
+            saveData(STORAGE_KEYS.PLAYERS, registeredPlayers);
+            messageDisplay.textContent = `${playerName} added to the roster!`;
+        }
+        
+        messageDisplay.className = 'mt-3 text-sm font-medium text-green-500 dark:text-green-400';
+        nameInput.value = '';
+        teamSelect.value = '';
+        
+        renderPlayerOptions();
+        renderCurrentRoster();
+    }
+    
+    function removePlayer(button) {
+        const playerName = button.getAttribute('data-player-name');
+        
+        registeredPlayers = registeredPlayers.filter(p => p.name !== playerName);
+        scorers = scorers.filter(s => s.name !== playerName);
+        assists = assists.filter(a => a.name !== playerName);
+
+        saveData(STORAGE_KEYS.PLAYERS, registeredPlayers);
+        saveData(STORAGE_KEYS.SCORERS, scorers);
+        saveData(STORAGE_KEYS.ASSISTS, assists);
+        
+        // Show message
+        document.getElementById('playerMessage').textContent = `${playerName} and all their stats have been removed.`;
+        document.getElementById('playerMessage').className = 'mt-3 text-sm font-medium text-red-500 dark:text-red-400';
+
+        renderPlayerOptions();
+        renderCurrentRoster();
+        renderStatsPreview();
+    }
+
+    // --- STATS MANAGEMENT ---
+    
+    function updatePlayerStats() {
+        const playerSelect = document.getElementById('statPlayerSelect');
+        const goalsInput = document.getElementById('goalsInput');
+        const assistsInput = document.getElementById('assistsInput');
+        
+        const playerName = playerSelect.value;
+        const goals = parseInt(goalsInput.value) || 0;
+        const assistsCount = parseInt(assistsInput.value) || 0;
+
+        if (!playerName) {
+            alert('Please select a player.');
+            return;
+        }
+
+        // Update Scorers
+        let scorerIndex = scorers.findIndex(s => s.name === playerName);
+        if (scorerIndex !== -1) {
+            scorers[scorerIndex].goals = goals;
+        } else {
+            scorers.push({ name: playerName, goals: goals });
+        }
+        // Remove if goals is zero
+        scorers = scorers.filter(s => s.goals > 0);
+        saveData(STORAGE_KEYS.SCORERS, scorers);
+
+        // Update Assists
+        let assistIndex = assists.findIndex(a => a.name === playerName);
+        if (assistIndex !== -1) {
+            assists[assistIndex].assists = assistsCount;
+        } else {
+            assists.push({ name: playerName, assists: assistsCount });
+        }
+         // Remove if assists is zero
+        assists = assists.filter(a => a.assists > 0);
+        saveData(STORAGE_KEYS.ASSISTS, assists);
+        
+        alert(`${playerName} stats updated: Goals: ${goals}, Assists: ${assistsCount}`);
+        renderStatsPreview();
+    }
+    
+    function renderStatsPreview() {
+        const previewDiv = document.getElementById('statsPreview');
+        
+        const topScorers = [...scorers].sort((a, b) => b.goals - a.goals).slice(0, 3);
+        const topAssists = [...assists].sort((a, b) => b.assists - a.assists).slice(0, 3);
+
+        let html = '<p class="font-bold text-gray-900 dark:text-gray-100">Top Scorers:</p>';
+        if (topScorers.length > 0) {
+            topScorers.forEach((s, i) => {
+                html += `<p class="ml-2">${i+1}. ${s.name}: <span class="text-blue-500 font-bold">${s.goals} G</span></p>`;
+            });
+        } else {
+            html += '<p class="ml-2 text-gray-500 italic">No goals recorded.</p>';
+        }
+
+        html += '<p class="font-bold text-gray-900 dark:text-gray-100 mt-3">Top Assists:</p>';
+        if (topAssists.length > 0) {
+             topAssists.forEach((a, i) => {
+                html += `<p class="ml-2">${i+1}. ${a.name}: <span class="text-blue-500 font-bold">${a.assists} A</span></p>`;
+            });
+        } else {
+            html += '<p class="ml-2 text-gray-500 italic">No assists recorded.</p>';
+        }
+
+        previewDiv.innerHTML = html;
+        
+        // Populate stats input fields when player changes
+        document.getElementById('statPlayerSelect').onchange = function() {
+            const selectedName = this.value;
+            const currentGoals = scorers.find(s => s.name === selectedName)?.goals || 0;
+            const currentAssists = assists.find(a => a.name === selectedName)?.assists || 0;
+            
+            document.getElementById('goalsInput').value = currentGoals;
+            document.getElementById('assistsInput').value = currentAssists;
+        };
+    }
+
+    // --- NEWS MANAGEMENT ---
+    
+    function postNews() {
+        const titleInput = document.getElementById('newsTitleInput');
+        const contentInput = document.getElementById('newsContentInput');
+        const messageDisplay = document.getElementById('newsMessage');
+        
+        const title = titleInput.value.trim();
+        const content = contentInput.value.trim();
+
+        if (title.length < 5 || content.length < 5) {
+            messageDisplay.textContent = 'Title and content must be at least 5 characters.';
+            messageDisplay.className = 'mt-3 text-sm font-medium text-red-500 dark:text-red-400';
+            return;
+        }
+
+        const newPost = { title, content, timestamp: Date.now() };
+        newsList.push(newPost);
+        saveData(STORAGE_KEYS.NEWS, newsList);
+
+        messageDisplay.textContent = 'News posted successfully!';
+        messageDisplay.className = 'mt-3 text-sm font-medium text-green-500 dark:text-green-400';
+        titleInput.value = '';
+        contentInput.value = '';
+
+        renderRecentNews();
+    }
+    
+    function renderRecentNews() {
+        const newsListDiv = document.getElementById('recentNewsList');
+        newsListDiv.innerHTML = '';
+        
+        if (newsList.length === 0) {
+            newsListDiv.innerHTML = '<p class="text-gray-500 dark:text-gray-400">No recent posts.</p>';
+            return;
+        }
+
+        // Show last 5 news items (newest first)
+        const recent = [...newsList].reverse().slice(0, 5);
+
+        recent.forEach(post => {
+            const item = document.createElement('div');
+            item.className = 'p-2 bg-gray-50 dark:bg-gray-700 rounded border-l-4 border-blue-500';
+            item.innerHTML = `
+                <p class="font-bold text-gray-900 dark:text-gray-100">${post.title}</p>
+                <p class="text-xs text-gray-700 dark:text-gray-300 truncate">${post.content}</p>
+            `;
+            newsListDiv.appendChild(item);
+        });
+    }
+
+    // --- GLOBAL RESET ---
+    
+    function resetAllData() {
+        if (confirm("ARE YOU SURE? This will permanently erase ALL Elite League data (Standings, Players, Stats, News) from Local Storage.")) {
+            Object.values(STORAGE_KEYS).forEach(key => localStorage.removeItem(key));
+            
+            // Reset state
+            standings = INITIAL_STANDINGS;
+            registeredPlayers = [];
+            scorers = [];
+            assists = [];
+            newsList = [];
+            
+            // Re-render everything
+            initializeAdminDashboard();
+            alert("All Elite League data has been reset!");
+        }
+    }
+    
+    // --- INITIALIZATION ---
+
+    function initializeAdminDashboard() {
+        renderLeagueTable(true);
+        renderPlayerOptions();
+        renderCurrentRoster();
+        renderStatsPreview();
+        renderRecentNews();
+        
+        // Event Listeners
+        document.getElementById('resetAllData').addEventListener('click', resetAllData);
+        document.getElementById('addPlayerButton').addEventListener('click', addPlayer);
+        document.getElementById('updateStatsButton').addEventListener('click', updatePlayerStats);
+        document.getElementById('postNewsButton').addEventListener('click', postNews);
+    }
+
+    document.addEventListener('DOMContentLoaded', initializeAdminDashboard);
+</script>
+
+</body>
+</html>

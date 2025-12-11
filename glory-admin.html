@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glory Champion Cup - Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+     <link rel="icon" type="image/svg+xml" href="MIKOKO .png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #1f2937; color: #f9fafb; }
+        .card { background-color: #374151; border-radius: 1rem; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
+        .admin-header { background-color: #b91c1c; } /* Red-700 */
+        .btn-primary { background-color: #f59e0b; color: #1f2937; font-weight: 700; transition: background-color 0.2s; }
+        .btn-primary:hover { background-color: #d97706; }
+        .input-style { background-color: #1f2937; border-color: #4b5563; color: #f9fafb; }
+        /* Style for the bracket grid */
+        .bracket-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+        @media (min-width: 1024px) {
+            .bracket-grid {
+                grid-template-columns: 2fr 1fr 2fr;
+                grid-template-areas: "qf sf final";
+            }
+            #qfSection { grid-area: qf; }
+            #sfSection { grid-area: sf; }
+            #finalSection { grid-area: final; }
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <nav class="admin-header shadow-lg">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-3xl font-extrabold text-white">GLORY CUP ADMIN</h1>
+            <span id="authStatus" class="text-sm bg-white bg-opacity-20 px-3 py-1 rounded-full">Authenticating...</span>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-4 py-8 space-y-10">
+
+        <!-- CLUB MANAGEMENT -->
+        <section class="card p-6">
+            <h2 class="text-2xl font-bold text-yellow-500 mb-4">⚽ Club Management</h2>
+            <div class="flex space-x-4 mb-4">
+                <input type="text" id="newClubName" placeholder="New Club Name" class="flex-grow p-3 input-style rounded-lg">
+                <button id="addClubBtn" class="btn-primary px-4 py-3 rounded-lg"><i class="fas fa-plus mr-2"></i>Add Club</button>
+            </div>
+            <div id="clubList" class="space-y-2 max-h-40 overflow-y-auto pr-2">
+                <!-- Clubs will be listed here -->
+            </div>
+        </section>
+
+        <!-- BRACKET MANAGEMENT -->
+        <section class="card p-6">
+            <h2 class="text-2xl font-bold text-yellow-500 mb-6">🏆 Tournament Bracket Management</h2>
+            
+            <div class="mb-4">
+                <button id="setupBracketBtn" class="bg-red-600 hover:bg-red-700 text-white font-bold px-4 py-2 rounded-lg transition duration-200 disabled:opacity-50">
+                    <i class="fas fa-sitemap mr-2"></i>Setup Quarter-Finals (Requires 8 Clubs)
+                </button>
+                <p id="setupMessage" class="mt-2 text-sm text-yellow-300"></p>
+            </div>
+
+            <div id="bracketView" class="bracket-grid">
+                <!-- Quarter-Finals -->
+                <div id="qfSection" class="space-y-4 p-4 border-r border-gray-600 lg:border-r-0">
+                    <h3 class="text-xl font-semibold mb-3 border-b border-gray-700 pb-2">Quarter-Finals</h3>
+                    <!-- QF fixtures will be here -->
+                </div>
+
+                <!-- Semi-Finals -->
+                <div id="sfSection" class="space-y-8 p-4 border-r border-gray-600 lg:border-l lg:border-r-0 lg:border-gray-700">
+                    <h3 class="text-xl font-semibold mb-3 border-b border-gray-700 pb-2">Semi-Finals</h3>
+                    <!-- SF fixtures will be here -->
+                </div>
+
+                <!-- Final -->
+                <div id="finalSection" class="space-y-4 p-4 lg:border-l lg:border-gray-700">
+                    <h3 class="text-xl font-semibold mb-3 border-b border-gray-700 pb-2">The Final</h3>
+                    <!-- Final fixture will be here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- NEWS MANAGEMENT -->
+        <section class="card p-6">
+            <h2 class="text-2xl font-bold text-yellow-500 mb-4">📰 News & Announcements</h2>
+            <div class="space-y-4">
+                <input type="text" id="newsTitle" placeholder="News Title (e.g., Final Day Excitement)" class="w-full p-3 input-style rounded-lg">
+                <textarea id="newsContent" placeholder="News Content (e.g., The stadium is packed...)" class="w-full p-3 input-style rounded-lg h-24"></textarea>
+                <button id="postNewsBtn" class="bg-green-600 hover:bg-green-700 text-white font-bold px-4 py-2 rounded-lg transition duration-200">
+                    <i class="fas fa-bullhorn mr-2"></i>Post News
+                </button>
+            </div>
+            <div id="newsList" class="mt-6 space-y-4 max-h-60 overflow-y-auto pr-2">
+                <!-- News items will be listed here -->
+            </div>
+        </section>
+
+        <!-- TOP SCORERS MANAGEMENT -->
+        <section class="card p-6">
+            <h2 class="text-2xl font-bold text-yellow-500 mb-4">⚽ Top Goal Scorers (Top 20)</h2>
+            <div class="flex space-x-4 mb-4">
+                <input type="text" id="scorerName" placeholder="Player Name" class="w-2/5 p-3 input-style rounded-lg">
+                <input type="number" id="scorerGoals" placeholder="Goals" class="w-1/5 p-3 input-style rounded-lg">
+                <button id="addScorerBtn" class="btn-primary w-2/5 px-4 py-3 rounded-lg"><i class="fas fa-plus mr-2"></i>Add/Update Scorer</button>
+            </div>
+            <div id="scorersList" class="space-y-2 max-h-60 overflow-y-auto pr-2">
+                <!-- Scorers will be listed here -->
+            </div>
+        </section>
+
+    </main>
+
+    <script type="module">
+        import { initializeApp, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, addDoc, setDoc, deleteDoc, onSnapshot, collection, query, where, getDocs, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // --- GLOBAL VARIABLES ---
+        let db, auth;
+        let currentUserId = null;
+        const CLUB_COLL = 'clubs';
+        const FIXTURE_COLL = 'fixtures';
+        const NEWS_COLL = 'news';
+        const SCORER_COLL = 'scorers';
+
+        // --- DOM Elements ---
+        const authStatus = document.getElementById('authStatus');
+        const clubList = document.getElementById('clubList');
+        const newClubName = document.getElementById('newClubName');
+        const addClubBtn = document.getElementById('addClubBtn');
+        const setupBracketBtn = document.getElementById('setupBracketBtn');
+        const setupMessage = document.getElementById('setupMessage');
+        const qfSection = document.getElementById('qfSection');
+        const sfSection = document.getElementById('sfSection');
+        const finalSection = document.getElementById('finalSection');
+        const newsTitle = document.getElementById('newsTitle');
+        const newsContent = document.getElementById('newsContent');
+        const postNewsBtn = document.getElementById('postNewsBtn');
+        const newsList = document.getElementById('newsList');
+        const scorerName = document.getElementById('scorerName');
+        const scorerGoals = document.getElementById('scorerGoals');
+        const addScorerBtn = document.getElementById('addScorerBtn');
+        const scorersList = document.getElementById('scorersList');
+
+        // --- Initialization ---
+
+        document.addEventListener('DOMContentLoaded', setupFirebase);
+
+        /** Gets the correct user-specific collection path for a given collection name. */
+        function getCollectionRef(collName) {
+            const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+            // Admin data is stored publicly so the Public Dashboard can read it
+            return collection(db, 'artifacts', appId, 'public', 'data', collName);
+        }
+
+        async function setupFirebase() {
+            try {
+                const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+                if (Object.keys(firebaseConfig).length === 0) throw new Error("Firebase config missing.");
+
+                // setLogLevel('debug'); // Enable for debugging
+                const app = initializeApp(firebaseConfig);
+                auth = getAuth(app);
+                db = getFirestore(app);
+
+                authStatus.textContent = "Signing In...";
+                const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+                
+                if (initialAuthToken) {
+                    await signInWithCustomToken(auth, initialAuthToken);
+                } else {
+                    await signInAnonymously(auth);
+                }
+
+                onAuthStateChanged(auth, (user) => {
+                    if (user) {
+                        currentUserId = user.uid;
+                        authStatus.textContent = `Admin User: ${currentUserId.substring(0, 4)}...`;
+                        // Start listeners after successful auth
+                        setupListeners();
+                        setupEventHandlers();
+                    } else {
+                        currentUserId = null;
+                        authStatus.textContent = 'Signed Out';
+                    }
+                });
+            } catch (error) {
+                console.error("Firebase initialization failed:", error);
+                authStatus.textContent = `Auth Error: ${error.message}`;
+            }
+        }
+
+        function setupListeners() {
+            // 1. Clubs Listener
+            onSnapshot(getCollectionRef(CLUB_COLL), (snapshot) => {
+                const clubs = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                renderClubs(clubs);
+            }, (error) => console.error("Clubs listener error:", error));
+
+            // 2. Fixtures Listener
+            onSnapshot(query(getCollectionRef(FIXTURE_COLL)), (snapshot) => {
+                const fixtures = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })).sort((a, b) => a.order - b.order);
+                renderFixtures(fixtures);
+            }, (error) => console.error("Fixtures listener error:", error));
+
+            // 3. News Listener
+            onSnapshot(query(getCollectionRef(NEWS_COLL)), (snapshot) => {
+                const news = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                renderNews(news);
+            }, (error) => console.error("News listener error:", error));
+
+            // 4. Scorers Listener
+            onSnapshot(query(getCollectionRef(SCORER_COLL)), (snapshot) => {
+                const scorers = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                renderScorers(scorers);
+            }, (error) => console.error("Scorers listener error:", error));
+        }
+
+        function setupEventHandlers() {
+            addClubBtn.onclick = addClub;
+            setupBracketBtn.onclick = setupBracket;
+            postNewsBtn.onclick = postNews;
+            addScorerBtn.onclick = addScorer;
+        }
+
+        // --- CRUD: Clubs ---
+
+        async function addClub() {
+            const name = newClubName.value.trim();
+            if (!name) return;
+            try {
+                await addDoc(getCollectionRef(CLUB_COLL), { name: name });
+                newClubName.value = '';
+            } catch (e) { console.error("Error adding club: ", e); }
+        }
+
+        async function deleteClub(id) {
+            try {
+                await deleteDoc(doc(getCollectionRef(CLUB_COLL), id));
+            } catch (e) { console.error("Error deleting club: ", e); }
+        }
+
+        function renderClubs(clubs) {
+            clubList.innerHTML = '';
+            setupBracketBtn.disabled = clubs.length < 8;
+            setupMessage.textContent = clubs.length < 8 ? `Add ${8 - clubs.length} more clubs to set up the bracket.` : `${clubs.length} clubs ready for bracket setup.`;
+
+            clubs.forEach(club => {
+                const div = document.createElement('div');
+                div.className = 'flex justify-between items-center p-2 bg-gray-700 rounded-lg';
+                div.innerHTML = `
+                    <span class="text-sm">${club.name}</span>
+                    <button class="text-red-400 hover:text-red-500 text-sm p-1 delete-club" data-id="${club.id}">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                `;
+                clubList.appendChild(div);
+            });
+            clubList.querySelectorAll('.delete-club').forEach(btn => {
+                btn.onclick = (e) => deleteClub(e.currentTarget.dataset.id);
+            });
+        }
+
+        // --- CRUD: Bracket ---
+
+        async function setupBracket() {
+            setupBracketBtn.disabled = true;
+            setupMessage.textContent = "Setting up bracket...";
+            
+            // 1. Get 8 random clubs
+            const clubsSnapshot = await getDocs(getCollectionRef(CLUB_COLL));
+            let clubs = clubsSnapshot.docs.map(doc => doc.data().name);
+
+            if (clubs.length < 8) {
+                alert("Not enough clubs to set up the bracket (Need 8).");
+                setupBracketBtn.disabled = false;
+                setupMessage.textContent = "Setup failed. Not enough clubs.";
+                return;
+            }
+
+            // Shuffle and pick 8
+            clubs.sort(() => 0.5 - Math.random());
+            clubs = clubs.slice(0, 8); 
+
+            // 2. Clear existing fixtures
+            const existingFixtures = await getDocs(getCollectionRef(FIXTURE_COLL));
+            existingFixtures.forEach(doc => deleteDoc(doc.ref));
+
+            // 3. Create Quarter-Finals (QF)
+            const fixtures = [];
+            for (let i = 0; i < 4; i++) {
+                fixtures.push({
+                    round: 'Quarter-Finals',
+                    team1: clubs[i * 2],
+                    team2: clubs[i * 2 + 1],
+                    score1: 0,
+                    score2: 0,
+                    winner: '',
+                    order: i + 1,
+                    matchId: `QF${i + 1}`
+                });
+            }
+
+            // 4. Create placeholders for SF and Final
+            fixtures.push({ round: 'Semi-Finals', team1: 'Winner QF1', team2: 'Winner QF2', score1: 0, score2: 0, winner: '', order: 5, matchId: 'SF1' });
+            fixtures.push({ round: 'Semi-Finals', team1: 'Winner QF3', team2: 'Winner QF4', score1: 0, score2: 0, winner: '', order: 6, matchId: 'SF2' });
+            fixtures.push({ round: 'Finals', team1: 'Winner SF1', team2: 'Winner SF2', score1: 0, score2: 0, winner: '', order: 7, matchId: 'Final' });
+
+            // 5. Save all fixtures
+            for (const f of fixtures) {
+                // Use matchId as the Firestore document ID for easy reference/updates
+                await setDoc(doc(getCollectionRef(FIXTURE_COLL), f.matchId), f);
+            }
+            setupMessage.textContent = "Bracket successfully set up!";
+            setupBracketBtn.disabled = false;
+        }
+        
+        async function updateScore(matchId, score1, score2, round, order) {
+            score1 = parseInt(score1) || 0;
+            score2 = parseInt(score2) || 0;
+            let winner = score1 > score2 ? 'team1' : score2 > score1 ? 'team2' : '';
+            
+            // 1. Update the current match
+            const matchRef = doc(getCollectionRef(FIXTURE_COLL), matchId);
+            await setDoc(matchRef, { score1, score2, winner }, { merge: true });
+
+            // 2. Propagate winner to next round
+            const matchSnap = await getDocs(matchRef); // Re-fetch to get team names
+            const matchData = matchSnap.data();
+            
+            if (winner) {
+                const winningTeam = matchData[winner];
+                
+                let nextMatchId = null;
+                let teamKey = null;
+
+                if (round === 'Quarter-Finals') {
+                    nextMatchId = (order === 1 || order === 2) ? 'SF1' : 'SF2';
+                    teamKey = (order === 1 || order === 3) ? 'team1' : 'team2';
+                } else if (round === 'Semi-Finals') {
+                    nextMatchId = 'Final';
+                    teamKey = (order === 5) ? 'team1' : 'team2';
+                }
+
+                if (nextMatchId && teamKey) {
+                    const nextMatchRef = doc(getCollectionRef(FIXTURE_COLL), nextMatchId);
+                    await setDoc(nextMatchRef, { [teamKey]: winningTeam }, { merge: true });
+                }
+            }
+        }
+
+
+        function renderFixtures(fixtures) {
+            qfSection.innerHTML = '<h3 class="text-xl font-semibold mb-3 border-b border-gray-700 pb-2">Quarter-Finals</h3>';
+            sfSection.innerHTML = '<h3 class="text-xl font-semibold mb-3 border-b border-gray-700 pb-2">Semi-Finals</h3>';
+            finalSection.innerHTML = '<h3 class="text-xl font-semibold mb-3 border-b border-gray-700 pb-2">The Final</h3>';
+
+            fixtures.forEach(fixture => {
+                const container = fixture.round === 'Quarter-Finals' ? qfSection : fixture.round === 'Semi-Finals' ? sfSection : finalSection;
+                
+                const winnerClass = (teamKey) => fixture.winner === teamKey ? 'font-bold text-yellow-500' : 'text-gray-400';
+                const team1Name = fixture.team1.startsWith('Winner') ? `<i class="fas fa-question-circle mr-1"></i>${fixture.team1.replace('Winner ', '')}` : fixture.team1;
+                const team2Name = fixture.team2.startsWith('Winner') ? `<i class="fas fa-question-circle mr-1"></i>${fixture.team2.replace('Winner ', '')}` : fixture.team2;
+
+
+                const fixtureHtml = document.createElement('div');
+                fixtureHtml.className = 'p-3 bg-gray-800 rounded-lg shadow-md space-y-2';
+                fixtureHtml.innerHTML = `
+                    <p class="text-xs text-gray-400">${fixture.matchId}</p>
+                    <div class="flex items-center space-x-2">
+                        <span class="w-1/2 ${winnerClass('team1')} flex items-center">${team1Name}</span>
+                        <input type="number" id="score1-${fixture.matchId}" value="${fixture.score1}" class="w-10 h-6 text-center input-style text-sm rounded">
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <span class="w-1/2 ${winnerClass('team2')} flex items-center">${team2Name}</span>
+                        <input type="number" id="score2-${fixture.matchId}" value="${fixture.score2}" class="w-10 h-6 text-center input-style text-sm rounded">
+                    </div>
+                    <button data-id="${fixture.matchId}" data-round="${fixture.round}" data-order="${fixture.order}" class="update-score-btn w-full mt-2 bg-red-600 hover:bg-red-700 text-white text-xs font-semibold py-1 rounded transition duration-200">
+                        Update Score
+                    </button>
+                    ${fixture.round === 'Finals' && fixture.winner ? `<p class="mt-3 text-xl font-black text-center text-yellow-400"><i class="fas fa-trophy mr-2"></i>CHAMPION: ${fixture[fixture.winner]}</p>` : ''}
+                `;
+                container.appendChild(fixtureHtml);
+            });
+            
+            // Attach score update handlers
+            document.querySelectorAll('.update-score-btn').forEach(btn => {
+                btn.onclick = (e) => {
+                    const id = e.currentTarget.dataset.id;
+                    const round = e.currentTarget.dataset.round;
+                    const order = parseInt(e.currentTarget.dataset.order);
+                    const score1 = document.getElementById(`score1-${id}`).value;
+                    const score2 = document.getElementById(`score2-${id}`).value;
+                    updateScore(id, score1, score2, round, order);
+                };
+            });
+        }
+
+
+        // --- CRUD: News ---
+
+        async function postNews() {
+            const title = newsTitle.value.trim();
+            const content = newsContent.value.trim();
+            if (!title || !content) return;
+            try {
+                await addDoc(getCollectionRef(NEWS_COLL), { 
+                    title, 
+                    content, 
+                    timestamp: serverTimestamp() 
+                });
+                newsTitle.value = '';
+                newsContent.value = '';
+            } catch (e) { console.error("Error posting news: ", e); }
+        }
+
+        async function deleteNews(id) {
+            try {
+                await deleteDoc(doc(getCollectionRef(NEWS_COLL), id));
+            } catch (e) { console.error("Error deleting news: ", e); }
+        }
+
+        function renderNews(newsItems) {
+            newsList.innerHTML = '';
+            newsItems.sort((a, b) => b.timestamp?.seconds - a.timestamp?.seconds); // Sort by newest first
+
+            newsItems.forEach(item => {
+                const date = item.timestamp ? new Date(item.timestamp.seconds * 1000).toLocaleString() : 'Pending...';
+                const div = document.createElement('div');
+                div.className = 'p-3 bg-gray-700 rounded-lg border-l-4 border-green-500';
+                div.innerHTML = `
+                    <div class="flex justify-between items-start mb-1">
+                        <h4 class="text-lg font-bold text-white">${item.title}</h4>
+                        <button class="text-red-400 hover:text-red-500 text-sm p-1 delete-news" data-id="${item.id}">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                    <p class="text-sm text-gray-300">${item.content}</p>
+                    <p class="text-xs text-gray-400 mt-2">Posted: ${date}</p>
+                `;
+                newsList.appendChild(div);
+            });
+            newsList.querySelectorAll('.delete-news').forEach(btn => {
+                btn.onclick = (e) => deleteNews(e.currentTarget.dataset.id);
+            });
+        }
+
+        // --- CRUD: Scorers ---
+
+        async function addScorer() {
+            const name = scorerName.value.trim();
+            const goals = parseInt(scorerGoals.value) || 0;
+            if (!name) return;
+
+            try {
+                // Check if scorer exists by name
+                const q = query(getCollectionRef(SCORER_COLL), where("name", "==", name));
+                const existing = await getDocs(q);
+
+                if (existing.empty) {
+                    await addDoc(getCollectionRef(SCORER_COLL), { name, goals });
+                } else {
+                    const docId = existing.docs[0].id;
+                    await setDoc(doc(getCollectionRef(SCORER_COLL), docId), { goals }, { merge: true });
+                }
+                scorerName.value = '';
+                scorerGoals.value = '';
+            } catch (e) { console.error("Error adding scorer: ", e); }
+        }
+        
+        async function deleteScorer(id) {
+            try {
+                await deleteDoc(doc(getCollectionRef(SCORER_COLL), id));
+            } catch (e) { console.error("Error deleting scorer: ", e); }
+        }
+
+        function renderScorers(scorers) {
+            scorersList.innerHTML = '';
+            scorers.sort((a, b) => b.goals - a.goals); // Sort by goals descending
+
+            scorers.forEach(scorer => {
+                const div = document.createElement('div');
+                div.className = 'flex justify-between items-center p-2 bg-gray-700 rounded-lg';
+                div.innerHTML = `
+                    <span class="text-sm font-semibold">${scorer.name}</span>
+                    <div class="flex items-center space-x-3">
+                         <span class="text-lg font-bold text-yellow-400">${scorer.goals}</span>
+                         <button class="text-red-400 hover:text-red-500 text-sm p-1 delete-scorer" data-id="${scorer.id}">
+                             <i class="fas fa-trash"></i>
+                         </button>
+                    </div>
+                `;
+                scorersList.appendChild(div);
+            });
+            scorersList.querySelectorAll('.delete-scorer').forEach(btn => {
+                btn.onclick = (e) => deleteScorer(e.currentTarget.dataset.id);
+            });
+        }
+
+    </script>
+</body>
+</html>

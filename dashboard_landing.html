@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" class="transition-colors duration-500">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚧 Under Construction</title>
+     <link rel="icon" type="image/svg+xml" href="MIKOKO .png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Keyframes for the Pulse Animation on the Icons */
+        @keyframes pulse-icon {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+        
+        /* Custom Styles for Text Effects */
+        .text-outline {
+            /* Text outline effect: stronger 2px black/white stroke */
+            color: #ffffff; /* Default text color */
+            text-shadow: 
+                -2px -2px 0 #000,  
+                 2px -2px 0 #000,
+                -2px 2px 0 #000,
+                 2px 2px 0 #000,
+                0 0 10px rgba(0, 0, 0, 0.5); /* Subtle glow/shadow */
+        }
+        
+        /* Dark Mode Outline Adjustment: White stroke on dark text */
+        .dark .text-outline {
+             text-shadow: 
+                -2px -2px 0 #fff,  
+                 2px -2px 0 #fff,
+                -2px 2px 0 #fff,
+                 2px 2px 0 #fff,
+                0 0 10px rgba(255, 255, 255, 0.2);
+             color: #1f2937; /* Dark Gray text */
+        }
+
+        .text-reflect {
+            /* Webkit (Chrome, Safari) specific reflection */
+            -webkit-box-reflect: below -20px linear-gradient(transparent, rgba(255, 255, 255, 0.4));
+        }
+        
+        /* Applying background and center styles */
+        .full-center {
+            height: 100vh;
+        }
+
+        /* Applying the pulse animation */
+        .icon-pulse {
+            animation: pulse-icon 2s infinite ease-in-out;
+        }
+        
+        /* Radial Gradient Background (More dynamic than flat color) */
+        .radial-bg {
+            background: radial-gradient(circle at center, #fefce8 0%, #f3f4f6 100%);
+        }
+        .dark .radial-bg {
+            background: radial-gradient(circle at center, #1f2937 0%, #111827 100%);
+        }
+    </style>
+</head>
+<body class="radial-bg dark:radial-bg font-sans transition-colors duration-500 full-center flex items-center justify-center">
+
+    <div class="text-center p-8 sm:p-12 max-w-3xl mx-auto bg-white/10 dark:bg-black/10 backdrop-blur-sm rounded-3xl shadow-2xl shadow-indigo-500/30 dark:shadow-yellow-500/30 border border-white/20 dark:border-gray-700/50">
+        
+        <div class="mb-10 text-5xl sm:text-7xl icon-pulse transition duration-300">
+            <span class="text-indigo-600 dark:text-yellow-400">🚧</span>
+            <span class="text-indigo-600 dark:text-yellow-400 mx-4">⚙️</span>
+            <span class="text-indigo-600 dark:text-yellow-400">⏳</span>
+        </div>
+
+        <h1 class="text-reflect text-outline text-6xl sm:text-8xl lg:text-9xl font-black uppercase leading-tight transition-colors duration-500 
+                   dark:shadow-white" 
+            style="letter-spacing: 4px;"> 
+            
+            SITE UNDER REVISION.
+        </h1>
+
+        <p class="mt-8 text-xl sm:text-3xl font-light text-gray-800 dark:text-gray-200 transition-colors duration-500">
+            Thank you for your patience! Our fan zone is upgrading to bring you a better experience.
+        </p>
+
+        <a href="index.html" class="mt-10 sm:mt-16 inline-block py-4 px-10 bg-indigo-600 text-white text-lg font-extrabold rounded-full shadow-xl shadow-indigo-600/40 hover:bg-indigo-700 dark:bg-yellow-500 dark:text-gray-900 dark:hover:bg-yellow-600 dark:shadow-yellow-500/40 transition duration-300 transform hover:scale-105">
+            Return to Homepage
+        </a>
+    </div>
+
+</body>
+</html>

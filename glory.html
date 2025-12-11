@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glory Champion Cup - Live Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+     <link rel="icon" type="image/svg+xml" href="MIKOKO .png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #0d131f; color: #f9fafb; }
+        .dashboard-header { background-color: #2e3a51; }
+        .section-card { 
+            background-color: #1a2333; 
+            border-radius: 1rem; 
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+            border: 1px solid #374151;
+        }
+        .text-accent { color: #f59e0b; } /* Yellow-500 */
+        .text-highlight { color: #ef4444; } /* Red-500 */
+        .chat-bubble { transition: all 0.1s ease-in-out; }
+
+        /* Bracket Layout */
+        .bracket-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+        @media (min-width: 1024px) {
+            .bracket-container {
+                grid-template-columns: 2fr 1fr 2fr;
+                grid-template-areas: "qf sf final";
+            }
+            #qfDisplay { grid-area: qf; }
+            #sfDisplay { grid-area: sf; }
+            #finalDisplay { grid-area: final; }
+        }
+        .fixture-card {
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            background-color: #1f2937; /* Dark Gray */
+            transition: all 0.2s;
+            border-left: 4px solid #f59e0b;
+        }
+        .fixture-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(245, 158, 11, 0.2);
+        }
+        .winner-text {
+            color: #10b981; /* Emerald Green */
+            font-weight: 700;
+        }
+
+        /* Responsive News/Scorers Layout */
+        @media (min-width: 768px) {
+            .secondary-layout {
+                display: grid;
+                grid-template-columns: 2fr 1fr;
+                gap: 2rem;
+            }
+        }
+        .scroll-area {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        /* Custom scrollbar for better aesthetics */
+        .scroll-area::-webkit-scrollbar { width: 8px; }
+        .scroll-area::-webkit-scrollbar-track { background: #1a2333; }
+        .scroll-area::-webkit-scrollbar-thumb { background: #374151; border-radius: 4px; }
+        .scroll-area::-webkit-scrollbar-thumb:hover { background: #4b5563; }
+
+    </style>
+</head>
+<body class="min-h-screen">
+    <nav class="dashboard-header shadow-xl">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-4xl font-extrabold text-white"><i class="fas fa-bolt text-accent mr-2"></i><span class="text-accent">GLORY</span> CUP LIVE</h1>
+            <span id="authStatus" class="text-xs bg-indigo-600 px-3 py-1 rounded-full text-white flex items-center">
+                <i class="fas fa-plug mr-2"></i>
+                Connecting...
+            </span>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-4 py-8 space-y-12">
+
+        <!-- TOURNAMENT BRACKET -->
+        <section class="section-card p-6">
+            <h2 class="text-3xl font-bold text-highlight mb-8 flex items-center">
+                <i class="fas fa-trophy mr-3"></i>Tournament Bracket
+            </h2>
+            
+            <div id="bracketView" class="bracket-container">
+                <!-- Quarter-Finals -->
+                <div id="qfDisplay" class="space-y-6">
+                    <h3 class="text-xl font-semibold mb-3 border-b border-gray-700 pb-2 text-accent flex items-center">
+                        <i class="fas fa-users mr-2 text-red-400"></i>Quarter-Finals
+                    </h3>
+                    <p id="qfLoading" class="text-gray-400 text-center">Loading matches...</p>
+                    <!-- QF fixtures will be here -->
+                </div>
+
+                <!-- Semi-Finals -->
+                <div id="sfDisplay" class="space-y-12 lg:pt-10">
+                    <h3 class="text-xl font-semibold mb-3 border-b border-gray-700 pb-2 text-accent flex items-center">
+                        <i class="fas fa-chess-knight mr-2 text-red-400"></i>Semi-Finals
+                    </h3>
+                    <!-- SF fixtures will be here -->
+                </div>
+
+                <!-- Final -->
+                <div id="finalDisplay" class="space-y-6 lg:pt-20">
+                    <h3 class="text-xl font-semibold mb-3 border-b border-gray-700 pb-2 text-accent flex items-center">
+                        <i class="fas fa-crown mr-2 text-red-400"></i>The Final
+                    </h3>
+                    <!-- Final fixture will be here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- NEWS & TOP SCORERS -->
+        <div class="secondary-layout">
+            
+            <!-- NEWS & ANNOUNCEMENTS -->
+            <section class="section-card p-6">
+                <h2 class="text-3xl font-bold text-highlight mb-6 flex items-center">
+                    <i class="fas fa-bullhorn mr-3"></i>Latest News
+                </h2>
+                <div id="newsList" class="space-y-4 scroll-area pr-2">
+                    <p class="text-gray-400 text-center">Loading news feed...</p>
+                    <!-- News items will be listed here -->
+                </div>
+            </section>
+
+            <!-- TOP SCORERS -->
+            <section class="section-card p-6">
+                <h2 class="text-3xl font-bold text-highlight mb-6 flex items-center">
+                    <i class="fas fa-futbol mr-3"></i>Top Scorers
+                </h2>
+                <div id="scorersList" class="space-y-2 scroll-area pr-2">
+                    <p class="text-gray-400 text-center">Loading scorer data...</p>
+                    <!-- Scorers will be listed here -->
+                </div>
+            </section>
+        </div>
+
+        <!-- CHAT ROOM -->
+        <section class="section-card p-6">
+            <h2 class="text-3xl font-bold text-highlight mb-6 flex items-center">
+                <i class="fas fa-comments mr-3"></i>Glory Cup Chat
+            </h2>
+            <div id="chatMessages" class="scroll-area h-96 bg-gray-900 p-4 rounded-lg mb-4 space-y-3">
+                <!-- Messages go here -->
+                <p class="text-gray-500 text-center">Loading chat history...</p>
+            </div>
+            <div class="flex space-x-2">
+                <input type="text" id="chatInput" placeholder="Type your message..." class="flex-grow p-3 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-accent" disabled>
+                <button id="sendChatBtn" class="bg-accent text-gray-900 font-bold px-6 py-3 rounded-lg hover:bg-yellow-600 transition duration-150 flex items-center disabled:opacity-50" disabled>
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Custom Modal for Username Setup -->
+    <div id="usernameModal" class="fixed inset-0 bg-black bg-opacity-70 hidden items-center justify-center p-4 z-50">
+        <div class="bg-gray-800 p-6 rounded-xl shadow-2xl w-full max-w-sm border border-accent">
+            <h3 class="text-2xl font-bold mb-4 text-accent flex items-center">
+                <i class="fas fa-user-circle mr-2"></i> Set Your Gamer Tag
+            </h3>
+            <p class="mb-4 text-gray-300">Choose a name to identify yourself in the public chat (4-15 characters).</p>
+            <input type="text" id="usernameInput" maxlength="15"
+                class="w-full p-3 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-highlight"
+                placeholder="Enter your unique name...">
+            <p id="usernameError" class="text-highlight text-sm mt-2 hidden"></p>
+            <button id="saveUsernameBtn" 
+                class="w-full mt-5 px-4 py-3 bg-indigo-600 text-white font-bold rounded-lg hover:bg-indigo-700 transition disabled:opacity-50">
+                Join the Chat
+            </button>
+        </div>
+    </div>
+
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, onSnapshot, collection, query, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // --- GLOBAL VARIABLES ---
+        let db, auth, userId = null;
+        let currentUsername = 'Anonymous Observer';
+        const FIXTURE_COLL = 'fixtures';
+        const NEWS_COLL = 'news';
+        const SCORER_COLL = 'scorers';
+        const CHAT_COLL = 'chat'; 
+
+        // --- DOM Elements ---
+        const authStatus = document.getElementById('authStatus');
+        const qfDisplay = document.getElementById('qfDisplay');
+        const sfDisplay = document.getElementById('sfDisplay');
+        const finalDisplay = document.getElementById('finalDisplay');
+        const newsList = document.getElementById('newsList');
+        const scorersList = document.getElementById('scorersList');
+        const qfLoading = document.getElementById('qfLoading');
+        const chatMessages = document.getElementById('chatMessages');
+        const chatInput = document.getElementById('chatInput');
+        const sendChatBtn = document.getElementById('sendChatBtn');
+        const usernameModal = document.getElementById('usernameModal');
+        const usernameInput = document.getElementById('usernameInput');
+        const usernameError = document.getElementById('usernameError');
+        const saveUsernameBtn = document.getElementById('saveUsernameBtn');
+
+        // --- Utility Functions ---
+
+        /**
+         * Simple stable hashing function to assign a color based on a string ID.
+         * @param {string} str The string to hash (e.g., userId).
+         * @returns {string} A CSS hex color string.
+         */
+        function stringToColor(str) {
+            let hash = 0;
+            for (let i = 0; i < str.length; i++) {
+                hash = str.charCodeAt(i) + ((hash << 5) - hash);
+            }
+            let color = '#';
+            for (let i = 0; i < 3; i++) {
+                // Ensure colors are slightly brighter for dark background
+                const value = (hash >> (i * 8)) & 0xFF;
+                const paddedValue = (30 + (value % 200)).toString(16).padStart(2, '0');
+                color += paddedValue;
+            }
+            return color;
+        }
+
+        /**
+         * Converts a Firestore Timestamp object to a human-readable local time string.
+         */
+        function formatTimestamp(timestamp) {
+            if (timestamp && timestamp.toDate) {
+                return timestamp.toDate().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }) + ' - ' +
+                       timestamp.toDate().toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+            }
+            return 'Just now';
+        }
+
+
+        // --- Firebase Initialization and Auth ---
+
+        document.addEventListener('DOMContentLoaded', setupFirebase);
+
+        /** Gets the correct public collection path for a given collection name. */
+        function getCollectionRef(collName) {
+            const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+            // Data is public, stored under the app's public path
+            return collection(db, 'artifacts', appId, 'public', 'data', collName);
+        }
+
+        async function setupFirebase() {
+            try {
+                const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+                if (Object.keys(firebaseConfig).length === 0) throw new Error("Firebase config missing.");
+
+                const app = initializeApp(firebaseConfig);
+                auth = getAuth(app);
+                db = getFirestore(app);
+
+                authStatus.innerHTML = '<i class="fas fa-plug mr-2"></i>Connecting...';
+                const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+                
+                if (initialAuthToken) {
+                    await signInWithCustomToken(auth, initialAuthToken);
+                } else {
+                    await signInAnonymously(auth);
+                }
+
+                onAuthStateChanged(auth, (user) => {
+                    if (user) {
+                        userId = user.uid; 
+                        
+                        // Check for saved username
+                        const savedName = localStorage.getItem('gloryCupUsername');
+                        if (savedName) {
+                            currentUsername = savedName;
+                            finishAuthSetup();
+                        } else {
+                            // First time user - prompt for name
+                            showUsernameModal();
+                        }
+                    } else {
+                        userId = null;
+                        authStatus.innerHTML = '<i class="fas fa-times-circle mr-2"></i>Connection Error';
+                    }
+                });
+            } catch (error) {
+                console.error("Firebase initialization failed:", error);
+                authStatus.innerHTML = `<i class="fas fa-exclamation-triangle mr-2"></i>Error: ${error.message}`;
+            }
+        }
+        
+        function finishAuthSetup() {
+            authStatus.innerHTML = `<i class="fas fa-check-circle mr-2"></i>Welcome, ${currentUsername}!`;
+            setupListeners();
+            setupChatInput();
+        }
+
+        // --- Username Modal Logic ---
+
+        function showUsernameModal() {
+            usernameModal.classList.remove('hidden');
+            usernameModal.classList.add('flex');
+            
+            saveUsernameBtn.addEventListener('click', handleSaveUsername);
+            usernameInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    handleSaveUsername();
+                }
+            });
+        }
+        
+        function handleSaveUsername() {
+            const name = usernameInput.value.trim();
+            usernameError.classList.add('hidden');
+            
+            if (name.length < 4 || name.length > 15) {
+                usernameError.textContent = 'Name must be between 4 and 15 characters.';
+                usernameError.classList.remove('hidden');
+                return;
+            }
+            
+            // Save locally and update state
+            localStorage.setItem('gloryCupUsername', name);
+            currentUsername = name;
+            
+            // Hide modal and finish setup
+            usernameModal.classList.add('hidden');
+            usernameModal.classList.remove('flex');
+            finishAuthSetup();
+            
+            // Remove listeners to prevent double triggers
+            saveUsernameBtn.removeEventListener('click', handleSaveUsername);
+        }
+        
+        // --- Realtime Listeners ---
+
+        function setupListeners() {
+            // 1. Fixtures Listener
+            onSnapshot(query(getCollectionRef(FIXTURE_COLL)), (snapshot) => {
+                const fixtures = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })).sort((a, b) => a.order - b.order);
+                renderFixtures(fixtures);
+            }, (error) => console.error("Fixtures listener error:", error));
+
+            // 2. News Listener
+            onSnapshot(query(getCollectionRef(NEWS_COLL)), (snapshot) => {
+                const news = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                renderNews(news);
+            }, (error) => console.error("News listener error:", error));
+
+            // 3. Scorers Listener
+            onSnapshot(query(getCollectionRef(SCORER_COLL)), (snapshot) => {
+                const scorers = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                renderScorers(scorers);
+            }, (error) => console.error("Scorers listener error:", error));
+
+            // 4. Chat Listener
+            onSnapshot(query(getCollectionRef(CHAT_COLL)), (snapshot) => {
+                const messages = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                renderChat(messages);
+            }, (error) => console.error("Chat listener error:", error));
+        }
+
+        // --- CHAT FUNCTIONS ---
+        
+        function setupChatInput() {
+            chatInput.disabled = false;
+            sendChatBtn.disabled = false;
+
+            sendChatBtn.addEventListener('click', sendMessage);
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+        }
+        
+        async function sendMessage() {
+            const content = chatInput.value.trim();
+            if (!content || !userId) return;
+            
+            sendChatBtn.disabled = true; // Disable to prevent spamming
+
+            try {
+                await addDoc(getCollectionRef(CHAT_COLL), {
+                    senderId: userId,
+                    senderName: currentUsername,
+                    content: content,
+                    timestamp: serverTimestamp()
+                });
+                chatInput.value = ''; // Clear input on success
+            } catch (error) {
+                console.error("Error sending message:", error);
+            } finally {
+                sendChatBtn.disabled = false;
+            }
+        }
+
+        function renderChat(messages) {
+            const wasScrolledToBottom = chatMessages.scrollHeight - chatMessages.clientHeight <= chatMessages.scrollTop + 1;
+
+            chatMessages.innerHTML = '';
+            
+            if (messages.length === 0) {
+                chatMessages.innerHTML = '<p class="text-gray-500 text-center">Welcome to the live chat! Be the first to cheer.</p>';
+                return;
+            }
+
+            // Sort by time, newest at the bottom
+            messages.sort((a, b) => (a.timestamp?.seconds || 0) - (b.timestamp?.seconds || 0));
+
+            messages.forEach(msg => {
+                const isMine = msg.senderId === userId;
+                const alignment = isMine ? 'justify-end' : 'justify-start';
+                const bubbleColor = isMine ? 'bg-indigo-600' : 'bg-gray-700';
+                const nameColor = stringToColor(msg.senderId); // Use stable color based on ID
+
+                const timeParts = formatTimestamp(msg.timestamp).split(' - ');
+
+                const div = document.createElement('div');
+                div.className = `flex ${alignment}`;
+                div.innerHTML = `
+                    <div class="chat-bubble max-w-xs md:max-w-md lg:max-w-lg ${bubbleColor} p-3 rounded-xl shadow-md">
+                        <div class="text-xs font-semibold mb-1" style="color: ${nameColor};">
+                            <i class="fas fa-comment-dots mr-1"></i>${msg.senderName}
+                        </div>
+                        <p class="text-sm text-white break-words">${msg.content}</p>
+                        <p class="text-right text-xs text-gray-400 mt-1">${timeParts[0]}</p>
+                    </div>
+                `;
+                chatMessages.appendChild(div);
+            });
+
+            // Scroll to bottom if user was viewing the bottom
+            if (wasScrolledToBottom) {
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+        }
+        
+        // --- RENDER FUNCTIONS (EXISTING) ---
+
+        function renderFixtures(fixtures) {
+            qfDisplay.innerHTML = '<h3 class="text-xl font-semibold mb-3 border-b border-gray-700 pb-2 text-accent flex items-center"><i class="fas fa-users mr-2 text-red-400"></i>Quarter-Finals</h3>';
+            sfDisplay.innerHTML = '<h3 class="text-xl font-semibold mb-3 border-b border-gray-700 pb-2 text-accent flex items-center"><i class="fas fa-chess-knight mr-2 text-red-400"></i>Semi-Finals</h3>';
+            finalDisplay.innerHTML = '<h3 class="text-xl font-semibold mb-3 border-b border-gray-700 pb-2 text-accent flex items-center"><i class="fas fa-crown mr-2 text-red-400"></i>The Final</h3>';
+
+            if (fixtures.length === 0) {
+                qfDisplay.innerHTML += '<p class="text-gray-500 mt-4">Bracket not yet set up by Admin.</p>';
+                return;
+            }
+
+            qfLoading.classList.add('hidden'); 
+
+            fixtures.forEach(fixture => {
+                const container = fixture.round === 'Quarter-Finals' ? qfDisplay : fixture.round === 'Semi-Finals' ? sfDisplay : finalDisplay;
+                
+                const isFinal = fixture.round === 'Finals';
+                const team1Winner = fixture.winner === 'team1';
+                const team2Winner = fixture.winner === 'team2';
+                
+                const team1Class = team1Winner ? 'winner-text' : 'text-gray-300';
+                const team2Class = team2Winner ? 'winner-text' : 'text-gray-300';
+
+                // Display winner as team name
+                const team1Name = fixture.team1.startsWith('Winner') ? `<i class="fas fa-trophy text-accent mr-1"></i>${fixture.team1.replace('Winner ', '')}` : fixture.team1;
+                const team2Name = fixture.team2.startsWith('Winner') ? `<i class="fas fa-trophy text-accent mr-1"></i>${fixture.team2.replace('Winner ', '')}` : fixture.team2;
+
+
+                const fixtureHtml = document.createElement('div');
+                fixtureHtml.className = 'fixture-card space-y-2';
+                fixtureHtml.innerHTML = `
+                    <p class="text-xs text-gray-500 flex items-center"><i class="fas fa-hashtag mr-1"></i>${fixture.round} - ${fixture.matchId}</p>
+                    
+                    <div class="flex justify-between items-center border-b border-gray-700 pb-1">
+                        <span class="truncate ${team1Class} flex items-center"><i class="fas fa-users-cog mr-2 text-blue-400"></i>${team1Name}</span>
+                        <span class="text-lg font-bold ${team1Class}">${fixture.score1}</span>
+                    </div>
+                    
+                    <div class="flex justify-between items-center">
+                        <span class="truncate ${team2Class} flex items-center"><i class="fas fa-users-cog mr-2 text-blue-400"></i>${team2Name}</span>
+                        <span class="text-lg font-bold ${team2Class}">${fixture.score2}</span>
+                    </div>
+                    
+                    ${isFinal && fixture.winner ? `
+                        <div class="mt-3 pt-3 border-t border-gray-700">
+                            <p class="text-xl font-black text-center winner-text flex items-center justify-center">
+                                <i class="fas fa-chess-queen mr-2 text-yellow-500"></i>CHAMPIONS: ${fixture[fixture.winner]}
+                            </p>
+                        </div>
+                    ` : ''}
+                `;
+                container.appendChild(fixtureHtml);
+            });
+        }
+
+        function renderNews(newsItems) {
+            newsList.innerHTML = '';
+            if (newsItems.length === 0) {
+                newsList.innerHTML = '<p class="text-gray-500 text-center">No announcements yet.</p>';
+                return;
+            }
+
+            newsItems.sort((a, b) => b.timestamp?.seconds - a.timestamp?.seconds); // Sort by newest first
+
+            newsItems.forEach(item => {
+                const date = formatTimestamp(item.timestamp);
+                const div = document.createElement('div');
+                div.className = 'p-3 bg-gray-700 rounded-lg border-l-4 border-highlight hover:bg-gray-600 transition duration-150';
+                div.innerHTML = `
+                    <h4 class="text-lg font-bold text-white mb-1 flex items-center"><i class="fas fa-newspaper mr-2 text-accent"></i>${item.title}</h4>
+                    <p class="text-sm text-gray-300">${item.content}</p>
+                    <p class="text-xs text-gray-400 mt-2 flex items-center"><i class="fas fa-clock mr-1"></i>Posted: ${date}</p>
+                `;
+                newsList.appendChild(div);
+            });
+        }
+
+        function renderScorers(scorers) {
+            scorersList.innerHTML = '';
+            if (scorers.length === 0) {
+                scorersList.innerHTML = '<p class="text-gray-500 text-center">No scorers have been recorded yet.</p>';
+                return;
+            }
+            
+            scorers.sort((a, b) => b.goals - a.goals); // Sort by goals descending
+
+            scorers.slice(0, 20).forEach((scorer, index) => {
+                const rank = index + 1;
+                let rankIcon = '<i class="fas fa-circle text-gray-500"></i>';
+                let rankBg = 'bg-gray-800';
+
+                if (rank === 1) {
+                    rankIcon = '<i class="fas fa-medal text-yellow-400"></i>';
+                    rankBg = 'bg-gray-700 border-l-4 border-yellow-400';
+                } else if (rank === 2) {
+                    rankIcon = '<i class="fas fa-medal text-gray-400"></i>';
+                    rankBg = 'bg-gray-700 border-l-4 border-gray-400';
+                } else if (rank === 3) {
+                    rankIcon = '<i class="fas fa-medal text-orange-400"></i>';
+                    rankBg = 'bg-gray-700 border-l-4 border-orange-400';
+                }
+
+                const div = document.createElement('div');
+                div.className = `flex justify-between items-center p-3 ${rankBg} rounded-lg hover:bg-gray-700 transition`;
+                div.innerHTML = `
+                    <div class="flex items-center space-x-3">
+                        <span class="font-black text-xl w-6 text-center">${rankIcon}</span>
+                        <span class="text-base font-semibold text-white">${scorer.name}</span>
+                    </div>
+                    <span class="text-2xl font-extrabold text-highlight flex items-center">
+                        <i class="fas fa-bullseye mr-2 text-red-500 text-base"></i>${scorer.goals}
+                    </span>
+                `;
+                scorersList.appendChild(div);
+            });
+        }
+
+    </script>
+</body>
+</html>
