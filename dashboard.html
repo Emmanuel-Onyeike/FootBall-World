@@ -367,37 +367,73 @@ a:focus, button:focus, .btn:focus{
     <i class="fas fa-times close-notif" id="closeNotif"></i>
   </div>
   <div class="notif-body overflow-hidden">
-   <div class="announcement-slider">
-  <!-- NEW Announcement 1 (Provost Cup Intro) -->
-  <div class="announcement active">
-    <p>Introducing a new competitive expansion —</p>
-    <p>The <span class="highlight">Provost Cup</span> has officially been added to Football World.</p>
-    <p class="mt-2 text-green-400 font-semibold">Plus: Outstanding League Games are now live to boost excitement & viewership.</p>
-  </div>
+    <div class="announcement-slider">
+      <div class="announcement active">
+        <p class="text-blue-400 font-black uppercase text-[10px] tracking-widest mb-1">Critical System Update</p>
+        <p>The <span class="highlight-blue">Elite Chapter</span> is finally ready for deployment.</p>
+        <button onclick="openEliteUpdateModal()" class="mt-3 w-full py-2 bg-blue-600 text-white text-[10px] font-black uppercase italic rounded-lg hover:bg-white hover:text-blue-600 transition-all shadow-lg shadow-blue-600/20">
+            Update Elite Chapter Now
+        </button>
+      </div>
 
-  <!-- Announcement 2 (Previous 1) -->
-  <div class="announcement">
-    <p>Football World is launching <span class="highlight">Version 2.0</span> —</p>
-    <p>Live streaming, sleek UI, real-time chat, and more.</p>
-    <p class="mt-2 text-yellow-400 font-semibold">Coming Soon!</p>
-  </div>
+      <div class="announcement">
+        <p>Introducing a new competitive expansion —</p>
+        <p>The <span class="highlight">Provost Cup</span> has been added to Football World.</p>
+        <p class="mt-2 text-green-400 font-semibold text-[10px]">Plus: Outstanding League Games are now live.</p>
+      </div>
 
-  <!-- Announcement 3 (Previous 2) -->
-  <div class="announcement">
-    <p>We're rolling out major updates behind the scenes.</p>
-    <p>You <span class="highlight">may experience brief glitches</span> during this time.</p>
-    <p class="mt-2 text-orange-400 font-semibold">Please bear with us — it’ll be worth it!</p>
+      <div class="announcement">
+        <p>Football World is launching <span class="highlight">Version 2.0</span> —</p>
+        <p>Live streaming, sleek UI, and real-time chat.</p>
+        <p class="mt-2 text-yellow-400 font-semibold text-[10px]">Coming Soon!</p>
+      </div>
+
+      <div class="announcement">
+        <p>We're rolling out major updates behind the scenes.</p>
+        <p>You <span class="highlight-orange">may experience brief glitches</span>.</p>
+        <p class="mt-2 text-orange-400 font-semibold text-[10px]">Please bear with us!</p>
+      </div>
+    </div>
+
+    <div class="flex justify-center gap-2 mt-4">
+      <span class="slider-dot w-2 h-2 bg-blue-500 rounded-full cursor-pointer transition-all duration-300"></span>
+      <span class="slider-dot w-2 h-2 bg-gray-600 rounded-full cursor-pointer transition-all duration-300"></span>
+      <span class="slider-dot w-2 h-2 bg-gray-600 rounded-full cursor-pointer transition-all duration-300"></span>
+      <span class="slider-dot w-2 h-2 bg-gray-600 rounded-full cursor-pointer transition-all duration-300"></span>
+    </div>
   </div>
 </div>
 
-<!-- Slider Dots (now 3 dots) -->
-<div class="flex justify-center gap-2 mt-4">
-  <span class="slider-dot w-2 h-2 bg-green-500 rounded-full cursor-pointer transition-all duration-300"></span>
-  <span class="slider-dot w-2 h-2 bg-gray-600 rounded-full cursor-pointer transition-all duration-300"></span>
-  <span class="slider-dot w-2 h-2 bg-gray-600 rounded-full cursor-pointer transition-all duration-300"></span>
+<div id="eliteUpdateModal" class="fixed inset-0 z-[9999] hidden flex items-center justify-center p-6 backdrop-blur-2xl bg-black/80">
+    <div class="bg-[#020617] border border-blue-500/20 w-full max-w-md rounded-[3rem] p-10 md:p-14 text-center shadow-2xl relative overflow-hidden">
+        <div id="updateInitial">
+            <div class="w-20 h-20 bg-blue-600/10 rounded-3xl flex items-center justify-center mx-auto mb-8 border border-blue-500/20">
+                <i class="fas fa-bolt-lightning text-blue-500 text-3xl animate-pulse"></i>
+            </div>
+            <h3 class="text-white font-black italic uppercase text-2xl tracking-tighter mb-4">Initialize Elite Phase</h3>
+            <p class="text-gray-500 text-[10px] font-bold uppercase leading-relaxed tracking-widest mb-10 px-4">
+                Synchronizing with the new Elite infrastructure. All sectors will be re-architected.
+            </p>
+            <button onclick="startEliteLoading()" class="w-full py-5 bg-blue-600 text-white font-black uppercase italic rounded-2xl shadow-xl shadow-blue-600/20 hover:scale-105 transition-transform">
+                Begin Installation
+            </button>
+        </div>
+
+        <div id="updateProgress" class="hidden">
+            <h3 class="text-white font-black italic uppercase text-xl mb-10">Syncing Elite Assets...</h3>
+            <div class="w-full h-1.5 bg-white/5 rounded-full overflow-hidden mb-4">
+                <div id="eliteProgressBar" class="h-full bg-blue-500 transition-all duration-1000 ease-linear" style="width: 0%"></div>
+            </div>
+            <div class="flex justify-between text-[8px] font-black text-blue-500 uppercase tracking-widest">
+                <span id="loadPercentage">0%</span>
+                <span id="loadStatus">FETCHING DATA...</span>
+            </div>
+        </div>
+    </div>
 </div>
 
-<!-- ==== REQUIRED CSS (add once in <style> or stylesheet) ==== -->
+<div id="whiteOut" class="fixed inset-0 z-[10000] bg-white opacity-0 pointer-events-none transition-opacity duration-[1000ms]"></div>
+
 <style>
   .notif-dropdown {
     position: absolute; top: calc(100% + .75rem); right: 0; width: 320px;
@@ -410,24 +446,27 @@ a:focus, button:focus, .btn:focus{
   .notif-dropdown.show { opacity: 1; visibility: visible; transform: translateY(0); }
   .notif-header {
     display: flex; justify-content: space-between; align-items: center;
-    padding: 1rem; background: rgba(34,197,94,.1);
+    padding: 1rem; background: rgba(59,130,246,0.1);
     border-bottom: 1px solid rgba(255,255,255,.08);
   }
-  .notif-header h3 { font-size: 1rem; font-weight: 600; color: #34d399; display: flex; align-items: center; gap: .5rem; }
+  .notif-header h3 { font-size: 1rem; font-weight: 600; color: #3b82f6; display: flex; align-items: center; gap: .5rem; }
   .close-notif { color: #9ca3af; font-size: 1.1rem; cursor: pointer; transition: .2s; }
   .close-notif:hover { color: #f87171; }
   .notif-body { padding: 1rem; font-size: .9rem; line-height: 1.6; }
+  
   .highlight { background: linear-gradient(90deg,#34d399,#10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700; }
+  .highlight-blue { background: linear-gradient(90deg,#3b82f6,#60a5fa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 900; }
+  .highlight-orange { background: linear-gradient(90deg,#fb923c,#f97316); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700; }
 
   /* Slider */
-  .announcement-slider { position: relative; height: 110px; }
+  .announcement-slider { position: relative; height: 125px; }
   .announcement {
     position: absolute; top: 0; left: 0; right: 0;
     opacity: 0; visibility: hidden;
     transition: opacity .6s ease, visibility .6s ease;
   }
   .announcement.active { opacity: 1; visibility: visible; }
-  .slider-dot.active { background: #34d399 !important; transform: scale(1.4); }
+  .slider-dot.active { background: #3b82f6 !important; transform: scale(1.4); }
 
   @media (max-width: 768px) {
     .notif-dropdown { right: auto; left: 50%; transform: translateX(-50%) translateY(-10px); width: 90%; }
@@ -435,9 +474,8 @@ a:focus, button:focus, .btn:focus{
   }
 </style>
 
-<!-- ==== REQUIRED JS (add once, after DOM) ==== -->
 <script>
-  // Auto-rotate announcements
+  // Announcement Slider Logic
   let currentSlide = 0;
   const slides = document.querySelectorAll('.announcement');
   const dots = document.querySelectorAll('.slider-dot');
@@ -462,14 +500,63 @@ a:focus, button:focus, .btn:focus{
   }
   function resetAuto() { clearInterval(interval); startAuto(); }
 
-  // Init
   showSlide(0);
   startAuto();
 
-  // Pause on hover
   const body = document.querySelector('.notif-body');
   body.addEventListener('mouseenter', () => clearInterval(interval));
   body.addEventListener('mouseleave', startAuto);
+
+  // Elite Update Modal Logic
+  function openEliteUpdateModal() {
+    document.getElementById('notifDropdown').classList.remove('show');
+    document.getElementById('eliteUpdateModal').classList.remove('hidden');
+  }
+
+  function startEliteLoading() {
+    document.getElementById('updateInitial').classList.add('hidden');
+    document.getElementById('updateProgress').classList.remove('hidden');
+
+    const bar = document.getElementById('eliteProgressBar');
+    const percentText = document.getElementById('loadPercentage');
+    const statusText = document.getElementById('loadStatus');
+    
+    let progress = 0;
+    const duration = 30000; 
+    const stepTime = 1000;
+    const increment = 100 / (duration / stepTime);
+
+    const statuses = ["FETCHING DATA...", "DECRYPTING SECTORS...", "SYNCHRONIZING UI...", "OPTIMIZING...", "FINALIZING..."];
+
+    const timer = setInterval(() => {
+      progress += increment;
+      if (progress >= 100) {
+        progress = 100;
+        clearInterval(timer);
+        executeEliteTransition();
+      }
+      bar.style.width = progress + "%";
+      percentText.innerText = Math.floor(progress) + "%";
+      
+      let sIdx = Math.floor((progress/100) * statuses.length);
+      if(sIdx < statuses.length) statusText.innerText = statuses[sIdx];
+    }, stepTime);
+  }
+
+  function executeEliteTransition() {
+    const whiteOut = document.getElementById('whiteOut');
+    whiteOut.style.pointerEvents = "auto";
+    whiteOut.style.opacity = "1";
+
+    setTimeout(() => {
+      window.location.href = "https://elite-league.vercel.app/";
+    }, 5000);
+  }
+
+  // Close Notification
+  document.getElementById('closeNotif').addEventListener('click', () => {
+    document.getElementById('notifDropdown').classList.remove('show');
+  });
 </script>
   </nav>
     <script>
