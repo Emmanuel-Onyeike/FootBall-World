@@ -1,19 +1,4 @@
-<!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Football World Dashboard</title>
-<link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26bd.png">
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-        xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkfAm3s0pzp1zjTKGVBCy4cfqqiJQ6vB92p+MvhqP0UETmUu1x3rT8KQw=="
-        crossorigin="anonymous"
-        referrerpolicy="no-referrer"
-    />
   <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -404,35 +389,6 @@ a:focus, button:focus, .btn:focus{
   </div>
 </div>
 
-<div id="eliteUpdateModal" class="fixed inset-0 z-[9999] hidden flex items-center justify-center p-6 backdrop-blur-2xl bg-black/80">
-    <div class="bg-[#020617] border border-blue-500/20 w-full max-w-md rounded-[3rem] p-10 md:p-14 text-center shadow-2xl relative overflow-hidden">
-        <div id="updateInitial">
-            <div class="w-20 h-20 bg-blue-600/10 rounded-3xl flex items-center justify-center mx-auto mb-8 border border-blue-500/20">
-                <i class="fas fa-bolt-lightning text-blue-500 text-3xl animate-pulse"></i>
-            </div>
-            <h3 class="text-white font-black italic uppercase text-2xl tracking-tighter mb-4">Initialize Elite Phase</h3>
-            <p class="text-gray-500 text-[10px] font-bold uppercase leading-relaxed tracking-widest mb-10 px-4">
-                Synchronizing with the new Elite infrastructure. All sectors will be re-architected.
-            </p>
-            <button onclick="startEliteLoading()" class="w-full py-5 bg-blue-600 text-white font-black uppercase italic rounded-2xl shadow-xl shadow-blue-600/20 hover:scale-105 transition-transform">
-                Begin Installation
-            </button>
-        </div>
-
-        <div id="updateProgress" class="hidden">
-            <h3 class="text-white font-black italic uppercase text-xl mb-10">Syncing Elite Assets...</h3>
-            <div class="w-full h-1.5 bg-white/5 rounded-full overflow-hidden mb-4">
-                <div id="eliteProgressBar" class="h-full bg-blue-500 transition-all duration-1000 ease-linear" style="width: 0%"></div>
-            </div>
-            <div class="flex justify-between text-[8px] font-black text-blue-500 uppercase tracking-widest">
-                <span id="loadPercentage">0%</span>
-                <span id="loadStatus">FETCHING DATA...</span>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div id="whiteOut" class="fixed inset-0 z-[10000] bg-white opacity-0 pointer-events-none transition-opacity duration-[1000ms]"></div>
 
 <style>
   .notif-dropdown {
@@ -769,6 +725,35 @@ a:focus, button:focus, .btn:focus{
     </div>
 </section>
 
+<div id="eliteUpdateModal" class="fixed inset-0 z-[9999] hidden flex items-center justify-center p-6 backdrop-blur-2xl bg-black/80">
+    <div class="bg-[#020617] border border-blue-500/20 w-full max-w-md rounded-[3rem] p-10 md:p-14 text-center shadow-2xl relative overflow-hidden">
+        <div id="updateInitial">
+            <div class="w-20 h-20 bg-blue-600/10 rounded-3xl flex items-center justify-center mx-auto mb-8 border border-blue-500/20">
+                <i class="fas fa-bolt-lightning text-blue-500 text-3xl animate-pulse"></i>
+            </div>
+            <h3 class="text-white font-black italic uppercase text-2xl tracking-tighter mb-4">Initialize Elite Phase</h3>
+            <p class="text-gray-500 text-[10px] font-bold uppercase leading-relaxed tracking-widest mb-10 px-4">
+                Synchronizing with the new Elite infrastructure. All sectors will be re-architected.
+            </p>
+            <button onclick="startEliteLoading()" class="w-full py-5 bg-blue-600 text-white font-black uppercase italic rounded-2xl shadow-xl shadow-blue-600/20 hover:scale-105 transition-transform">
+                Begin Installation
+            </button>
+        </div>
+
+        <div id="updateProgress" class="hidden">
+            <h3 class="text-white font-black italic uppercase text-xl mb-10">Syncing Elite Assets...</h3>
+            <div class="w-full h-1.5 bg-white/5 rounded-full overflow-hidden mb-4">
+                <div id="eliteProgressBar" class="h-full bg-blue-500 transition-all duration-1000 ease-linear" style="width: 0%"></div>
+            </div>
+            <div class="flex justify-between text-[8px] font-black text-blue-500 uppercase tracking-widest">
+                <span id="loadPercentage">0%</span>
+                <span id="loadStatus">FETCHING DATA...</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="whiteOut" class="fixed inset-0 z-[10000] bg-white opacity-0 pointer-events-none transition-opacity duration-[1000ms]"></div>
 
 <section class="py-16 px-4 md:px-8 bg-gray-900 text-gray-100">
     <div class="max-w-7xl mx-auto">
